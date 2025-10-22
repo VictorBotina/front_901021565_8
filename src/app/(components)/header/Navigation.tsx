@@ -37,17 +37,15 @@ export function Navigation({ isMobile = false, onLinkClick }: NavigationProps) {
   if (isMobile) {
     return (
       <nav className="grid gap-4 text-lg font-medium">
-        <Link href="#" className="hover:text-primary" onClick={onLinkClick}>
+        <Link href="/prestadores" className="hover:text-primary" onClick={onLinkClick}>
           Prestadores
         </Link>
-        <div className="grid gap-2">
-            <p className="font-semibold">Afiliados</p>
-            {afiliadosItems.map(item => (
-                <Link key={item.title} href={item.href} className="pl-4 text-base text-muted-foreground hover:text-primary" onClick={onLinkClick}>
-                    {item.title}
-                </Link>
-            ))}
-        </div>
+        <Link href="/afiliados/subsidiado" className="hover:text-primary" onClick={onLinkClick}>
+          Régimen Subsidiado
+        </Link>
+        <Link href="/afiliados/contributivo" className="hover:text-primary" onClick={onLinkClick}>
+          Régimen Contributivo
+        </Link>
       </nav>
     );
   }
@@ -56,34 +54,21 @@ export function Navigation({ isMobile = false, onLinkClick }: NavigationProps) {
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <NavigationMenuTrigger>Afiliados</NavigationMenuTrigger>
-          <NavigationMenuContent>
-            <motion.ul 
-              className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]"
-              variants={{
-                open: {
-                  transition: { staggerChildren: 0.07, delayChildren: 0.2 }
-                },
-                closed: {
-                  transition: { staggerChildren: 0.05, staggerDirection: -1 }
-                }
-              }}
-              initial="closed"
-              animate="open"
-              exit="closed"
-            >
-              {afiliadosItems.map((item) => (
-                <motion.li key={item.title} variants={{ open: { y: 0, opacity: 1 }, closed: { y: 20, opacity: 0 } }}>
-                  <ListItem href={item.href} title={item.title}>
-                    {item.description}
-                  </ListItem>
-                </motion.li>
-              ))}
-            </motion.ul>
-          </NavigationMenuContent>
+          <Link href="/afiliados/subsidiado" legacyBehavior passHref>
+            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+              Régimen Subsidiado
+            </NavigationMenuLink>
+          </Link>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <Link href="/prestadores" passHref>
+          <Link href="/afiliados/contributivo" legacyBehavior passHref>
+            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+              Régimen Contributivo
+            </NavigationMenuLink>
+          </Link>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+          <Link href="/prestadores" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               Prestadores
             </NavigationMenuLink>
