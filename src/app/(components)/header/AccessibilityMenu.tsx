@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useTheme } from "next-themes";
-import { Sun, Moon, Contrast, ZoomIn, ZoomOut, Settings } from "lucide-react";
+import { Sun, Moon, Contrast, ZoomIn, ZoomOut, Settings, Palette, TextCursorInput } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Popover,
@@ -86,19 +86,22 @@ export function AccessibilityMenu() {
           </div>
           <div className="grid gap-2">
             <div className="flex items-center justify-between">
-              <Label htmlFor="dark-mode">Modo Oscuro</Label>
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+              <Label htmlFor="dark-mode" className="flex items-center gap-2">
+                <Palette className="h-4 w-4" />
+                <span>Modo Oscuro</span>
+              </Label>
+              <Switch
+                id="dark-mode"
+                checked={theme === 'dark'}
+                onCheckedChange={() => setTheme(theme === "light" ? "dark" : "light")}
                 aria-label="Cambiar tema"
-              >
-                <Sun className="h-5 w-5 scale-100 transition-all dark:scale-0" />
-                <Moon className="absolute h-5 w-5 scale-0 transition-all dark:scale-100" />
-              </Button>
+              />
             </div>
             <div className="flex items-center justify-between">
-              <Label htmlFor="high-contrast">Alto Contraste</Label>
+              <Label htmlFor="high-contrast" className="flex items-center gap-2">
+                <Contrast className="h-4 w-4" />
+                <span>Alto Contraste</span>
+              </Label>
               <Switch
                 id="high-contrast"
                 checked={isHighContrast}
@@ -107,12 +110,16 @@ export function AccessibilityMenu() {
               />
             </div>
             <div className="flex items-center justify-between">
-              <Label>Tamaño de Fuente</Label>
+                <Label className="flex items-center gap-2">
+                    <TextCursorInput className="h-4 w-4" />
+                    <span>Tamaño de Fuente</span>
+                </Label>
               <div className="flex items-center">
                 <Button variant="ghost" size="icon" onClick={() => changeFontSize('decrease')} disabled={fontSize === FONT_SIZES[0]}>
                     <ZoomOut className="h-5 w-5"/>
                     <span className="sr-only">Disminuir tamaño de fuente</span>
                 </Button>
+                <span className="w-8 text-center text-sm">{fontSize}%</span>
                 <Button variant="ghost" size="icon" onClick={() => changeFontSize('increase')} disabled={fontSize === FONT_SIZES[FONT_SIZES.length - 1]}>
                     <ZoomIn className="h-5 w-5"/>
                     <span className="sr-only">Aumentar tamaño de fuente</span>
