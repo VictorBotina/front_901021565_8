@@ -12,7 +12,7 @@ const fetchFromStrapi = async (endpoint: string) => {
   }
 
   try {
-    const res = await axios.get(`${API_URL}/api/${endpoint}`, {
+    const res = await axios.get(`${API_URL}/${endpoint}`, {
       headers: {
         Authorization: `Bearer ${API_TOKEN}`,
       },
