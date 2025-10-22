@@ -22,19 +22,25 @@ export default async function Home() {
       />
 
       {/* Ejemplo de cómo mostrar datos de Strapi */}
-      {articles.length > 0 && (
+      {articles && articles.length > 0 ? (
         <section className="py-12 lg:py-24">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-8">Noticias de Strapi</h2>
-            <div className="grid gap-8">
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-8">Noticias y Actualizaciones</h2>
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
               {articles.map((article) => (
-                <div key={article.id}>
-                  <h3 className="text-2xl font-bold">{article.attributes.title}</h3>
+                <div key={article.id} className="rounded-lg border bg-card p-6 text-card-foreground shadow-sm">
+                  <h3 className="text-2xl font-bold mb-2">{article.attributes.title}</h3>
                   <p className="text-muted-foreground">{article.attributes.content}</p>
                 </div>
               ))}
             </div>
           </div>
+        </section>
+      ) : (
+        <section className="py-12 lg:py-24">
+           <div className="container mx-auto px-4 text-center">
+             <p className="text-muted-foreground">No hay noticias disponibles en este momento.</p>
+           </div>
         </section>
       )}
 
