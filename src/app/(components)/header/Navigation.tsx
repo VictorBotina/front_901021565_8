@@ -83,7 +83,7 @@ export function Navigation({ isMobile = false, onLinkClick }: NavigationProps) {
           </NavigationMenuContent>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <Link href="/prestadores" legacyBehavior passHref>
+          <Link href="/prestadores" passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               Prestadores
             </NavigationMenuLink>
