@@ -5,10 +5,11 @@ import { Logo } from '@/components/logo';
 import { Navigation } from './Navigation';
 import { SearchCommand } from './SearchCommand';
 import { Button } from '@/components/ui/button';
-import { Menu } from 'lucide-react';
+import { Menu, FileText } from 'lucide-react';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import * as React from 'react';
 import { AccessibilityMenu } from './AccessibilityMenu';
+import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover';
 
 export function MainNavigation() {
   const [open, setOpen] = React.useState(false);
@@ -25,6 +26,38 @@ export function MainNavigation() {
       </div>
 
       <div className="flex flex-1 items-center justify-end space-x-2 md:flex-none">
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button variant="outline">
+              <FileText className="mr-2 h-4 w-4" />
+              Trámites en línea
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-56">
+            <div className="grid gap-4">
+              <div className="space-y-2">
+                <h4 className="font-medium leading-none">Trámites</h4>
+                <p className="text-sm text-muted-foreground">
+                  Accede a nuestros servicios en línea.
+                </p>
+              </div>
+              <div className="grid gap-2">
+                <Link
+                  href="#"
+                  className="rounded-md p-2 text-sm hover:bg-accent hover:text-accent-foreground"
+                >
+                  Autorizaciones
+                </Link>
+                <Link
+                  href="#"
+                  className="rounded-md p-2 text-sm hover:bg-accent hover:text-accent-foreground"
+                >
+                  Actualización de datos
+                </Link>
+              </div>
+            </div>
+          </PopoverContent>
+        </Popover>
         <SearchCommand />
         <AccessibilityMenu />
         <Sheet open={open} onOpenChange={setOpen}>
