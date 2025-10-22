@@ -54,21 +54,21 @@ export function Navigation({ isMobile = false, onLinkClick }: NavigationProps) {
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <Link href="/afiliados/subsidiado" legacyBehavior passHref>
+          <Link href="/afiliados/subsidiado" passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               Régimen Subsidiado
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <Link href="/afiliados/contributivo" legacyBehavior passHref>
+          <Link href="/afiliados/contributivo" passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               Régimen Contributivo
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <Link href="/prestadores" legacyBehavior passHref>
+          <Link href="/prestadores" passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               Prestadores
             </NavigationMenuLink>
