@@ -1,0 +1,11 @@
+import { TopMenu } from './TopMenu';
+import { MainNavigation } from './MainNavigation';
+
+export function Header() {
+  return (
+    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <TopMenu />
+      <MainNavigation />
+    </header>
+  );
+}

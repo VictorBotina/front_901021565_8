@@ -1,3 +1,16 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "hero",
+      "description": "A modern government building with a diverse group of people walking outside.",
+      "imageUrl": "https://images.unsplash.com/photo-1569292567777-e5d61a759322?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxwZW9wbGUlMjBjb21tdW5pdHl8ZW58MHx8fHwxNzYxMTQ4MzA1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "people community"
+    },
+    {
+      "id": "content-1",
+      "description": "A doctor smiling and talking to a patient in a bright clinic.",
+      "imageUrl": "https://images.unsplash.com/photo-1638202993928-7267aad84c31?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxtZWRpY2FsJTIwY29uc3VsdGF0aW9ufGVufDB8fHx8MTc2MTE0MzQxNXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "medical consultation"
+    }
+  ]
 }
