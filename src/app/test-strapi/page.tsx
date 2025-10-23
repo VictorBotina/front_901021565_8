@@ -3,14 +3,21 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
+type Article = {
+  id: number;
+  attributes: {
+    title: string;
+    content: string;
+  }
+}
+
 export default function TestStrapiConnection() {
-  const [data, setData] = useState<any>(null);
+  const [responseData, setResponseData] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
-      // Las variables de entorno del cliente DEBEN empezar con NEXT_PUBLIC_
       const apiUrl = process.env.NEXT_PUBLIC_STRAPI_API_URL;
       const apiToken = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN;
 
@@ -22,14 +29,14 @@ export default function TestStrapiConnection() {
 
       try {
         const res = await axios.get(
-          `${apiUrl}/articles`, // Endpoint de tu colección
+          `${apiUrl}/articles`,
           {
             headers: {
               Authorization: `Bearer ${apiToken}`,
             },
           }
         );
-        setData(res.data);
+        setResponseData(res.data);
       } catch (err: any) {
         console.error('Error al conectar con Strapi:', err);
         if (err.response) {
@@ -47,25 +54,48 @@ export default function TestStrapiConnection() {
     fetchData();
   }, []);
 
+  const articles = responseData?.data as Article[] | undefined;
+
   return (
-    <div style={{ padding: '2rem', fontFamily: 'sans-serif' }}>
-      <h1>Prueba de Conexión Strapi → Next.js</h1>
+    <div className="container mx-auto px-4 py-8">
+      <h1 className="text-3xl font-bold mb-4">Prueba de Conexión Strapi → Next.js</h1>
       
-      {loading && <p>Cargando datos desde Strapi...</p>}
+      {loading && <p className="text-muted-foreground">Cargando datos desde Strapi...</p>}
       
-      {error && <div style={{ color: 'red', background: '#ffebee', border: '1px solid red', padding: '1rem', marginTop: '1rem' }}>
-          <p><strong>Error de Conexión:</strong></p>
+      {error && (
+        <div className="rounded-lg border border-destructive bg-destructive/10 p-4 text-destructive-foreground">
+          <p className="font-bold">Error de Conexión:</p>
           <p>{error}</p>
         </div>
-      }
+      )}
       
-      {data && (
-        <div>
-            <h2 style={{marginTop: '2rem'}}>Datos recibidos exitosamente:</h2>
-            <pre style={{ background: '#f4f4f4', border: '1px solid #ddd', padding: '1rem', borderRadius: '4px', whiteSpace: 'pre-wrap', wordBreak: 'break-all' }}>
-            {JSON.stringify(data, null, 2)}
+      {articles && articles.length > 0 && (
+        <>
+          <section className="my-8">
+            <h2 className="text-2xl font-bold mb-4">Visualización de Artículos</h2>
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+              {articles.map((article) => (
+                article.attributes ? (
+                  <div key={article.id} className="rounded-lg border bg-card p-6 text-card-foreground shadow-sm">
+                    <h3 className="mb-2 text-xl font-bold">{article.attributes.title}</h3>
+                    <p className="text-muted-foreground">{article.attributes.content}</p>
+                  </div>
+                ) : null
+              ))}
+            </div>
+          </section>
+
+          <section className="my-8">
+            <h2 className="text-2xl font-bold mb-4">Respuesta JSON de la API</h2>
+            <pre className="w-full overflow-x-auto rounded-lg border bg-muted p-4 text-sm">
+              {JSON.stringify(responseData, null, 2)}
             </pre>
-        </div>
+          </section>
+        </>
+      )}
+
+      {responseData && (!articles || articles.length === 0) && !error && (
+         <p className="text-muted-foreground">La conexión fue exitosa, pero no se encontraron artículos.</p>
       )}
     </div>
   );
