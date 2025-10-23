@@ -24,6 +24,8 @@ export function MainNavigation() {
   const [open, setOpen] = React.useState(false);
 
   const navigationLinks = [
+    { href: "/nosotros", text: "Nosotros" },
+    { href: "/colaboradores", text: "Colaboradores" },
     { href: "/afiliados/subsidiado", text: "Régimen Subsidiado" },
     { href: "/afiliados/contributivo", text: "Régimen Contributivo" },
     { href: "/prestadores", text: "Prestadores" },
@@ -83,8 +85,8 @@ export function MainNavigation() {
               </Button>
             </SheetTrigger>
             <SheetContent side="left">
-                <SheetHeader className="mt-4">
-                    <SheetTitle className="sr-only">Menú Principal</SheetTitle>
+                <SheetHeader>
+                  <SheetTitle className="sr-only">Menú Principal</SheetTitle>
                 </SheetHeader>
               <div className="mt-8">
                 <nav className="grid gap-4 text-lg font-medium">
