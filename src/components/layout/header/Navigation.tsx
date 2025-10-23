@@ -25,7 +25,6 @@ export function Navigation({ isMobile = false, onLinkClick }: NavigationProps) {
     { href: "/afiliados", text: "Afiliados" },
     { href: "/prestadores", text: "Prestadores" },
     { href: "/blog", text: "Blog" },
-    { href: "/tramites-en-linea", text: "Trámites en Línea" },
   ];
 
   if (isMobile) {
