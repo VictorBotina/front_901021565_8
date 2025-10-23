@@ -8,6 +8,8 @@ import { Switch } from "@/components/ui/switch";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { AccessibilityIcon } from "@/components/icons/AccessibilityIcon";
 import { ThemeSwitcher } from "./ThemeSwitcher";
+import { ContrastSwitcher } from "./ContrastSwitcher";
+import { FontSizeAdjuster } from "./FontSizeAdjuster";
 
 const FONT_SIZES = [90, 100, 110, 120];
 const DEFAULT_FONT_SIZE = 100;
@@ -69,41 +71,4 @@ export function AccessibilityMenu() {
       <FontSizeAdjuster />
     </div>
   );
-}
-
-export function FontSizeAdjuster() {
-  const { changeFontSize, isMinFont, isMaxFont, isMounted } = useAccessibility();
-  
-  if (!isMounted) return null;
-
-  return (
-    <>
-      <TooltipProvider>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button variant="ghost" size="icon" onClick={() => changeFontSize('decrease')} disabled={isMinFont}>
-                <ZoomOut className="h-6 w-6"/>
-                <span className="sr-only">Disminuir tamaño de fuente</span>
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>Disminuir Fuente</p>
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
-      <TooltipProvider>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button variant="ghost" size="icon" onClick={() => changeFontSize('increase')} disabled={isMaxFont}>
-                <ZoomIn className="h-6 w-6"/>
-                <span className="sr-only">Aumentar tamaño de fuente</span>
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>Aumentar Fuente</p>
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
-    </>
-  )
 }
