@@ -5,7 +5,7 @@ import { Logo } from '@/components/logo';
 import { Navigation } from './Navigation';
 import { Button } from '@/components/ui/button';
 import { Menu } from 'lucide-react';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import * as React from 'react';
 import { TopMenu } from './TopMenu';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
@@ -58,6 +58,9 @@ export function MainNavigation() {
               </Button>
             </SheetTrigger>
             <SheetContent side="left">
+                <SheetHeader className="mt-4">
+                    <SheetTitle className="sr-only">Menú Principal</SheetTitle>
+                </SheetHeader>
               <div className="mt-8">
                 <Navigation isMobile={true} onLinkClick={() => setOpen(false)} />
               </div>
