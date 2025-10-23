@@ -24,8 +24,6 @@ export function MainNavigation() {
   const [open, setOpen] = React.useState(false);
 
   const navigationLinks = [
-    { href: "/nosotros", text: "Nosotros" },
-    { href: "/colaboradores", text: "Colaboradores" },
     { href: "/afiliados/subsidiado", text: "Régimen Subsidiado" },
     { href: "/afiliados/contributivo", text: "Régimen Contributivo" },
     { href: "/prestadores", text: "Prestadores" },
