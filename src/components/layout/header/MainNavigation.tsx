@@ -1,9 +1,9 @@
+
 'use client';
 
 import Link from 'next/link';
 import { Logo } from '@/components/logo';
 import { Navigation } from './Navigation';
-import { SearchCommand } from './SearchCommand';
 import { Button } from '@/components/ui/button';
 import { Menu } from 'lucide-react';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
@@ -28,7 +28,7 @@ export function MainNavigation() {
         </div>
 
         <div className="flex flex-1 items-center justify-end space-x-2 md:flex-none">
-          <SearchCommand />
+          <Button variant="outline">Accesos rapidos</Button>
           <AccessibilityMenu />
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
