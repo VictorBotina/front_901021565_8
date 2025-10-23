@@ -33,7 +33,7 @@ type Post = {
   attributes: {
     title: string;
     Slug: string;
-    Content: string; // Asumiendo que 'Content' es un string simple por ahora
+    content: string; // Asumiendo que 'content' es un string simple por ahora
     Image?: PostImage;
   }
 };
@@ -42,11 +42,6 @@ type Post = {
 type StrapiResponse = {
   data: Post[];
 };
-
-// Función para renderizar contenido Rich Text (adaptada para un string simple)
-function renderContent(content: string) {
-  return <p className="my-2 text-zinc-700 dark:text-zinc-300">{content}</p>;
-}
 
 export default function TestStrapiPage() {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -104,7 +99,9 @@ export default function TestStrapiPage() {
               )}
 
               {/* Contenido */}
-              <div>{post.attributes.Content && renderContent(post.attributes.Content)}</div>
+              {post.attributes.content && (
+                <p className="my-2 text-zinc-700 dark:text-zinc-300">{post.attributes.content}</p>
+              )}
             </div>
         )
       ))}
