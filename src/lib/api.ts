@@ -5,45 +5,38 @@ const API_URL = process.env.NEXT_PUBLIC_STRAPI_API_URL;
 const API_TOKEN = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN;
 
 // Helper function to flatten the Strapi API response
-const parseStrapiResponse = (strapiResponse: any): any[] => {
-  if (!strapiResponse || !strapiResponse.data) {
-    // If there's no data, return an empty array
-    if (Array.isArray(strapiResponse)) return strapiResponse;
-    return [];
+const flattenAttributes = (data: any): any => {
+  if (!data) return null;
+
+  // If it's a single item, flatten its attributes
+  if (data.id && data.attributes) {
+    const flattened = { id: data.id, ...data.attributes };
+    for (const key in flattened) {
+      flattened[key] = flattenAttributes(flattened[key]);
+    }
+    return flattened;
   }
 
-  // If the data is not an array, wrap it in an array to handle both single and multiple items
-  const data = Array.isArray(strapiResponse.data) ? strapiResponse.data : [strapiResponse.data];
+  // If it's an array, map over it and flatten each item
+  if (Array.isArray(data)) {
+    return data.map(item => flattenAttributes(item));
+  }
+  
+  // If it's a data object with attributes, recursively flatten
+  if (data.data) {
+    return flattenAttributes(data.data);
+  }
 
-  return data.map((item: any) => {
-    // If item is null or doesn't have attributes, return it as is or null
-    if (!item || !item.attributes) {
-      return { id: item.id };
+  // If it's a plain object (like attributes of a media file), recursively flatten its keys
+  if (typeof data === 'object' && !Array.isArray(data)) {
+    const flattenedObj: { [key: string]: any } = {};
+    for (const key in data) {
+      flattenedObj[key] = flattenAttributes(data[key]);
     }
+    return flattenedObj;
+  }
 
-    const attributes = item.attributes;
-    // Start with the item's id and its attributes
-    const result: { [key: string]: any } = { id: item.id, ...attributes };
-
-    // Iterate over the attributes to find relational fields
-    for (const key in attributes) {
-      if (Object.prototype.hasOwnProperty.call(attributes, key)) {
-        const value = attributes[key];
-        
-        // If an attribute is an object with a 'data' property, it's a relation
-        if (typeof value === 'object' && value !== null && 'data' in value) {
-            // Recursively parse the nested data
-            const nestedData = parseStrapiResponse(value);
-            
-            // If the nested data is a single item, unwrap it from the array
-            result[key] = Array.isArray(nestedData) && nestedData.length === 1 && value.data && !Array.isArray(value.data)
-              ? nestedData[0] 
-              : nestedData;
-        }
-      }
-    }
-    return result;
-  });
+  return data;
 };
 
 
@@ -65,10 +58,10 @@ const fetchFromStrapi = async (endpoint: string, params: Record<string, any> = {
     });
     
     // Parse the response before returning
-    const parsedData = parseStrapiResponse(res.data);
+    const flattenedData = flattenAttributes(res.data);
     
-    // The fetch function now returns the clean data directly
-    return parsedData;
+    // Ensure the final output is always an array for collections
+    return Array.isArray(flattenedData) ? flattenedData : (flattenedData ? [flattenedData] : []);
 
   } catch (error) {
     console.error(`Error fetching from Strapi endpoint: /${endpoint}`, error);

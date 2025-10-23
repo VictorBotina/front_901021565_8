@@ -6,10 +6,10 @@ type Article = {
   id: number;
   title: string;
   content: string;
-  // Add other flattened fields as needed
 }
 
 export default async function Home() {
+  // Pass populate=* to fetch relations like images
   const articles: Article[] = await fetchFromStrapi('articles', { populate: '*' });
 
   return (

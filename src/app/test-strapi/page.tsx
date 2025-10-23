@@ -21,17 +21,14 @@ type Post = {
 export default function TestStrapiPage() {
   const [posts, setPosts] = useState<Post[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [rawData, setRawData] = useState<any>(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // fetchFromStrapi now returns the clean, flattened data
         const fetchedPosts: Post[] = await fetchFromStrapi('articles', { populate: '*' });
-        if (fetchedPosts) {
-          setPosts(fetchedPosts);
-        } else {
-          setError('La respuesta de Strapi no contiene datos.');
-        }
+        setPosts(fetchedPosts);
+        setRawData(fetchedPosts); // Also store for JSON view
       } catch (err: any) {
         console.error('Error al conectar con Strapi:', err);
         setError(err.message || 'Error desconocido');
@@ -51,6 +48,7 @@ export default function TestStrapiPage() {
       
       {!error && !posts.length && <p>Cargando datos desde Strapi...</p>}
 
+      {/* Visual rendering */}
       {posts.map((post) => (
         <div
           key={post.id}
@@ -60,7 +58,6 @@ export default function TestStrapiPage() {
             {post.title}
           </h2>
 
-          {/* Optional cover image, accessed directly */}
           {post.Image?.url && (
             <img
               src={post.Image.url}
@@ -71,12 +68,21 @@ export default function TestStrapiPage() {
             />
           )}
 
-          {/* Content */}
           {post.content && (
             <p className="my-2 text-zinc-700 dark:text-zinc-300">{post.content}</p>
           )}
         </div>
       ))}
+      
+      {/* Raw JSON data view */}
+      {rawData && (
+        <div className="w-full max-w-3xl mt-8">
+            <h2 className="text-2xl font-bold mb-4">Datos Crudos (JSON Aplanado)</h2>
+            <pre className="bg-gray-800 text-white p-4 rounded-md overflow-x-auto">
+                {JSON.stringify(rawData, null, 2)}
+            </pre>
+        </div>
+      )}
     </div>
   );
 }
