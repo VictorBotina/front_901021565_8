@@ -16,6 +16,13 @@ import { FontSizeControl } from './FontSizeControl';
 
 export function MainNavigation() {
   const [open, setOpen] = React.useState(false);
+
+  const navigationLinks = [
+    { href: "/afiliados/subsidiado", text: "Régimen Subsidiado" },
+    { href: "/afiliados/contributivo", text: "Régimen Contributivo" },
+    { href: "/prestadores", text: "Prestadores" },
+    { href: "/blog", text: "Blog" },
+  ];
   
   return (
     <>
@@ -27,7 +34,7 @@ export function MainNavigation() {
         </Link>
         
         <div className="flex-1 justify-center hidden md:flex">
-          <Navigation />
+          <Navigation links={navigationLinks} />
         </div>
 
         <div className="flex flex-1 items-center justify-end space-x-1 md:flex-none">
@@ -62,7 +69,7 @@ export function MainNavigation() {
                     <SheetTitle className="sr-only">Menú Principal</SheetTitle>
                 </SheetHeader>
               <div className="mt-8">
-                <Navigation isMobile={true} onLinkClick={() => setOpen(false)} />
+                <Navigation links={navigationLinks} isMobile={true} onLinkClick={() => setOpen(false)} />
               </div>
             </SheetContent>
           </Sheet>

@@ -10,23 +10,22 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
 
+type LinkItem = {
+  href: string;
+  text: string;
+}
+
 type NavigationProps = {
+  links: LinkItem[];
   isMobile?: boolean;
   onLinkClick?: () => void;
 };
 
-export function Navigation({ isMobile = false, onLinkClick }: NavigationProps) {
+export function Navigation({ links, isMobile = false, onLinkClick }: NavigationProps) {
   const commonProps = {
     className: "hover:text-primary",
     onClick: onLinkClick,
   };
-
-  const links = [
-    { href: "/afiliados/subsidiado", text: "Régimen Subsidiado" },
-    { href: "/afiliados/contributivo", text: "Régimen Contributivo" },
-    { href: "/prestadores", text: "Prestadores" },
-    { href: "/blog", text: "Blog" },
-  ];
 
   if (isMobile) {
     return (
