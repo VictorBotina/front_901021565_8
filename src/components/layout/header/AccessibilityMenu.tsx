@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useTheme } from "next-themes";
-import { Sun, Moon, Contrast, ZoomIn, ZoomOut, Settings, Palette, TextCursorInput } from "lucide-react";
+import { Contrast, TextCursorInput, ZoomIn, ZoomOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Popover,
@@ -12,12 +12,13 @@ import {
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { AccessibilityIcon } from "@/components/icons/AccessibilityIcon";
+import { ThemeSwitcher } from "./ThemeSwitcher";
 
 const FONT_SIZES = [90, 100, 110, 120];
 const DEFAULT_FONT_SIZE = 100;
 
 export function AccessibilityMenu() {
-  const { theme, setTheme } = useTheme();
   const [isHighContrast, setIsHighContrast] = React.useState(false);
   const [fontSize, setFontSize] = React.useState(DEFAULT_FONT_SIZE);
   const [isMounted, setIsMounted] = React.useState(false);
@@ -65,7 +66,7 @@ export function AccessibilityMenu() {
           <TooltipTrigger asChild>
             <PopoverTrigger asChild>
               <Button variant="ghost" size="icon">
-                <Settings className="h-5 w-5" />
+                <AccessibilityIcon className="h-6 w-6" />
                 <span className="sr-only">Abrir menú de accesibilidad</span>
               </Button>
             </PopoverTrigger>
@@ -85,18 +86,7 @@ export function AccessibilityMenu() {
             </p>
           </div>
           <div className="grid gap-2">
-            <div className="flex items-center justify-between">
-              <Label htmlFor="dark-mode" className="flex items-center gap-2">
-                <Palette className="h-4 w-4" />
-                <span>Modo Oscuro</span>
-              </Label>
-              <Switch
-                id="dark-mode"
-                checked={theme === 'dark'}
-                onCheckedChange={() => setTheme(theme === "light" ? "dark" : "light")}
-                aria-label="Cambiar tema"
-              />
-            </div>
+            <ThemeSwitcher />
             <div className="flex items-center justify-between">
               <Label htmlFor="high-contrast" className="flex items-center gap-2">
                 <Contrast className="h-4 w-4" />
