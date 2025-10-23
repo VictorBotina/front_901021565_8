@@ -10,6 +10,8 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import * as React from 'react';
 import { AccessibilityMenu } from './AccessibilityMenu';
 import { TopMenu } from './TopMenu';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { SearchCommand } from './SearchCommand';
 
 export function MainNavigation() {
   const [open, setOpen] = React.useState(false);
@@ -28,7 +30,14 @@ export function MainNavigation() {
         </div>
 
         <div className="flex flex-1 items-center justify-end space-x-2 md:flex-none">
-          <Button variant="outline">Accesos rapidos</Button>
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button variant="outline">Accesos rapidos</Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-80 p-0">
+              <SearchCommand />
+            </PopoverContent>
+          </Popover>
           <AccessibilityMenu />
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
