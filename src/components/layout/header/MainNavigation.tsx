@@ -11,7 +11,7 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import * as React from 'react';
 import { AccessibilityMenu } from './AccessibilityMenu';
 import { TopMenu } from './TopMenu';
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { SearchCommand } from './SearchCommand';
 
 export function MainNavigation() {
@@ -36,6 +36,12 @@ export function MainNavigation() {
               <Button variant="outline">Accesos rapidos</Button>
             </DialogTrigger>
             <DialogContent>
+                <DialogHeader>
+                    <DialogTitle>Accesos Rápidos</DialogTitle>
+                    <DialogDescription>
+                        Navega rápidamente a la sección que necesites o utiliza el buscador.
+                    </DialogDescription>
+                </DialogHeader>
               <SearchCommand />
             </DialogContent>
           </Dialog>
