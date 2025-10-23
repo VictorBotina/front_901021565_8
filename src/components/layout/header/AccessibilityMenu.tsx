@@ -43,17 +43,19 @@ export function useAccessibility() {
   };
   
   const changeFontSize = (direction: "increase" | "decrease") => {
-    const currentIndex = FONT_SIZES.indexOf(fontSize);
-    let newIndex = currentIndex;
-    if (direction === "increase" && currentIndex < FONT_SIZES.length - 1) {
-        newIndex++;
-    } else if (direction === "decrease" && currentIndex > 0) {
-        newIndex--;
-    }
-    const newSize = FONT_SIZES[newIndex];
-    setFontSize(newSize);
-    localStorage.setItem("font-size", String(newSize));
-    document.documentElement.style.fontSize = `${newSize}%`;
+    setFontSize(currentSize => {
+      const currentIndex = FONT_SIZES.indexOf(currentSize);
+      let newIndex = currentIndex;
+      if (direction === "increase" && currentIndex < FONT_SIZES.length - 1) {
+          newIndex++;
+      } else if (direction === "decrease" && currentIndex > 0) {
+          newIndex--;
+      }
+      const newSize = FONT_SIZES[newIndex];
+      localStorage.setItem("font-size", String(newSize));
+      document.documentElement.style.fontSize = `${newSize}%`;
+      return newSize;
+    });
   };
 
   const isMinFont = fontSize === FONT_SIZES[0];
