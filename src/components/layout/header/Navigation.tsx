@@ -22,7 +22,8 @@ export function Navigation({ isMobile = false, onLinkClick }: NavigationProps) {
   };
 
   const links = [
-    { href: "/afiliados", text: "Afiliados" },
+    { href: "/afiliados/subsidiado", text: "Régimen Subsidiado" },
+    { href: "/afiliados/contributivo", text: "Régimen Contributivo" },
     { href: "/prestadores", text: "Prestadores" },
     { href: "/blog", text: "Blog" },
   ];
