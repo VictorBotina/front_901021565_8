@@ -3,32 +3,38 @@
 
 import { useEffect, useState } from 'react';
 import { fetchFromStrapi } from '@/lib/api';
+import Image from "next/image";
+import { Badge } from "@/components/ui/badge";
 
 // The Post type now reflects the flattened structure
 type Post = {
   id: number;
   title: string;
-  Slug: string;
+  description: string;
   content: string;
-  Image?: {
+  slug: string;
+  cover?: {
     url: string;
-    width?: number;
-    height?: number;
-    alternativeText?: string | null;
+    alternativeText?: string;
+  };
+  author?: {
+    name: string;
+  };
+  category?: {
+    name: string;
   };
 };
 
 export default function TestStrapiPage() {
   const [posts, setPosts] = useState<Post[]>([]);
   const [error, setError] = useState<string | null>(null);
-  const [rawData, setRawData] = useState<any>(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        // We use populate: '*' to get all related data
         const fetchedPosts: Post[] = await fetchFromStrapi('articles', { populate: '*' });
         setPosts(fetchedPosts);
-        setRawData(fetchedPosts); // Also store for JSON view
       } catch (err: any) {
         console.error('Error al conectar con Strapi:', err);
         setError(err.message || 'Error desconocido');
@@ -49,37 +55,48 @@ export default function TestStrapiPage() {
       {!error && !posts.length && <p>Cargando datos desde Strapi...</p>}
 
       {/* Visual rendering */}
-      {posts.map((post) => (
-        <div
-          key={post.id}
-          className="w-full max-w-3xl border p-4 rounded-md bg-white dark:bg-zinc-900 mb-6 shadow-md"
-        >
-          <h2 className="text-xl font-semibold mb-2 text-black dark:text-zinc-50">
-            {post.title}
-          </h2>
-
-          {post.Image?.url && (
-            <img
-              src={post.Image.url}
-              width={post.Image.width || 600}
-              height={post.Image.height || 400}
-              alt={post.Image.alternativeText || post.title}
-              className="my-2 rounded"
-            />
-          )}
-
-          {post.content && (
-            <p className="my-2 text-zinc-700 dark:text-zinc-300">{post.content}</p>
-          )}
-        </div>
-      ))}
+      <div className="w-full max-w-5xl grid gap-8 md:grid-cols-2 lg:grid-cols-3 mb-12">
+        {posts.map((post) => (
+          <div key={post.id} className="flex flex-col overflow-hidden rounded-lg border bg-card text-card-foreground shadow-lg">
+            {post.cover?.url && (
+              <div className="relative h-48 w-full">
+                <Image
+                  src={post.cover.url}
+                  alt={post.cover.alternativeText || post.title}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+            )}
+            <div className="flex flex-1 flex-col p-6">
+              <div className="flex-1">
+                {post.category && (
+                  <Badge variant="secondary" className="mb-2">{post.category.name}</Badge>
+                )}
+                <h3 className="text-xl font-bold mb-2">{post.title}</h3>
+                <p className="text-muted-foreground mb-4 line-clamp-3">{post.description}</p>
+                 <p className="text-sm text-muted-foreground">
+                    <span className="font-semibold">Slug:</span> {post.slug}
+                </p>
+              </div>
+              {post.author && (
+                <div className="mt-4 border-t pt-4">
+                  <p className="text-sm font-medium text-muted-foreground">
+                    Autor: {post.author.name}
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
       
       {/* Raw JSON data view */}
-      {rawData && (
+      {posts.length > 0 && (
         <div className="w-full max-w-3xl mt-8">
             <h2 className="text-2xl font-bold mb-4">Datos Crudos (JSON Aplanado)</h2>
             <pre className="bg-gray-800 text-white p-4 rounded-md overflow-x-auto">
-                {JSON.stringify(rawData, null, 2)}
+                {JSON.stringify(posts, null, 2)}
             </pre>
         </div>
       )}
