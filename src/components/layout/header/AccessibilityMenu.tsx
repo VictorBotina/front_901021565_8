@@ -58,8 +58,8 @@ export function useAccessibility() {
     });
   };
 
-  const isMinFont = fontSize === FONT_SIZES[0];
-  const isMaxFont = fontSize === FONT_SIZES[FONT_SIZES.length - 1];
+  const isMinFont = fontSize <= FONT_SIZES[0];
+  const isMaxFont = fontSize >= FONT_SIZES[FONT_SIZES.length - 1];
 
   return { isMounted, isHighContrast, toggleContrast, fontSize, changeFontSize, isMinFont, isMaxFont };
 }
