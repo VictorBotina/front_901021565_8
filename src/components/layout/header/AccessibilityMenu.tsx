@@ -1,14 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { useTheme } from "next-themes";
 import { Contrast, TextCursorInput, ZoomIn, ZoomOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
@@ -18,7 +12,7 @@ import { ThemeSwitcher } from "./ThemeSwitcher";
 const FONT_SIZES = [90, 100, 110, 120];
 const DEFAULT_FONT_SIZE = 100;
 
-export function AccessibilityMenu() {
+export function useAccessibility() {
   const [isHighContrast, setIsHighContrast] = React.useState(false);
   const [fontSize, setFontSize] = React.useState(DEFAULT_FONT_SIZE);
   const [isMounted, setIsMounted] = React.useState(false);
@@ -55,70 +49,61 @@ export function AccessibilityMenu() {
     document.documentElement.style.fontSize = `${newSize}%`;
   };
 
+  const isMinFont = fontSize === FONT_SIZES[0];
+  const isMaxFont = fontSize === FONT_SIZES[FONT_SIZES.length - 1];
+
+  return { isMounted, isHighContrast, toggleContrast, fontSize, changeFontSize, isMinFont, isMaxFont };
+}
+
+export function AccessibilityMenu() {
+  const { isMounted } = useAccessibility();
+
   if (!isMounted) {
     return null;
   }
 
   return (
-    <Popover>
+    <div className="flex items-center gap-1">
+      <ThemeSwitcher />
+      <ContrastSwitcher />
+      <FontSizeAdjuster />
+    </div>
+  );
+}
+
+export function FontSizeAdjuster() {
+  const { changeFontSize, isMinFont, isMaxFont, isMounted } = useAccessibility();
+  
+  if (!isMounted) return null;
+
+  return (
+    <>
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger asChild>
-            <PopoverTrigger asChild>
-              <Button variant="ghost" size="icon">
-                <AccessibilityIcon className="h-6 w-6" />
-                <span className="sr-only">Abrir menú de accesibilidad</span>
-              </Button>
-            </PopoverTrigger>
+            <Button variant="ghost" size="icon" onClick={() => changeFontSize('decrease')} disabled={isMinFont}>
+                <ZoomOut className="h-6 w-6"/>
+                <span className="sr-only">Disminuir tamaño de fuente</span>
+            </Button>
           </TooltipTrigger>
           <TooltipContent>
-            <p>Accesibilidad</p>
+            <p>Disminuir Fuente</p>
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>
-
-      <PopoverContent className="w-60">
-        <div className="grid gap-4">
-          <div className="space-y-2">
-            <h4 className="font-medium leading-none">Accesibilidad</h4>
-            <p className="text-sm text-muted-foreground">
-              Personaliza la apariencia del sitio.
-            </p>
-          </div>
-          <div className="grid gap-2">
-            <ThemeSwitcher />
-            <div className="flex items-center justify-between">
-              <Label htmlFor="high-contrast" className="flex items-center gap-2">
-                <Contrast className="h-4 w-4" />
-                <span>Alto Contraste</span>
-              </Label>
-              <Switch
-                id="high-contrast"
-                checked={isHighContrast}
-                onCheckedChange={toggleContrast}
-                aria-label="Activar modo de alto contraste"
-              />
-            </div>
-            <div className="flex items-center justify-between">
-                <Label className="flex items-center gap-2">
-                    <TextCursorInput className="h-4 w-4" />
-                    <span>Tamaño de Fuente</span>
-                </Label>
-              <div className="flex items-center">
-                <Button variant="ghost" size="icon" onClick={() => changeFontSize('decrease')} disabled={fontSize === FONT_SIZES[0]}>
-                    <ZoomOut className="h-5 w-5"/>
-                    <span className="sr-only">Disminuir tamaño de fuente</span>
-                </Button>
-                <span className="w-8 text-center text-sm">{fontSize}%</span>
-                <Button variant="ghost" size="icon" onClick={() => changeFontSize('increase')} disabled={fontSize === FONT_SIZES[FONT_SIZES.length - 1]}>
-                    <ZoomIn className="h-5 w-5"/>
-                    <span className="sr-only">Aumentar tamaño de fuente</span>
-                </Button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </PopoverContent>
-    </Popover>
-  );
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button variant="ghost" size="icon" onClick={() => changeFontSize('increase')} disabled={isMaxFont}>
+                <ZoomIn className="h-6 w-6"/>
+                <span className="sr-only">Aumentar tamaño de fuente</span>
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>Aumentar Fuente</p>
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
+    </>
+  )
 }

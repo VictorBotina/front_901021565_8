@@ -1,18 +1,18 @@
-
-
 'use client';
 
 import Link from 'next/link';
 import { Logo } from '@/components/logo';
 import { Navigation } from './Navigation';
 import { Button } from '@/components/ui/button';
-import { Menu } from 'lucide-react';
+import { Menu, ZoomIn, ZoomOut } from 'lucide-react';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import * as React from 'react';
-import { AccessibilityMenu } from './AccessibilityMenu';
 import { TopMenu } from './TopMenu';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { SearchCommand } from './SearchCommand';
+import { ThemeSwitcher } from './ThemeSwitcher';
+import { ContrastSwitcher } from './ContrastSwitcher';
+import { FontSizeAdjuster } from './FontSizeAdjuster';
 
 export function MainNavigation() {
   const [open, setOpen] = React.useState(false);
@@ -30,7 +30,7 @@ export function MainNavigation() {
           <Navigation />
         </div>
 
-        <div className="flex flex-1 items-center justify-end space-x-2 md:flex-none">
+        <div className="flex flex-1 items-center justify-end space-x-1 md:flex-none">
           <Dialog>
             <DialogTrigger asChild>
               <Button variant="outline">Accesos rapidos</Button>
@@ -45,7 +45,11 @@ export function MainNavigation() {
               <SearchCommand />
             </DialogContent>
           </Dialog>
-          <AccessibilityMenu />
+          
+          <ThemeSwitcher />
+          <ContrastSwitcher />
+          <FontSizeAdjuster />
+
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" className="md:hidden">
