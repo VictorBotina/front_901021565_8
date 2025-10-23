@@ -83,28 +83,30 @@ export default function TestStrapiPage() {
       {!error && !posts.length && <p>Cargando datos desde Strapi...</p>}
 
       {posts.map((post) => (
-        <div
-          key={post.id}
-          className="w-full max-w-3xl border p-4 rounded-md bg-white dark:bg-zinc-900 mb-6 shadow-md"
-        >
-          <h2 className="text-xl font-semibold mb-2 text-black dark:text-zinc-50">
-            {post.attributes.title}
-          </h2>
+        post.attributes && (
+            <div
+              key={post.id}
+              className="w-full max-w-3xl border p-4 rounded-md bg-white dark:bg-zinc-900 mb-6 shadow-md"
+            >
+              <h2 className="text-xl font-semibold mb-2 text-black dark:text-zinc-50">
+                {post.attributes.title}
+              </h2>
 
-          {/* Imagen de portada opcional */}
-          {post.attributes.Image?.data?.attributes.url && (
-            <img
-              src={post.attributes.Image.data.attributes.url}
-              width={post.attributes.Image.data.attributes.width || 600}
-              height={post.attributes.Image.data.attributes.height || 400}
-              alt={post.attributes.Image.data.attributes.alternativeText || post.attributes.title}
-              className="my-2 rounded"
-            />
-          )}
+              {/* Imagen de portada opcional */}
+              {post.attributes.Image?.data?.attributes.url && (
+                <img
+                  src={post.attributes.Image.data.attributes.url}
+                  width={post.attributes.Image.data.attributes.width || 600}
+                  height={post.attributes.Image.data.attributes.height || 400}
+                  alt={post.attributes.Image.data.attributes.alternativeText || post.attributes.title}
+                  className="my-2 rounded"
+                />
+              )}
 
-          {/* Contenido */}
-          <div>{post.attributes.Content && renderContent(post.attributes.Content)}</div>
-        </div>
+              {/* Contenido */}
+              <div>{post.attributes.Content && renderContent(post.attributes.Content)}</div>
+            </div>
+        )
       ))}
       
       {rawData && (
