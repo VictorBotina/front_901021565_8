@@ -10,8 +10,14 @@ type Article = {
   }
 }
 
+type StrapiResponse = {
+  data: Article[];
+}
+
 export default async function Home() {
-  const articles: Article[] = await fetchFromStrapi('articles');
+  // Usamos populate='*' para obtener todos los campos relacionados
+  const response: StrapiResponse = await fetchFromStrapi('articles', { populate: '*' });
+  const articles = response.data;
 
   return (
     <>
@@ -21,7 +27,6 @@ export default async function Home() {
         text="Somos una entidad comprometida con la transparencia, la accesibilidad y el servicio a nuestros afiliados y prestadores. Explore nuestro sitio para encontrar la información que necesita."
       />
 
-      {/* Ejemplo de cómo mostrar datos de Strapi */}
       {articles && articles.length > 0 ? (
         <section className="py-12 lg:py-24">
           <div className="container mx-auto px-4">
