@@ -9,7 +9,7 @@ export function TopMenu() {
             Normatividad
           </Link>
           <Link href="#" className="transition-colors hover:text-primary">
-            Transparencia
+            Transparencia y Acceso a La Información Pública
           </Link>
           <Link href="#" className="transition-colors hover:text-primary">
             Documentos Oficiales
