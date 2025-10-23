@@ -17,9 +17,6 @@ export function TopMenu() {
           <Link href="#" className="transition-colors hover:text-primary">
             Transparencia y Acceso a La Información Pública
           </Link>
-          <Link href="#" className="transition-colors hover:text-primary">
-            Documentos Oficiales
-          </Link>
         </div>
       </div>
     </div>
