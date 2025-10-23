@@ -4,20 +4,13 @@ import { fetchFromStrapi } from "@/lib/api";
 
 type Article = {
   id: number;
-  attributes: {
-    title: string;
-    content: string;
-  }
-}
-
-type StrapiResponse = {
-  data: Article[];
+  title: string;
+  content: string;
+  // Add other flattened fields as needed
 }
 
 export default async function Home() {
-  // Usamos populate='*' para obtener todos los campos relacionados
-  const response: StrapiResponse = await fetchFromStrapi('articles', { populate: '*' });
-  const articles = response.data;
+  const articles: Article[] = await fetchFromStrapi('articles', { populate: '*' });
 
   return (
     <>
@@ -33,12 +26,10 @@ export default async function Home() {
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-8">Noticias y Actualizaciones</h2>
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
               {articles.map((article) => (
-                article.attributes && (
-                  <div key={article.id} className="rounded-lg border bg-card p-6 text-card-foreground shadow-sm">
-                    <h3 className="text-2xl font-bold mb-2">{article.attributes.title}</h3>
-                    <p className="text-muted-foreground">{article.attributes.content}</p>
-                  </div>
-                )
+                <div key={article.id} className="rounded-lg border bg-card p-6 text-card-foreground shadow-sm">
+                  <h3 className="text-2xl font-bold mb-2">{article.title}</h3>
+                  <p className="text-muted-foreground">{article.content}</p>
+                </div>
               ))}
             </div>
           </div>
