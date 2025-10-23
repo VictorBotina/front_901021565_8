@@ -28,6 +28,12 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'natural-morning-88dae3e00d.media.strapiapp.com',
+        port: '',
+        pathname: '/**',
+      }
     ],
   },
 };

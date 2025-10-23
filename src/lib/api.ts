@@ -46,7 +46,11 @@ const fetchFromStrapi = async (endpoint: string, params: Record<string, any> = {
     return []; // Return empty array if not configured
   }
 
-  const queryString = stringify(params, {
+  // Ensure relations are always populated
+  const defaultPopulate = { populate: ['cover', 'author', 'category'] };
+  const mergedParams = { ...defaultPopulate, ...params };
+
+  const queryString = stringify(mergedParams, {
     encodeValuesOnly: true,
   });
 
