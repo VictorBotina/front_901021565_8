@@ -23,7 +23,10 @@ export function useAccessibility() {
     setIsMounted(true);
     const storedContrast = localStorage.getItem("high-contrast") === "true";
     setIsHighContrast(storedContrast);
-    document.documentElement.dataset.contrast = storedContrast ? "high" : "default";
+    if (document.documentElement.dataset) {
+        document.documentElement.dataset.contrast = storedContrast ? "high" : "default";
+    }
+
 
     const storedFontSize = parseInt(localStorage.getItem("font-size") || "100", 10);
     setFontSize(storedFontSize);
@@ -34,7 +37,9 @@ export function useAccessibility() {
     const newContrastState = !isHighContrast;
     setIsHighContrast(newContrastState);
     localStorage.setItem("high-contrast", String(newContrastState));
-    document.documentElement.dataset.contrast = newContrastState ? "high" : "default";
+    if (document.documentElement.dataset) {
+      document.documentElement.dataset.contrast = newContrastState ? "high" : "default";
+    }
   };
   
   const changeFontSize = (direction: "increase" | "decrease") => {
