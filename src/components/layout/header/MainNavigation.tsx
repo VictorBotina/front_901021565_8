@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import Link from 'next/link';
@@ -10,7 +11,7 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import * as React from 'react';
 import { AccessibilityMenu } from './AccessibilityMenu';
 import { TopMenu } from './TopMenu';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { SearchCommand } from './SearchCommand';
 
 export function MainNavigation() {
@@ -30,14 +31,14 @@ export function MainNavigation() {
         </div>
 
         <div className="flex flex-1 items-center justify-end space-x-2 md:flex-none">
-          <Popover>
-            <PopoverTrigger asChild>
+          <Dialog>
+            <DialogTrigger asChild>
               <Button variant="outline">Accesos rapidos</Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-80 p-0">
+            </DialogTrigger>
+            <DialogContent>
               <SearchCommand />
-            </PopoverContent>
-          </Popover>
+            </DialogContent>
+          </Dialog>
           <AccessibilityMenu />
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
