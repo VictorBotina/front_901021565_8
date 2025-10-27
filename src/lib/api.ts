@@ -43,11 +43,12 @@ const flattenAttributes = (data: any): any => {
 const fetchFromStrapi = async (endpoint: string, params: Record<string, any> = {}) => {
   if (!API_URL || !API_TOKEN) {
     console.error("Strapi URL or Token is not configured in environment variables.");
-    return []; // Return empty array if not configured
+    // For collection types, return empty array. For single types, this will be handled by the logic below.
+    return []; 
   }
 
   // Ensure relations are always populated
-  const defaultPopulate = { populate: ['cover', 'author', 'category'] };
+  const defaultPopulate = { populate: '*' };
   const mergedParams = { ...defaultPopulate, ...params };
 
   const queryString = stringify(mergedParams, {
@@ -61,15 +62,20 @@ const fetchFromStrapi = async (endpoint: string, params: Record<string, any> = {
       },
     });
     
-    // Parse the response before returning
+    const isSingleType = res.data.data && !Array.isArray(res.data.data);
     const flattenedData = flattenAttributes(res.data);
     
-    // Ensure the final output is always an array for collections
+    if (isSingleType) {
+        return flattenedData ?? null; // Return single object or null
+    }
+
+    // Ensure the final output is always an array for collection types
     return Array.isArray(flattenedData) ? flattenedData : (flattenedData ? [flattenedData] : []);
 
   } catch (error) {
     console.error(`Error fetching from Strapi endpoint: /${endpoint}`, error);
-    return []; // Return an empty array on error
+    // For collection types return empty array, for single types this should result in null on the other end.
+    return []; 
   }
 };
 
