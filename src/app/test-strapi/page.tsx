@@ -4,6 +4,12 @@ import { fetchFromStrapi } from "@/lib/api";
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { Hero, type HeroProps } from "./Hero";
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger,
+  } from "@/components/ui/accordion"
 
 type Article = {
   id: number;
@@ -119,10 +125,18 @@ export default async function TestStrapiPage() {
             )}
         </div>
         <div className="mt-8 bg-gray-100 p-4 rounded">
-            <h2 className="text-2xl font-bold mb-4">Raw Strapi Data (Articles)</h2>
-            <pre className="bg-gray-800 text-white p-4 rounded-lg overflow-x-auto">
-                <code>{JSON.stringify(articles, null, 2)}</code>
-            </pre>
+            <Accordion type="single" collapsible className="w-full">
+                <AccordionItem value="item-1">
+                    <AccordionTrigger>
+                        <h2 className="text-2xl font-bold">Raw Strapi Data (Articles)</h2>
+                    </AccordionTrigger>
+                    <AccordionContent>
+                        <pre className="bg-gray-800 text-white p-4 rounded-lg overflow-x-auto">
+                            <code>{JSON.stringify(articles, null, 2)}</code>
+                        </pre>
+                    </AccordionContent>
+                </AccordionItem>
+            </Accordion>
         </div>
         <div className="mt-8 bg-gray-100 p-4 rounded">
             <h2 className="text-2xl font-bold mb-4">Raw Strapi Data (Hero)</h2>
