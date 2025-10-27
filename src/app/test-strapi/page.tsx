@@ -1,6 +1,5 @@
-'use client';
+'use server';
 
-import { useEffect, useState } from 'react';
 import { fetchFromStrapi } from '@/lib/api';
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
@@ -105,6 +104,24 @@ export function Hero(props: HeroProps) {
 }
 // --- End Hero Component Code ---
 
+type HomeData = {
+  banner: {
+    id: number;
+    title: string;
+    description: {
+      type: string;
+      children: { text: string; type: string }[];
+    }[];
+    button_primary_text: string;
+    button_primary_url: string;
+    button_secondary_text: string;
+    button_secondary_url: string;
+    background_image?: {
+      url: string;
+      alternativeText?: string;
+    };
+  };
+};
 
 // El tipo Post ahora refleja la estructura aplanada
 type Post = {
@@ -125,40 +142,47 @@ type Post = {
   };
 };
 
-export default function TestStrapiPage() {
-  const [posts, setPosts] = useState<Post[]>([]);
-  const [error, setError] = useState<string | null>(null);
+export default async function TestStrapiPage() {
+  const homeData: HomeData | null = await fetchFromStrapi('home', {
+    populate: {
+      banner: {
+        populate: '*',
+      },
+    },
+  });
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // Usamos populate: '*' para obtener todos los datos relacionados
-        const fetchedPosts: Post[] = await fetchFromStrapi('articles', { populate: '*' });
-        setPosts(fetchedPosts);
-      } catch (err: any) {
-        console.error('Error al conectar con Strapi:', err);
-        setError(err.message || 'Error desconocido');
-      }
-    };
+  const heroProps: HeroProps | null = homeData ? {
+    title: homeData.banner.title,
+    description: homeData.banner.description.map(d => d.children.map(c => c.text).join(' ')).join('\n'),
+    image: homeData.banner.background_image ? {
+      url: homeData.banner.background_image.url,
+      alt: homeData.banner.background_image.alternativeText || homeData.banner.title,
+    } : undefined,
+    primaryButton: {
+      text: homeData.banner.button_primary_text,
+      url: homeData.banner.button_primary_url,
+    },
+    secondaryButton: {
+      text: homeData.banner.button_secondary_text,
+      url: homeData.banner.button_secondary_url,
+    },
+  } : null;
 
-    fetchData();
-  }, []);
+  const posts: Post[] = await fetchFromStrapi('articles', { populate: '*' });
 
   return (
     <>
-      <Hero />
+      <Hero {...heroProps} />
       <div className="flex flex-col items-center py-16 px-6 bg-zinc-50 dark:bg-black min-h-screen">
         <h1 className="text-3xl font-bold mb-8 text-black dark:text-zinc-50">
           Prueba de Conexión y Visualización de Strapi
         </h1>
 
-        {error && <p className="text-red-500">Error: {error}</p>}
-        
-        {!error && !posts.length && <p>Cargando datos desde Strapi...</p>}
+        {!posts || !posts.length && <p>Cargando datos desde Strapi o no hay posts...</p>}
 
         {/* Renderizado visual */}
         <div className="w-full max-w-5xl grid gap-8 md:grid-cols-2 lg:grid-cols-3 mb-12">
-          {posts.map((post) => (
+          {posts && posts.map((post) => (
             <div key={post.id} className="flex flex-col overflow-hidden rounded-lg border bg-card text-card-foreground shadow-lg">
               {post.cover?.url && (
                 <div className="relative h-48 w-full">
@@ -194,7 +218,7 @@ export default function TestStrapiPage() {
         </div>
         
         {/* Vista de datos crudos (JSON aplanado) */}
-        {posts.length > 0 && (
+        {posts && posts.length > 0 && (
           <div className="w-full max-w-3xl mt-8">
               <h2 className="text-2xl font-bold mb-4">Datos Crudos (JSON Aplanado)</h2>
               <pre className="bg-gray-800 text-white p-4 rounded-md overflow-x-auto">
