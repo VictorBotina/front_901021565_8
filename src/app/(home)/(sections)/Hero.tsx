@@ -32,10 +32,10 @@ export function Hero(props: HeroProps) {
 
   const defaultHeroImage = PlaceHolderImages[0];
 
-  // Construye la URL final
+  // Construye la URL final priorizando medium si existe
   const heroImage = image
     ? {
-        src: image.url,
+        src: image.formats?.medium?.url || image.url,
         alt: image.alt || "Banner",
       }
     : {
