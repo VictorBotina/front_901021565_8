@@ -3,7 +3,7 @@
 import { fetchFromStrapi } from "@/lib/api";
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
-import { Hero, type HeroProps } from "./Hero";
+import { Hero, type HeroProps } from "@/app/(home)/(sections)/Hero";
 import {
     Accordion,
     AccordionContent,
@@ -59,22 +59,22 @@ export default async function TestStrapiPage() {
         },
       });
     
-      const heroProps: HeroProps = {
-        title: homeData?.banner.title,
-        description: homeData?.banner.description.map(d => d.children.map(c => c.text).join(' ')).join('\n'),
-        image: homeData?.banner.background_image ? {
+      const heroProps: HeroProps | null = homeData ? {
+        title: homeData.banner.title,
+        description: homeData.banner.description.map(d => d.children.map(c => c.text).join(' ')).join('\n'),
+        image: homeData.banner.background_image ? {
           url: homeData.banner.background_image.url,
-          alt: homeData.banner.background_image.alternativeText,
+          alt: homeData.banner.background_image.alternativeText || homeData.banner.title,
         } : undefined,
         primaryButton: {
-          text: homeData?.banner.button_primary_text || "",
-          url: homeData?.banner.button_primary_url || "",
+          text: homeData.banner.button_primary_text,
+          url: homeData.banner.button_primary_url,
         },
         secondaryButton: {
-          text: homeData?.banner.button_secondary_text || "",
-          url: homeData?.banner.button_secondary_url || "",
+          text: homeData.banner.button_secondary_text,
+          url: homeData.banner.button_secondary_url,
         },
-      };
+      } : null;
 
   return (
     <div>
@@ -139,10 +139,18 @@ export default async function TestStrapiPage() {
             </Accordion>
         </div>
         <div className="mt-8 bg-gray-100 p-4 rounded">
-            <h2 className="text-2xl font-bold mb-4">Raw Strapi Data (Hero)</h2>
-            <pre className="bg-gray-800 text-white p-4 rounded-lg overflow-x-auto">
-                <code>{JSON.stringify(homeData, null, 2)}</code>
-            </pre>
+            <Accordion type="single" collapsible className="w-full">
+                <AccordionItem value="item-2">
+                    <AccordionTrigger>
+                        <h2 className="text-2xl font-bold">Raw Strapi Data (Hero)</h2>
+                    </AccordionTrigger>
+                    <AccordionContent>
+                        <pre className="bg-gray-800 text-white p-4 rounded-lg overflow-x-auto">
+                            <code>{JSON.stringify(homeData, null, 2)}</code>
+                        </pre>
+                    </AccordionContent>
+                </AccordionItem>
+            </Accordion>
         </div>
     </div>
   );
