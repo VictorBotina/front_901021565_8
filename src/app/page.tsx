@@ -16,7 +16,7 @@ type HomeData = {
     button_primary_url: string;
     button_secondary_text: string;
     button_secondary_url: string;
-    background_image?: string; // This will now be a string
+    image?: string; // This field name is corrected from background_image to image
   };
 };
 
@@ -32,8 +32,8 @@ export default async function Home() {
   const heroProps: HeroProps | null = homeData ? {
     title: homeData.banner.title,
     description: homeData.banner.description.map(d => d.children.map(c => c.text).join(' ')).join('\n'),
-    image: homeData.banner.background_image ? {
-      url: homeData.banner.background_image,
+    image: homeData.banner.image ? {
+      url: homeData.banner.image, // Corrected to use .image
       alt: homeData.banner.title,
     } : undefined,
     primaryButton: {
