@@ -8,14 +8,8 @@ export type HeroProps = {
   title?: string;
   description?: string;
   image?: {
-    url: string; // URL relativa o absoluta
+    url: string;
     alt?: string;
-    formats?: {
-      thumbnail?: { url: string };
-      small?: { url: string };
-      medium?: { url: string };
-      large?: { url: string };
-    };
   };
   primaryButton?: {
     text: string;
@@ -32,10 +26,9 @@ export function Hero(props: HeroProps) {
 
   const defaultHeroImage = PlaceHolderImages[0];
 
-  // Construye la URL final priorizando medium si existe
   const heroImage = image
     ? {
-        src: image.formats?.medium?.url || image.url,
+        src: image.url,
         alt: image.alt || "Banner",
       }
     : {

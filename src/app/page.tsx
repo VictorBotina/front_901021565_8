@@ -19,12 +19,6 @@ type HomeData = {
     background_image?: {
       url: string;
       alternativeText?: string;
-      formats?: {
-        thumbnail?: { url: string };
-        small?: { url: string };
-        medium?: { url: string };
-        large?: { url: string };
-      };
     };
   };
 };
@@ -44,7 +38,6 @@ export default async function Home() {
     image: homeData.banner.background_image ? {
       url: homeData.banner.background_image.url,
       alt: homeData.banner.background_image.alternativeText || homeData.banner.title,
-      formats: homeData.banner.background_image.formats,
     } : undefined,
     primaryButton: {
       text: homeData.banner.button_primary_text,
