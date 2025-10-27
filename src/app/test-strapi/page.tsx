@@ -119,9 +119,15 @@ export default async function TestStrapiPage() {
             )}
         </div>
         <div className="mt-8 bg-gray-100 p-4 rounded">
-            <h2 className="text-2xl font-bold mb-4">Raw Strapi Data</h2>
+            <h2 className="text-2xl font-bold mb-4">Raw Strapi Data (Articles)</h2>
             <pre className="bg-gray-800 text-white p-4 rounded-lg overflow-x-auto">
                 <code>{JSON.stringify(articles, null, 2)}</code>
+            </pre>
+        </div>
+        <div className="mt-8 bg-gray-100 p-4 rounded">
+            <h2 className="text-2xl font-bold mb-4">Raw Strapi Data (Hero)</h2>
+            <pre className="bg-gray-800 text-white p-4 rounded-lg overflow-x-auto">
+                <code>{JSON.stringify(homeData, null, 2)}</code>
             </pre>
         </div>
     </div>
