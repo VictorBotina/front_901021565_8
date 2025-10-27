@@ -38,7 +38,7 @@ export function Hero(props: HeroProps) {
                     alt={heroImage.alt}
                     width={600}
                     height={400}
-                    className="aspect-video w-full object-cover"
+                    className="aspect-video w-full h-full object-cover"
                     priority
                     data-ai-hint={image ? undefined : defaultHeroImage.imageHint}
                 />
