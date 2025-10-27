@@ -31,6 +31,19 @@ export function Hero(props: HeroProps) {
     <section className="w-full py-12 md:py-24 lg:py-32">
       <div className="container px-4 md:px-6">
         <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 xl:gap-16">
+          <Card className="overflow-hidden rounded-xl shadow-lg">
+            <CardContent className="p-0">
+                <Image
+                    src={heroImage.src}
+                    alt={heroImage.alt}
+                    width={600}
+                    height={400}
+                    className="aspect-video w-full object-cover"
+                    priority
+                    data-ai-hint={image ? undefined : defaultHeroImage.imageHint}
+                />
+            </CardContent>
+          </Card>
           <div className="flex flex-col justify-center space-y-4">
             <div className="space-y-4">
                <h1 className="text-4xl font-extrabold tracking-tight text-title sm:text-5xl md:text-6xl"
@@ -63,19 +76,6 @@ export function Hero(props: HeroProps) {
                 )}
             </div>
           </div>
-          <Card className="overflow-hidden rounded-xl shadow-lg">
-            <CardContent className="p-0">
-                <Image
-                    src={heroImage.src}
-                    alt={heroImage.alt}
-                    width={600}
-                    height={400}
-                    className="aspect-video w-full object-cover"
-                    priority
-                    data-ai-hint={image ? undefined : defaultHeroImage.imageHint}
-                />
-            </CardContent>
-          </Card>
         </div>
       </div>
     </section>
