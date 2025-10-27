@@ -8,7 +8,7 @@ export type HeroProps = {
   title?: string;
   description?: string;
   image?: {
-    url: string;
+    url: string; // URL relativa o absoluta
     alt?: string;
     formats?: {
       thumbnail?: { url: string };
@@ -47,6 +47,7 @@ export function Hero(props: HeroProps) {
     <section className="w-full py-12 md:py-24 lg:py-32">
       <div className="container px-4 md:px-6">
         <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 xl:gap-16">
+          {/* Tarjeta con imagen */}
           <Card className="overflow-hidden rounded-xl shadow-lg">
             <CardContent className="p-0">
               <Image
@@ -56,11 +57,12 @@ export function Hero(props: HeroProps) {
                 height={400}
                 className="aspect-video w-full h-full object-cover"
                 priority
-                // Mantiene el hint si no hay imagen
                 data-ai-hint={image ? undefined : defaultHeroImage.imageHint}
               />
             </CardContent>
           </Card>
+
+          {/* Texto y botones */}
           <div className="flex flex-col justify-center space-y-4">
             <div className="space-y-4">
               <h1
@@ -74,6 +76,7 @@ export function Hero(props: HeroProps) {
                   "Innovación y compromiso al servicio de nuestros afiliados y prestadores."}
               </p>
             </div>
+
             <div className="flex flex-col gap-2 min-[400px]:flex-row">
               {primaryButton?.text ? (
                 <Button asChild size="lg">
@@ -84,6 +87,7 @@ export function Hero(props: HeroProps) {
                   <Link href="#">Portal Afiliados</Link>
                 </Button>
               )}
+
               {secondaryButton?.text ? (
                 <Button asChild size="lg" variant="secondary">
                   <Link href={secondaryButton.url || "#"}>{secondaryButton.text}</Link>
