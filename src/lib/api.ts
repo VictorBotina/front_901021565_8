@@ -4,6 +4,21 @@ import { stringify } from 'qs';
 const API_URL = process.env.NEXT_PUBLIC_STRAPI_API_URL;
 const API_TOKEN = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN;
 
+// Helper to construct absolute URL if it's relative
+const getStrapiURL = (path = "") => {
+  if (!API_URL) {
+    // This should not happen if the env var is set
+    return path;
+  }
+  // If the path is already an absolute URL, return it as is.
+  if (path.startsWith('http')) {
+    return path;
+  }
+  // Otherwise, construct the absolute URL.
+  return `${API_URL.replace('/api', '')}${path}`;
+};
+
+
 // Helper function to flatten the Strapi API response
 const flattenAttributes = (data: any): any => {
   if (!data) return null;
@@ -12,7 +27,11 @@ const flattenAttributes = (data: any): any => {
   if (data.id && data.attributes) {
     const flattened = { id: data.id, ...data.attributes };
     for (const key in flattened) {
-      flattened[key] = flattenAttributes(flattened[key]);
+      if (key === 'url' && typeof flattened[key] === 'string') {
+        flattened[key] = getStrapiURL(flattened[key]);
+      } else {
+        flattened[key] = flattenAttributes(flattened[key]);
+      }
     }
     return flattened;
   }
@@ -31,7 +50,11 @@ const flattenAttributes = (data: any): any => {
   if (typeof data === 'object' && !Array.isArray(data)) {
     const flattenedObj: { [key: string]: any } = {};
     for (const key in data) {
-      flattenedObj[key] = flattenAttributes(data[key]);
+       if (key === 'url' && typeof data[key] === 'string') {
+        flattenedObj[key] = getStrapiURL(data[key]);
+      } else {
+        flattenedObj[key] = flattenAttributes(data[key]);
+      }
     }
     return flattenedObj;
   }
