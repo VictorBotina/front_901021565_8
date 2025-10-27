@@ -27,11 +27,7 @@ const flattenAttributes = (data: any): any => {
   if (data.id && data.attributes) {
     const flattened = { id: data.id, ...data.attributes };
     for (const key in flattened) {
-      if (key === 'url' && typeof flattened[key] === 'string') {
-        flattened[key] = getStrapiURL(flattened[key]);
-      } else {
-        flattened[key] = flattenAttributes(flattened[key]);
-      }
+      flattened[key] = flattenAttributes(flattened[key]);
     }
     return flattened;
   }
@@ -47,7 +43,7 @@ const flattenAttributes = (data: any): any => {
   }
 
   // If it's a plain object (like attributes of a media file), recursively flatten its keys
-  if (typeof data === 'object' && !Array.isArray(data)) {
+  if (typeof data === 'object' && !Array.isArray(data) && data !== null) {
     const flattenedObj: { [key: string]: any } = {};
     for (const key in data) {
        if (key === 'url' && typeof data[key] === 'string') {
