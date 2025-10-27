@@ -9,7 +9,13 @@ export type HeroProps = {
   description?: string;
   image?: {
     url: string;
-    alt: string;
+    alt?: string;
+    formats?: {
+      thumbnail?: { url: string };
+      small?: { url: string };
+      medium?: { url: string };
+      large?: { url: string };
+    };
   };
   primaryButton?: {
     text: string;
@@ -25,7 +31,17 @@ export function Hero(props: HeroProps) {
   const { title, description, image, primaryButton, secondaryButton } = props;
 
   const defaultHeroImage = PlaceHolderImages[0];
-  const heroImage = image ? { src: image.url, alt: image.alt } : { src: defaultHeroImage.imageUrl, alt: defaultHeroImage.description };
+
+  // Construye la URL final priorizando medium si existe
+  const heroImage = image
+    ? {
+        src: image.formats?.medium?.url || image.url,
+        alt: image.alt || "Banner",
+      }
+    : {
+        src: defaultHeroImage.imageUrl,
+        alt: defaultHeroImage.description,
+      };
 
   return (
     <section className="w-full py-12 md:py-24 lg:py-32">
@@ -33,47 +49,50 @@ export function Hero(props: HeroProps) {
         <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 xl:gap-16">
           <Card className="overflow-hidden rounded-xl shadow-lg">
             <CardContent className="p-0">
-                <Image
-                    src={heroImage.src}
-                    alt={heroImage.alt}
-                    width={600}
-                    height={400}
-                    className="aspect-video w-full h-full object-cover"
-                    priority
-                    data-ai-hint={image ? undefined : defaultHeroImage.imageHint}
-                />
+              <Image
+                src={heroImage.src}
+                alt={heroImage.alt}
+                width={600}
+                height={400}
+                className="aspect-video w-full h-full object-cover"
+                priority
+                // Mantiene el hint si no hay imagen
+                data-ai-hint={image ? undefined : defaultHeroImage.imageHint}
+              />
             </CardContent>
           </Card>
           <div className="flex flex-col justify-center space-y-4">
             <div className="space-y-4">
-               <h1 className="text-4xl font-extrabold tracking-tight text-title sm:text-5xl md:text-6xl"
-                dangerouslySetInnerHTML={{ __html: title || "Servicios Digitales <br /> Accesibles para Todos" }}>
-              </h1>
+              <h1
+                className="text-4xl font-extrabold tracking-tight text-title sm:text-5xl md:text-6xl"
+                dangerouslySetInnerHTML={{
+                  __html: title || "Servicios Digitales <br /> Accesibles para Todos",
+                }}
+              />
               <p className="max-w-[600px] text-lg text-foreground/90 md:text-xl">
-                {description || "Innovación y compromiso al servicio de nuestros afiliados y prestadores."}
+                {description ||
+                  "Innovación y compromiso al servicio de nuestros afiliados y prestadores."}
               </p>
             </div>
             <div className="flex flex-col gap-2 min-[400px]:flex-row">
-                {primaryButton?.text && (
+              {primaryButton?.text ? (
                 <Button asChild size="lg">
-                    <Link href={primaryButton.url || "#"}>{primaryButton.text}</Link>
+                  <Link href={primaryButton.url || "#"}>{primaryButton.text}</Link>
                 </Button>
-                )}
-                {secondaryButton?.text && (
+              ) : (
+                <Button asChild size="lg">
+                  <Link href="#">Portal Afiliados</Link>
+                </Button>
+              )}
+              {secondaryButton?.text ? (
                 <Button asChild size="lg" variant="secondary">
-                    <Link href={secondaryButton.url || "#"}>{secondaryButton.text}</Link>
+                  <Link href={secondaryButton.url || "#"}>{secondaryButton.text}</Link>
                 </Button>
-                )}
-                {!primaryButton && (
-                    <Button asChild size="lg">
-                        <Link href="#">Portal Afiliados</Link>
-                    </Button>
-                )}
-                {!secondaryButton && (
-                    <Button asChild size="lg" variant="secondary">
-                        <Link href="#">Portal Prestadores</Link>
-                    </Button>
-                )}
+              ) : (
+                <Button asChild size="lg" variant="secondary">
+                  <Link href="#">Portal Prestadores</Link>
+                </Button>
+              )}
             </div>
           </div>
         </div>
