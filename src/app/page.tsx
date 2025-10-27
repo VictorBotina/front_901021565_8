@@ -16,10 +16,7 @@ type HomeData = {
     button_primary_url: string;
     button_secondary_text: string;
     button_secondary_url: string;
-    background_image?: {
-      url: string;
-      alternativeText?: string;
-    };
+    background_image?: string; // This will now be a string
   };
 };
 
@@ -36,8 +33,8 @@ export default async function Home() {
     title: homeData.banner.title,
     description: homeData.banner.description.map(d => d.children.map(c => c.text).join(' ')).join('\n'),
     image: homeData.banner.background_image ? {
-      url: homeData.banner.background_image.url,
-      alt: homeData.banner.background_image.alternativeText || homeData.banner.title,
+      url: homeData.banner.background_image,
+      alt: homeData.banner.title,
     } : undefined,
     primaryButton: {
       text: homeData.banner.button_primary_text,

@@ -42,15 +42,16 @@ const flattenAttributes = (data: any): any => {
     return flattenAttributes(data.data);
   }
 
-  // If it's a plain object (like attributes of a media file), recursively flatten its keys
+  // If it's a plain object that looks like a Strapi media object, just return its URL
+  if (typeof data === 'object' && data !== null && 'url' in data && 'width' in data && 'height' in data) {
+    return getStrapiURL(data.url);
+  }
+
+  // If it's a plain object (like attributes of a component), recursively flatten its keys
   if (typeof data === 'object' && !Array.isArray(data) && data !== null) {
     const flattenedObj: { [key: string]: any } = {};
     for (const key in data) {
-       if (key === 'url' && typeof data[key] === 'string') {
-        flattenedObj[key] = getStrapiURL(data[key]);
-      } else {
-        flattenedObj[key] = flattenAttributes(data[key]);
-      }
+      flattenedObj[key] = flattenAttributes(data[key]);
     }
     return flattenedObj;
   }
