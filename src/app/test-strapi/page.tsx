@@ -2,43 +2,39 @@
 
 import { useEffect, useState } from 'react';
 import { fetchFromStrapi } from '@/lib/api';
-import Link from 'next/link';
-import { Button } from '@/components/ui/button';
+import Image from "next/image";
+import { Badge } from "@/components/ui/badge";
+import { Hero } from '@/app/(home)/(sections)/Hero';
 
-// Tipado de la respuesta del Home
-type Banner = {
+// El tipo Post ahora refleja la estructura aplanada
+type Post = {
   id: number;
   title: string;
-  description: {
-    type: string;
-    children: { text: string; type: string }[];
-  }[];
-  button_primary_text: string;
-  button_primary_url: string;
-  button_secondary_text: string;
-  button_secondary_url: string;
+  description: string;
+  content: string;
+  slug: string;
+  cover?: {
+    url: string;
+    alternativeText?: string;
+  };
+  author?: {
+    name: string;
+  };
+  category?: {
+    name: string;
+  };
 };
 
-type HomeData = {
-  id: number;
-  banner: Banner;
-};
-
-export default function TestHomePage() {
-  const [home, setHome] = useState<HomeData | null>(null);
+export default function TestStrapiPage() {
+  const [posts, setPosts] = useState<Post[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Llamado al endpoint de Home. fetchFromStrapi devuelve un solo objeto o null para single types.
-        const fetchedHome: HomeData | null = await fetchFromStrapi('home', { populate: '*' });
-        
-        if (fetchedHome) {
-          setHome(fetchedHome);
-        } else {
-          setError('No se encontraron datos para la página de inicio.');
-        }
+        // Usamos populate: '*' para obtener todos los datos relacionados
+        const fetchedPosts: Post[] = await fetchFromStrapi('articles', { populate: '*' });
+        setPosts(fetchedPosts);
       } catch (err: any) {
         console.error('Error al conectar con Strapi:', err);
         setError(err.message || 'Error desconocido');
@@ -49,64 +45,64 @@ export default function TestHomePage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-black">
-      {/* Hero dinámico */}
-      {home && (
-        <section className="relative h-[60vh] min-h-[400px] w-full lg:h-[70vh] bg-gradient-to-b from-blue-100 to-white dark:from-gray-900 dark:to-black flex items-center">
-          <div className="container relative z-10 mx-auto flex h-full items-center px-4">
-            <div className="max-w-2xl text-left">
-              <h1 className="text-4xl font-extrabold tracking-tight text-title sm:text-5xl md:text-6xl">
-                {home.banner.title}
-              </h1>
+    <>
+      <Hero />
+      <div className="flex flex-col items-center py-16 px-6 bg-zinc-50 dark:bg-black min-h-screen">
+        <h1 className="text-3xl font-bold mb-8 text-black dark:text-zinc-50">
+          Prueba de Conexión y Visualización de Strapi
+        </h1>
 
-              <div className="mt-4 space-y-2 text-foreground/90 md:text-lg">
-                {home.banner.description.map((block, i) =>
-                  block.children.map((child, j) => <p key={`${i}-${j}`}>{child.text}</p>)
-                )}
-              </div>
+        {error && <p className="text-red-500">Error: {error}</p>}
+        
+        {!error && !posts.length && <p>Cargando datos desde Strapi...</p>}
 
-              <div className="mt-8 flex gap-4">
-                {home.banner.button_primary_text && (
-                  <Button asChild size="lg">
-                    <Link href={home.banner.button_primary_url || '#'}>
-                      {home.banner.button_primary_text}
-                    </Link>
-                  </Button>
-                )}
-                {home.banner.button_secondary_text && (
-                  <Button asChild size="lg" variant="secondary">
-                    <Link href={home.banner.button_secondary_url || '#'}>
-                      {home.banner.button_secondary_text}
-                    </Link>
-                  </Button>
+        {/* Renderizado visual */}
+        <div className="w-full max-w-5xl grid gap-8 md:grid-cols-2 lg:grid-cols-3 mb-12">
+          {posts.map((post) => (
+            <div key={post.id} className="flex flex-col overflow-hidden rounded-lg border bg-card text-card-foreground shadow-lg">
+              {post.cover?.url && (
+                <div className="relative h-48 w-full">
+                  <Image
+                    src={post.cover.url}
+                    alt={post.cover.alternativeText || post.title}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              )}
+              <div className="flex flex-1 flex-col p-6">
+                <div className="flex-1">
+                  {post.category && (
+                    <Badge variant="secondary" className="mb-2">{post.category.name}</Badge>
+                  )}
+                  <h3 className="text-xl font-bold mb-2">{post.title}</h3>
+                  <p className="text-muted-foreground mb-4 line-clamp-3">{post.description}</p>
+                   <p className="text-sm text-muted-foreground">
+                      <span className="font-semibold">Slug:</span> {post.slug}
+                  </p>
+                </div>
+                {post.author && (
+                  <div className="mt-4 border-t pt-4">
+                    <p className="text-sm font-medium text-muted-foreground">
+                      Autor: {post.author.name}
+                    </p>
+                  </div>
                 )}
               </div>
             </div>
-          </div>
-        </section>
-      )}
-
-      {/* Mensajes de carga o error */}
-      {!home && !error && (
-        <p className="p-8 text-center text-lg text-muted-foreground">
-          Cargando sección principal...
-        </p>
-      )}
-      {error && (
-        <p className="p-8 text-center text-red-500">
-          Error al cargar Home: {error}
-        </p>
-      )}
-
-      {/* Datos crudos JSON */}
-      {home && (
-        <div className="w-full max-w-3xl mx-auto mt-12 p-4 bg-white dark:bg-zinc-900 rounded-lg shadow-md">
-          <h2 className="text-2xl font-bold mb-4">Datos Crudos (JSON)</h2>
-          <pre className="bg-gray-800 text-white p-4 rounded-md overflow-x-auto">
-            {JSON.stringify(home, null, 2)}
-          </pre>
+          ))}
         </div>
-      )}
-    </div>
+        
+        {/* Vista de datos crudos (JSON aplanado) */}
+        {posts.length > 0 && (
+          <div className="w-full max-w-3xl mt-8">
+              <h2 className="text-2xl font-bold mb-4">Datos Crudos (JSON Aplanado)</h2>
+              <pre className="bg-gray-800 text-white p-4 rounded-md overflow-x-auto">
+                  {JSON.stringify(posts, null, 2)}
+              </pre>
+          </div>
+        )}
+      </div>
+    </>
   );
 }
