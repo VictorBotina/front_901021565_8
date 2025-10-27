@@ -2,6 +2,7 @@
 
 import { Hero, type HeroProps } from "@/app/(home)/(sections)/Hero";
 import { fetchFromStrapi } from "@/lib/api";
+import { InfoCards } from "@/app/(home)/(sections)/InfoCards";
 
 type HomeData = {
   banner: {
@@ -45,6 +46,7 @@ export default async function Home() {
   return (
     <>
       <Hero {...heroProps} />
+      <InfoCards />
     </>
   );
 }
