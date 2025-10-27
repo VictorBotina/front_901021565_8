@@ -24,36 +24,32 @@ export type HeroProps = {
 export function Hero(props: HeroProps) {
   const { title, description, image, primaryButton, secondaryButton } = props;
 
-  const defaultHeroImage = PlaceHolderImages[0];
-
   const heroImage = image
     ? {
         src: image.url,
         alt: image.alt || "Banner",
       }
-    : {
-        src: defaultHeroImage.imageUrl,
-        alt: defaultHeroImage.description,
-      };
+    : null;
 
   return (
     <section className="w-full py-12 md:py-24 lg:py-32">
       <div className="container px-4 md:px-6">
         <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 xl:gap-16">
           {/* Tarjeta con imagen */}
-          <Card className="overflow-hidden rounded-xl shadow-lg">
-            <CardContent className="p-0">
-              <Image
-                src={heroImage.src}
-                alt={heroImage.alt}
-                width={600}
-                height={400}
-                className="aspect-video w-full h-full object-cover"
-                priority
-                data-ai-hint={image ? undefined : defaultHeroImage.imageHint}
-              />
-            </CardContent>
-          </Card>
+          {heroImage && (
+            <Card className="overflow-hidden rounded-xl shadow-lg">
+              <CardContent className="p-0">
+                <Image
+                  src={heroImage.src}
+                  alt={heroImage.alt}
+                  width={600}
+                  height={400}
+                  className="aspect-video w-full h-full object-cover"
+                  priority
+                />
+              </CardContent>
+            </Card>
+          )}
 
           {/* Texto y botones */}
           <div className="flex flex-col justify-center space-y-4">
