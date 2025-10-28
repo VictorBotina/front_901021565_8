@@ -23,16 +23,10 @@ import {
 } from "@/components/ui/navigation-menu";
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
-import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
-import Autoplay from "embla-carousel-autoplay";
 
 export function MainNavigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   const [searchDialogOpen, setSearchDialogOpen] = React.useState(false);
-  
-  const plugin = React.useRef(
-    Autoplay({ delay: 2000, stopOnInteraction: true })
-  );
 
   const navigationLinks = [
     { href: "/afiliados/subsidiado", text: "Régimen Subsidiado", description: "Accede a servicios de salud de calidad sin costo." },
@@ -63,29 +57,24 @@ export function MainNavigation() {
                     </NavigationMenuLink>
                   </Link>
                   <NavigationMenuContent>
-                    <div className="w-[80px] h-[80px]">
-                      <Carousel
-                        plugins={[plugin.current]}
-                        className="w-full h-full"
-                        onMouseEnter={plugin.current.stop}
-                        onMouseLeave={plugin.current.reset}
-                      >
-                        <CarouselContent>
-                          {Array.from({ length: 3 }).map((_, index) => (
-                            <CarouselItem key={index}>
-                              <Link href={link.href}>
-                                  <Image
-                                    src="/images/sign/main-menu/hola.png"
-                                    alt={`Imagen para ${link.text} ${index + 1}`}
-                                    fill
-                                    className="object-cover rounded-md"
-                                  />
-                              </Link>
-                            </CarouselItem>
-                          ))}
-                        </CarouselContent>
-                      </Carousel>
-                    </div>
+                    <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-3 lg:w-[600px] ">
+                      {Array.from({ length: 3 }).map((_, index) => (
+                        <ListItem
+                          key={index}
+                          href={link.href}
+                          title={`${link.text} ${index + 1}`}
+                        >
+                           <div className="relative aspect-square w-full overflow-hidden rounded-md">
+                            <Image
+                              src="/images/sign/main-menu/hola.png"
+                              alt={`Imagen para ${link.text} ${index + 1}`}
+                              fill
+                              className="object-cover"
+                            />
+                          </div>
+                        </ListItem>
+                      ))}
+                    </ul>
                   </NavigationMenuContent>
                 </NavigationMenuItem>
               ))}
@@ -156,10 +145,7 @@ const ListItem = React.forwardRef<
           )}
           {...props}
         >
-          <div className="text-sm font-medium leading-none">{title}</div>
-          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-            {children}
-          </p>
+          {children}
         </a>
       </NavigationMenuLink>
     </li>
