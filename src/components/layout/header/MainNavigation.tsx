@@ -63,10 +63,10 @@ export function MainNavigation() {
                     </NavigationMenuLink>
                   </Link>
                   <NavigationMenuContent>
-                    <div className="p-4 w-[400px] lg:w-[500px]">
+                    <div className="w-[80px] h-[80px]">
                       <Carousel
                         plugins={[plugin.current]}
-                        className="w-full"
+                        className="w-full h-full"
                         onMouseEnter={plugin.current.stop}
                         onMouseLeave={plugin.current.reset}
                       >
@@ -77,9 +77,8 @@ export function MainNavigation() {
                                   <Image
                                     src="/images/sign/main-menu/hola.png"
                                     alt={`Imagen para ${link.text} ${index + 1}`}
-                                    width={500}
-                                    height={281}
-                                    className="h-auto w-full object-contain rounded-md"
+                                    fill
+                                    className="object-cover rounded-md"
                                   />
                               </Link>
                             </CarouselItem>
