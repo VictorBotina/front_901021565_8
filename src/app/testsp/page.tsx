@@ -14,6 +14,15 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
+type CardData = {
+  id: number;
+  title: string;
+  description: { type: string, children: { text: string }[] }[];
+  buttonText: string;
+  buttonLink: string;
+  icon: string;
+};
+
 type HomeData = {
   banner: {
     id: number;
@@ -28,11 +37,12 @@ type HomeData = {
     button_secondary_url: string;
     image?: string; 
   };
+  cards?: CardData[];
 };
 
 export default function TestSpPage() {
   const [homeData, setHomeData] = React.useState<HomeData | null>(null);
-  const [strapiEndpoint, setStrapiEndpoint] = React.useState<string>('home?populate[banner][populate]=*');
+  const [strapiEndpoint, setStrapiEndpoint] = React.useState<string>('home?populate[banner][populate]=*&populate[cards]=*');
   const [apiResponse, setApiResponse] = React.useState<any>(null);
 
   React.useEffect(() => {
@@ -42,6 +52,9 @@ export default function TestSpPage() {
           banner: {
             populate: '*',
           },
+          cards: {
+            populate: '*',
+          }
         },
       });
       setHomeData(data);
@@ -55,9 +68,12 @@ export default function TestSpPage() {
       return;
     }
     try {
-      // Usamos fetchFromStrapi para la consulta dinámica
       const data = await fetchFromStrapi(strapiEndpoint);
       setApiResponse(data);
+      // If the fetched data is for the home page, update the homeData state
+      if (strapiEndpoint.startsWith('home')) {
+        setHomeData(data as HomeData);
+      }
     } catch (error) {
       console.error("Error fetching from Strapi:", error);
       if (error instanceof Error) {
@@ -123,7 +139,7 @@ export default function TestSpPage() {
       </div>
 
       <Hero {...heroProps} />
-      <InfoCards />
+      <InfoCards cards={homeData?.cards} />
     </>
   );
 }

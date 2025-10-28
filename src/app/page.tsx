@@ -16,8 +16,16 @@ type HomeData = {
     button_primary_url: string;
     button_secondary_text: string;
     button_secondary_url: string;
-    image?: string; // This field name is corrected from background_image to image
+    image?: string;
   };
+  cards: {
+    id: number;
+    title: string;
+    description: { type: string, children: { text: string }[] }[];
+    buttonText: string;
+    buttonLink: string;
+    icon: string;
+  }[];
 };
 
 export default async function Home() {
@@ -26,6 +34,9 @@ export default async function Home() {
       banner: {
         populate: '*',
       },
+      cards: {
+        populate: '*',
+      }
     },
   });
 
@@ -33,7 +44,7 @@ export default async function Home() {
     title: homeData.banner.title,
     description: homeData.banner.description.map(d => d.children.map(c => c.text).join(' ')).join('\n'),
     image: homeData.banner.image ? {
-      url: homeData.banner.image, // Corrected to use .image
+      url: homeData.banner.image,
       alt: homeData.banner.title,
     } : undefined,
     primaryButton: {
@@ -49,7 +60,7 @@ export default async function Home() {
   return (
     <>
       <Hero {...heroProps} />
-      <InfoCards />
+      <InfoCards cards={homeData?.cards} />
     </>
   );
 }
