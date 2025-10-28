@@ -25,7 +25,7 @@ type HomeData = {
   };
 };
 
-export default async function TestStrapiPage() {
+export default async function TestSpPage() {
     const homeData: HomeData | null = await fetchFromStrapi('home', {
         populate: {
           banner: {
