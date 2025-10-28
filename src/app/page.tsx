@@ -4,6 +4,7 @@ import { Hero, type HeroProps } from "@/app/(home)/(sections)/Hero";
 import { fetchFromStrapi } from "@/lib/api";
 import { InfoCards } from "@/app/(home)/(sections)/InfoCards";
 import { FeedbackSection } from "@/app/(home)/(sections)/FeedbackSection";
+import { Footer } from "@/components/layout/footer/Footer";
 
 type HomeData = {
   banner: {
@@ -39,15 +40,9 @@ type HomeData = {
 export default async function Home() {
   const homeData: HomeData | null = await fetchFromStrapi('home', {
     populate: {
-      banner: {
-        populate: '*',
-      },
-      cards: {
-        populate: '*',
-      },
-      feedback: {
-        populate: '*',
-      }
+      banner: { populate: '*' },
+      cards: { populate: '*' },
+      feedback: { populate: '*' },
     },
   });
 

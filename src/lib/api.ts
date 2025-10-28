@@ -63,29 +63,14 @@ const flattenAttributes = (data: any): any => {
 const fetchFromStrapi = async (endpoint: string, params: Record<string, any> = {}) => {
   if (!API_URL || !API_TOKEN) {
     console.error("Strapi URL or Token is not configured in environment variables.");
-    return []; 
+    return null; 
   }
 
-  // Handle complex endpoints with query strings for the test page
-  // This allows passing 'articles?populate=*' directly
-  const [path, queryStringFromEndpoint] = endpoint.split('?');
-  
-  // Use default populate if no specific populate is in params or endpoint query
-  const defaultPopulate = { populate: '*' };
-  const hasPopulate = (queryStringFromEndpoint && queryStringFromEndpoint.includes('populate')) || params.populate;
-
-  const mergedParams = hasPopulate ? params : { ...defaultPopulate, ...params };
-
-  const queryStringFromParams = stringify(mergedParams, {
-    encodeValuesOnly: true,
+  const queryString = stringify(params, {
+    encodeValuesOnly: false, // Do not encode brackets
   });
-
-  // Combine query strings if both exist
-  const finalQueryString = [queryStringFromEndpoint, queryStringFromParams]
-    .filter(Boolean)
-    .join('&');
     
-  const finalUrl = `${API_URL}/${path}${finalQueryString ? `?${finalQueryString}` : ''}`;
+  const finalUrl = `${API_URL}/${endpoint}${queryString ? `?${queryString}` : ''}`;
   
 
   try {
@@ -95,18 +80,14 @@ const fetchFromStrapi = async (endpoint: string, params: Record<string, any> = {
       },
     });
     
-    const isSingleType = res.data.data && !Array.isArray(res.data.data);
     const flattenedData = flattenAttributes(res.data);
     
-    if (isSingleType) {
-        return flattenedData ?? null;
-    }
-
-    return Array.isArray(flattenedData) ? flattenedData : (flattenedData ? [flattenedData] : []);
+    return flattenedData;
 
   } catch (error) {
     console.error(`Error fetching from Strapi endpoint: ${finalUrl}`, error);
-    return []; 
+    // Return null instead of an empty array to distinguish between "no data" and "an error occurred"
+    return null; 
   }
 };
 

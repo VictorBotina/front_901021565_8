@@ -40,15 +40,9 @@ type HomeData = {
 export default async function Home() {
   const homeData: HomeData | null = await fetchFromStrapi('home', {
     populate: {
-      banner: {
-        populate: '*',
-      },
-      cards: {
-        populate: '*',
-      },
-      feedback: {
-        populate: '*',
-      }
+      banner: { populate: '*' },
+      cards: { populate: '*' },
+      feedback: { populate: '*' },
     },
   });
 

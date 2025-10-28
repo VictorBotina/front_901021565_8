@@ -1,53 +1,62 @@
 import Link from "next/link";
 import { Logo } from "@/components/logo";
 import { FacebookIcon, TwitterIcon, LinkedinIcon, InstagramIcon } from "@/components/icons/SocialIcons";
+import { fetchFromStrapi } from "@/lib/api";
+import { FooterRow1, type FooterRow1Data } from "./FooterRow1";
+import { FooterRow2, type FooterRow2Data } from "./FooterRow2";
+import { FooterRow3, type FooterRow3Data } from "./FooterRow3";
+import { FooterRow4, type FooterRow4Data } from "./FooterRow4";
 
-export function Footer() {
+export type FooterProps = {
+  data?: {
+    row1?: FooterRow1Data;
+    row2?: FooterRow2Data;
+    row3?: FooterRow3Data;
+    row4?: FooterRow4Data;
+  }
+}
+
+export async function Footer() {
+  const footerContainer = await fetchFromStrapi('home', {
+    populate: {
+      footer: { 
+        populate: {
+          row1: { populate: { subdivisions: true } },
+          row2: { populate: { subdivisions: true } },
+          row3: { populate: { accordions: { populate: 'links' } } },
+          row4: { populate: { accordions: { populate: 'links' } } }
+        }
+      },
+    },
+  });
+
+  const data = footerContainer?.footer;
+
+  if (!data) {
+    return (
+      <footer className="border-t bg-secondary/40">
+        <div className="container mx-auto px-4 py-8 text-center">
+          <p className="text-muted-foreground">No se pudo cargar la información del pie de página.</p>
+        </div>
+      </footer>
+    );
+  }
+
   return (
     <footer className="border-t bg-secondary/40">
       <div className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
-          <div className="flex flex-col items-start">
-            <Link href="/" className="mb-4 flex items-center space-x-2">
-              <Logo className="h-8 w-8" />
-              <span className="font-bold">Entidad Digital</span>
-            </Link>
-            <p className="text-sm text-muted-foreground">
-              Comprometidos con el bienestar de nuestros afiliados y la excelencia de nuestros prestadores.
-            </p>
-          </div>
-
-          <div>
-            <h3 className="mb-4 text-base font-semibold text-foreground">Navegación</h3>
-            <ul className="space-y-2 text-sm">
-              <li><Link href="#" className="text-muted-foreground hover:text-primary">Afiliados</Link></li>
-              <li><Link href="#" className="text-muted-foreground hover:text-primary">Prestadores</Link></li>
-              <li><Link href="#" className="text-muted-foreground hover:text-primary">Normatividad</Link></li>
-              <li><Link href="#" className="text-muted-foreground hover:text-primary">Transparencia</Link></li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="mb-4 text-base font-semibold text-foreground">Legal</h3>
-            <ul className="space-y-2 text-sm">
-              <li><Link href="#" className="text-muted-foreground hover:text-primary">Política de Privacidad</Link></li>
-              <li><Link href="#" className="text-muted-foreground hover:text-primary">Términos y Condiciones</Link></li>
-              <li><Link href="#" className="text-muted-foreground hover:text-primary">Política de Cookies</Link></li>
-            </ul>
-          </div>
-          
-          <div>
-            <h3 className="mb-4 text-base font-semibold text-foreground">Contacto</h3>
-            <address className="not-italic text-sm text-muted-foreground">
-              <p>Dirección: Calle Falsa 123, Ciudad</p>
-              <p>Teléfono: (123) 456-7890</p>
-              <p>Email: contacto@entidaddigital.gov.co</p>
-            </address>
-          </div>
-        </div>
         
+        {data.row1 && <FooterRow1 data={data.row1} />}
+        {data.row2 && <FooterRow2 data={data.row2} />}
+        {data.row3 && <FooterRow3 data={data.row3} />}
+        {data.row4 && <FooterRow4 data={data.row4} />}
+
         <div className="mt-8 flex flex-col items-center justify-between border-t pt-8 sm:flex-row">
-          <p className="text-sm text-muted-foreground">
+          <div className="flex items-center space-x-2">
+            <Logo className="h-8 w-8" />
+            <span className="font-bold">Entidad Digital</span>
+          </div>
+          <p className="text-sm text-muted-foreground mt-4 sm:mt-0">
             © {new Date().getFullYear()} Entidad Digital. Todos los derechos reservados.
           </p>
           <div className="mt-4 flex space-x-4 sm:mt-0">
