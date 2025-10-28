@@ -7,6 +7,12 @@ import { InfoCards } from "@/app/(home)/(sections)/InfoCards";
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 type HomeData = {
   banner: {
@@ -99,12 +105,18 @@ export default function TestSpPage() {
               <Button onClick={handleFetch}>Consultar</Button>
             </div>
             {apiResponse && (
-              <div className="mt-4 rounded-lg bg-muted/50 p-4">
-                <h3 className="text-lg font-semibold mb-2">API Response:</h3>
-                <pre className="text-sm overflow-auto max-h-96">
-                  {JSON.stringify(apiResponse, null, 2)}
-                </pre>
-              </div>
+              <Accordion type="single" collapsible className="w-full mt-4">
+                <AccordionItem value="item-1">
+                  <AccordionTrigger>API Response:</AccordionTrigger>
+                  <AccordionContent>
+                    <div className="rounded-lg bg-muted/50 p-4">
+                      <pre className="text-sm overflow-auto max-h-96">
+                        {JSON.stringify(apiResponse, null, 2)}
+                      </pre>
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
             )}
           </CardContent>
         </Card>
