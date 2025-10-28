@@ -6,9 +6,9 @@
   :root {
     --background: 0 0% 95%; /* #F2F2F2 */
     --foreground: 0 0% 15%; /* #262626 */
-    --card: 0 0% 95%;
+    --card: 0 0% 100%;
     --card-foreground: 0 0% 15%;
-    --popover: 0 0% 95%;
+    --popover: 0 0% 100%;
     --popover-foreground: 0 0% 15%;
     --primary: 79 53% 45%; /* #92B53C */
     --primary-foreground: 0 0% 100%;
