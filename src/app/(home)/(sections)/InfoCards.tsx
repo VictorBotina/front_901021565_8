@@ -1,4 +1,3 @@
-
 import {
   Card,
   CardContent,
@@ -7,30 +6,10 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Briefcase, HeartHandshake, Stethoscope } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
-type CardInfo = {
-  id?: number;
-  title: string;
-  description: string | { type: string, children: { text: string }[] }[];
-  buttonText: string;
-  buttonLink: string;
-  icon?: string;
-  iconName?: string;
-  imageUrl?: string;
-};
-
-type InfoCardsProps = {
-  cards?: CardInfo[];
-};
-
-
-export function InfoCards({ cards }: InfoCardsProps) {
-  // Los datos de la API (props.cards) se ignorarán para la renderización de estas 3 tarjetas.
-  // Se usarán los datos estáticos para asegurar consistencia.
-
+export function InfoCards() {
   const staticCardData = [
     {
       title: "Régimen Subsidiado",

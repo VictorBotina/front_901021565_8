@@ -17,10 +17,6 @@ type FeedbackItem = {
   icon?: string;
 };
 
-type FeedbackSectionProps = {
-  feedbackItems?: FeedbackItem[];
-};
-
 const defaultFeedbackItems: FeedbackItem[] = [
   {
     id: 1,
@@ -43,8 +39,8 @@ const icons: { [key: string]: React.ElementType } = {
   pqrs: MessageSquareWarning,
 };
 
-export function FeedbackSection({ feedbackItems }: FeedbackSectionProps) {
-  const itemsToRender = feedbackItems && feedbackItems.length > 0 ? feedbackItems : defaultFeedbackItems;
+export function FeedbackSection() {
+  const itemsToRender = defaultFeedbackItems;
 
   return (
     <section className="py-12 lg:py-24 bg-background">
