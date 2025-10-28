@@ -49,11 +49,7 @@ export function MainNavigation() {
             <NavigationMenuList>
               {navigationLinks.map((link) => (
                 <NavigationMenuItem key={link.href}>
-                  <Link href={link.href} passHref>
-                    <NavigationMenuTrigger className={navigationMenuTriggerStyle()}>
-                      {link.text}
-                    </NavigationMenuTrigger>
-                  </Link>
+                  <NavigationMenuTrigger>{link.text}</NavigationMenuTrigger>
                   <NavigationMenuContent>
                     <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px]">
                       <ListItem href={link.href} title={link.text}>
