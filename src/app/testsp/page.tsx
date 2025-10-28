@@ -1,6 +1,7 @@
 'use client';
 
 import * as React from 'react';
+import Image from 'next/image';
 import { Hero, type HeroProps } from "@/app/(home)/(sections)/Hero";
 import { fetchFromStrapi } from "@/lib/api";
 import { InfoCards } from "@/app/(home)/(sections)/InfoCards";
@@ -134,6 +135,26 @@ export default function TestSpPage() {
                 </AccordionItem>
               </Accordion>
             )}
+          </CardContent>
+        </Card>
+      </div>
+
+      <div className="container mx-auto px-4 py-8">
+        <Card>
+          <CardHeader>
+            <CardTitle>Visualización de SVG</CardTitle>
+            <CardDescription>Esta sección muestra la imagen SVG de forma aislada.</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="flex justify-center items-center p-4 border rounded-lg">
+                <Image
+                    src="/images/img-sub/ico_subsidiado.svg"
+                    alt="Icono Régimen Subsidiado"
+                    width={100}
+                    height={100}
+                    className="h-[100px] w-[100px]"
+                />
+            </div>
           </CardContent>
         </Card>
       </div>
