@@ -12,11 +12,11 @@ import Image from "next/image";
 
 const staticCardData = [
   {
-    imageUrl: "/images/img-sub/ico_subsidiado.svg",
     title: "Régimen Subsidiado",
     description: "Accede a servicios de salud de calidad sin costo, garantizando tu bienestar y el de tu familia.",
     buttonText: "Conoce más",
     buttonLink: "/afiliados/subsidiado",
+    imageUrl: "/images/img-sub/ico_subsidiado.svg",
   },
   {
     iconName: "Briefcase",
@@ -86,7 +86,15 @@ export function InfoCards({ cards }: InfoCardsProps) {
              return (
               <Card key={card.id || index} className="flex flex-col text-center items-center">
                 <CardHeader className="items-center">
-                  {card.imageUrl ? (
+                  {card.title === "Régimen Subsidiado" ? (
+                    <Image
+                      src="/images/img-sub/ico_subsidiado.svg"
+                      alt="Icono Régimen Subsidiado"
+                      width={100}
+                      height={100}
+                      className="h-[100px] w-[100px]"
+                    />
+                  ) : card.imageUrl ? (
                     <Image
                       src={card.imageUrl}
                       alt={`${card.title} icon`}
