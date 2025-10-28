@@ -14,21 +14,24 @@ import { ContrastSwitcher } from './ContrastSwitcher';
 import { FontSizeControl } from './FontSizeControl';
 import {
   NavigationMenu,
+  NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu"
+  NavigationMenuTrigger,
+} from "@/components/ui/navigation-menu";
+import { cn } from '@/lib/utils';
+import Image from 'next/image';
 
 export function MainNavigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   const [searchDialogOpen, setSearchDialogOpen] = React.useState(false);
 
   const navigationLinks = [
-    { href: "/afiliados/subsidiado", text: "Régimen Subsidiado" },
-    { href: "/afiliados/contributivo", text: "Régimen Contributivo" },
-    { href: "/prestadores", text: "Prestadores" },
-    { href: "/blog", text: "Blog" },
+    { href: "/afiliados/subsidiado", text: "Régimen Subsidiado", description: "Accede a servicios de salud de calidad sin costo." },
+    { href: "/afiliados/contributivo", text: "Régimen Contributivo", description: "Cobertura completa para ti y tus beneficiarios." },
+    { href: "/prestadores", text: "Prestadores", description: "Gestiona convenios, facturación y autorizaciones." },
+    { href: "/blog", text: "Blog", description: "Mantente al día con nuestras últimas noticias y artículos." },
   ];
   
   return (
@@ -45,11 +48,17 @@ export function MainNavigation() {
             <NavigationMenuList>
               {navigationLinks.map((link) => (
                 <NavigationMenuItem key={link.href}>
-                  <NavigationMenuLink asChild>
-                    <Link href={link.href} className={navigationMenuTriggerStyle()}>
-                      {link.text}
-                    </Link>
-                  </NavigationMenuLink>
+                  <NavigationMenuTrigger>{link.text}</NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px]">
+                      <ListItem href={link.href} title={link.text}>
+                        <div className='flex flex-col justify-center items-center space-y-2'>
+                          <Image src="/images/sign/main-menu/hola.png" alt={`Imagen para ${link.text}`} width={100} height={100} />
+                          <span className='text-sm text-center text-muted-foreground'>{link.description}</span>
+                        </div>
+                      </ListItem>
+                    </ul>
+                  </NavigationMenuContent>
                 </NavigationMenuItem>
               ))}
             </NavigationMenuList>
@@ -103,3 +112,29 @@ export function MainNavigation() {
     </>
   );
 }
+
+const ListItem = React.forwardRef<
+  React.ElementRef<"a">,
+  React.ComponentPropsWithoutRef<"a">
+>(({ className, title, children, ...props }, ref) => {
+  return (
+    <li>
+      <NavigationMenuLink asChild>
+        <a
+          ref={ref}
+          className={cn(
+            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+            className
+          )}
+          {...props}
+        >
+          <div className="text-sm font-medium leading-none">{title}</div>
+          <div className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+            {children}
+          </div>
+        </a>
+      </NavigationMenuLink>
+    </li>
+  )
+})
+ListItem.displayName = "ListItem"
