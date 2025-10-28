@@ -1,22 +1,34 @@
 import Link from "next/link";
 import { Logo } from "@/components/logo";
 import { FacebookIcon, TwitterIcon, LinkedinIcon, InstagramIcon } from "@/components/icons/SocialIcons";
-import { FooterRow1, type FooterRow1Data } from "./FooterRow1";
-import { FooterRow2, type FooterRow2Data } from "./FooterRow2";
-import { FooterRow3, type FooterRow3Data } from "./FooterRow3";
-import { FooterRow4, type FooterRow4Data } from "./FooterRow4";
+import { Button } from "@/components/ui/button";
+import { FooterAccordion } from "./FooterAccordion";
 
-export type FooterProps = {
-  data?: {
-    row1?: FooterRow1Data;
-    row2?: FooterRow2Data;
-    row3?: FooterRow3Data;
-    row4?: FooterRow4Data;
-  }
-}
+type FooterData = {
+  row1: {
+    id: number;
+    title: string;
+    subdivisions: { id: number; title: string; content: string }[];
+  };
+  row2: {
+    id: number;
+    title: string;
+    subdivisions: { id: number; title: string; description: string; button_text: string; button_link: string }[];
+  };
+  row3: {
+    id: number;
+    title: string;
+    accordions: { id: number; title: string; links: { id: number; label: string; url: string }[] }[];
+  };
+  row4: {
+    id: number;
+    title: string;
+    accordions: { id: number; title: string; links: { id: number; label: string; url: string }[] }[];
+  };
+};
 
 export function Footer() {
-  const data = {
+  const data: FooterData = {
     row1: {
       id: 1,
       title: "Líneas de atención al usuario",
@@ -58,26 +70,64 @@ export function Footer() {
     }
   };
 
-  if (!data) {
-    return (
-      <footer className="border-t bg-secondary/40">
-        <div className="container mx-auto px-4 py-8 text-center">
-          <p className="text-muted-foreground">No se pudo cargar la información del pie de página.</p>
-        </div>
-      </footer>
-    );
-  }
-
+  const renderContent = (content: string) => {
+    return content.split('\n').map((line, index) => (
+      <span key={index} className="block">{line}</span>
+    ));
+  };
+  
   return (
     <footer className="border-t bg-secondary/40">
       <div className="container mx-auto px-4 py-8">
         
-        {data.row1 && <FooterRow1 data={data.row1} />}
-        {data.row2 && <FooterRow2 data={data.row2} />}
-        {data.row3 && <FooterRow3 data={data.row3} />}
-        {data.row4 && <FooterRow4 data={data.row4} />}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8 pb-8 border-b">
+          {/* Row 1 */}
+          <div>
+            <h3 className="mb-6 text-xl font-bold text-title">{data.row1.title}</h3>
+            <div className="grid grid-cols-1 gap-8">
+              {data.row1.subdivisions.map((item) => (
+                <div key={item.id} className="text-sm">
+                  <h4 className="font-semibold text-foreground mb-2">{item.title}</h4>
+                  <div className="text-muted-foreground space-y-1">
+                    {renderContent(item.content)}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          
+          {/* Row 2 */}
+          <div>
+            <h3 className="mb-6 text-xl font-bold text-title">{data.row2.title}</h3>
+            <div className="grid grid-cols-1 gap-8">
+              {data.row2.subdivisions.map((item) => (
+                <div key={item.id} className="text-sm">
+                  <h4 className="font-semibold text-foreground mb-2">{item.title}</h4>
+                  {item.description && <p className="text-muted-foreground mb-4">{item.description}</p>}
+                  {item.button_text && item.button_link && (
+                    <Button asChild variant="outline" size="sm">
+                      <Link href={item.button_link}>{item.button_text}</Link>
+                    </Button>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+          
+          {/* Row 3 */}
+          <div>
+            <h3 className="mb-4 text-xl font-bold text-title">{data.row3.title}</h3>
+            <FooterAccordion accordions={data.row3.accordions} />
+          </div>
 
-        <div className="mt-8 flex flex-col items-center justify-between border-t pt-8 sm:flex-row">
+          {/* Row 4 */}
+          <div>
+            <h3 className="mb-4 text-xl font-bold text-title">{data.row4.title}</h3>
+            <FooterAccordion accordions={data.row4.accordions} />
+          </div>
+        </div>
+
+        <div className="mt-8 flex flex-col items-center justify-between sm:flex-row">
           <div className="flex items-center space-x-2">
             <Logo className="h-8 w-8" />
             <span className="font-bold">Entidad Digital</span>
