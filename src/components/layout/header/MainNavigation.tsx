@@ -21,7 +21,8 @@ import {
 } from "@/components/ui/navigation-menu"
 
 export function MainNavigation() {
-  const [open, setOpen] = React.useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
+  const [searchDialogOpen, setSearchDialogOpen] = React.useState(false);
 
   const navigationLinks = [
     { href: "/afiliados/subsidiado", text: "Régimen Subsidiado" },
@@ -56,7 +57,7 @@ export function MainNavigation() {
         </div>
 
         <div className="flex flex-1 items-center justify-end space-x-1 md:flex-none">
-          <Dialog>
+          <Dialog open={searchDialogOpen} onOpenChange={setSearchDialogOpen}>
             <DialogTrigger asChild>
               <Button variant="outline">Accesos rapidos</Button>
             </DialogTrigger>
@@ -67,7 +68,7 @@ export function MainNavigation() {
                         Navega rápidamente a la sección que necesites o utiliza el buscador.
                     </DialogDescription>
                 </DialogHeader>
-              <SearchCommand />
+              <SearchCommand onSelect={() => setSearchDialogOpen(false)} />
             </DialogContent>
           </Dialog>
           
@@ -75,7 +76,7 @@ export function MainNavigation() {
           <ContrastSwitcher />
           <FontSizeControl />
 
-          <Sheet open={open} onOpenChange={setOpen}>
+          <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" className="md:hidden">
                 <Menu />
@@ -89,7 +90,7 @@ export function MainNavigation() {
               <div className="mt-8">
                 <nav className="grid gap-4 text-lg font-medium">
                   {navigationLinks.map((link) => (
-                    <Link key={link.href} href={link.href} onClick={() => setOpen(false)} className="hover:text-primary">
+                    <Link key={link.href} href={link.href} onClick={() => setMobileMenuOpen(false)} className="hover:text-primary">
                       {link.text}
                     </Link>
                   ))}
