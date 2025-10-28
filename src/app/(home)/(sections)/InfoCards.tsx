@@ -1,3 +1,4 @@
+
 import {
   Card,
   CardContent,
@@ -86,15 +87,7 @@ export function InfoCards({ cards }: InfoCardsProps) {
              return (
               <Card key={card.id || index} className="flex flex-col text-center items-center">
                 <CardHeader className="items-center">
-                  {card.title === "Régimen Subsidiado" ? (
-                    <Image
-                      src="/images/img-sub/ico_subsidiado.svg"
-                      alt="Icono Régimen Subsidiado"
-                      width={100}
-                      height={100}
-                      className="h-[100px] w-[100px]"
-                    />
-                  ) : card.imageUrl ? (
+                  {card.imageUrl ? (
                     <Image
                       src={card.imageUrl}
                       alt={`${card.title} icon`}
