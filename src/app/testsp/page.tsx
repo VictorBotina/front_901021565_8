@@ -1,10 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import Image from 'next/image';
-import { Hero, type HeroProps } from "@/app/(home)/(sections)/Hero";
 import { fetchFromStrapi } from "@/lib/api";
-import { InfoCards } from "@/app/(home)/(sections)/InfoCards";
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -14,15 +11,6 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-
-type CardData = {
-  id: number;
-  title: string;
-  description: { type: string, children: { text: string }[] }[];
-  buttonText: string;
-  buttonLink: string;
-  icon: string;
-};
 
 type HomeData = {
   banner: {
@@ -38,7 +26,7 @@ type HomeData = {
     button_secondary_url: string;
     image?: string; 
   };
-  cards?: CardData[];
+  cards?: any[];
 };
 
 export default function TestSpPage() {
@@ -71,7 +59,6 @@ export default function TestSpPage() {
     try {
       const data = await fetchFromStrapi(strapiEndpoint);
       setApiResponse(data);
-      // If the fetched data is for the home page, update the homeData state
       if (strapiEndpoint.startsWith('home')) {
         setHomeData(data as HomeData);
       }
@@ -84,23 +71,6 @@ export default function TestSpPage() {
       }
     }
   };
-
-  const heroProps: HeroProps | null = homeData ? {
-    title: homeData.banner.title,
-    description: homeData.banner.description.map(d => d.children.map(c => c.text).join(' ')).join('\n'),
-    image: homeData.banner.image ? {
-      url: homeData.banner.image,
-      alt: homeData.banner.title,
-    } : undefined,
-    primaryButton: {
-      text: homeData.banner.button_primary_text,
-      url: homeData.banner.button_primary_url,
-    },
-    secondaryButton: {
-      text: homeData.banner.button_secondary_text,
-      url: homeData.banner.button_secondary_url,
-    },
-  } : null;
 
   return (
     <>
@@ -138,29 +108,6 @@ export default function TestSpPage() {
           </CardContent>
         </Card>
       </div>
-
-      <div className="container mx-auto px-4 py-8">
-        <Card>
-          <CardHeader>
-            <CardTitle>Visualización de SVG</CardTitle>
-            <CardDescription>Esta sección muestra la imagen SVG de forma aislada.</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="flex justify-center items-center p-4 border rounded-lg">
-                <Image
-                    src="/images/img-sub/ico_subsidiado.svg"
-                    alt="Icono Régimen Subsidiado"
-                    width={100}
-                    height={100}
-                    className="h-[100px] w-[100px]"
-                />
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      <Hero {...heroProps} />
-      <InfoCards cards={homeData?.cards} />
     </>
   );
 }
