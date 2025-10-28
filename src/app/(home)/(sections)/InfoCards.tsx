@@ -11,47 +11,6 @@ import { Briefcase, HeartHandshake, Stethoscope } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
-const staticCardData = [
-  {
-    title: "Régimen Subsidiado",
-    description: "Accede a servicios de salud de calidad sin costo, garantizando tu bienestar y el de tu familia.",
-    buttonText: "Conoce más",
-    buttonLink: "/afiliados/subsidiado",
-    imageUrl: "/images/img-sub/ico_subsidiado.svg",
-  },
-  {
-    iconName: "Briefcase",
-    title: "Régimen Contributivo",
-    description: "Cobertura completa para ti y tus beneficiarios a través de tu aporte como trabajador o independiente.",
-    buttonText: "Explora beneficios",
-    buttonLink: "/afiliados/contributivo",
-  },
-  {
-    iconName: "Stethoscope",
-    title: "Prestadores",
-    description: "Accede a nuestro portal de servicios para gestionar convenios, facturación y autorizaciones de manera ágil.",
-    buttonText: "Ir al portal",
-    buttonLink: "/prestadores",
-  },
-];
-
-const icons: { [key: string]: React.ComponentType<{ className?: string }> } = {
-  HeartHandshake: HeartHandshake,
-  Briefcase: Briefcase,
-  Stethoscope: Stethoscope,
-  sub: HeartHandshake,
-  cont: Briefcase,
-  prest: Stethoscope,
-};
-
-// Function to get the appropriate icon component
-const getIcon = (iconIdentifier: string | undefined) => {
-  if (!iconIdentifier) return Stethoscope; // Default icon
-  const IconComponent = icons[iconIdentifier];
-  return IconComponent || Stethoscope; // Default if not found
-};
-
-
 type CardInfo = {
   id?: number;
   title: string;
@@ -69,48 +28,88 @@ type InfoCardsProps = {
 
 
 export function InfoCards({ cards }: InfoCardsProps) {
-  const cardDataToRender = cards?.map(card => ({
-    ...card,
-    description: Array.isArray(card.description) 
-      ? card.description.map(d => d.children.map(c => c.text).join(' ')).join('\n')
-      : card.description,
-    iconName: card.icon || card.iconName,
-  })) || staticCardData;
+  // Los datos de la API (props.cards) se ignorarán para la renderización de estas 3 tarjetas.
+  // Se usarán los datos estáticos para asegurar consistencia.
+
+  const staticCardData = [
+    {
+      title: "Régimen Subsidiado",
+      description: "Accede a servicios de salud de calidad sin costo, garantizando tu bienestar y el de tu familia.",
+      buttonText: "Conoce más",
+      buttonLink: "/afiliados/subsidiado",
+      imageUrl: "/images/img-sub/ico_subsidiado.svg",
+    },
+    {
+      title: "Régimen Contributivo",
+      description: "Cobertura completa para ti y tus beneficiarios a través de tu aporte como trabajador o independiente.",
+      buttonText: "Explora beneficios",
+      buttonLink: "/afiliados/contributivo",
+    },
+    {
+      title: "Prestadores",
+      description: "Accede a nuestro portal de servicios para gestionar convenios, facturación y autorizaciones de manera ágil.",
+      buttonText: "Ir al portal",
+      buttonLink: "/prestadores",
+    },
+  ];
 
   return (
     <section className="bg-muted/40 py-12 lg:py-24">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {cardDataToRender.map((card, index) => {
-             const IconComponent = getIcon(card.iconName);
-             
-             return (
-              <Card key={card.id || index} className="flex flex-col text-center items-center">
-                <CardHeader className="items-center">
-                  {card.imageUrl ? (
-                    <Image
-                      src={card.imageUrl}
-                      alt={`${card.title} icon`}
-                      width={100}
-                      height={100}
-                      className="h-[100px] w-[100px]"
-                    />
-                  ) : (
-                    <IconComponent className="h-10 w-10 text-primary" />
-                  )}
-                  <CardTitle className="pt-4">{card.title}</CardTitle>
-                </CardHeader>
-                <CardContent className="flex-grow">
-                  <CardDescription>{card.description}</CardDescription>
-                </CardContent>
-                <div className="p-6 pt-0">
-                  <Button asChild>
-                    <Link href={card.buttonLink}>{card.buttonText}</Link>
-                  </Button>
-                </div>
-              </Card>
-             )
-          })}
+          {/* Tarjeta Régimen Subsidiado */}
+          <Card className="flex flex-col text-center items-center">
+            <CardHeader className="items-center">
+              <Image
+                src="/images/img-sub/ico_subsidiado.svg"
+                alt="Icono Régimen Subsidiado"
+                width={100}
+                height={100}
+                className="h-[100px] w-[100px]"
+              />
+              <CardTitle className="pt-4">{staticCardData[0].title}</CardTitle>
+            </CardHeader>
+            <CardContent className="flex-grow">
+              <CardDescription>{staticCardData[0].description}</CardDescription>
+            </CardContent>
+            <div className="p-6 pt-0">
+              <Button asChild>
+                <Link href={staticCardData[0].buttonLink}>{staticCardData[0].buttonText}</Link>
+              </Button>
+            </div>
+          </Card>
+
+          {/* Tarjeta Régimen Contributivo */}
+          <Card className="flex flex-col text-center items-center">
+            <CardHeader className="items-center">
+              <Briefcase className="h-10 w-10 text-primary" />
+              <CardTitle className="pt-4">{staticCardData[1].title}</CardTitle>
+            </CardHeader>
+            <CardContent className="flex-grow">
+              <CardDescription>{staticCardData[1].description}</CardDescription>
+            </CardContent>
+            <div className="p-6 pt-0">
+              <Button asChild>
+                <Link href={staticCardData[1].buttonLink}>{staticCardData[1].buttonText}</Link>
+              </Button>
+            </div>
+          </Card>
+
+          {/* Tarjeta Prestadores */}
+          <Card className="flex flex-col text-center items-center">
+            <CardHeader className="items-center">
+              <Stethoscope className="h-10 w-10 text-primary" />
+              <CardTitle className="pt-4">{staticCardData[2].title}</CardTitle>
+            </CardHeader>
+            <CardContent className="flex-grow">
+              <CardDescription>{staticCardData[2].description}</CardDescription>
+            </CardContent>
+            <div className="p-6 pt-0">
+              <Button asChild>
+                <Link href={staticCardData[2].buttonLink}>{staticCardData[2].buttonText}</Link>
+              </Button>
+            </div>
+          </Card>
         </div>
       </div>
     </section>
