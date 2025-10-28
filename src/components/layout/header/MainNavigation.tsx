@@ -55,7 +55,7 @@ export function MainNavigation() {
             <NavigationMenuList>
               {navigationLinks.map((link) => (
                 <NavigationMenuItem key={link.href}>
-                   <Link href={link.href} legacyBehavior passHref>
+                   <Link href={link.href} passHref>
                     <NavigationMenuLink asChild>
                       <NavigationMenuTrigger className={navigationMenuTriggerStyle()}>
                         {link.text}
@@ -158,9 +158,9 @@ const ListItem = React.forwardRef<
           {...props}
         >
           <div className="text-sm font-medium leading-none">{title}</div>
-          <div className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
             {children}
-          </div>
+          </p>
         </a>
       </NavigationMenuLink>
     </li>
