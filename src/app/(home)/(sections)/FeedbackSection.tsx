@@ -9,7 +9,43 @@ import {
 import { PenSquare, MessageSquareWarning } from "lucide-react";
 import Link from "next/link";
 
-export function FeedbackSection() {
+type FeedbackItem = {
+  id: number;
+  title: string;
+  buttonText: string;
+  buttonLink: string;
+  icon?: string;
+};
+
+type FeedbackSectionProps = {
+  feedbackItems?: FeedbackItem[];
+};
+
+const defaultFeedbackItems: FeedbackItem[] = [
+  {
+    id: 1,
+    title: "Encuesta de satisfacción",
+    buttonText: "Realizar Encuesta",
+    buttonLink: "#",
+    icon: "survey",
+  },
+  {
+    id: 2,
+    title: "Peticiones, quejas, reclamos y denuncias",
+    buttonText: "Radicar PQRSD",
+    buttonLink: "#",
+    icon: "pqrs",
+  },
+];
+
+const icons: { [key: string]: React.ElementType } = {
+  survey: PenSquare,
+  pqrs: MessageSquareWarning,
+};
+
+export function FeedbackSection({ feedbackItems }: FeedbackSectionProps) {
+  const itemsToRender = feedbackItems && feedbackItems.length > 0 ? feedbackItems : defaultFeedbackItems;
+
   return (
     <section className="py-12 lg:py-24 bg-background">
       <div className="container mx-auto px-4">
@@ -19,35 +55,24 @@ export function FeedbackSection() {
           </h2>
         </div>
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 max-w-4xl mx-auto">
-          {/* Tarjeta 1: Encuesta de satisfacción */}
-          <Card className="flex flex-col items-center text-center">
-            <CardHeader>
-              <div className="flex justify-center items-center h-16 w-16 rounded-full bg-primary/10 mb-4">
-                <PenSquare className="h-8 w-8 text-primary" />
-              </div>
-              <CardTitle>Encuesta de satisfacción</CardTitle>
-            </CardHeader>
-            <CardContent className="flex-grow">
-              <Button asChild>
-                <Link href="#">Realizar Encuesta</Link>
-              </Button>
-            </CardContent>
-          </Card>
-
-          {/* Tarjeta 2: Peticiones, quejas, reclamos y denuncias */}
-          <Card className="flex flex-col items-center text-center">
-            <CardHeader>
-               <div className="flex justify-center items-center h-16 w-16 rounded-full bg-primary/10 mb-4">
-                <MessageSquareWarning className="h-8 w-8 text-primary" />
-              </div>
-              <CardTitle>Peticiones, quejas, reclamos y denuncias</CardTitle>
-            </CardHeader>
-            <CardContent className="flex-grow">
-              <Button asChild>
-                <Link href="#">Radicar PQRSD</Link>
-              </Button>
-            </CardContent>
-          </Card>
+          {itemsToRender.map((item) => {
+            const IconComponent = item.icon ? icons[item.icon] : PenSquare;
+            return (
+              <Card key={item.id} className="flex flex-col items-center text-center">
+                <CardHeader>
+                  <div className="flex justify-center items-center h-16 w-16 rounded-full bg-primary/10 mb-4">
+                    <IconComponent className="h-8 w-8 text-primary" />
+                  </div>
+                  <CardTitle>{item.title}</CardTitle>
+                </CardHeader>
+                <CardContent className="flex-grow">
+                  <Button asChild>
+                    <Link href={item.buttonLink}>{item.buttonText}</Link>
+                  </Button>
+                </CardContent>
+              </Card>
+            );
+          })}
         </div>
       </div>
     </section>

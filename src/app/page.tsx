@@ -27,6 +27,13 @@ type HomeData = {
     buttonLink: string;
     icon: string;
   }[];
+  feedback: {
+    id: number;
+    title: string;
+    buttonText: string;
+    buttonLink: string;
+    icon: string;
+  }[];
 };
 
 export default async function Home() {
@@ -36,6 +43,9 @@ export default async function Home() {
         populate: '*',
       },
       cards: {
+        populate: '*',
+      },
+      feedback: {
         populate: '*',
       }
     },
@@ -62,7 +72,7 @@ export default async function Home() {
     <>
       <Hero {...heroProps} />
       <InfoCards cards={homeData?.cards} />
-      <FeedbackSection />
+      <FeedbackSection feedbackItems={homeData?.feedback} />
     </>
   );
 }
