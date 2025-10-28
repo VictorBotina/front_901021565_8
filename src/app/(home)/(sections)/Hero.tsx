@@ -68,11 +68,6 @@ export function Hero(props: HeroProps) {
                 {description ||
                   "Innovación y compromiso al servicio de nuestros afiliados y prestadores."}
               </p>
-              {heroImage.src && (
-                <p className="text-xs text-muted-foreground break-all">
-                  <span className="font-bold">Image URL:</span> {heroImage.src}
-                </p>
-              )}
             </div>
 
             <div className="flex flex-col gap-2 min-[400px]:flex-row">
