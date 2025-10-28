@@ -63,20 +63,25 @@ const flattenAttributes = (data: any): any => {
 const fetchFromStrapi = async (endpoint: string, params: Record<string, any> = {}) => {
   if (!API_URL || !API_TOKEN) {
     console.error("Strapi URL or Token is not configured in environment variables.");
-    // For collection types, return empty array. For single types, this will be handled by the logic below.
     return []; 
   }
 
-  // Ensure relations are always populated
+  const endpointHasQuery = endpoint.includes('?');
   const defaultPopulate = { populate: '*' };
-  const mergedParams = { ...defaultPopulate, ...params };
+  
+  // Si el endpoint no tiene query, usamos los params. Si sí la tiene, los params se ignoran.
+  const mergedParams = endpointHasQuery ? {} : { ...defaultPopulate, ...params };
 
   const queryString = stringify(mergedParams, {
     encodeValuesOnly: true,
   });
+  
+  const finalQueryString = endpointHasQuery ? `&${queryString.replace(/^\?/, '')}` : (queryString ? `?${queryString}` : '');
+  const finalUrl = `${API_URL}/${endpoint.split('?')[0]}${endpoint.includes('?') ? '?' + endpoint.split('?')[1] : ''}${!endpoint.includes('populate') && !endpointHasQuery ? finalQueryString : ''}`;
+  
 
   try {
-    const res = await axios.get(`${API_URL}/${endpoint}${queryString ? `?${queryString}` : ''}`, {
+    const res = await axios.get(finalUrl, {
       headers: {
         Authorization: `Bearer ${API_TOKEN}`,
       },
@@ -86,15 +91,13 @@ const fetchFromStrapi = async (endpoint: string, params: Record<string, any> = {
     const flattenedData = flattenAttributes(res.data);
     
     if (isSingleType) {
-        return flattenedData ?? null; // Return single object or null
+        return flattenedData ?? null;
     }
 
-    // Ensure the final output is always an array for collection types
     return Array.isArray(flattenedData) ? flattenedData : (flattenedData ? [flattenedData] : []);
 
   } catch (error) {
-    console.error(`Error fetching from Strapi endpoint: /${endpoint}`, error);
-    // For collection types return empty array, for single types this should result in null on the other end.
+    console.error(`Error fetching from Strapi endpoint: ${finalUrl}`, error);
     return []; 
   }
 };
