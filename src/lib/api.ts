@@ -66,18 +66,26 @@ const fetchFromStrapi = async (endpoint: string, params: Record<string, any> = {
     return []; 
   }
 
-  const endpointHasQuery = endpoint.includes('?');
-  const defaultPopulate = { populate: '*' };
+  // Handle complex endpoints with query strings for the test page
+  // This allows passing 'articles?populate=*' directly
+  const [path, queryStringFromEndpoint] = endpoint.split('?');
   
-  // Si el endpoint no tiene query, usamos los params. Si sí la tiene, los params se ignoran.
-  const mergedParams = endpointHasQuery ? {} : { ...defaultPopulate, ...params };
+  // Use default populate if no specific populate is in params or endpoint query
+  const defaultPopulate = { populate: '*' };
+  const hasPopulate = (queryStringFromEndpoint && queryStringFromEndpoint.includes('populate')) || params.populate;
 
-  const queryString = stringify(mergedParams, {
+  const mergedParams = hasPopulate ? params : { ...defaultPopulate, ...params };
+
+  const queryStringFromParams = stringify(mergedParams, {
     encodeValuesOnly: true,
   });
-  
-  const finalQueryString = endpointHasQuery ? `&${queryString.replace(/^\?/, '')}` : (queryString ? `?${queryString}` : '');
-  const finalUrl = `${API_URL}/${endpoint.split('?')[0]}${endpoint.includes('?') ? '?' + endpoint.split('?')[1] : ''}${!endpoint.includes('populate') && !endpointHasQuery ? finalQueryString : ''}`;
+
+  // Combine query strings if both exist
+  const finalQueryString = [queryStringFromEndpoint, queryStringFromParams]
+    .filter(Boolean)
+    .join('&');
+    
+  const finalUrl = `${API_URL}/${path}${finalQueryString ? `?${finalQueryString}` : ''}`;
   
 
   try {
