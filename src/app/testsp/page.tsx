@@ -49,6 +49,7 @@ export default function TestSpPage() {
       return;
     }
     try {
+      // Usamos fetchFromStrapi para la consulta dinámica
       const data = await fetchFromStrapi(strapiEndpoint);
       setApiResponse(data);
     } catch (error) {
