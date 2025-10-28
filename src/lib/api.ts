@@ -67,7 +67,7 @@ const fetchFromStrapi = async (endpoint: string, params: Record<string, any> = {
   }
 
   const queryString = stringify(params, {
-    encodeValuesOnly: false, // Do not encode brackets
+    encode: false, // Do not encode brackets
   });
     
   const finalUrl = `${API_URL}/${endpoint}${queryString ? `?${queryString}` : ''}`;
