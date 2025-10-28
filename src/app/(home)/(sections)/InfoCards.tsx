@@ -82,7 +82,13 @@ export function InfoCards({ cards }: InfoCardsProps) {
           {/* Tarjeta Régimen Contributivo */}
           <Card className="flex flex-col text-center items-center">
             <CardHeader className="items-center">
-              <Briefcase className="h-10 w-10 text-primary" />
+              <Image
+                src="/images/img-sub/ico_subsidiado.svg"
+                alt="Icono Régimen Contributivo"
+                width={100}
+                height={100}
+                className="h-[100px] w-[100px]"
+              />
               <CardTitle className="pt-4">{staticCardData[1].title}</CardTitle>
             </CardHeader>
             <CardContent className="flex-grow">
@@ -98,7 +104,13 @@ export function InfoCards({ cards }: InfoCardsProps) {
           {/* Tarjeta Prestadores */}
           <Card className="flex flex-col text-center items-center">
             <CardHeader className="items-center">
-              <Stethoscope className="h-10 w-10 text-primary" />
+              <Image
+                src="/images/img-sub/ico_subsidiado.svg"
+                alt="Icono Prestadores"
+                width={100}
+                height={100}
+                className="h-[100px] w-[100px]"
+              />
               <CardTitle className="pt-4">{staticCardData[2].title}</CardTitle>
             </CardHeader>
             <CardContent className="flex-grow">
