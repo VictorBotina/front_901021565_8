@@ -49,12 +49,25 @@ export function MainNavigation() {
             <NavigationMenuList>
               {navigationLinks.map((link) => (
                 <NavigationMenuItem key={link.href}>
-                  <NavigationMenuTrigger>{link.text}</NavigationMenuTrigger>
+                  <Link href={link.href} legacyBehavior passHref>
+                    <NavigationMenuLink asChild>
+                      <NavigationMenuTrigger className={navigationMenuTriggerStyle()}>
+                        {link.text}
+                      </NavigationMenuTrigger>
+                    </NavigationMenuLink>
+                  </Link>
                   <NavigationMenuContent>
                     <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px]">
                       <ListItem href={link.href} title={link.text}>
                         <div className='flex flex-col justify-center items-center space-y-2'>
-                          <Image src="/images/sign/main-menu/hola.png" alt={`Imagen para ${link.text}`} width={100} height={100} />
+                           {/* Reemplaza esta imagen por una válida. Actualmente está rota. */}
+                           <Image
+                            src="/images/sign/main-menu/hola.png"
+                            alt={`Imagen para ${link.text}`}
+                            width={100}
+                            height={100}
+                            className="h-auto w-24 object-contain"
+                          />
                           <span className='text-sm text-center text-muted-foreground'>{link.description}</span>
                         </div>
                       </ListItem>
