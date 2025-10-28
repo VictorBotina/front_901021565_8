@@ -57,7 +57,7 @@ export function MainNavigation() {
                     </NavigationMenuLink>
                   </Link>
                   <NavigationMenuContent>
-                    <ul className="grid w-[300px] gap-2 p-2 md:w-[400px] md:grid-cols-3 lg:w-[450px]">
+                    <ul className="grid w-[250px] gap-1 p-1 md:w-[350px] md:grid-cols-3 lg:w-[400px]">
                       {Array.from({ length: 3 }).map((_, index) => (
                         <ListItem
                           key={index}
