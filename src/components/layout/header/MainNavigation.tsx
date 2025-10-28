@@ -23,10 +23,16 @@ import {
 } from "@/components/ui/navigation-menu";
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
+import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
+import Autoplay from "embla-carousel-autoplay";
 
 export function MainNavigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   const [searchDialogOpen, setSearchDialogOpen] = React.useState(false);
+  
+  const plugin = React.useRef(
+    Autoplay({ delay: 2000, stopOnInteraction: true })
+  );
 
   const navigationLinks = [
     { href: "/afiliados/subsidiado", text: "Régimen Subsidiado", description: "Accede a servicios de salud de calidad sin costo." },
@@ -49,7 +55,7 @@ export function MainNavigation() {
             <NavigationMenuList>
               {navigationLinks.map((link) => (
                 <NavigationMenuItem key={link.href}>
-                  <Link href={link.href} passHref>
+                   <Link href={link.href} legacyBehavior passHref>
                     <NavigationMenuLink asChild>
                       <NavigationMenuTrigger className={navigationMenuTriggerStyle()}>
                         {link.text}
@@ -57,44 +63,30 @@ export function MainNavigation() {
                     </NavigationMenuLink>
                   </Link>
                   <NavigationMenuContent>
-                    <ul className="grid grid-cols-3 gap-3 p-6 md:w-[400px] lg:w-[500px]">
-                      <ListItem href={link.href} title={link.text}>
-                        <div className='flex flex-col justify-center items-center space-y-2'>
-                           <Image
-                            src="/images/sign/main-menu/hola.png"
-                            alt={`Imagen para ${link.text}`}
-                            width={100}
-                            height={100}
-                            className="h-auto w-24 object-contain"
-                          />
-                          <span className='text-sm text-center text-muted-foreground'>{link.description}</span>
-                        </div>
-                      </ListItem>
-                       <ListItem href={link.href} title={link.text}>
-                        <div className='flex flex-col justify-center items-center space-y-2'>
-                           <Image
-                            src="/images/sign/main-menu/hola.png"
-                            alt={`Imagen para ${link.text}`}
-                            width={100}
-                            height={100}
-                            className="h-auto w-24 object-contain"
-                          />
-                          <span className='text-sm text-center text-muted-foreground'>{link.description}</span>
-                        </div>
-                      </ListItem>
-                       <ListItem href={link.href} title={link.text}>
-                        <div className='flex flex-col justify-center items-center space-y-2'>
-                           <Image
-                            src="/images/sign/main-menu/hola.png"
-                            alt={`Imagen para ${link.text}`}
-                            width={100}
-                            height={100}
-                            className="h-auto w-24 object-contain"
-                          />
-                          <span className='text-sm text-center text-muted-foreground'>{link.description}</span>
-                        </div>
-                      </ListItem>
-                    </ul>
+                    <div className="p-4 w-[400px] lg:w-[500px]">
+                      <Carousel
+                        plugins={[plugin.current]}
+                        className="w-full"
+                        onMouseEnter={plugin.current.stop}
+                        onMouseLeave={plugin.current.reset}
+                      >
+                        <CarouselContent>
+                          {Array.from({ length: 3 }).map((_, index) => (
+                            <CarouselItem key={index}>
+                              <Link href={link.href}>
+                                  <Image
+                                    src="/images/sign/main-menu/hola.png"
+                                    alt={`Imagen para ${link.text} ${index + 1}`}
+                                    width={500}
+                                    height={281}
+                                    className="h-auto w-full object-contain rounded-md"
+                                  />
+                              </Link>
+                            </CarouselItem>
+                          ))}
+                        </CarouselContent>
+                      </Carousel>
+                    </div>
                   </NavigationMenuContent>
                 </NavigationMenuItem>
               ))}
