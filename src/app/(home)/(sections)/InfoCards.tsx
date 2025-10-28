@@ -82,20 +82,11 @@ export function InfoCards({ cards }: InfoCardsProps) {
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
           {cardDataToRender.map((card, index) => {
              const IconComponent = getIcon(card.iconName);
-             const isSubsidiado = card.title === "Régimen Subsidiado";
-
+             
              return (
               <Card key={card.id || index} className="flex flex-col text-center items-center">
                 <CardHeader className="items-center">
-                  {isSubsidiado ? (
-                    <Image
-                      src="/images/img-sub/ico_subsidiado.svg"
-                      alt="Régimen Subsidiado icon"
-                      width={100}
-                      height={100}
-                      className="h-[100px] w-[100px]"
-                    />
-                  ) : card.imageUrl ? (
+                  {card.imageUrl ? (
                     <Image
                       src={card.imageUrl}
                       alt={`${card.title} icon`}
