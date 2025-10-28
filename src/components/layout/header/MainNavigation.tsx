@@ -19,6 +19,7 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
@@ -48,7 +49,11 @@ export function MainNavigation() {
             <NavigationMenuList>
               {navigationLinks.map((link) => (
                 <NavigationMenuItem key={link.href}>
-                  <NavigationMenuTrigger>{link.text}</NavigationMenuTrigger>
+                  <Link href={link.href} legacyBehavior passHref>
+                    <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                      <NavigationMenuTrigger>{link.text}</NavigationMenuTrigger>
+                    </NavigationMenuLink>
+                  </Link>
                   <NavigationMenuContent>
                     <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px]">
                       <ListItem href={link.href} title={link.text}>
