@@ -49,10 +49,10 @@ export function MainNavigation() {
             <NavigationMenuList>
               {navigationLinks.map((link) => (
                 <NavigationMenuItem key={link.href}>
-                  <Link href={link.href} legacyBehavior passHref>
-                    <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                      <NavigationMenuTrigger>{link.text}</NavigationMenuTrigger>
-                    </NavigationMenuLink>
+                  <Link href={link.href} passHref>
+                    <NavigationMenuTrigger className={navigationMenuTriggerStyle()}>
+                      {link.text}
+                    </NavigationMenuTrigger>
                   </Link>
                   <NavigationMenuContent>
                     <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px]">
