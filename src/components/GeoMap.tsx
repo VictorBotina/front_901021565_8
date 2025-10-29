@@ -54,7 +54,7 @@ const GeoMap: React.FC<GeoMapProps> = ({ locations, center, zoom, onMarkerClick,
 
     const renderServicesAsList = (services: string) => {
         if (!services) return <p className="text-sm text-muted-foreground">No hay servicios especificados.</p>;
-        const serviceList = services.split(',').map(s => s.trim());
+        const serviceList = services.split(/\r\n\r\n|\n\n/).map(s => s.trim()).filter(Boolean);
         return (
             <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1 pl-2">
                 {serviceList.map((service, index) => (
