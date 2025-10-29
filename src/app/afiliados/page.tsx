@@ -23,7 +23,7 @@ export default function AfiliadosPage() {
   return (
     <div className="container mx-auto px-4 py-8 md:py-12">
       <header className="text-center mb-12">
-        <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight">Portal de Afiliados</h1>
+        <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight">Afiliados Emssanar EPS</h1>
         <p className="mt-4 text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
           Cuidamos de ti en cada paso
         </p>
