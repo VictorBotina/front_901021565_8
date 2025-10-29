@@ -33,6 +33,12 @@ const nextConfig: NextConfig = {
         hostname: 'natural-morning-88dae3e00d.media.strapiapp.com',
         port: '',
         pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'icbculbvvihpcrnmjedc.supabase.co',
+        port: '',
+        pathname: '/**',
       }
     ],
   },

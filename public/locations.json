@@ -1,0 +1,70 @@
+{
+  "NARIÑO": [
+    {
+      "nombre_municipio": "Pasto",
+      "id_dane": "52001",
+      "latitud": 1.2136,
+      "longitud": -77.2811
+    },
+    {
+      "nombre_municipio": "Tumaco",
+      "id_dane": "52835",
+      "latitud": 1.8058,
+      "longitud": -78.7644
+    },
+    {
+      "nombre_municipio": "Ipiales",
+      "id_dane": "52356",
+      "latitud": 0.8286,
+      "longitud": -77.6419
+    }
+  ],
+  "VALLE DEL CAUCA": [
+    {
+      "nombre_municipio": "Cali",
+      "id_dane": "76001",
+      "latitud": 3.4516,
+      "longitud": -76.5320
+    },
+    {
+      "nombre_municipio": "Buenaventura",
+      "id_dane": "76109",
+      "latitud": 3.8997,
+      "longitud": -77.0312
+    },
+    {
+      "nombre_municipio": "Palmira",
+      "id_dane": "76520",
+      "latitud": 3.5386,
+      "longitud": -76.3036
+    }
+  ],
+  "PUTUMAYO": [
+    {
+      "nombre_municipio": "Mocoa",
+      "id_dane": "86001",
+      "latitud": 1.1542,
+      "longitud": -76.6463
+    },
+    {
+      "nombre_municipio": "Puerto Asís",
+      "id_dane": "86568",
+      "latitud": 0.5142,
+      "longitud": -76.5008
+    }
+  ],
+  "CAUCA": [
+    {
+      "nombre_municipio": "Popayán",
+      "id_dane": "19001",
+      "latitud": 2.4445,
+      "longitud": -76.6147
+    },
+    {
+      "nombre_municipio": "Santander de Quilichao",
+      "id_dane": "19698",
+      "latitud": 3.0078,
+      "longitud": -76.4839
+    }
+  ]
+}
