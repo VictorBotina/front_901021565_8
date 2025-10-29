@@ -56,6 +56,17 @@ export default function OficinasAtencionPage() {
       </section>
 
       <section className="mb-16">
+        <div className="aspect-video w-full max-w-6xl mx-auto">
+            <iframe
+                src="https://oficinas-emssanar.vercel.app"
+                className="w-full h-full border-0 rounded-lg shadow-lg"
+                title="Directorio de Oficinas de Emssanar EPS"
+                allow="geolocation"
+            ></iframe>
+        </div>
+      </section>
+
+      <section className="mb-16">
         <h2 className="text-3xl font-bold text-center mb-8">Atención Presencial y Preferencial</h2>
         <div className="grid md:grid-cols-2 gap-8 items-start max-w-6xl mx-auto">
             <Card>
@@ -95,21 +106,6 @@ export default function OficinasAtencionPage() {
                     <p>Además de las oficinas municipales, disponemos de oficinas zonales en las principales ciudades y oficinas regionales en Cali y Pasto para una gestión más cercana y eficiente.</p>
                 </CardContent>
             </Card>
-        </div>
-      </section>
-
-      <section className="py-12">
-        <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold">Directorio de Oficinas Físicas</h2>
-            <p className="mt-2 text-muted-foreground">Encuentra tu oficina más cercana en Nariño, Putumayo, Valle del Cauca y Cauca.</p>
-        </div>
-        <div className="aspect-video w-full max-w-6xl mx-auto">
-            <iframe
-                src="https://oficinas-emssanar.vercel.app"
-                className="w-full h-full border-0 rounded-lg shadow-lg"
-                title="Directorio de Oficinas de Emssanar EPS"
-                allow="geolocation"
-            ></iframe>
         </div>
       </section>
 
