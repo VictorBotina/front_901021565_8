@@ -1,4 +1,4 @@
-//V02
+//V03
 "use client";
 
 import * as React from "react";
@@ -21,6 +21,10 @@ import {
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { Location } from "@/lib/types";
+import { AnimatePresence } from "framer-motion";
+import { OfficeDetailPanel } from "@/components/OfficeDetailPanel";
+import { Button } from "@/components/ui/button";
+import { PanelLeftClose, SlidersHorizontal } from "lucide-react";
 
 // Carga dinámica del mapa para evitar problemas de renderizado en SSR
 const GeoMap = dynamic(() => import('@/components/GeoMap'), {
@@ -49,10 +53,10 @@ export default function TestPage() {
   
   const [activeLocation, setActiveLocation] = React.useState<any>(null);
   const [loadingOfficeDetails, setLoadingOfficeDetails] = React.useState(false);
+  const [filterPanelOpen, setFilterPanelOpen] = React.useState(true);
 
   const [error, setError] = React.useState<string | null>(null);
 
-  // Cargar locations.json para poblar los selects y el mapa inicial
   React.useEffect(() => {
     fetch('/locations.json')
       .then(res => {
@@ -63,7 +67,6 @@ export default function TestPage() {
         setLocationData(data);
         const deptNames = Object.keys(data).sort((a, b) => a.localeCompare(b));
         setDepartments(deptNames);
-        // Aplanar todas las ubicaciones para el mapa
         const all = Object.values(data).flat();
         setAllLocations(all);
       })
@@ -72,7 +75,6 @@ export default function TestPage() {
       });
   }, []);
 
-  // Función para obtener detalles de la oficina
   const fetchOfficeDetails = React.useCallback(async (daneId: string) => {
     if (!supabaseUrl || !supabaseApiKey) {
       setError("Error: Las variables de entorno de Supabase no están configuradas.");
@@ -82,6 +84,7 @@ export default function TestPage() {
 
     setLoadingOfficeDetails(true);
     setError(null);
+    setActiveLocation(null); 
 
     try {
       const response = await fetch(`${supabaseUrl}/rest/v1/rpc/of_emssanar`, {
@@ -105,7 +108,11 @@ export default function TestPage() {
       if (location && result.success && result.data) {
         setActiveLocation({ ...location, details: result.data });
       } else {
-         throw new Error("No se encontraron detalles para la oficina seleccionada.");
+        const fallbackLocation = allLocations.find(loc => loc.id_dane === daneId);
+        if (fallbackLocation) {
+          setActiveLocation({ ...fallbackLocation, details: null });
+        }
+        setError("No se encontraron detalles completos para esta oficina, pero se muestra la ubicación.");
       }
 
     } catch (err: any) {
@@ -116,8 +123,6 @@ export default function TestPage() {
     }
   }, [supabaseUrl, supabaseApiKey, allLocations]);
 
-
-  // Actualizar la lista de municipios cuando cambia el departamento
   React.useEffect(() => {
     if (selectedDept && selectedDept !== ALL_DEPARTMENTS) {
       const munis = locationData[selectedDept] || [];
@@ -129,7 +134,6 @@ export default function TestPage() {
     setActiveLocation(null);
   }, [selectedDept, locationData]);
 
-  // Enviar la solicitud POST cuando se selecciona un municipio en el select
   React.useEffect(() => {
     if (selectedMuni && selectedMuni !== ALL_MUNICIPALITIES) {
       fetchOfficeDetails(selectedMuni);
@@ -137,31 +141,24 @@ export default function TestPage() {
       setActiveLocation(null);
     }
   }, [selectedMuni, fetchOfficeDetails]);
-
-  const handleDeptChange = (value: string) => {
-    setSelectedDept(value);
-  };
-
-  const handleMuniChange = (value: string) => {
-    setSelectedMuni(value);
-  };
   
   const handleMarkerClick = React.useCallback((location: Location) => {
-    // Actualiza los selects
     const dept = Object.keys(locationData).find(d => locationData[d].some(m => m.id_dane === location.id_dane));
     if (dept) {
         setSelectedDept(dept);
+        setTimeout(() => {
+            setSelectedMuni(location.id_dane);
+        }, 0);
+    } else {
+        fetchOfficeDetails(location.id_dane);
     }
-    // El useEffect de selectedDept se encargará de actualizar los municipios.
-    // Damos un pequeño tiempo para que el estado del departamento y la lista de municipios se actualice
-    // antes de seleccionar el municipio y disparar la llamada a la API.
-    setTimeout(() => {
-        setSelectedMuni(location.id_dane);
-    }, 0);
-  }, [locationData]);
+  }, [locationData, fetchOfficeDetails]);
+  
+  const handleClosePanel = () => {
+    setActiveLocation(null);
+  };
 
-
-  if (error && !locationData) {
+  if (error && !Object.keys(locationData).length) {
     return (
       <div className="flex h-screen w-full items-center justify-center bg-background p-4">
         <Alert variant="destructive" className="max-w-lg">
@@ -176,62 +173,69 @@ export default function TestPage() {
   const zoom: number = 6;
 
   return (
-    <div className="relative h-screen w-full">
-      <div className="absolute top-0 left-0 z-10 h-full w-full md:w-96 p-4 overflow-y-auto">
-         <Card className="bg-background/80 backdrop-blur-sm">
-          <CardHeader>
-            <CardTitle>Filtros de Ubicación</CardTitle>
-            <CardDescription>
-              Selecciona un departamento y un municipio.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="department-select">Departamento</Label>
-              <Select value={selectedDept} onValueChange={handleDeptChange}>
-                <SelectTrigger id="department-select">
-                  <SelectValue placeholder="Selecciona un departamento" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value={ALL_DEPARTMENTS}>Todos los Departamentos</SelectItem>
-                  {departments.map(dept => (
-                    <SelectItem key={dept} value={dept} className="capitalize">{dept}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="municipality-select">Municipio</Label>
-              <Select value={selectedMuni} onValueChange={handleMuniChange} disabled={selectedDept === ALL_DEPARTMENTS}>
-                <SelectTrigger id="municipality-select">
-                  <SelectValue placeholder="Selecciona un municipio" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value={ALL_MUNICIPALITIES}>Todos los Municipios</SelectItem>
-                  {municipalities.map(muni => (
-                    <SelectItem key={muni.id_dane} value={muni.id_dane}>{muni.nombre_municipio}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-          </CardContent>
-        </Card>
-        {error && (
-            <Alert variant="destructive" className="mt-4">
-              <AlertTitle>Error</AlertTitle>
-              <AlertDescription>{error}</AlertDescription>
-            </Alert>
+    <div className="relative h-screen w-full overflow-hidden">
+      <div className="absolute top-4 left-4 z-20">
+        <Button onClick={() => setFilterPanelOpen(!filterPanelOpen)} size="icon">
+          {filterPanelOpen ? <PanelLeftClose /> : <SlidersHorizontal />}
+          <span className="sr-only">Toggle Filters</span>
+        </Button>
+      </div>
+
+      <AnimatePresence>
+        {filterPanelOpen && (
+          <div className="absolute top-20 left-4 z-10 w-full max-w-sm md:w-96">
+            <Card className="bg-background/80 backdrop-blur-sm">
+              <CardHeader>
+                <CardTitle>Filtros de Ubicación</CardTitle>
+                <CardDescription>Selecciona un departamento y un municipio.</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="department-select">Departamento</Label>
+                  <Select value={selectedDept} onValueChange={setSelectedDept}>
+                    <SelectTrigger id="department-select"><SelectValue placeholder="Selecciona un departamento" /></SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value={ALL_DEPARTMENTS}>Todos los Departamentos</SelectItem>
+                      {departments.map(dept => (<SelectItem key={dept} value={dept} className="capitalize">{dept}</SelectItem>))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="municipality-select">Municipio</Label>
+                  <Select value={selectedMuni} onValueChange={setSelectedMuni} disabled={selectedDept === ALL_DEPARTMENTS}>
+                    <SelectTrigger id="municipality-select"><SelectValue placeholder="Selecciona un municipio" /></SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value={ALL_MUNICIPALITIES}>Todos los Municipios</SelectItem>
+                      {municipalities.map(muni => (<SelectItem key={muni.id_dane} value={muni.id_dane}>{muni.nombre_municipio}</SelectItem>))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                {error && <Alert variant="destructive" className="mt-4"><AlertDescription>{error}</AlertDescription></Alert>}
+              </CardContent>
+            </Card>
+          </div>
         )}
-       </div>
-      <main className="absolute inset-0 z-0">
+      </AnimatePresence>
+
+      <main className="absolute inset-0 z-0 h-full w-full">
         <GeoMap 
             locations={allLocations}
             center={center}
             zoom={zoom}
             onMarkerClick={handleMarkerClick}
-            activeLocation={activeLocation}
+            activeLocationId={activeLocation?.id_dane}
         />
       </main>
+
+      <AnimatePresence>
+        {activeLocation && (
+          <OfficeDetailPanel 
+            location={activeLocation} 
+            onClose={handleClosePanel}
+            isLoading={loadingOfficeDetails}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 }
