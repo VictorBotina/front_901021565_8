@@ -48,9 +48,11 @@ export default function TestPage() {
     const fetchLocations = async () => {
       try {
         const response = await fetch(`${supabaseUrl}/rest/v1/rpc/of_emssanar`, {
+          method: 'POST',
           headers: {
             'apikey': supabaseApiKey,
-            'Authorization': `Bearer ${supabaseApiKey}`
+            'Authorization': `Bearer ${supabaseApiKey}`,
+            'Content-Type': 'application/json'
           }
         });
         if (!response.ok) {
