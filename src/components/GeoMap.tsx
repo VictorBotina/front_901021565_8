@@ -141,7 +141,7 @@ type GeoMapProps = {
   activeLocationId?: string;
 };
 
-const GeoMap: React.FC<GeoMapProps> = ({ locations, center, zoom, onMarkerClick, supabaseUrl, supabaseKey, activeLocationId }) => {
+const GeoMapComponent: React.FC<GeoMapProps> = ({ locations, center, zoom, onMarkerClick, supabaseUrl, supabaseKey, activeLocationId }) => {
   
   if (!supabaseUrl || !supabaseKey) {
     return <div className="h-full w-full flex items-center justify-center bg-muted">Faltan las credenciales de Supabase.</div>;
@@ -173,5 +173,8 @@ const GeoMap: React.FC<GeoMapProps> = ({ locations, center, zoom, onMarkerClick,
     </MapContainer>
   );
 };
+
+const GeoMap = React.memo(GeoMapComponent);
+GeoMap.displayName = "GeoMap";
 
 export default GeoMap;

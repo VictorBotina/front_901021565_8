@@ -123,32 +123,25 @@ export default function TestPage() {
   }
 
   const handleMuniChange = (value: string) => {
-    if (value === ALL_MUNICIPALITIES) {
-      setSelectedMuni(value);
-    } else {
-      const location = allLocations.find(loc => loc.id_dane === value);
-      if (location) {
-        if(selectedDept !== location.departamento){
-          setSelectedDept(location.departamento || ALL_DEPARTMENTS);
-        }
-        setSelectedMuni(value);
-      }
-    }
+    setSelectedMuni(value);
   }
 
-  const handleMarkerClick = (id_dane: string) => {
+  const handleMarkerClick = React.useCallback((id_dane: string) => {
     const location = allLocations.find(loc => loc.id_dane === id_dane);
     if (location) {
-      if(selectedDept !== location.departamento){
+      if (selectedDept !== location.departamento) {
         setSelectedDept(location.departamento || ALL_DEPARTMENTS);
+        // Use a timeout to ensure the state update for department is processed
+        // before updating the municipality, preventing re-renders.
         setTimeout(() => {
           setSelectedMuni(id_dane);
         }, 0);
       } else {
-         setSelectedMuni(id_dane);
+        setSelectedMuni(id_dane);
       }
     }
-  }
+  }, [allLocations, selectedDept]);
+
 
   if (error) {
      return (
