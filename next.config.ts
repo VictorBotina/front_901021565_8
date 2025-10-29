@@ -2,6 +2,7 @@ import type {NextConfig} from 'next';
 
 const nextConfig: NextConfig = {
   /* config options here */
+  reactStrictMode: false, // evita doble inicialización del mapa
   typescript: {
     ignoreBuildErrors: true,
   },
