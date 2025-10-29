@@ -53,7 +53,8 @@ export default function TestPage() {
             'apikey': supabaseApiKey,
             'Authorization': `Bearer ${supabaseApiKey}`,
             'Content-Type': 'application/json'
-          }
+          },
+          body: JSON.stringify({ "id_dane": "52001" })
         });
         if (!response.ok) {
           throw new Error(`Error HTTP: ${response.status}`);
