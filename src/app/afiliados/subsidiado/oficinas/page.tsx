@@ -98,23 +98,21 @@ export default function OficinasAtencionPage() {
         </div>
       </section>
 
-      <section className="bg-primary/90 text-primary-foreground rounded-lg p-8 text-center">
-        <h2 className="text-3xl font-bold">Directorio de Oficinas Físicas</h2>
-        <p className="mt-4 max-w-3xl mx-auto">
-          Para encontrar la dirección, municipio, y detalles de contacto de su oficina más cercana, le recomendamos consultar nuestro directorio en línea. Nuestra red de oficinas presenciales cubre principalmente los departamentos de:
-        </p>
-        <div className="mt-6 flex flex-wrap justify-center gap-3">
-            {departments.map(dep => (
-                <div key={dep} className="flex items-center gap-2 bg-primary/20 text-primary-foreground py-2 px-4 rounded-full">
-                    <MapPin className="h-5 w-5" />
-                    <span className="font-semibold">{dep}</span>
-                </div>
-            ))}
+      <section className="py-12">
+        <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold">Directorio de Oficinas Físicas</h2>
+            <p className="mt-2 text-muted-foreground">Encuentra tu oficina más cercana en Nariño, Putumayo, Valle del Cauca y Cauca.</p>
         </div>
-        <Button asChild size="lg" className="mt-8 bg-primary-foreground text-primary hover:bg-primary-foreground/90">
-          <Link href="https://oficinas-emssanar.vercel.app" target="_blank">Consultar Directorio Completo</Link>
-        </Button>
+        <div className="aspect-video w-full max-w-6xl mx-auto">
+            <iframe
+                src="https://oficinas-emssanar.vercel.app"
+                className="w-full h-full border-0 rounded-lg shadow-lg"
+                title="Directorio de Oficinas de Emssanar EPS"
+                allow="geolocation"
+            ></iframe>
+        </div>
       </section>
+
     </div>
   );
 }
