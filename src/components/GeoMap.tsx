@@ -80,13 +80,13 @@ const GeoMap: React.FC<GeoMapProps> = ({ locations, center, zoom, onMarkerClick,
                                 <p className="text-sm"><strong className="font-semibold">Horario:</strong> {activeLocation.details.horario_atencion}</p>
                                 {activeLocation.details.servicios_sub && (
                                     <div>
-                                        <h4 className="font-semibold mt-2">Régimen Subsidiado</h4>
+                                        <h4 className="font-semibold mt-2">Servicios Subsidiado</h4>
                                         <p className="text-xs text-muted-foreground">{activeLocation.details.servicios_sub}</p>
                                     </div>
                                 )}
                                 {activeLocation.details.servicios_cont && (
                                      <div>
-                                        <h4 className="font-semibold mt-2">Régimen Contributivo</h4>
+                                        <h4 className="font-semibold mt-2">Servicios Contributivo</h4>
                                         <p className="text-xs text-muted-foreground">{activeLocation.details.servicios_cont}</p>
                                     </div>
                                 )}
