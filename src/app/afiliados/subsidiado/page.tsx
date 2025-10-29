@@ -9,17 +9,6 @@ import {
 import Link from "next/link";
 import Image from "next/image";
 import {
-  Building,
-  Hospital,
-  HandHeart,
-  Network,
-  ArrowRightLeft,
-  HeartPulse,
-  FileText,
-  ShieldCheck,
-  Coins,
-  Calculator,
-  UserPlus,
   Phone,
   Mail,
 } from "lucide-react";
@@ -89,6 +78,7 @@ export default function SubsidiadoPage() {
                       alt={`Icono para ${card.title}`}
                       width={50}
                       height={50}
+                      className="h-[40px] w-[40px] md:h-[50px] md:w-[50px]"
                     />
                   </div>
                   <CardTitle className="text-base font-semibold">{card.title}</CardTitle>
