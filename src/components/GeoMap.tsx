@@ -5,7 +5,7 @@ import * as React from "react";
 import { MapContainer, TileLayer, Marker, Popup, useMap, CircleMarker } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
-import { createClient } from '@supabase/supabase-js'
+import { createClient, SupabaseClient } from '@supabase/supabase-js'
 
 import type { Location } from "@/lib/types";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -37,18 +37,27 @@ type OfficeDetails = {
   telefonos: string[];
 };
 
+let supabase: SupabaseClient | null = null;
+
+const getSupabase = (supabaseUrl: string, supabaseKey: string) => {
+    if (!supabase) {
+      supabase = createClient(supabaseUrl, supabaseKey);
+    }
+    return supabase;
+}
+
 const OfficeInfoPopup: React.FC<{ id_dane: string; supabaseUrl: string; supabaseKey: string; }> = ({ id_dane, supabaseUrl, supabaseKey }) => {
   const [details, setDetails] = React.useState<OfficeDetails | null>(null);
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState<string | null>(null);
-
+  
   React.useEffect(() => {
     const fetchOfficeDetails = async () => {
       setLoading(true);
       setError(null);
       try {
-        const supabase = createClient(supabaseUrl, supabaseKey);
-        const { data, error } = await supabase
+        const supabaseClient = getSupabase(supabaseUrl, supabaseKey);
+        const { data, error } = await supabaseClient
           .from('oficinas')
           .select('nombre_oficina, direccion, horario_atencion, tipo_oficina, telefonos, imagen_url')
           .eq('id_dane_municipio', id_dane)
