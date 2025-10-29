@@ -6,7 +6,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Users, MapPin, Building, Smile, Baby, Pregnant, User, PersonStanding } from "lucide-react";
+import { Users, MapPin, Building, Smile, Baby, User, PersonStanding } from "lucide-react";
 import type { Metadata } from 'next';
 import Link from "next/link";
 
@@ -21,7 +21,7 @@ export default function OficinasAtencionPage() {
   
   const preferentialGroups = [
     { name: "Niños y niñas", icon: Baby },
-    { name: "Mujeres embarazadas", icon: Pregnant },
+    { name: "Mujeres embarazadas", icon: PersonStanding },
     { name: "Adultos mayores", icon: User },
     { name: "Personas en situación de discapacidad", icon: PersonStanding },
   ];
