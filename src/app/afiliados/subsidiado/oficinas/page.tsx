@@ -112,7 +112,7 @@ export default function OficinasAtencionPage() {
             ))}
         </div>
         <Button asChild size="lg" className="mt-8 bg-primary-foreground text-primary hover:bg-primary-foreground/90">
-          <Link href="#">Consultar Directorio Completo</Link>
+          <Link href="https://oficinas-emssanar.vercel.app" target="_blank">Consultar Directorio Completo</Link>
         </Button>
       </section>
     </div>
