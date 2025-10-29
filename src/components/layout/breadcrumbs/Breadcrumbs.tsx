@@ -35,6 +35,7 @@ const pathNameMapping: { [key: string]: string } = {
   programas: 'Programas Especiales',
   tramites: 'Trámites',
   test: 'Test de Animaciones',
+  oficinas: 'Oficinas de Atención',
 };
 
 // Función para capitalizar la primera letra de un string
