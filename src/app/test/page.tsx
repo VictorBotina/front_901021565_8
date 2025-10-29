@@ -129,16 +129,12 @@ export default function TestPage() {
   const handleMarkerClick = React.useCallback((id_dane: string) => {
     const location = allLocations.find(loc => loc.id_dane === id_dane);
     if (location) {
-      if (selectedDept !== location.departamento) {
+      // Set department first to populate the municipalities list if needed
+      if(selectedDept !== location.departamento){
         setSelectedDept(location.departamento || ALL_DEPARTMENTS);
-        // Use a timeout to ensure the state update for department is processed
-        // before updating the municipality, preventing re-renders.
-        setTimeout(() => {
-          setSelectedMuni(id_dane);
-        }, 0);
-      } else {
-        setSelectedMuni(id_dane);
       }
+      // Set the selected municipality
+      setSelectedMuni(id_dane);
     }
   }, [allLocations, selectedDept]);
 
