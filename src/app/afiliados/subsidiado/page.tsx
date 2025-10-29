@@ -22,17 +22,17 @@ export const metadata: Metadata = {
 
 export default function SubsidiadoPage() {
   const infoCards = [
-    { title: "Oficinas de atención", link: "#" },
-    { title: "Consulta de IPS", link: "#" },
-    { title: "Contribución solidaria", link: "#" },
-    { title: "Redes y prestadores de salud", link: "#" },
-    { title: "Solicite su movilidad", link: "#" },
-    { title: "Servicios de urgencias", link: "#" },
-    { title: "Sisbén IV", link: "#" },
-    { title: "Derechos y deberes del afiliado", link: "/afiliados" },
-    { title: "Copagos y cuotas moderadoras", link: "#" },
-    { title: "Consulta tope copagos", link: "#" },
-    { title: "Afiliación a Emssanar EPS", link: "#" },
+    { title: "Oficinas de atención", link: "#", iconUrl: "/images/img-sub/ico-directorio-oficinas.svg" },
+    { title: "Consulta de IPS", link: "#", iconUrl: "/images/img-sub/ico-directorio-oficinas.svg" },
+    { title: "Contribución solidaria", link: "#", iconUrl: "/images/img-sub/ico-directorio-oficinas.svg" },
+    { title: "Redes y prestadores de salud", link: "#", iconUrl: "/images/img-sub/ico-directorio-oficinas.svg" },
+    { title: "Solicite su movilidad", link: "#", iconUrl: "/images/img-sub/ico-directorio-oficinas.svg" },
+    { title: "Servicios de urgencias", link: "#", iconUrl: "/images/img-sub/ico-directorio-oficinas.svg" },
+    { title: "Sisbén IV", link: "#", iconUrl: "/images/img-sub/ico-directorio-oficinas.svg" },
+    { title: "Derechos y deberes del afiliado", link: "/afiliados", iconUrl: "/images/img-sub/ico-directorio-oficinas.svg" },
+    { title: "Copagos y cuotas moderadoras", link: "#", iconUrl: "/images/img-sub/ico-directorio-oficinas.svg" },
+    { title: "Consulta tope copagos", link: "#", iconUrl: "/images/img-sub/ico-directorio-oficinas.svg" },
+    { title: "Afiliación a Emssanar EPS", link: "#", iconUrl: "/images/img-sub/ico-directorio-oficinas.svg" },
   ];
 
   return (
@@ -74,11 +74,10 @@ export default function SubsidiadoPage() {
                 <CardHeader className="items-center">
                   <div className="flex justify-center items-center h-16 w-16 mb-4">
                     <Image
-                      src="/images/img-sub/ico_directorio-oficinas.svg"
+                      src={card.iconUrl}
                       alt={`Icono para ${card.title}`}
                       width={100}
                       height={100}
-                      className="h-[100px] w-[100px]"
                     />
                   </div>
                   <CardTitle className="text-base font-semibold">{card.title}</CardTitle>
