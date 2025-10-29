@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 
 export default function SubsidiadoPage() {
   const infoCards = [
-    { title: "Oficinas de atención", link: "#", iconUrl: "/images/img-sub/ico-directorio-oficinas.svg" },
+    { title: "Oficinas de atención", link: "/afiliados/subsidiado/oficinas-de-atencion", iconUrl: "/images/img-sub/ico-directorio-oficinas.svg" },
     { title: "Consulta de IPS", link: "#", iconUrl: "/images/img-sub/ico-directorio-oficinas.svg" },
     { title: "Contribución solidaria", link: "#", iconUrl: "/images/img-sub/ico-directorio-oficinas.svg" },
     { title: "Redes y prestadores de salud", link: "#", iconUrl: "/images/img-sub/ico-directorio-oficinas.svg" },
