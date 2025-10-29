@@ -3,6 +3,8 @@ import {
   Card,
   CardHeader,
   CardTitle,
+  CardContent,
+  CardDescription,
 } from "@/components/ui/card";
 import Link from "next/link";
 import Image from "next/image";
