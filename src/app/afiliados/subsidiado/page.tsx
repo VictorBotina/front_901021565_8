@@ -1,12 +1,11 @@
+
 import {
   Card,
-  CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import Image from "next/image";
 import {
   Building,
   Hospital,
@@ -32,17 +31,17 @@ export const metadata: Metadata = {
 
 export default function SubsidiadoPage() {
   const infoCards = [
-    { title: "Oficinas de atención", icon: Building, link: "#" },
-    { title: "Consulta de IPS", icon: Hospital, link: "#" },
-    { title: "Contribución solidaria", icon: HandHeart, link: "#" },
-    { title: "Redes y prestadores de salud", icon: Network, link: "#" },
-    { title: "Solicite su movilidad", icon: ArrowRightLeft, link: "#" },
-    { title: "Servicios de urgencias", icon: HeartPulse, link: "#" },
-    { title: "Sisbén IV", icon: FileText, link: "#" },
-    { title: "Derechos y deberes del afiliado", icon: ShieldCheck, link: "/afiliados" },
-    { title: "Copagos y cuotas moderadoras", icon: Coins, link: "#" },
-    { title: "Consulta tope copagos", icon: Calculator, link: "#" },
-    { title: "Afiliación a Emssanar EPS", icon: UserPlus, link: "#" },
+    { title: "Oficinas de atención", link: "#" },
+    { title: "Consulta de IPS", link: "#" },
+    { title: "Contribución solidaria", link: "#" },
+    { title: "Redes y prestadores de salud", link: "#" },
+    { title: "Solicite su movilidad", link: "#" },
+    { title: "Servicios de urgencias", link: "#" },
+    { title: "Sisbén IV", link: "#" },
+    { title: "Derechos y deberes del afiliado", link: "/afiliados" },
+    { title: "Copagos y cuotas moderadoras", link: "#" },
+    { title: "Consulta tope copagos", link: "#" },
+    { title: "Afiliación a Emssanar EPS", link: "#" },
   ];
 
   return (
@@ -61,7 +60,7 @@ export default function SubsidiadoPage() {
           <CardHeader>
             <CardTitle>¿Qué es el Régimen Subsidiado?</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4 text-foreground/90">
+          <CardContent className="space-y-4 text-foreground/90 pt-6">
             <p>
               El Régimen Subsidiado es el mecanismo del Sistema General de Seguridad Social en Salud (SGSSS) diseñado para permitir que la población pobre y vulnerable, sin capacidad de pago, acceda a los servicios de salud a través de un subsidio, total o parcial, otorgado por el Estado.
             </p>
@@ -78,21 +77,23 @@ export default function SubsidiadoPage() {
             <p className="text-muted-foreground mt-2">Encuentra la información y gestiona tus solicitudes de forma ágil.</p>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {infoCards.map((card) => {
-            const Icon = card.icon;
-            return (
-              <Link href={card.link} key={card.title} className="group">
-                <Card className="h-full text-center hover:bg-primary/5 hover:border-primary/50 transition-all duration-300">
-                  <CardHeader className="items-center">
-                    <div className="flex justify-center items-center h-16 w-16 rounded-full bg-primary/10 mb-4 group-hover:bg-primary/20 transition-colors">
-                      <Icon className="h-8 w-8 text-primary" />
-                    </div>
-                    <CardTitle className="text-base font-semibold">{card.title}</CardTitle>
-                  </CardHeader>
-                </Card>
-              </Link>
-            );
-          })}
+          {infoCards.map((card) => (
+            <Link href={card.link} key={card.title} className="group">
+              <Card className="h-full text-center hover:bg-primary/5 hover:border-primary/50 transition-all duration-300">
+                <CardHeader className="items-center">
+                  <div className="flex justify-center items-center h-16 w-16 mb-4">
+                    <Image
+                      src="/images/img-sub/ico-directorio-oficinas.svg"
+                      alt={`Icono para ${card.title}`}
+                      width={50}
+                      height={50}
+                    />
+                  </div>
+                  <CardTitle className="text-base font-semibold">{card.title}</CardTitle>
+                </CardHeader>
+              </Card>
+            </Link>
+          ))}
         </div>
       </section>
 
@@ -104,7 +105,7 @@ export default function SubsidiadoPage() {
                 La Movilidad es un derecho crucial que le permite cambiar de régimen (del Subsidiado al Contributivo o viceversa) dentro de la misma EPS sin perder la continuidad de su afiliación.
                 </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="space-y-4 pt-6">
                 <p>Si usted es afiliado al Régimen Subsidiado y adquiere capacidad de pago (por ejemplo, consigue un empleo), puede permanecer con su misma EPS en el Régimen Contributivo si está focalizado en los niveles I y II del Sisbén o pertenece a poblaciones especiales. Solo deberá diligenciar el formulario de afiliación y novedades.</p>
                 <p>Si termina su vínculo laboral, puede continuar inmediatamente con la EPS en el Régimen Subsidiado sin perder el acceso a los servicios de salud (Movilidad Descendente Automática).</p>
             </CardContent>
