@@ -25,73 +25,74 @@ const ALL_MUNICIPALITIES = "__ALL_MUNICIPALITIES__";
 const DEFAULT_CENTER: [number, number] = [2.9, -75.0];
 const DEFAULT_ZOOM = 6;
 
-type LocationData = {
-  [department: string]: {
-    nombre_municipio: string;
-    id_dane: string;
-    latitud: number;
-    longitud: number;
-  }[];
-};
-
 export default function TestPage() {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseApiKey = process.env.NEXT_PUBLIC_SUPABASE_API_KEY;
 
-  const [locationData, setLocationData] = React.useState<LocationData>({});
+  const [allLocations, setAllLocations] = React.useState<Location[]>([]);
   const [departments, setDepartments] = React.useState<string[]>([]);
   const [municipalities, setMunicipalities] = React.useState<Location[]>([]);
   
   const [selectedDept, setSelectedDept] = React.useState<string>(ALL_DEPARTMENTS);
   const [selectedMuni, setSelectedMuni] = React.useState<string>(ALL_MUNICIPALITIES);
+  const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState<string | null>(null);
 
   React.useEffect(() => {
     if (!supabaseUrl || !supabaseApiKey) {
-      setError("Error: Las variables de entorno de Supabase no están configuradas. Si estás en desarrollo local, revisa tu archivo .env.local. Si la aplicación está desplegada, asegúrate de haber configurado las variables de entorno en tu proveedor de hosting.");
+      setError("Error: Las variables de entorno de Supabase no están configuradas. Revisa tu archivo .env.local.");
+      setLoading(false);
+      return;
     }
 
-    fetch('/locations.json')
-      .then(res => {
-        if (!res.ok) throw new Error(`Error HTTP: ${res.status}`);
-        return res.json();
-      })
-      .then((data: LocationData) => {
-        setLocationData(data);
-        const deptNames = Object.keys(data).sort((a, b) => a.localeCompare(b));
+    const fetchLocations = async () => {
+      try {
+        const response = await fetch(`${supabaseUrl}/rest/v1/rpc/of_emssanar`, {
+          headers: {
+            'apikey': supabaseApiKey,
+            'Authorization': `Bearer ${supabaseApiKey}`
+          }
+        });
+        if (!response.ok) {
+          throw new Error(`Error HTTP: ${response.status}`);
+        }
+        const data = await response.json();
+
+        // Assuming data is an array of locations
+        setAllLocations(data);
+
+        // Extract unique departments
+        const deptNames = [...new Set(data.map((loc: Location) => loc.departamento))].sort((a, b) => a.localeCompare(b));
         setDepartments(deptNames);
-      })
-      .catch(() => {
-        setError("No se pudo cargar el archivo de ubicaciones (locations.json).");
-      });
+
+      } catch (err: any) {
+        setError("No se pudo cargar la información de las oficinas desde Supabase.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchLocations();
   }, [supabaseUrl, supabaseApiKey]);
 
   React.useEffect(() => {
     if (selectedDept && selectedDept !== ALL_DEPARTMENTS) {
-      const munis = locationData[selectedDept]?.map(m => ({
-        ...m,
-        nombre: m.nombre_municipio
-      })) || [];
-      setMunicipalities(munis.sort((a, b) => a.nombre.localeCompare(b.nombre)));
+      const munis = allLocations
+        .filter(loc => loc.departamento === selectedDept)
+        .map(m => ({ ...m, nombre: m.municipio }));
+      
+      const uniqueMunis = [...new Map(munis.map(item => [item.municipio, item])).values()];
+      
+      setMunicipalities(uniqueMunis.sort((a, b) => a.nombre.localeCompare(b.nombre)));
     } else {
       setMunicipalities([]);
     }
     setSelectedMuni(ALL_MUNICIPALITIES);
-  }, [selectedDept, locationData]);
-
-  const allLocations = React.useMemo(() => {
-    return Object.entries(locationData).flatMap(([dept, munis]) => 
-      munis.map(muni => ({
-        ...muni,
-        nombre: muni.nombre_municipio,
-        departamento: dept
-      }))
-    );
-  }, [locationData]);
-
+  }, [selectedDept, allLocations]);
+  
   const filteredLocations = React.useMemo(() => {
     if (selectedMuni !== ALL_MUNICIPALITIES) {
-      return allLocations.filter(loc => loc.id_dane === selectedMuni);
+      return allLocations.filter(loc => loc.municipio === selectedMuni);
     }
     if (selectedDept !== ALL_DEPARTMENTS) {
       return allLocations.filter(loc => loc.departamento === selectedDept);
@@ -101,19 +102,23 @@ export default function TestPage() {
   
   const activeLocation = React.useMemo(() => {
     if (selectedMuni !== ALL_MUNICIPALITIES) {
-      return allLocations.find(m => m.id_dane === selectedMuni);
+      // Find the first location that matches the municipality name
+      return allLocations.find(m => m.municipio === selectedMuni);
     }
     return undefined;
   }, [selectedMuni, allLocations]);
 
   const { center, zoom } = React.useMemo(() => {
-    if (activeLocation) {
+    if (activeLocation && activeLocation.latitud && activeLocation.longitud) {
       return { center: [activeLocation.latitud, activeLocation.longitud] as [number, number], zoom: 17 };
     }
     if (selectedDept !== ALL_DEPARTMENTS && filteredLocations.length > 0) {
-      const avgLat = filteredLocations.reduce((acc, loc) => acc + loc.latitud, 0) / filteredLocations.length;
-      const avgLng = filteredLocations.reduce((acc, loc) => acc + loc.longitud, 0) / filteredLocations.length;
-      return { center: [avgLat, avgLng] as [number, number], zoom: 8 };
+      const locationsWithCoords = filteredLocations.filter(l => l.latitud && l.longitud);
+      if (locationsWithCoords.length > 0) {
+        const avgLat = locationsWithCoords.reduce((acc, loc) => acc + (loc.latitud || 0), 0) / locationsWithCoords.length;
+        const avgLng = locationsWithCoords.reduce((acc, loc) => acc + (loc.longitud || 0), 0) / locationsWithCoords.length;
+        return { center: [avgLat, avgLng] as [number, number], zoom: 8 };
+      }
     }
     return { center: DEFAULT_CENTER, zoom: DEFAULT_ZOOM };
   }, [activeLocation, selectedDept, filteredLocations]);
@@ -129,12 +134,10 @@ export default function TestPage() {
   const handleMarkerClick = React.useCallback((id_dane: string) => {
     const location = allLocations.find(loc => loc.id_dane === id_dane);
     if (location) {
-      // Set department first to populate the municipalities list if needed
       if(selectedDept !== location.departamento){
         setSelectedDept(location.departamento || ALL_DEPARTMENTS);
       }
-      // Set the selected municipality
-      setSelectedMuni(id_dane);
+      setSelectedMuni(location.municipio);
     }
   }, [allLocations, selectedDept]);
 
@@ -143,7 +146,7 @@ export default function TestPage() {
      return (
       <div className="flex h-screen w-full items-center justify-center bg-background p-4">
         <Alert variant="destructive" className="max-w-lg">
-          <AlertTitle>Error de Configuración</AlertTitle>
+          <AlertTitle>Error de Configuración o Carga</AlertTitle>
           <AlertDescription>{error}</AlertDescription>
         </Alert>
       </div>
@@ -151,77 +154,15 @@ export default function TestPage() {
   }
 
   return (
-    <div className="flex flex-col h-screen bg-background text-foreground font-body">
-      <main className="flex-1 relative">
-        <div className="absolute inset-0 z-0">
-          <GeoMap 
-            locations={filteredLocations} 
-            center={center} 
-            zoom={zoom}
-            onMarkerClick={handleMarkerClick}
-            supabaseUrl={supabaseUrl}
-            supabaseKey={supabaseApiKey}
-            activeLocationId={selectedMuni !== ALL_MUNICIPALITIES ? selectedMuni : undefined}
-          />
-        </div>
-        <div className="absolute top-4 left-4 z-10 w-full max-w-sm lg:max-w-md">
-          <Collapsible defaultOpen={true}>
-            <Card className="bg-white/80 backdrop-blur-sm">
-              <CardHeader className="flex flex-row items-center justify-between p-4">
-                <div>
-                  <CardTitle>Nuestras Oficinas</CardTitle>
-                  <CardDescription className="text-[14px]">
-                    Selecciona un departamento y un municipio para filtrar.
-                  </CardDescription>
-                </div>
-                 <CollapsibleTrigger asChild>
-                  <Button variant="ghost" size="sm" className="w-9 p-0">
-                    <ChevronsUpDown className="h-4 w-4" />
-                    <span className="sr-only">Toggle</span>
-                  </Button>
-                </CollapsibleTrigger>
-              </CardHeader>
-              <CollapsibleContent>
-                <CardContent className="space-y-4 p-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="department-select">Departamento</Label>
-                    <Select value={selectedDept} onValueChange={handleDeptChange}>
-                      <SelectTrigger id="department-select">
-                        <SelectValue placeholder="Selecciona un departamento" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value={ALL_DEPARTMENTS}>Todos los Departamentos</SelectItem>
-                        {departments.map(dept => (
-                          <SelectItem key={dept} value={dept} className="capitalize">{dept}</SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="municipality-select">Municipio</Label>
-                    <Select value={selectedMuni} onValueChange={handleMuniChange} disabled={selectedDept === ALL_DEPARTMENTS}>
-                      <SelectTrigger id="municipality-select">
-                        <SelectValue placeholder="Selecciona un municipio" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value={ALL_MUNICIPALITIES}>Todos los Municipios</SelectItem>
-                        {municipalities.map(muni => (
-                          <SelectItem key={muni.id_dane} value={muni.id_dane}>{muni.nombre}</SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                   <CardDescription className="text-xs pt-2">
-                    <span className="font-bold">
-                      Haz clic sobre el ícono de la ubicación en el mapa para consultar la información detallada.
-                    </span>
-                  </CardDescription>
-                </CardContent>
-              </CollapsibleContent>
-            </Card>
-          </Collapsible>
-        </div>
-      </main>
+    <div className="container mx-auto py-8">
+      <h1 className="text-2xl font-bold mb-4">Respuesta de la API de Supabase</h1>
+      {loading ? (
+        <p>Cargando datos...</p>
+      ) : (
+        <pre className="mt-2 h-[600px] w-full overflow-auto rounded-md bg-secondary p-4">
+          <code>{JSON.stringify(allLocations, null, 2)}</code>
+        </pre>
+      )}
     </div>
   );
 }
