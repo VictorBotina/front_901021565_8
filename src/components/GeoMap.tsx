@@ -50,6 +50,18 @@ const GeoMap: React.FC<GeoMapProps> = ({ locations, center, zoom, onMarkerClick,
         onMarkerClick(location);
     };
 
+    const renderServicesAsList = (services: string) => {
+        if (!services) return null;
+        const serviceList = services.split(',').map(s => s.trim());
+        return (
+            <ul className="list-disc list-inside text-xs text-muted-foreground space-y-1">
+                {serviceList.map((service, index) => (
+                    <li key={index}>{service}</li>
+                ))}
+            </ul>
+        );
+    };
+
     return (
         <MapContainer center={mapCenter} zoom={mapZoom} scrollWheelZoom={true} className="h-full w-full">
             <ChangeView center={mapCenter} zoom={mapZoom} />
@@ -81,13 +93,13 @@ const GeoMap: React.FC<GeoMapProps> = ({ locations, center, zoom, onMarkerClick,
                                 {activeLocation.details.servicios_sub && (
                                     <div>
                                         <h4 className="font-semibold mt-2">Servicios Subsidiado</h4>
-                                        <p className="text-xs text-muted-foreground">{activeLocation.details.servicios_sub}</p>
+                                        {renderServicesAsList(activeLocation.details.servicios_sub)}
                                     </div>
                                 )}
                                 {activeLocation.details.servicios_cont && (
                                      <div>
                                         <h4 className="font-semibold mt-2">Servicios Contributivo</h4>
-                                        <p className="text-xs text-muted-foreground">{activeLocation.details.servicios_cont}</p>
+                                        {renderServicesAsList(activeLocation.details.servicios_cont)}
                                     </div>
                                 )}
                             </div>
