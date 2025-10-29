@@ -85,7 +85,7 @@ export function MainNavigation() {
         <div className="flex flex-1 items-center justify-end space-x-1 md:flex-none">
           <Dialog open={searchDialogOpen} onOpenChange={setSearchDialogOpen}>
             <DialogTrigger asChild>
-              <Button>Accesos rapidos</Button>
+              <Button className="ml-4">Accesos rapidos</Button>
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>
