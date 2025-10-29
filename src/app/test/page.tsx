@@ -2,6 +2,7 @@
 "use client";
 
 import * as React from "react";
+import dynamic from 'next/dynamic';
 import {
   Card,
   CardContent,
@@ -9,9 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  Label
-} from "@/components/ui/label";
+import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
@@ -19,44 +18,41 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  Alert,
-  AlertDescription,
-  AlertTitle
-} from "@/components/ui/alert";
-import type {
-  Location
-} from "@/lib/types";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Skeleton } from "@/components/ui/skeleton";
+import type { Location } from "@/lib/types";
 
+// Carga dinámica del mapa para evitar problemas de renderizado en SSR
+const GeoMap = dynamic(() => import('@/components/GeoMap'), {
+  ssr: false,
+  loading: () => <Skeleton className="h-full w-full" />,
+});
 
 const ALL_DEPARTMENTS = "__ALL_DEPARTMENTS__";
 const ALL_MUNICIPALITIES = "__ALL_MUNICIPALITIES__";
 
-
 type LocationData = {
-  [department: string]: {
-    nombre_municipio: string;
-    id_dane: string;
-    latitud: number;
-    longitud: number;
-  } [];
+  [department: string]: Location[];
 };
 
 export default function TestPage() {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseApiKey = process.env.NEXT_PUBLIC_SUPABASE_API_KEY;
 
-  const [locationData, setLocationData] = React.useState < LocationData > ({});
-  const [departments, setDepartments] = React.useState < string[] > ([]);
-  const [municipalities, setMunicipalities] = React.useState < Location[] > ([]);
+  const [locationData, setLocationData] = React.useState<LocationData>({});
+  const [allLocations, setAllLocations] = React.useState<Location[]>([]);
+  const [departments, setDepartments] = React.useState<string[]>([]);
+  const [municipalities, setMunicipalities] = React.useState<Location[]>([]);
 
-  const [selectedDept, setSelectedDept] = React.useState < string > (ALL_DEPARTMENTS);
-  const [selectedMuni, setSelectedMuni] = React.useState < string > (ALL_MUNICIPALITIES);
-  const [error, setError] = React.useState < string | null > (null);
-  const [loading, setLoading] = React.useState(false);
-  const [apiResponse, setApiResponse] = React.useState < any > (null);
+  const [selectedDept, setSelectedDept] = React.useState<string>(ALL_DEPARTMENTS);
+  const [selectedMuni, setSelectedMuni] = React.useState<string>(ALL_MUNICIPALITIES);
+  
+  const [activeLocation, setActiveLocation] = React.useState<any>(null);
+  const [loadingOfficeDetails, setLoadingOfficeDetails] = React.useState(false);
 
-  // Cargar locations.json para poblar los selects
+  const [error, setError] = React.useState<string | null>(null);
+
+  // Cargar locations.json para poblar los selects y el mapa inicial
   React.useEffect(() => {
     fetch('/locations.json')
       .then(res => {
@@ -67,84 +63,102 @@ export default function TestPage() {
         setLocationData(data);
         const deptNames = Object.keys(data).sort((a, b) => a.localeCompare(b));
         setDepartments(deptNames);
+        // Aplanar todas las ubicaciones para el mapa
+        const all = Object.values(data).flat();
+        setAllLocations(all);
       })
       .catch(() => {
         setError("No se pudo cargar el archivo de ubicaciones (locations.json).");
       });
   }, []);
 
+  // Función para obtener detalles de la oficina
+  const fetchOfficeDetails = React.useCallback(async (daneId: string) => {
+    if (!supabaseUrl || !supabaseApiKey) {
+      setError("Error: Las variables de entorno de Supabase no están configuradas.");
+      return;
+    }
+    if (!daneId) return;
+
+    setLoadingOfficeDetails(true);
+    setError(null);
+
+    try {
+      const response = await fetch(`${supabaseUrl}/rest/v1/rpc/of_emssanar`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': supabaseApiKey,
+          'Authorization': `Bearer ${supabaseApiKey}`,
+        },
+        body: JSON.stringify({ "id_dane": daneId }),
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Error en la solicitud a Supabase: ${response.statusText} - ${errorText}`);
+      }
+
+      const result = await response.json();
+      const location = allLocations.find(loc => loc.id_dane === daneId);
+      
+      if (location && result.success && result.data) {
+        setActiveLocation({ ...location, details: result.data });
+      } else {
+         throw new Error("No se encontraron detalles para la oficina seleccionada.");
+      }
+
+    } catch (err: any) {
+      setError(err.message || "Ocurrió un error inesperado al obtener los datos.");
+      setActiveLocation(null);
+    } finally {
+      setLoadingOfficeDetails(false);
+    }
+  }, [supabaseUrl, supabaseApiKey, allLocations]);
+
+
   // Actualizar la lista de municipios cuando cambia el departamento
   React.useEffect(() => {
     if (selectedDept && selectedDept !== ALL_DEPARTMENTS) {
-      const munis = locationData[selectedDept] ?.map(m => ({
-        ...m,
-        nombre: m.nombre_municipio
-      })) || [];
-      setMunicipalities(munis.sort((a, b) => a.nombre.localeCompare(b.nombre)));
+      const munis = locationData[selectedDept] || [];
+      setMunicipalities(munis.sort((a, b) => a.nombre_municipio.localeCompare(b.nombre_municipio)));
     } else {
       setMunicipalities([]);
     }
     setSelectedMuni(ALL_MUNICIPALITIES);
-    setApiResponse(null); // Limpiar la respuesta anterior
+    setActiveLocation(null);
   }, [selectedDept, locationData]);
 
-
-  // Enviar la solicitud POST cuando se selecciona un municipio
+  // Enviar la solicitud POST cuando se selecciona un municipio en el select
   React.useEffect(() => {
-    if (!selectedMuni || selectedMuni === ALL_MUNICIPALITIES) {
-      setApiResponse(null);
-      return;
-    };
-
-    const fetchOfficeData = async () => {
-      if (!supabaseUrl || !supabaseApiKey) {
-        setError("Error: Las variables de entorno de Supabase no están configuradas.");
-        return;
-      }
-
-      setLoading(true);
-      setError(null);
-      setApiResponse(null);
-
-      try {
-        const response = await fetch(`${supabaseUrl}/rest/v1/rpc/of_emssanar`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'apikey': supabaseApiKey,
-            'Authorization': `Bearer ${supabaseApiKey}`,
-          },
-          body: JSON.stringify({
-            "id_dane": selectedMuni
-          }),
-        });
-
-        if (!response.ok) {
-          throw new Error(`Error en la solicitud a Supabase: ${response.statusText}`);
-        }
-
-        const result = await response.json();
-        setApiResponse(result);
-
-      } catch (err: any) {
-        setError(err.message || "Ocurrió un error inesperado al obtener los datos.");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchOfficeData();
-
-  }, [selectedMuni, supabaseUrl, supabaseApiKey]);
-
+    if (selectedMuni && selectedMuni !== ALL_MUNICIPALITIES) {
+      fetchOfficeDetails(selectedMuni);
+    } else {
+      setActiveLocation(null);
+    }
+  }, [selectedMuni, fetchOfficeDetails]);
 
   const handleDeptChange = (value: string) => {
     setSelectedDept(value);
-  }
+  };
 
   const handleMuniChange = (value: string) => {
     setSelectedMuni(value);
-  }
+  };
+  
+  const handleMarkerClick = React.useCallback((location: Location) => {
+    // Actualiza los selects
+    const dept = Object.keys(locationData).find(d => locationData[d].some(m => m.id_dane === location.id_dane));
+    if (dept) {
+        setSelectedDept(dept);
+    }
+    // El useEffect de selectedDept se encargará de actualizar los municipios.
+    // Damos un pequeño tiempo para que el estado del departamento y la lista de municipios se actualice
+    // antes de seleccionar el municipio y disparar la llamada a la API.
+    setTimeout(() => {
+        setSelectedMuni(location.id_dane);
+    }, 0);
+  }, [locationData]);
 
 
   if (error && !locationData) {
@@ -157,65 +171,67 @@ export default function TestPage() {
       </div>
     );
   }
+  
+  const center: [number, number] = [2.9, -75.0];
+  const zoom: number = 6;
 
   return (
-    <div className="container mx-auto py-8">
-      <Card className="max-w-md mx-auto">
-        <CardHeader>
-          <CardTitle>Filtros de Ubicación</CardTitle>
-          <CardDescription>
-            Selecciona un departamento y un municipio.
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="department-select">Departamento</Label>
-            <Select value={selectedDept} onValueChange={handleDeptChange}>
-              <SelectTrigger id="department-select">
-                <SelectValue placeholder="Selecciona un departamento" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value={ALL_DEPARTMENTS}>Todos los Departamentos</SelectItem>
-                {departments.map(dept => (
-                  <SelectItem key={dept} value={dept} className="capitalize">{dept}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="municipality-select">Municipio</Label>
-            <Select value={selectedMuni} onValueChange={handleMuniChange} disabled={selectedDept === ALL_DEPARTMENTS}>
-              <SelectTrigger id="municipality-select">
-                <SelectValue placeholder="Selecciona un municipio" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value={ALL_MUNICIPALITIES}>Todos los Municipios</SelectItem>
-                {municipalities.map(muni => (
-                  <SelectItem key={muni.id_dane} value={muni.id_dane}>{muni.nombre}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-        </CardContent>
-      </Card>
-
-      {(loading || apiResponse || error) && (
-        <div className="mt-8">
-          <h2 className="text-xl font-bold mb-4">Respuesta de la API</h2>
-          {loading && <p>Cargando...</p>}
-          {error && (
-            <Alert variant="destructive">
+    <div className="flex h-screen flex-col">
+       <div className="w-full md:w-96 md:absolute md:top-0 md:left-0 md:h-full z-10 p-4 bg-background/80 backdrop-blur-sm overflow-y-auto">
+         <Card>
+          <CardHeader>
+            <CardTitle>Filtros de Ubicación</CardTitle>
+            <CardDescription>
+              Selecciona un departamento y un municipio.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="department-select">Departamento</Label>
+              <Select value={selectedDept} onValueChange={handleDeptChange}>
+                <SelectTrigger id="department-select">
+                  <SelectValue placeholder="Selecciona un departamento" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value={ALL_DEPARTMENTS}>Todos los Departamentos</SelectItem>
+                  {departments.map(dept => (
+                    <SelectItem key={dept} value={dept} className="capitalize">{dept}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="municipality-select">Municipio</Label>
+              <Select value={selectedMuni} onValueChange={handleMuniChange} disabled={selectedDept === ALL_DEPARTMENTS}>
+                <SelectTrigger id="municipality-select">
+                  <SelectValue placeholder="Selecciona un municipio" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value={ALL_MUNICIPALITIES}>Todos los Municipios</SelectItem>
+                  {municipalities.map(muni => (
+                    <SelectItem key={muni.id_dane} value={muni.id_dane}>{muni.nombre_municipio}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          </CardContent>
+        </Card>
+        {error && (
+            <Alert variant="destructive" className="mt-4">
               <AlertTitle>Error</AlertTitle>
               <AlertDescription>{error}</AlertDescription>
             </Alert>
-          )}
-          {apiResponse && (
-            <pre className="mt-2 h-[400px] w-full overflow-auto rounded-md bg-secondary p-4">
-              <code>{JSON.stringify(apiResponse, null, 2)}</code>
-            </pre>
-          )}
-        </div>
-      )}
+        )}
+       </div>
+      <main className="flex-1">
+        <GeoMap 
+            locations={allLocations}
+            center={center}
+            zoom={zoom}
+            onMarkerClick={handleMarkerClick}
+            activeLocation={activeLocation}
+        />
+      </main>
     </div>
   );
 }
