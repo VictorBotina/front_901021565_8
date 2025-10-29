@@ -176,9 +176,9 @@ export default function TestPage() {
   const zoom: number = 6;
 
   return (
-    <div className="flex h-screen flex-col">
-       <div className="w-full md:w-96 md:absolute md:top-0 md:left-0 md:h-full z-10 p-4 bg-background/80 backdrop-blur-sm overflow-y-auto">
-         <Card>
+    <div className="relative h-screen w-full">
+      <div className="absolute top-0 left-0 z-10 h-full w-full md:w-96 p-4 overflow-y-auto">
+         <Card className="bg-background/80 backdrop-blur-sm">
           <CardHeader>
             <CardTitle>Filtros de Ubicación</CardTitle>
             <CardDescription>
@@ -223,7 +223,7 @@ export default function TestPage() {
             </Alert>
         )}
        </div>
-      <main className="flex-1">
+      <main className="absolute inset-0 z-0">
         <GeoMap 
             locations={allLocations}
             center={center}
