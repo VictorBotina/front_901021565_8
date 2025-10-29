@@ -74,11 +74,11 @@ export default function SubsidiadoPage() {
                 <CardHeader className="items-center">
                   <div className="flex justify-center items-center h-16 w-16 mb-4">
                     <Image
-                      src="/images/img-sub/ico-directorio-oficinas.svg"
+                      src="/images/img-sub/ico_directorio-oficinas.svg"
                       alt={`Icono para ${card.title}`}
-                      width={50}
-                      height={50}
-                      className="h-[40px] w-[40px] md:h-[50px] md:w-[50px]"
+                      width={100}
+                      height={100}
+                      className="h-[100px] w-[100px]"
                     />
                   </div>
                   <CardTitle className="text-base font-semibold">{card.title}</CardTitle>
