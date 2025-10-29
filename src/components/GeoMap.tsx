@@ -87,7 +87,7 @@ const GeoMap: React.FC<GeoMapProps> = ({ locations, center, zoom, onMarkerClick,
                 >
                     {activeLocation && activeLocation.id_dane === location.id_dane && activeLocation.details && (
                         <Popup>
-                            <div className="p-0.5 max-w-md font-sans overflow-hidden rounded-xl shadow-lg font-body">
+                            <div className="p-0.5 max-w-xl font-sans overflow-hidden rounded-xl shadow-lg font-body">
                                 <div className="bg-card text-card-foreground">
                                     <div className="p-4 flex items-center gap-4 border-b">
                                         <Image src="https://emssanareps.co/images/logo_emssanareps.svg" alt="Logo Emssanar" width={40} height={40} className="h-10 w-auto" />
@@ -96,7 +96,7 @@ const GeoMap: React.FC<GeoMapProps> = ({ locations, center, zoom, onMarkerClick,
                                             <span className="text-muted-foreground font-normal text-base">, {activeLocation.details.departamento}</span>
                                         </h3>
                                     </div>
-                                    <div className="p-4 space-y-4 text-base">
+                                    <div className="p-6 space-y-4 text-base">
                                         <div className="flex items-start gap-3">
                                             <MapPin className="h-5 w-5 text-muted-foreground flex-shrink-0 mt-0.5" />
                                             <div>
