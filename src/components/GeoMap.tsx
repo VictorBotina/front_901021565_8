@@ -56,7 +56,7 @@ const GeoMap: React.FC<GeoMapProps> = ({ locations, center, zoom, onMarkerClick,
         if (!services) return <p className="text-sm text-muted-foreground">No hay servicios especificados.</p>;
         const serviceList = services.split(/\r\n\r\n|\n\n/).map(s => s.trim()).filter(Boolean);
         return (
-            <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1 pl-2">
+            <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1 pl-4">
                 {serviceList.map((service, index) => (
                     <li key={index}>{service}</li>
                 ))}
@@ -87,7 +87,7 @@ const GeoMap: React.FC<GeoMapProps> = ({ locations, center, zoom, onMarkerClick,
                 >
                     {activeLocation && activeLocation.id_dane === location.id_dane && activeLocation.details && (
                         <Popup>
-                            <div className="p-0.5 max-w-sm font-sans overflow-hidden rounded-xl shadow-lg font-body">
+                            <div className="p-0.5 max-w-md font-sans overflow-hidden rounded-xl shadow-lg font-body">
                                 <div className="bg-card text-card-foreground">
                                     <div className="p-4 flex items-center gap-4 border-b">
                                         <Image src="https://emssanareps.co/images/logo_emssanareps.svg" alt="Logo Emssanar" width={40} height={40} className="h-10 w-auto" />
@@ -101,14 +101,14 @@ const GeoMap: React.FC<GeoMapProps> = ({ locations, center, zoom, onMarkerClick,
                                             <MapPin className="h-5 w-5 text-muted-foreground flex-shrink-0 mt-0.5" />
                                             <div>
                                                 <p className="font-semibold text-foreground">Dirección</p>
-                                                <p className="text-muted-foreground text-sm">{activeLocation.details.direccion || 'No especificada'}</p>
+                                                <p className="text-sm text-muted-foreground">{activeLocation.details.direccion || 'No especificada'}</p>
                                             </div>
                                         </div>
                                         <div className="flex items-start gap-3">
                                             <Clock className="h-5 w-5 text-muted-foreground flex-shrink-0 mt-0.5" />
                                             <div>
                                                 <p className="font-semibold text-foreground">Horario</p>
-                                                <p className="text-muted-foreground text-sm">{activeLocation.details.horario_atencion || 'No especificado'}</p>
+                                                <p className="text-sm text-muted-foreground">{activeLocation.details.horario_atencion || 'No especificado'}</p>
                                             </div>
                                         </div>
                                         
