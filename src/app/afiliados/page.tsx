@@ -63,6 +63,9 @@ export default function AfiliadosPage() {
                     </div>
                     <CardTitle className="transition-colors duration-300 group-hover:text-white">Régimen Subsidiado</CardTitle>
                 </CardHeader>
+                <CardContent className="flex-grow z-10 transition-opacity duration-300 group-hover:opacity-0">
+                    <CardDescription>Accede a servicios de salud de calidad sin costo, garantizando tu bienestar.</CardDescription>
+                </CardContent>
                 <div className="absolute inset-0 z-20 flex flex-col items-center justify-center p-6 text-center opacity-0 transition-all duration-300 group-hover:opacity-100">
                     <div className="absolute inset-0 bg-primary/90"></div>
                     <div className="relative z-10">
@@ -82,6 +85,9 @@ export default function AfiliadosPage() {
                     </div>
                     <CardTitle className="transition-colors duration-300 group-hover:text-white">Régimen Contributivo</CardTitle>
                 </CardHeader>
+                 <CardContent className="flex-grow z-10 transition-opacity duration-300 group-hover:opacity-0">
+                    <CardDescription>Cobertura completa para ti y tus beneficiarios como trabajador o independiente.</CardDescription>
+                </CardContent>
                 <div className="absolute inset-0 z-20 flex flex-col items-center justify-center p-6 text-center opacity-0 transition-all duration-300 group-hover:opacity-100">
                     <div className="absolute inset-0 bg-primary/90"></div>
                     <div className="relative z-10">
@@ -268,5 +274,3 @@ export default function AfiliadosPage() {
     </div>
   );
 }
-
-    
