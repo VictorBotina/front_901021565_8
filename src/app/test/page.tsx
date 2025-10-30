@@ -216,16 +216,17 @@ export default function TestPage() {
           </div>
         )}
       </AnimatePresence>
-
-      <main className="absolute inset-0 z-0 h-full w-full">
-        <GeoMap 
-            locations={allLocations}
-            center={center}
-            zoom={zoom}
-            onMarkerClick={handleMarkerClick}
-            activeLocationId={activeLocation?.id_dane}
-        />
-      </main>
+      <div className="absolute inset-0 z-0 flex h-full w-full items-center justify-center">
+        <main className="relative h-3/4 w-3/4 rounded-lg shadow-lg overflow-hidden">
+          <GeoMap 
+              locations={allLocations}
+              center={center}
+              zoom={zoom}
+              onMarkerClick={handleMarkerClick}
+              activeLocationId={activeLocation?.id_dane}
+          />
+        </main>
+      </div>
 
       <AnimatePresence>
         {activeLocation && (
