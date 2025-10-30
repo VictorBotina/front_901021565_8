@@ -18,7 +18,7 @@ export function SubMenu({ items }: SubMenuProps) {
   const pathname = usePathname();
 
   return (
-    <div className="border-b">
+    <div className="border-b overflow-x-auto">
       <nav className="-mb-px flex gap-6 px-6" aria-label="Tabs">
         {items.map((item) => {
           const isActive = pathname === item.href;

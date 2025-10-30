@@ -59,6 +59,11 @@ export default function OficinasAtencionPage() {
   const [error, setError] = React.useState<string | null>(null);
 
   React.useEffect(() => {
+    // On mobile, start with the filter panel closed.
+    if (window.innerWidth < 768) {
+      setFilterPanelOpen(false);
+    }
+
     fetch('/locations.json')
       .then(res => {
         if (!res.ok) throw new Error(`Error HTTP: ${res.status}`);
@@ -221,7 +226,7 @@ export default function OficinasAtencionPage() {
 
       <main className="relative h-[70vh] w-full max-w-7xl mx-auto rounded-lg shadow-2xl overflow-hidden">
         
-        <div className="absolute top-16 left-4 z-20">
+        <div className="absolute top-4 left-4 z-20">
           <Button onClick={() => setFilterPanelOpen(!filterPanelOpen)} size="icon">
             {filterPanelOpen ? <PanelLeftClose /> : <SlidersHorizontal />}
             <span className="sr-only">Toggle Filters</span>
@@ -230,7 +235,7 @@ export default function OficinasAtencionPage() {
 
         <AnimatePresence>
           {filterPanelOpen && (
-            <div className="absolute top-[5.5rem] left-4 z-10 w-full max-w-sm">
+            <div className="absolute top-16 left-4 z-10 w-full max-w-sm">
               <Card className="bg-background/80 backdrop-blur-sm">
                 <CardHeader>
                   <CardTitle>Filtros de Ubicación</CardTitle>
@@ -287,5 +292,3 @@ export default function OficinasAtencionPage() {
     </div>
   );
 }
-
-    

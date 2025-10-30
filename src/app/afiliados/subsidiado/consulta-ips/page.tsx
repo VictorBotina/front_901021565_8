@@ -68,10 +68,10 @@ export default function ConsultaIpsPage() {
             <p className="text-muted-foreground mt-2 max-w-2xl mx-auto">A continuación, puede realizar la validación de su afiliación en tiempo real a través del siguiente aplicativo.</p>
         </div>
         <Card className="max-w-4xl mx-auto p-2 md:p-4">
-            <div className="aspect-w-16 aspect-h-12 md:aspect-h-9">
+            <div className="aspect-w-16 aspect-h-12 md:aspect-h-9 w-full">
                 <iframe 
                     src="https://boxalud.emssanareps.co/Publico/BoxaludPublico/Pages/ValidacionDerechosAfiliados.aspx"
-                    className="w-full h-[600px] border-0 rounded-md"
+                    className="w-full h-[600px] md:h-[700px] border-0 rounded-md"
                     title="Consulta de Validación de Derechos de Afiliados"
                 >
                 </iframe>
