@@ -1,4 +1,5 @@
 
+
 import {
   Accordion,
   AccordionContent,
@@ -13,6 +14,7 @@ import { CheckCircle, Info, Shield, BookOpen, Users, Phone, Mail, MessageSquare,
 import type { Metadata } from 'next';
 import Link from "next/link";
 import React from "react";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: 'Afiliados | Cuidamos de ti en cada paso',
@@ -22,6 +24,24 @@ export const metadata: Metadata = {
 
 
 export default function AfiliadosPage() {
+
+    const staticCardData = [
+    {
+      title: "Régimen Subsidiado",
+      description: "Accede a servicios de salud de calidad sin costo, garantizando tu bienestar y el de tu familia.",
+      buttonText: "Conoce más",
+      buttonLink: "/afiliados/subsidiado",
+      imageUrl: "/images/img-sub/ico_subsidiado.svg",
+    },
+    {
+      title: "Régimen Contributivo",
+      description: "Cobertura completa para ti y tus beneficiarios a través de tu aporte como trabajador o independiente.",
+      buttonText: "Explora beneficios",
+      buttonLink: "/afiliados/contributivo",
+      imageUrl: "/images/img-sub/ico_subsidiado.svg", // Assuming same icon for now
+    },
+  ];
+
   return (
     <div className="container mx-auto px-4 py-8 md:py-12">
       <header className="text-center mb-12">
@@ -48,6 +68,56 @@ export default function AfiliadosPage() {
             </p>
           </CardContent>
         </Card>
+      </section>
+
+      <section className="bg-muted/40 py-12 lg:py-16 my-16">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-2 max-w-4xl mx-auto">
+            {/* Tarjeta Régimen Subsidiado */}
+            <Card className="flex flex-col text-center items-center">
+              <CardHeader className="items-center">
+                <Image
+                  src={staticCardData[0].imageUrl}
+                  alt="Icono Régimen Subsidiado"
+                  width={100}
+                  height={100}
+                  className="h-[100px] w-[100px]"
+                />
+                <CardTitle className="pt-4">{staticCardData[0].title}</CardTitle>
+              </CardHeader>
+              <CardContent className="flex-grow">
+                <CardDescription>{staticCardData[0].description}</CardDescription>
+              </CardContent>
+              <div className="p-6 pt-0">
+                <Button asChild>
+                  <Link href={staticCardData[0].buttonLink}>{staticCardData[0].buttonText}</Link>
+                </Button>
+              </div>
+            </Card>
+
+            {/* Tarjeta Régimen Contributivo */}
+            <Card className="flex flex-col text-center items-center">
+              <CardHeader className="items-center">
+                <Image
+                  src={staticCardData[1].imageUrl}
+                  alt="Icono Régimen Contributivo"
+                  width={100}
+                  height={100}
+                  className="h-[100px] w-[100px]"
+                />
+                <CardTitle className="pt-4">{staticCardData[1].title}</CardTitle>
+              </CardHeader>
+              <CardContent className="flex-grow">
+                <CardDescription>{staticCardData[1].description}</CardDescription>
+              </CardContent>
+              <div className="p-6 pt-0">
+                <Button asChild>
+                  <Link href={staticCardData[1].buttonLink}>{staticCardData[1].buttonText}</Link>
+                </Button>
+              </div>
+            </Card>
+          </div>
+        </div>
       </section>
 
       <section className="mb-16">
