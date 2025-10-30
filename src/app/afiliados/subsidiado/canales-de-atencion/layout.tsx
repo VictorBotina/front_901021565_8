@@ -1,4 +1,4 @@
-// src/app/afiliados/subsidiado/(canales-de-atencion)/layout.tsx
+// src/app/afiliados/subsidiado/canales-de-atencion/layout.tsx
 import { SubMenu } from "@/components/layout/subsidiado/SubMenu";
 
 const menuItems = [
