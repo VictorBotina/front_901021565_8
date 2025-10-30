@@ -1,33 +1,33 @@
 // src/app/afiliados/subsidiado/informacion/page.tsx
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import { ArrowRight, BookUser, FileText, Building, Network } from "lucide-react";
-import React from 'react';
+import Link from 'next/link';
+import { Button } from "@/components/ui/button";
+import React from "react";
 
 export default function InformacionLandingPage() {
   const sublinks = [
-    { 
-      href: "/afiliados/subsidiado/informacion/derechos-y-deberes", 
-      title: "Derechos y Deberes", 
+    {
+      href: "/afiliados/subsidiado/informacion/derechos-y-deberes",
+      title: "Derechos y Deberes",
       description: "Conoce tus derechos como afiliado y tus responsabilidades en el sistema.",
-      icon: <BookUser /> 
+      icon: <BookUser />
     },
-    { 
-      href: "/afiliados/subsidiado/informacion/plan-de-beneficios", 
-      title: "Plan de Beneficios", 
+    {
+      href: "/afiliados/subsidiado/informacion/plan-de-beneficios",
+      title: "Plan de Beneficios",
       description: "Detalles sobre la cobertura, servicios y medicamentos incluidos.",
       icon: <FileText />
     },
-    { 
-      href: "/afiliados/subsidiado/informacion/oficinas", 
-      title: "Oficinas de Atención", 
+    {
+      href: "/afiliados/subsidiado/informacion/oficinas",
+      title: "Oficinas de Atención",
       description: "Encuentra nuestras oficinas y puntos de atención más cercanos.",
       icon: <Building />
     },
-    { 
-      href: "/afiliados/subsidiado/consulta-ips", 
-      title: "Consulta tu IPS", 
+    {
+      href: "/afiliados/subsidiado/consulta-ips",
+      title: "Consulta tu IPS",
       description: "Valida tus derechos y encuentra tu Institución Prestadora de Salud.",
       icon: <Network />
     },
