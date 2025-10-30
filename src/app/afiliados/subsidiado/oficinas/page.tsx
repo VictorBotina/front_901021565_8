@@ -24,7 +24,7 @@ import type { Location } from "@/lib/types";
 import { AnimatePresence } from "framer-motion";
 import { OfficeDetailPanel } from "@/components/OfficeDetailPanel";
 import { Button } from "@/components/ui/button";
-import { PanelLeftClose, SlidersHorizontal } from "lucide-react";
+import { PanelLeftClose, SlidersHorizontal, CheckCircle } from "lucide-react";
 import type { Metadata } from 'next';
 
 // Carga dinámica del mapa para evitar problemas de renderizado en SSR
@@ -40,13 +40,13 @@ type LocationData = {
   [department: string]: Location[];
 };
 
-/*
+
 export const metadata: Metadata = {
   title: 'Oficinas de Atención: Encuentre la Información y Ubicación para el Régimen Subsidiado',
   description: 'Encuentra oficinas del Régimen Subsidiado: atención cercana, rápida y preferencial para todos los afiliados.',
   keywords: 'Oficinas de atención, Régimen Subsidiado, EPS, Emssanar, Emssanar EPS, SIAU, atención al usuario, afiliados EPS, salud en Colombia, puntos de atención, oficinas municipales, atención preferencial, portabilidad, movilidad entre regímenes, trámites EPS, afiliación, novedades, cobertura en salud, atención presencial, oficinas regionales, Cali, Pasto, servicios de salud, información EPS.',
 };
-*/
+
 
 export default function OficinasAtencionPage() {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -182,8 +182,52 @@ export default function OficinasAtencionPage() {
   const zoom: number = 6;
 
   return (
-    <div className="flex h-screen w-full items-center justify-center bg-background p-4">
-      <main className="relative h-5/6 w-11/12 max-w-7xl rounded-lg shadow-2xl overflow-hidden">
+    <div className="container mx-auto px-4 py-8 md:py-12">
+      <header className="text-center mb-12">
+        <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight">
+          Oficinas de Atención: Encuentre la Información y Ubicación para el Régimen Subsidiado
+        </h1>
+        <p className="mt-4 text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
+          Estamos comprometidos con la comodidad y la cercanía para nuestros afiliados. Nuestro Servicio de Información y Atención al Usuario (SIAU) es su punto de apoyo esencial.
+        </p>
+      </header>
+
+      <section className="grid md:grid-cols-2 gap-8 mb-12 max-w-6xl mx-auto">
+        <Card>
+          <CardHeader>
+            <CardTitle>Servicio de Información y Atención al Usuario (SIAU)</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4 text-muted-foreground">
+            <p>El SIAU ha sido creado para facilitarle la atención, orientándole sobre los procesos a seguir dentro y fuera de la institución para acceder a sus servicios de salud. Este mecanismo busca la comodidad y cercanía del usuario.</p>
+            <p>Como afiliado al Régimen Subsidiado, usted puede acudir a nuestras oficinas para radicar cualquier tipo de solicitud (informativa o para gestión), incluyendo trámites relacionados con afiliación, novedades, portabilidad y movilidad entre regímenes.</p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle>Atención Presencial y Preferencial</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4 text-muted-foreground">
+             <p>Nuestra EPS cuenta con oficinas de atención al usuario en cada municipio en donde tiene cobertura, además de oficinas zonales en las principales ciudades y oficinas regionales en ciudades como Cali y Pasto.</p>
+            <p className="font-semibold text-foreground">Garantizamos la atención preferencial a:</p>
+            <ul className="list-disc list-inside space-y-1 pl-4">
+                <li>Niños y niñas.</li>
+                <li>Mujeres embarazadas.</li>
+                <li>Adultos mayores.</li>
+                <li>Personas en situación de discapacidad.</li>
+            </ul>
+          </CardContent>
+        </Card>
+      </section>
+
+      <Card className="mb-12 max-w-6xl mx-auto">
+        <CardHeader>
+            <CardTitle>Directorio de Oficinas Físicas</CardTitle>
+            <CardDescription>Para encontrar la dirección, municipio, y detalles de contacto de su oficina más cercana, utilice nuestro mapa interactivo. Nuestra red de oficinas presenciales y canales SIAU cubre principalmente los departamentos de Nariño, Putumayo, Valle del cauca y Cauca.</CardDescription>
+        </CardHeader>
+      </Card>
+
+
+      <main className="relative h-[70vh] w-full max-w-7xl mx-auto rounded-lg shadow-2xl overflow-hidden">
         
         <div className="absolute top-16 left-4 z-20">
           <Button onClick={() => setFilterPanelOpen(!filterPanelOpen)} size="icon">
@@ -251,3 +295,5 @@ export default function OficinasAtencionPage() {
     </div>
   );
 }
+
+    
