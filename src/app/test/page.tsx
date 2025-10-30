@@ -173,51 +173,53 @@ export default function TestPage() {
   const zoom: number = 6;
 
   return (
-    <div className="relative h-screen w-full overflow-hidden">
-      <div className="absolute top-20 left-4 z-20">
-        <Button onClick={() => setFilterPanelOpen(!filterPanelOpen)} size="icon">
-          {filterPanelOpen ? <PanelLeftClose /> : <SlidersHorizontal />}
-          <span className="sr-only">Toggle Filters</span>
-        </Button>
-      </div>
+    <div className="flex h-screen w-full items-center justify-center bg-background p-4">
+      <main className="relative h-5/6 w-11/12 max-w-7xl rounded-lg shadow-2xl overflow-hidden">
+        
+        <div className="absolute top-4 left-4 z-20">
+          <Button onClick={() => setFilterPanelOpen(!filterPanelOpen)} size="icon">
+            {filterPanelOpen ? <PanelLeftClose /> : <SlidersHorizontal />}
+            <span className="sr-only">Toggle Filters</span>
+          </Button>
+        </div>
 
-      <AnimatePresence>
-        {filterPanelOpen && (
-          <div className="absolute top-36 left-4 z-10 w-full max-w-sm md:w-96">
-            <Card className="bg-background/80 backdrop-blur-sm">
-              <CardHeader>
-                <CardTitle>Filtros de Ubicación</CardTitle>
-                <CardDescription>Selecciona un departamento y un municipio.</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="department-select">Departamento</Label>
-                  <Select value={selectedDept} onValueChange={setSelectedDept}>
-                    <SelectTrigger id="department-select"><SelectValue placeholder="Selecciona un departamento" /></SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value={ALL_DEPARTMENTS}>Todos los Departamentos</SelectItem>
-                      {departments.map(dept => (<SelectItem key={dept} value={dept} className="capitalize">{dept}</SelectItem>))}
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="municipality-select">Municipio</Label>
-                  <Select value={selectedMuni} onValueChange={setSelectedMuni} disabled={selectedDept === ALL_DEPARTMENTS}>
-                    <SelectTrigger id="municipality-select"><SelectValue placeholder="Selecciona un municipio" /></SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value={ALL_MUNICIPALITIES}>Todos los Municipios</SelectItem>
-                      {municipalities.map(muni => (<SelectItem key={muni.id_dane} value={muni.id_dane}>{muni.nombre_municipio}</SelectItem>))}
-                    </SelectContent>
-                  </Select>
-                </div>
-                {error && <Alert variant="destructive" className="mt-4"><AlertDescription>{error}</AlertDescription></Alert>}
-              </CardContent>
-            </Card>
-          </div>
-        )}
-      </AnimatePresence>
-      <div className="absolute inset-0 z-0 flex h-full w-full items-center justify-center">
-        <main className="relative h-3/4 w-3/4 rounded-lg shadow-lg overflow-hidden">
+        <AnimatePresence>
+          {filterPanelOpen && (
+            <div className="absolute top-16 left-4 z-10 w-full max-w-sm">
+              <Card className="bg-background/80 backdrop-blur-sm">
+                <CardHeader>
+                  <CardTitle>Filtros de Ubicación</CardTitle>
+                  <CardDescription>Selecciona un departamento y un municipio.</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="department-select">Departamento</Label>
+                    <Select value={selectedDept} onValueChange={setSelectedDept}>
+                      <SelectTrigger id="department-select"><SelectValue placeholder="Selecciona un departamento" /></SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value={ALL_DEPARTMENTS}>Todos los Departamentos</SelectItem>
+                        {departments.map(dept => (<SelectItem key={dept} value={dept} className="capitalize">{dept}</SelectItem>))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="municipality-select">Municipio</Label>
+                    <Select value={selectedMuni} onValueChange={setSelectedMuni} disabled={selectedDept === ALL_DEPARTMENTS}>
+                      <SelectTrigger id="municipality-select"><SelectValue placeholder="Selecciona un municipio" /></SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value={ALL_MUNICIPALITIES}>Todos los Municipios</SelectItem>
+                        {municipalities.map(muni => (<SelectItem key={muni.id_dane} value={muni.id_dane}>{muni.nombre_municipio}</SelectItem>))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  {error && <Alert variant="destructive" className="mt-4"><AlertDescription>{error}</AlertDescription></Alert>}
+                </CardContent>
+              </Card>
+            </div>
+          )}
+        </AnimatePresence>
+        
+        <div className="absolute inset-0 z-0 h-full w-full">
           <GeoMap 
               locations={allLocations}
               center={center}
@@ -225,18 +227,18 @@ export default function TestPage() {
               onMarkerClick={handleMarkerClick}
               activeLocationId={activeLocation?.id_dane}
           />
-        </main>
-      </div>
+        </div>
 
-      <AnimatePresence>
-        {activeLocation && (
-          <OfficeDetailPanel 
-            location={activeLocation} 
-            onClose={handleClosePanel}
-            isLoading={loadingOfficeDetails}
-          />
-        )}
-      </AnimatePresence>
+        <AnimatePresence>
+          {activeLocation && (
+            <OfficeDetailPanel 
+              location={activeLocation} 
+              onClose={handleClosePanel}
+              isLoading={loadingOfficeDetails}
+            />
+          )}
+        </AnimatePresence>
+      </main>
     </div>
   );
 }

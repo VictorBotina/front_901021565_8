@@ -33,10 +33,10 @@ export function OfficeDetailPanel({ location, onClose, isLoading }: OfficeDetail
       animate={{ x: 0 }}
       exit={{ x: '100%' }}
       transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-      className="absolute top-0 right-0 z-30 h-full w-full md:w-[400px] lg:w-[450px] p-4"
+      className="absolute top-0 right-0 z-20 h-full w-full md:w-[400px] lg:w-[450px]"
     >
-      <Card className="h-full w-full overflow-y-auto bg-background/80 backdrop-blur-sm">
-        <CardHeader className="flex flex-row items-center justify-between sticky top-0 bg-background/80 backdrop-blur-sm z-10">
+      <Card className="h-full w-full overflow-y-auto bg-background/80 backdrop-blur-sm rounded-none md:rounded-l-lg md:rounded-r-none">
+        <CardHeader className="flex flex-row items-center justify-between sticky top-0 bg-background/80 backdrop-blur-sm z-10 p-4">
             <div className='flex items-center gap-4'>
                 <Image src="https://emssanareps.co/images/logo_emssanareps.svg" alt="Logo Emssanar" width={40} height={40} className="h-10 w-auto" />
                 <CardTitle>{location.nombre_municipio}</CardTitle>
