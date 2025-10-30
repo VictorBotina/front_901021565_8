@@ -24,13 +24,7 @@ export default function InformacionLandingPage() {
       title: "Oficinas de Atención",
       description: "Encuentra nuestras oficinas y puntos de atención más cercanos.",
       icon: <Building />
-    },
-    {
-      href: "/afiliados/subsidiado/consulta-ips",
-      title: "Consulta tu IPS",
-      description: "Valida tus derechos y encuentra tu Institución Prestadora de Salud.",
-      icon: <Network />
-    },
+    }
   ];
 
   return (
@@ -42,7 +36,7 @@ export default function InformacionLandingPage() {
         </p>
       </header>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
           {sublinks.map(link => (
               <Card key={link.href} className="flex flex-col text-center items-center hover:shadow-lg transition-shadow">
                   <CardHeader className="items-center p-6">
