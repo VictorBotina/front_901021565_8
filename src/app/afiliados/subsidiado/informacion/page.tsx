@@ -26,7 +26,7 @@ export default function InformacionLandingPage() {
       icon: <Building />
     },
     { 
-      href: "/afiliados/subsidiado/informacion/consulta-ips", 
+      href: "/afiliados/subsidiado/consulta-ips", 
       title: "Consulta tu IPS", 
       description: "Valida tus derechos y encuentra tu Institución Prestadora de Salud.",
       icon: <Network />
@@ -42,24 +42,25 @@ export default function InformacionLandingPage() {
         </p>
       </header>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 max-w-4xl mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {sublinks.map(link => (
-              <Card key={link.href} className="flex flex-col text-center items-center hover:shadow-lg transition-shadow">
-                  <CardHeader className="items-center">
-                    <div className="p-4 bg-primary/10 rounded-full mb-2">
+              <Card key={link.href} className="group relative flex flex-col text-center items-center overflow-hidden rounded-lg shadow-md transition-all duration-300 hover:shadow-xl">
+                  <CardHeader className="items-center p-6 z-10 transition-all duration-300">
+                    <div className="p-4 bg-primary/10 rounded-full mb-2 transition-transform duration-300 group-hover:scale-90">
                         {React.cloneElement(link.icon, { className: "h-8 w-8 text-primary"})}
                     </div>
-                    <CardTitle>{link.title}</CardTitle>
+                    <CardTitle className="transition-colors duration-300 group-hover:text-white">{link.title}</CardTitle>
                   </CardHeader>
-                  <CardContent className="flex-grow">
-                      <p className="text-muted-foreground mb-4">{link.description}</p>
-                  </CardContent>
-                   <div className="p-6 pt-0">
-                      <Button asChild variant="outline">
+                  <div className="absolute inset-0 z-20 flex flex-col items-center justify-center p-6 text-center opacity-0 transition-all duration-300 group-hover:opacity-100">
+                    <div className="absolute inset-0 bg-primary/90"></div>
+                    <div className="relative z-10">
+                      <p className="text-primary-foreground mb-4">{link.description}</p>
+                      <Button asChild variant="secondary">
                           <Link href={link.href}>
                               Conocer más <ArrowRight className="ml-2 h-4 w-4" />
                           </Link>
                       </Button>
+                    </div>
                   </div>
               </Card>
           ))}
