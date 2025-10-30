@@ -40,14 +40,6 @@ type LocationData = {
   [department: string]: Location[];
 };
 
-
-export const metadata: Metadata = {
-  title: 'Oficinas de Atención: Encuentre la Información y Ubicación para el Régimen Subsidiado',
-  description: 'Encuentra oficinas del Régimen Subsidiado: atención cercana, rápida y preferencial para todos los afiliados.',
-  keywords: 'Oficinas de atención, Régimen Subsidiado, EPS, Emssanar, Emssanar EPS, SIAU, atención al usuario, afiliados EPS, salud en Colombia, puntos de atención, oficinas municipales, atención preferencial, portabilidad, movilidad entre regímenes, trámites EPS, afiliación, novedades, cobertura en salud, atención presencial, oficinas regionales, Cali, Pasto, servicios de salud, información EPS.',
-};
-
-
 export default function OficinasAtencionPage() {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseApiKey = process.env.NEXT_PUBLIC_SUPABASE_API_KEY;
