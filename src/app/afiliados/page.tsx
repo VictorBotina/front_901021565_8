@@ -1,3 +1,4 @@
+
 import {
   Accordion,
   AccordionContent,
@@ -8,9 +9,10 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { CheckCircle, Info, Shield, BookOpen, Users, Phone, Mail, MessageSquare, Building } from "lucide-react";
+import { CheckCircle, Info, Shield, BookOpen, Users, Phone, Mail, MessageSquare, Building, Heart, Leaf, ArrowRight } from "lucide-react";
 import type { Metadata } from 'next';
 import Link from "next/link";
+import React from "react";
 
 export const metadata: Metadata = {
   title: 'Afiliados | Cuidamos de ti en cada paso',
@@ -46,6 +48,53 @@ export default function AfiliadosPage() {
             </p>
           </CardContent>
         </Card>
+      </section>
+
+      <section className="mb-16">
+        <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold">Nuestros Portales de Afiliados</h2>
+            <p className="text-muted-foreground mt-2 max-w-2xl mx-auto">Encuentra información y gestiona tus servicios según tu tipo de afiliación.</p>
+        </div>
+        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <Card className="group relative flex flex-col text-center items-center overflow-hidden rounded-lg shadow-md transition-all duration-300 hover:shadow-xl">
+                <CardHeader className="items-center p-6 z-10 transition-all duration-300">
+                    <div className="p-4 bg-primary/10 rounded-full mb-2 transition-transform duration-300 group-hover:scale-90">
+                        <Leaf className="h-8 w-8 text-primary" />
+                    </div>
+                    <CardTitle className="transition-colors duration-300 group-hover:text-white">Régimen Subsidiado</CardTitle>
+                </CardHeader>
+                <div className="absolute inset-0 z-20 flex flex-col items-center justify-center p-6 text-center opacity-0 transition-all duration-300 group-hover:opacity-100">
+                    <div className="absolute inset-0 bg-primary/90"></div>
+                    <div className="relative z-10">
+                        <p className="text-primary-foreground mb-4">Accede a servicios de salud de calidad sin costo, garantizando tu bienestar.</p>
+                        <Button asChild variant="secondary">
+                            <Link href="/afiliados/subsidiado">
+                                Ingresar al Portal <ArrowRight className="ml-2 h-4 w-4" />
+                            </Link>
+                        </Button>
+                    </div>
+                </div>
+            </Card>
+            <Card className="group relative flex flex-col text-center items-center overflow-hidden rounded-lg shadow-md transition-all duration-300 hover:shadow-xl">
+                <CardHeader className="items-center p-6 z-10 transition-all duration-300">
+                    <div className="p-4 bg-primary/10 rounded-full mb-2 transition-transform duration-300 group-hover:scale-90">
+                        <Heart className="h-8 w-8 text-primary" />
+                    </div>
+                    <CardTitle className="transition-colors duration-300 group-hover:text-white">Régimen Contributivo</CardTitle>
+                </CardHeader>
+                <div className="absolute inset-0 z-20 flex flex-col items-center justify-center p-6 text-center opacity-0 transition-all duration-300 group-hover:opacity-100">
+                    <div className="absolute inset-0 bg-primary/90"></div>
+                    <div className="relative z-10">
+                        <p className="text-primary-foreground mb-4">Cobertura completa para ti y tus beneficiarios como trabajador o independiente.</p>
+                        <Button asChild variant="secondary">
+                            <Link href="/afiliados/contributivo">
+                                Ingresar al Portal <ArrowRight className="ml-2 h-4 w-4" />
+                            </Link>
+                        </Button>
+                    </div>
+                </div>
+            </Card>
+        </div>
       </section>
 
       <section className="mb-16">
@@ -219,3 +268,5 @@ export default function AfiliadosPage() {
     </div>
   );
 }
+
+    
