@@ -54,7 +54,7 @@ export default function AfiliadosPage() {
       <section className="mb-16">
         <Card className="bg-accent/50 border-primary/20">
           <CardHeader>
-            <CardTitle className="flex items-center gap-3">
+            <CardTitle as="h2" className="flex items-center gap-3">
               <Info className="h-6 w-6 text-primary" />
               <span>Nuestro Compromiso Contigo</span>
             </CardTitle>
@@ -83,7 +83,7 @@ export default function AfiliadosPage() {
                   height={100}
                   className="h-[100px] w-[100px]"
                 />
-                <CardTitle className="pt-4">{staticCardData[0].title}</CardTitle>
+                <CardTitle as="h3" className="pt-4">{staticCardData[0].title}</CardTitle>
               </CardHeader>
               <CardContent className="flex-grow">
                 <CardDescription>{staticCardData[0].description}</CardDescription>
@@ -105,7 +105,7 @@ export default function AfiliadosPage() {
                   height={100}
                   className="h-[100px] w-[100px]"
                 />
-                <CardTitle className="pt-4">{staticCardData[1].title}</CardTitle>
+                <CardTitle as="h3" className="pt-4">{staticCardData[1].title}</CardTitle>
               </CardHeader>
               <CardContent className="flex-grow">
                 <CardDescription>{staticCardData[1].description}</CardDescription>
@@ -125,10 +125,10 @@ export default function AfiliadosPage() {
         <Accordion type="multiple" className="w-full max-w-4xl mx-auto">
           <AccordionItem value="derechos">
             <AccordionTrigger className="text-xl font-semibold">
-              <div className="flex items-center gap-3">
+              <h3 className="flex items-center gap-3">
                 <Shield className="h-6 w-6 text-primary" />
                 <span>Derechos del Afiliado y del Paciente</span>
-              </div>
+              </h3>
             </AccordionTrigger>
             <AccordionContent className="px-2 pt-4 space-y-6">
               <p className="text-muted-foreground">Todo afiliado, sin restricciones por motivos de pertenencia étnica, sexo, identidad de género, edad, religión o condición social o económica, tiene derecho a:</p>
@@ -157,10 +157,10 @@ export default function AfiliadosPage() {
 
           <AccordionItem value="deberes">
             <AccordionTrigger className="text-xl font-semibold">
-               <div className="flex items-center gap-3">
+               <h3 className="flex items-center gap-3">
                 <Users className="h-6 w-6 text-primary" />
                 <span>Tus Responsabilidades en el Sistema de Salud</span>
-              </div>
+              </h3>
             </AccordionTrigger>
             <AccordionContent className="px-2 pt-4 space-y-2">
               <p className="mb-4 text-muted-foreground">Sé corresponsable con tu salud y la sostenibilidad del sistema. Según lo establecido en la ley, los afiliados y pacientes tienen los siguientes deberes:</p>
@@ -183,7 +183,7 @@ export default function AfiliadosPage() {
         <h2 className="text-3xl font-bold text-center mb-8">Plan de Beneficios en Salud (PBS)</h2>
          <Card className="max-w-4xl mx-auto">
           <CardHeader>
-            <CardTitle>Resolución 2718 de 2024</CardTitle>
+            <CardTitle as="h3">Resolución 2718 de 2024</CardTitle>
             <CardDescription>
               El Plan de Beneficios con Cargo a la UPC es un derecho fundamental para todos los usuarios, definiendo el conjunto de servicios, procedimientos y medicamentos a los que tienen derecho.
             </CardDescription>
@@ -215,7 +215,7 @@ export default function AfiliadosPage() {
           <div className="space-y-6">
             <Card>
               <CardHeader>
-                <CardTitle>Opciones de Contacto Directo</CardTitle>
+                <CardTitle as="h3">Opciones de Contacto Directo</CardTitle>
                 <CardDescription>Estamos cerca de ti para brindarte una atención preferencial y efectiva.</CardDescription>
               </CardHeader>
               <CardContent>
@@ -249,7 +249,7 @@ export default function AfiliadosPage() {
             </Card>
              <Card>
               <CardHeader>
-                <CardTitle>Peticiones, Quejas y Reclamos</CardTitle>
+                <CardTitle as="h3">Peticiones, Quejas y Reclamos</CardTitle>
                 <CardDescription>Valoramos tu retroalimentación para mejorar continuamente.</CardDescription>
               </CardHeader>
               <CardContent>

@@ -33,7 +33,8 @@ export function InfoCards() {
   ];
 
   return (
-    <section className="bg-muted/40 py-12 lg:py-24">
+    <section className="bg-muted/40 py-12 lg:py-24" aria-labelledby="info-cards-title">
+       <h2 id="info-cards-title" className="sr-only">Nuestros Portales Principales</h2>
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
           {/* Tarjeta Régimen Subsidiado */}
@@ -46,7 +47,7 @@ export function InfoCards() {
                 height={100}
                 className="h-[100px] w-[100px]"
               />
-              <CardTitle className="pt-4">{staticCardData[0].title}</CardTitle>
+              <CardTitle as="h3" className="pt-4">{staticCardData[0].title}</CardTitle>
             </CardHeader>
             <CardContent className="flex-grow">
               <CardDescription>{staticCardData[0].description}</CardDescription>
@@ -68,7 +69,7 @@ export function InfoCards() {
                 height={100}
                 className="h-[100px] w-[100px]"
               />
-              <CardTitle className="pt-4">{staticCardData[1].title}</CardTitle>
+              <CardTitle as="h3" className="pt-4">{staticCardData[1].title}</CardTitle>
             </CardHeader>
             <CardContent className="flex-grow">
               <CardDescription>{staticCardData[1].description}</CardDescription>
@@ -90,7 +91,7 @@ export function InfoCards() {
                 height={100}
                 className="h-[100px] w-[100px]"
               />
-              <CardTitle className="pt-4">{staticCardData[2].title}</CardTitle>
+              <CardTitle as="h3" className="pt-4">{staticCardData[2].title}</CardTitle>
             </CardHeader>
             <CardContent className="flex-grow">
               <CardDescription>{staticCardData[2].description}</CardDescription>

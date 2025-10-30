@@ -27,7 +27,7 @@ export default function CanalesAtencionPage() {
               <div className="p-3 bg-primary/10 rounded-full">
                 {React.cloneElement(channel.icon, { className: "h-6 w-6 text-primary" })}
               </div>
-              <CardTitle>{channel.title}</CardTitle>
+              <CardTitle as="h3">{channel.title}</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-muted-foreground">{channel.description}</p>

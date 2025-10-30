@@ -3,6 +3,7 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ArrowRight, HeartPulse, BrainCircuit, Apple } from "lucide-react";
+import React from 'react';
 
 export default function CuidadoSaludLandingPage() {
   const sublinks = [
@@ -27,7 +28,7 @@ export default function CuidadoSaludLandingPage() {
                     <div className="p-4 bg-primary/10 rounded-full mb-2">
                         {React.cloneElement(link.icon, { className: "h-8 w-8 text-primary"})}
                     </div>
-                    <CardTitle>{link.title}</CardTitle>
+                    <CardTitle as="h3">{link.title}</CardTitle>
                   </CardHeader>
                   <CardContent className="flex-grow">
                       <p className="text-muted-foreground mb-4">{link.description}</p>

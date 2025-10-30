@@ -192,7 +192,7 @@ export default function OficinasAtencionPage() {
       <section className="grid md:grid-cols-2 gap-8 mb-12 max-w-6xl mx-auto">
         <Card>
           <CardHeader>
-            <CardTitle>Servicio de Información y Atención al Usuario (SIAU)</CardTitle>
+            <CardTitle as="h2">Servicio de Información y Atención al Usuario (SIAU)</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4 text-muted-foreground">
             <p>El SIAU ha sido creado para facilitarle la atención, orientándole sobre los procesos a seguir dentro y fuera de la institución para acceder a sus servicios de salud. Este mecanismo busca la comodidad y cercanía del usuario.</p>
@@ -201,7 +201,7 @@ export default function OficinasAtencionPage() {
         </Card>
         <Card>
           <CardHeader>
-            <CardTitle>Atención Presencial y Preferencial</CardTitle>
+            <CardTitle as="h2">Atención Presencial y Preferencial</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4 text-muted-foreground">
              <p>Nuestra EPS cuenta con oficinas de atención al usuario en cada municipio en donde tiene cobertura, además de oficinas zonales en las principales ciudades y oficinas regionales en ciudades como Cali y Pasto.</p>
@@ -218,7 +218,7 @@ export default function OficinasAtencionPage() {
 
       <Card className="mb-12 max-w-6xl mx-auto">
         <CardHeader>
-            <CardTitle>Directorio de Oficinas Físicas</CardTitle>
+            <CardTitle as="h2">Directorio de Oficinas Físicas</CardTitle>
             <CardDescription>Para encontrar la dirección, municipio, y detalles de contacto de su oficina más cercana, utilice nuestro mapa interactivo. Nuestra red de oficinas presenciales y canales SIAU cubre principalmente los departamentos de Nariño, Putumayo, Valle del cauca y Cauca.</CardDescription>
         </CardHeader>
       </Card>
@@ -238,7 +238,7 @@ export default function OficinasAtencionPage() {
             <div className="absolute top-16 left-4 z-10 w-full max-w-sm">
               <Card className="bg-background/80 backdrop-blur-sm">
                 <CardHeader>
-                  <CardTitle>Filtros de Ubicación</CardTitle>
+                  <CardTitle as="h3">Filtros de Ubicación</CardTitle>
                   <CardDescription>Selecciona un departamento y un municipio.</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">

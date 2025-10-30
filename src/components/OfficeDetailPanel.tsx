@@ -39,7 +39,7 @@ export function OfficeDetailPanel({ location, onClose, isLoading }: OfficeDetail
         <CardHeader className="flex flex-row items-center justify-between sticky top-0 bg-background/80 backdrop-blur-sm z-10 p-4">
             <div className='flex items-center gap-4'>
                 <Image src="https://emssanareps.co/images/logo_emssanareps.svg" alt="Logo Emssanar" width={40} height={40} className="h-10 w-auto" />
-                <CardTitle>{location.nombre_municipio}</CardTitle>
+                <CardTitle as="h3">{location.nombre_municipio}</CardTitle>
             </div>
           <Button variant="ghost" size="icon" onClick={onClose}>
             <X className="h-6 w-6" />

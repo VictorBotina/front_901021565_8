@@ -49,7 +49,7 @@ export default function InformacionLandingPage() {
                     <div className="p-4 bg-primary/10 rounded-full mb-2 transition-transform duration-300 group-hover:scale-90">
                         {React.cloneElement(link.icon, { className: "h-8 w-8 text-primary"})}
                     </div>
-                    <CardTitle className="transition-colors duration-300 group-hover:text-white">{link.title}</CardTitle>
+                    <CardTitle as="h3" className="transition-colors duration-300 group-hover:text-white">{link.title}</CardTitle>
                   </CardHeader>
                   <div className="absolute inset-0 z-20 flex flex-col items-center justify-center p-6 text-center opacity-0 transition-all duration-300 group-hover:opacity-100">
                     <div className="absolute inset-0 bg-primary/90"></div>

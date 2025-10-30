@@ -25,7 +25,7 @@ export default function ConsultaIpsPage() {
       <section className="max-w-4xl mx-auto mb-12">
         <Card className="bg-accent/50 border-primary/20">
           <CardHeader>
-            <CardTitle className="flex items-center gap-3">
+            <CardTitle as="h2" className="flex items-center gap-3">
               <Info className="h-6 w-6 text-primary" />
               <span>Estimado Afiliado:</span>
             </CardTitle>
@@ -44,7 +44,7 @@ export default function ConsultaIpsPage() {
       <section className="grid md:grid-cols-2 gap-8 mb-12 max-w-6xl mx-auto">
         <Card>
             <CardHeader>
-                <CardTitle className="flex items-center gap-3"><ShieldCheck className="h-6 w-6 text-primary" />Validación y Afiliación</CardTitle>
+                <CardTitle as="h2" className="flex items-center gap-3"><ShieldCheck className="h-6 w-6 text-primary" />Validación y Afiliación</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4 text-muted-foreground">
                 <p>Usted adquiere la calidad de afiliado una vez ha completado su proceso de inscripción. Esta condición le otorga el derecho a acceder a los servicios de salud incluidos en el Plan de Beneficios en Salud (PBS).</p>
@@ -54,7 +54,7 @@ export default function ConsultaIpsPage() {
         </Card>
         <Alert>
           <UserCheck className="h-4 w-4" />
-          <AlertTitle>Acreditación de Identidad</AlertTitle>
+          <AlertTitle as="h2">Acreditación de Identidad</AlertTitle>
           <AlertDescription className="space-y-2">
             <p>Para acceder a los servicios, el afiliado debe acreditar su identidad presentando su documento de identidad o utilizando mecanismos tecnológicos autorizados.</p>
             <p className="font-bold">No se debe exigir al afiliado el carné, certificado de afiliación, copias, fotocopias o autenticaciones de documentos para la prestación de servicios.</p>
@@ -89,7 +89,7 @@ export default function ConsultaIpsPage() {
             <Card>
                 <CardHeader>
                     <Network className="h-8 w-8 mx-auto text-primary" />
-                    <CardTitle>IPS Primaria Asignada</CardTitle>
+                    <CardTitle as="h3">IPS Primaria Asignada</CardTitle>
                 </CardHeader>
                 <CardContent>
                     <p className="text-sm text-muted-foreground">Es la puerta de entrada al sistema. Descargue su certificado de afiliación para verificarla.</p>
@@ -98,7 +98,7 @@ export default function ConsultaIpsPage() {
              <Card>
                 <CardHeader>
                     <Phone className="h-8 w-8 mx-auto text-primary" />
-                    <CardTitle>Canales de Atención</CardTitle>
+                    <CardTitle as="h3">Canales de Atención</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-2 text-sm">
                     <p>Línea Nacional: <span className="font-semibold">018000 93 04 22</span></p>
@@ -108,7 +108,7 @@ export default function ConsultaIpsPage() {
              <Card>
                 <CardHeader>
                     <MessageSquare className="h-8 w-8 mx-auto text-primary" />
-                    <CardTitle>Red de Servicios</CardTitle>
+                    <CardTitle as="h3">Red de Servicios</CardTitle>
                 </CardHeader>
                 <CardContent>
                      <p className="text-sm text-muted-foreground">Consulte los prestadores por nivel de complejidad. El modelo se organiza en 15 zonas que agrupan 102 municipios.</p>

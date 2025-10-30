@@ -59,7 +59,7 @@ export function FeedbackSection() {
                   <div className="flex justify-center items-center h-16 w-16 rounded-full bg-primary/10 mb-4">
                     <IconComponent className="h-8 w-8 text-primary" />
                   </div>
-                  <CardTitle>{item.title}</CardTitle>
+                  <CardTitle as="h3">{item.title}</CardTitle>
                 </CardHeader>
                 <CardContent className="flex-grow">
                   <Button asChild>
