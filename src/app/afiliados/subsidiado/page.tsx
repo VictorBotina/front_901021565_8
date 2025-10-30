@@ -22,17 +22,17 @@ export const metadata: Metadata = {
 
 export default function SubsidiadoPage() {
   const infoCards = [
-    { title: "Oficinas de atención", link: "/afiliados/subsidiado/oficinas", iconUrl: "/images/img-sub/ico-directorio-oficinas.svg" },
-    { title: "Consulta de IPS", link: "#", iconUrl: "/images/img-sub/ico-directorio-oficinas.svg" },
-    { title: "Contribución solidaria", link: "#", iconUrl: "/images/img-sub/ico-directorio-oficinas.svg" },
-    { title: "Redes y prestadores de salud", link: "#", iconUrl: "/images/img-sub/ico-directorio-oficinas.svg" },
-    { title: "Solicite su movilidad", link: "#", iconUrl: "/images/img-sub/ico-directorio-oficinas.svg" },
-    { title: "Servicios de urgencias", link: "#", iconUrl: "/images/img-sub/ico-directorio-oficinas.svg" },
-    { title: "Sisbén IV", link: "#", iconUrl: "/images/img-sub/ico-directorio-oficinas.svg" },
-    { title: "Derechos y deberes del afiliado", link: "/afiliados", iconUrl: "/images/img-sub/ico-directorio-oficinas.svg" },
-    { title: "Copagos y cuotas moderadoras", link: "#", iconUrl: "/images/img-sub/ico-directorio-oficinas.svg" },
-    { title: "Consulta tope copagos", link: "#", iconUrl: "/images/img-sub/ico-directorio-oficinas.svg" },
-    { title: "Afiliación a Emssanar EPS", link: "#", iconUrl: "/images/img-sub/ico-directorio-oficinas.svg" },
+    { title: "Oficinas de atención", description: "Encuentra tu oficina más cercana en el mapa.", link: "/afiliados/subsidiado/oficinas", iconUrl: "/images/img-sub/ico-directorio-oficinas.svg" },
+    { title: "Consulta de IPS", description: "Directorio de nuestra red de prestadores.", link: "#", iconUrl: "/images/img-sub/ico-directorio-oficinas.svg" },
+    { title: "Contribución solidaria", description: "Aporta al sistema y mantén tu afiliación.", link: "#", iconUrl: "/images/img-sub/ico-directorio-oficinas.svg" },
+    { title: "Redes y prestadores", description: "Conoce nuestra amplia red de salud.", link: "#", iconUrl: "/images/img-sub/ico-directorio-oficinas.svg" },
+    { title: "Solicita tu movilidad", description: "Cambia de régimen sin perder continuidad.", link: "#", iconUrl: "/images/img-sub/ico-directorio-oficinas.svg" },
+    { title: "Servicios de urgencias", description: "Atención prioritaria cuando más la necesitas.", link: "#", iconUrl: "/images/img-sub/ico-directorio-oficinas.svg" },
+    { title: "Sisbén IV", description: "Consulta tu grupo y conoce los beneficios.", link: "#", iconUrl: "/images/img-sub/ico-directorio-oficinas.svg" },
+    { title: "Derechos y deberes", description: "Infórmate sobre tus derechos como afiliado.", link: "/afiliados", iconUrl: "/images/img-sub/ico-directorio-oficinas.svg" },
+    { title: "Copagos y cuotas", description: "Conoce los valores de pagos moderadores.", link: "#", iconUrl: "/images/img-sub/ico-directorio-oficinas.svg" },
+    { title: "Consulta tope copagos", description: "Verifica el límite anual de tus copagos.", link: "#", iconUrl: "/images/img-sub/ico-directorio-oficinas.svg" },
+    { title: "Afiliación a Emssanar", description: "Únete a nuestra EPS de forma sencilla.", link: "#", iconUrl: "/images/img-sub/ico-directorio-oficinas.svg" },
   ];
 
   return (
@@ -70,7 +70,7 @@ export default function SubsidiadoPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {infoCards.map((card) => (
             <Link href={card.link} key={card.title} className="group">
-              <Card className="h-full text-center hover:bg-primary/5 hover:border-primary/50 transition-all duration-300">
+              <Card className="h-full flex flex-col text-center hover:bg-primary/5 hover:border-primary/50 transition-all duration-300">
                 <CardHeader className="items-center">
                   <div className="flex justify-center items-center h-16 w-16 mb-4">
                     <Image
@@ -82,6 +82,9 @@ export default function SubsidiadoPage() {
                   </div>
                   <CardTitle className="text-base font-semibold">{card.title}</CardTitle>
                 </CardHeader>
+                <CardContent className="flex-grow pb-4">
+                  <CardDescription className="text-xs">{card.description}</CardDescription>
+                </CardContent>
               </Card>
             </Link>
           ))}
