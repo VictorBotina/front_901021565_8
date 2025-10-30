@@ -16,7 +16,7 @@ type OfficeDetailPanelProps = {
 
 const renderServicesAsList = (services: string) => {
     if (!services) return <p className="text-sm text-muted-foreground">No hay servicios especificados para este régimen.</p>;
-    const serviceList = services.split(/\r\n\r\n/).map(s => s.trim()).filter(Boolean);
+    const serviceList = services.split(/\r\n\r\n|\n\n/).map(s => s.trim()).filter(Boolean);
     return (
         <ul className="list-disc list-inside text-sm text-muted-foreground space-y-2 pl-4">
             {serviceList.map((service, index) => (
@@ -69,7 +69,7 @@ export function OfficeDetailPanel({ location, onClose, isLoading }: OfficeDetail
                 </div>
                 
                 <div className='border-t pt-6 space-y-4'>
-                    <details className="group" open>
+                    <details className="group">
                         <summary className="flex items-center justify-between cursor-pointer list-none font-semibold text-foreground hover:text-accent-foreground">
                             Servicios Subsidiado
                             <div className="transition-transform duration-200 group-open:rotate-180">▼</div>
@@ -81,7 +81,7 @@ export function OfficeDetailPanel({ location, onClose, isLoading }: OfficeDetail
                     
                     <div className="border-t"></div>
 
-                    <details className="group" open>
+                    <details className="group">
                         <summary className="flex items-center justify-between cursor-pointer list-none font-semibold text-foreground hover:text-accent-foreground pt-4">
                             Servicios Contributivo
                             <div className="transition-transform duration-200 group-open:rotate-180">▼</div>
