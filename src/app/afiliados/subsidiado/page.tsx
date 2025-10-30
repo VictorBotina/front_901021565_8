@@ -3,5 +3,5 @@ import { redirect } from 'next/navigation';
 
 export default function SubsidiadoPage() {
   // Redirect to the main information page of the section
-  redirect('/afiliados/subsidiado/informacion/derechos-y-deberes');
+  redirect('/afiliados/subsidiado/informacion');
 }
