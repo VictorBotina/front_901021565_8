@@ -2,18 +2,18 @@
 import { MainMenu } from "@/components/layout/subsidiado/MainMenu";
 
 const menuItems = [
-  { text: "Información", href: "/afiliados/subsidiado/informacion" },
-  { text: "Trámites", href: "/afiliados/subsidiado/tramites" },
+  { text: "Información", href: "/afiliados/subsidiado/informacion/oficinas" },
+  { text: "Trámites", href: "/afiliados/subsidiado/tramites/certificados" },
   {
     text: "Cuidado de la Salud",
-    href: "/afiliados/subsidiado/cuidado-de-la-salud",
+    href: "/afiliados/subsidiado/cuidado-de-la-salud/programas-pyp",
   },
   {
     text: "Canales de Atención",
     href: "/afiliados/subsidiado/canales-de-atencion",
   },
-  { text: "Consulta tu IPS", href: "/afiliados/subsidiado/consulta-ips" },
-  { text: "Red de Oficinas", href: "/afiliados/subsidiado/oficinas" },
+  { text: "Consulta tu IPS", href: "/afiliados/subsidiado/informacion/consulta-ips" },
+  { text: "Red de Oficinas", href: "/afiliados/subsidiado/informacion/oficinas" },
 ];
 
 export default function SubsidiadoLayout({
