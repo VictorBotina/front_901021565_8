@@ -174,7 +174,7 @@ export default function TestPage() {
 
   return (
     <div className="relative h-screen w-full overflow-hidden">
-      <div className="absolute top-4 left-4 z-20">
+      <div className="absolute top-20 left-4 z-20">
         <Button onClick={() => setFilterPanelOpen(!filterPanelOpen)} size="icon">
           {filterPanelOpen ? <PanelLeftClose /> : <SlidersHorizontal />}
           <span className="sr-only">Toggle Filters</span>
@@ -183,7 +183,7 @@ export default function TestPage() {
 
       <AnimatePresence>
         {filterPanelOpen && (
-          <div className="absolute top-20 left-4 z-10 w-full max-w-sm md:w-96">
+          <div className="absolute top-36 left-4 z-10 w-full max-w-sm md:w-96">
             <Card className="bg-background/80 backdrop-blur-sm">
               <CardHeader>
                 <CardTitle>Filtros de Ubicación</CardTitle>
