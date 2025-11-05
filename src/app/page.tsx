@@ -1,4 +1,4 @@
-import { Hero, type Slide } from "@/app/(home)/(sections)/Hero";
+import { Hero, type Slide } from "@/components/layout/home/Hero";
 import { InfoCards } from "@/app/(home)/(sections)/InfoCards";
 import { FeedbackSection } from "@/app/(home)/(sections)/FeedbackSection";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
