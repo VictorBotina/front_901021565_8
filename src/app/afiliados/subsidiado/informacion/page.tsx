@@ -1,6 +1,6 @@
 // src/app/afiliados/subsidiado/informacion/page.tsx
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { ArrowRight, BookUser, FileText, Building, Network } from "lucide-react";
+import { ArrowRight, BookUser, FileText, Building, UserCheck } from "lucide-react";
 import Link from 'next/link';
 import { Button } from "@/components/ui/button";
 import React from "react";
@@ -8,23 +8,29 @@ import React from "react";
 export default function InformacionLandingPage() {
   const sublinks = [
     {
-      href: "/afiliados/subsidiado/derechos-y-deberes",
+      href: "/afiliados/subsidiado/informacion/derechos-y-deberes",
       title: "Derechos y Deberes",
       description: "Conoce tus derechos como afiliado y tus responsabilidades en el sistema.",
       icon: <BookUser />
     },
     {
-      href: "/afiliados/subsidiado/plan-de-beneficios",
+      href: "/afiliados/subsidiado/informacion/plan-de-beneficios",
       title: "Plan de Beneficios",
       description: "Detalles sobre la cobertura, servicios y medicamentos incluidos.",
       icon: <FileText />
     },
     {
-      href: "/afiliados/subsidiado/oficinas",
+      href: "/afiliados/subsidiado/informacion/oficinas",
       title: "Oficinas de Atención",
       description: "Encuentra nuestras oficinas y puntos de atención más cercanos.",
       icon: <Building />
-    }
+    },
+     { 
+      href: "/afiliados/subsidiado/informacion/consulta-ips", 
+      title: "Consulta tu IPS", 
+      description: "Valida tus derechos y encuentra tu Institución Prestadora de Salud asignada.",
+      icon: <UserCheck />
+    },
   ];
 
   return (
@@ -36,7 +42,7 @@ export default function InformacionLandingPage() {
         </p>
       </header>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
           {sublinks.map(link => (
               <Card key={link.href} className="flex flex-col text-center items-center hover:shadow-lg transition-shadow">
                   <CardHeader className="items-center p-6">

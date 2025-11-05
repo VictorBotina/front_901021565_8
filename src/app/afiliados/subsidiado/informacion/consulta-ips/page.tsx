@@ -12,12 +12,12 @@ export const metadata: Metadata = {
 
 export default function ConsultaIpsPage() {
   return (
-    <div className="container mx-auto px-4 py-8 md:py-12">
+    <div className="p-6">
       <header className="text-center mb-12">
-        <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight">
-          Consulta tu IPS Asignada y Valida tus Derechos en Emssanar EPS
-        </h1>
-        <p className="mt-4 text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
+        <h2 className="text-3xl font-extrabold tracking-tight">
+          Consulta tu IPS Asignada y Valida tus Derechos
+        </h2>
+        <p className="mt-4 text-lg text-muted-foreground max-w-3xl mx-auto">
           Acceso efectivo y atención integral: Confirma tu cobertura y recursos de salud disponibles.
         </p>
       </header>
@@ -25,7 +25,7 @@ export default function ConsultaIpsPage() {
       <section className="max-w-4xl mx-auto mb-12">
         <Card className="bg-accent/50 border-primary/20">
           <CardHeader>
-            <CardTitle as="h2" className="flex items-center gap-3">
+            <CardTitle as="h3" className="flex items-center gap-3">
               <Info className="h-6 w-6 text-primary" />
               <span>Estimado Afiliado:</span>
             </CardTitle>
@@ -44,7 +44,7 @@ export default function ConsultaIpsPage() {
       <section className="grid md:grid-cols-2 gap-8 mb-12 max-w-6xl mx-auto">
         <Card>
             <CardHeader>
-                <CardTitle as="h2" className="flex items-center gap-3"><ShieldCheck className="h-6 w-6 text-primary" />Validación y Afiliación</CardTitle>
+                <CardTitle as="h3" className="flex items-center gap-3"><ShieldCheck className="h-6 w-6 text-primary" />Validación y Afiliación</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4 text-muted-foreground">
                 <p>Usted adquiere la calidad de afiliado una vez ha completado su proceso de inscripción. Esta condición le otorga el derecho a acceder a los servicios de salud incluidos en el Plan de Beneficios en Salud (PBS).</p>
@@ -54,7 +54,7 @@ export default function ConsultaIpsPage() {
         </Card>
         <Alert>
           <UserCheck className="h-4 w-4" />
-          <AlertTitle as="h2">Acreditación de Identidad</AlertTitle>
+          <AlertTitle as="h3">Acreditación de Identidad</AlertTitle>
           <AlertDescription className="space-y-2">
             <p>Para acceder a los servicios, el afiliado debe acreditar su identidad presentando su documento de identidad o utilizando mecanismos tecnológicos autorizados.</p>
             <p className="font-bold">No se debe exigir al afiliado el carné, certificado de afiliación, copias, fotocopias o autenticaciones de documentos para la prestación de servicios.</p>

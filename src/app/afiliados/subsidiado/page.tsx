@@ -2,7 +2,7 @@
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { ArrowRight, BookUser, FileText, Briefcase, HeartPulse, Phone, UserCheck, ShieldCheck } from "lucide-react";
+import { ArrowRight, BookUser, Briefcase, HeartPulse, Phone, ShieldCheck } from "lucide-react";
 import React from 'react';
 import type { Metadata } from 'next';
 
@@ -39,12 +39,6 @@ export default function SubsidiadoLandingPage() {
       description: "Encuentra oficinas, líneas telefónicas y todo el soporte que necesitas.",
       icon: <Phone />
     },
-     { 
-      href: "/afiliados/subsidiado/consulta-ips", 
-      title: "Consulta tu IPS", 
-      description: "Valida tus derechos y encuentra tu Institución Prestadora de Salud asignada.",
-      icon: <UserCheck />
-    },
   ];
 
   return (
@@ -77,7 +71,7 @@ export default function SubsidiadoLandingPage() {
 
       <section>
         <h2 className="text-2xl font-bold text-center mb-8">Explora tus Beneficios y Servicios</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 max-w-4xl mx-auto">
             {sublinks.map(link => (
                 <Card key={link.href} className="group relative flex flex-col text-center items-center overflow-hidden rounded-lg shadow-md transition-all duration-300 hover:shadow-xl">
                     <CardHeader className="items-center p-6 z-10 transition-all duration-300">

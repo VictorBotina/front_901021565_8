@@ -13,7 +13,6 @@ const menuItems = [
     text: "Canales de Atención",
     href: "/afiliados/subsidiado/canales-de-atencion",
   },
-  { text: "Consulta tu IPS", href: "/afiliados/subsidiado/consulta-ips" },
 ];
 
 export default function SubsidiadoLayout({

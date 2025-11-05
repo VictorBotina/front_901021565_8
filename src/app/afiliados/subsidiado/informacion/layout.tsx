@@ -1,10 +1,12 @@
-// src/app/afiliados/subsidiado/informacion/layout.tsx
+// src/app/afiliados/subsidiado/(informacion)/layout.tsx
 import { SubMenu } from "@/components/layout/subsidiado/SubMenu";
 
 const menuItems = [
   { text: "Información General", href: "/afiliados/subsidiado/informacion" },
   { text: "Derechos y Deberes", href: "/afiliados/subsidiado/informacion/derechos-y-deberes"},
   { text: "Plan de Beneficios", href: "/afiliados/subsidiado/informacion/plan-de-beneficios"},
+  { text: "Oficinas de Atención", href: "/afiliados/subsidiado/informacion/oficinas"},
+  { text: "Consulta tu IPS", href: "/afiliados/subsidiado/informacion/consulta-ips" },
 ];
 
 export default function InformacionLayout({
