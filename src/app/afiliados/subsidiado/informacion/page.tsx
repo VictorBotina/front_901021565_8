@@ -1,6 +1,6 @@
 // src/app/afiliados/subsidiado/informacion/page.tsx
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { ArrowRight, BookUser, FileText, Building, UserCheck } from "lucide-react";
+import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
+import { ArrowRight, BookUser, FileText, UserCheck, Phone } from "lucide-react";
 import Link from 'next/link';
 import { Button } from "@/components/ui/button";
 import React from "react";
@@ -19,17 +19,17 @@ export default function InformacionLandingPage() {
       description: "Detalles sobre la cobertura, servicios y medicamentos incluidos.",
       icon: <FileText />
     },
-    {
-      href: "/afiliados/subsidiado/informacion/oficinas",
-      title: "Oficinas de Atención",
-      description: "Encuentra nuestras oficinas y puntos de atención más cercanos.",
-      icon: <Building />
-    },
-     { 
+    { 
       href: "/afiliados/subsidiado/informacion/consulta-ips", 
       title: "Consulta tu IPS", 
       description: "Valida tus derechos y encuentra tu Institución Prestadora de Salud asignada.",
       icon: <UserCheck />
+    },
+    { 
+      href: "/afiliados/subsidiado/informacion/canales-de-atencion", 
+      title: "Canales de Atención", 
+      description: "Encuentra oficinas, líneas telefónicas y todo el soporte que necesitas.",
+      icon: <Phone />
     },
   ];
 
@@ -52,7 +52,7 @@ export default function InformacionLandingPage() {
                     <CardTitle as="h3">{link.title}</CardTitle>
                   </CardHeader>
                   <CardContent className="flex-grow">
-                      <p className="text-muted-foreground mb-4">{link.description}</p>
+                      <CardDescription>{link.description}</CardDescription>
                   </CardContent>
                    <div className="p-6 pt-0">
                       <Button asChild variant="outline">

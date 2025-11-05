@@ -11,7 +11,7 @@ const menuItems = [
   },
   {
     text: "Canales de Atención",
-    href: "/afiliados/subsidiado/canales-de-atencion",
+    href: "/afiliados/subsidiado/informacion/canales-de-atencion",
   },
   {
     text: "Consulta de IPS",
