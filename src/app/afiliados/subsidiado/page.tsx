@@ -33,12 +33,6 @@ export default function SubsidiadoLandingPage() {
       description: "Accede a programas de prevención, nutrición y bienestar para ti y tu familia.",
       icon: <HeartPulse />
     },
-    { 
-      href: "/afiliados/subsidiado/canales-de-atencion", 
-      title: "Canales de Atención", 
-      description: "Encuentra oficinas, líneas telefónicas y todo el soporte que necesitas.",
-      icon: <Phone />
-    },
   ];
 
   return (
@@ -46,7 +40,7 @@ export default function SubsidiadoLandingPage() {
       <header className="mb-12 text-center">
         <h1 className="text-3xl md:text-4xl font-extrabold text-title">Régimen Subsidiado: Tu Derecho a la Salud Integral y Oportuna</h1>
         <p className="mt-4 text-lg text-muted-foreground max-w-4xl mx-auto">
-          ¡Bienvenido/a! Reconocemos tu valor y el de tu familia. Como EPS, nuestra misión es garantizar que la población más vulnerable de Colombia acceda a servicios de salud de alta calidad, sin barreras.
+          ¡Bienvenido/a! Nos alegra tenerte con nosotros. Nuestro propósito es cuidar de ti y de tu familia, asegurando que todas las personas, sin importar su condición, accedan a servicios de salud dignos y de calidad.
         </p>
       </header>
 
@@ -71,7 +65,7 @@ export default function SubsidiadoLandingPage() {
 
       <section>
         <h2 className="text-2xl font-bold text-center mb-8">Explora tus Beneficios y Servicios</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
             {sublinks.map(link => (
                 <Card key={link.href} className="group relative flex flex-col text-center items-center overflow-hidden rounded-lg shadow-md transition-all duration-300 hover:shadow-xl">
                     <CardHeader className="items-center p-6 z-10 transition-all duration-300">
