@@ -25,7 +25,6 @@ import { AnimatePresence } from "framer-motion";
 import { OfficeDetailPanel } from "@/components/OfficeDetailPanel";
 import { Button } from "@/components/ui/button";
 import { PanelLeftClose, SlidersHorizontal, CheckCircle } from "lucide-react";
-import type { Metadata } from 'next';
 
 // Carga dinámica del mapa para evitar problemas de renderizado en SSR
 const GeoMap = dynamic(() => import('@/components/GeoMap'), {
@@ -59,6 +58,11 @@ export default function OficinasAtencionPage() {
   const [error, setError] = React.useState<string | null>(null);
 
   React.useEffect(() => {
+    // On mobile, start with the filter panel closed.
+    if (window.innerWidth < 768) {
+      setFilterPanelOpen(false);
+    }
+
     fetch('/locations.json')
       .then(res => {
         if (!res.ok) throw new Error(`Error HTTP: ${res.status}`);
@@ -174,12 +178,12 @@ export default function OficinasAtencionPage() {
   const zoom: number = 6;
 
   return (
-    <div className="container mx-auto px-4 py-8 md:py-12">
+    <div className="p-6">
       <header className="text-center mb-12">
-        <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight">
-          Oficinas de Atención: Encuentre la Información y Ubicación para el Régimen Subsidiado
-        </h1>
-        <p className="mt-4 text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
+        <h2 className="text-3xl font-extrabold tracking-tight">
+          Oficinas de Atención: Encuentre la Información y Ubicación
+        </h2>
+        <p className="mt-4 text-lg text-muted-foreground max-w-3xl mx-auto">
           Estamos comprometidos con la comodidad y la cercanía para nuestros afiliados. Nuestro Servicio de Información y Atención al Usuario (SIAU) es su punto de apoyo esencial.
         </p>
       </header>
@@ -187,7 +191,7 @@ export default function OficinasAtencionPage() {
       <section className="grid md:grid-cols-2 gap-8 mb-12 max-w-6xl mx-auto">
         <Card>
           <CardHeader>
-            <CardTitle as="h2">Servicio de Información y Atención al Usuario (SIAU)</CardTitle>
+            <CardTitle as="h3">Servicio de Información y Atención al Usuario (SIAU)</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4 text-muted-foreground">
             <p>El SIAU ha sido creado para facilitarle la atención, orientándole sobre los procesos a seguir dentro y fuera de la institución para acceder a sus servicios de salud. Este mecanismo busca la comodidad y cercanía del usuario.</p>
@@ -196,7 +200,7 @@ export default function OficinasAtencionPage() {
         </Card>
         <Card>
           <CardHeader>
-            <CardTitle as="h2">Atención Presencial y Preferencial</CardTitle>
+            <CardTitle as="h3">Atención Presencial y Preferencial</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4 text-muted-foreground">
              <p>Nuestra EPS cuenta con oficinas de atención al usuario en cada municipio en donde tiene cobertura, además de oficinas zonales en las principales ciudades y oficinas regionales en ciudades como Cali y Pasto.</p>
@@ -213,7 +217,7 @@ export default function OficinasAtencionPage() {
 
       <Card className="mb-12 max-w-6xl mx-auto">
         <CardHeader>
-            <CardTitle as="h2">Directorio de Oficinas Físicas</CardTitle>
+            <CardTitle as="h3">Directorio de Oficinas Físicas</CardTitle>
             <CardDescription>Para encontrar la dirección, municipio, y detalles de contacto de su oficina más cercana, utilice nuestro mapa interactivo. Nuestra red de oficinas presenciales y canales SIAU cubre principalmente los departamentos de Nariño, Putumayo, Valle del cauca y Cauca.</CardDescription>
         </CardHeader>
       </Card>
@@ -221,7 +225,7 @@ export default function OficinasAtencionPage() {
 
       <main className="relative h-[70vh] w-full max-w-7xl mx-auto rounded-lg shadow-2xl overflow-hidden">
         
-        <div className="absolute top-16 left-4 z-20">
+        <div className="absolute top-4 left-4 z-20">
           <Button onClick={() => setFilterPanelOpen(!filterPanelOpen)} size="icon">
             {filterPanelOpen ? <PanelLeftClose /> : <SlidersHorizontal />}
             <span className="sr-only">Toggle Filters</span>
@@ -230,10 +234,10 @@ export default function OficinasAtencionPage() {
 
         <AnimatePresence>
           {filterPanelOpen && (
-            <div className="absolute top-[5.5rem] left-4 z-10 w-full max-w-sm">
+            <div className="absolute top-16 left-4 z-10 w-full max-w-sm">
               <Card className="bg-background/80 backdrop-blur-sm">
                 <CardHeader>
-                  <CardTitle as="h3">Filtros de Ubicación</CardTitle>
+                  <CardTitle as="h4">Filtros de Ubicación</CardTitle>
                   <CardDescription>Selecciona un departamento y un municipio.</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">

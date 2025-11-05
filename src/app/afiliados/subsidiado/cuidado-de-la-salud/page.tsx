@@ -7,9 +7,9 @@ import React from 'react';
 
 export default function CuidadoSaludLandingPage() {
   const sublinks = [
-    { href: "/afiliados/subsidiado/cuidado-de-la-salud/nutricion", title: "Nutrición y Vida Activa", description: "Consejos y guías para una alimentación balanceada.", icon: <Apple/> },
-    { href: "/afiliados/subsidiado/cuidado-de-la-salud/salud-mental", title: "Salud Mental", description: "Recursos y apoyo para tu bienestar emocional.", icon: <BrainCircuit/> },
-    { href: "/afiliados/subsidiado/cuidado-de-la-salud/programas-pyp", title: "Programas PyP", description: "Programas de promoción de la salud y prevención de la enfermedad.", icon: <HeartPulse/> },
+    { href: "/afiliados/subsidiado/nutricion", title: "Nutrición y Vida Activa", description: "Consejos y guías para una alimentación balanceada.", icon: <Apple/> },
+    { href: "/afiliados/subsidiado/salud-mental", title: "Salud Mental", description: "Recursos y apoyo para tu bienestar emocional.", icon: <BrainCircuit/> },
+    { href: "/afiliados/subsidiado/programas-pyp", title: "Programas PyP", description: "Programas de promoción de la salud y prevención de la enfermedad.", icon: <HeartPulse/> },
   ];
 
   return (

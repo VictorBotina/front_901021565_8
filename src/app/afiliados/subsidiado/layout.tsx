@@ -2,6 +2,7 @@
 import { MainMenu } from "@/components/layout/subsidiado/MainMenu";
 
 const menuItems = [
+  { text: "Inicio Subsidiado", href: "/afiliados/subsidiado", exact: true },
   { text: "Información", href: "/afiliados/subsidiado/informacion" },
   { text: "Trámites", href: "/afiliados/subsidiado/tramites" },
   {

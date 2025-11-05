@@ -8,19 +8,19 @@ import React from "react";
 export default function InformacionLandingPage() {
   const sublinks = [
     {
-      href: "/afiliados/subsidiado/informacion/derechos-y-deberes",
+      href: "/afiliados/subsidiado/derechos-y-deberes",
       title: "Derechos y Deberes",
       description: "Conoce tus derechos como afiliado y tus responsabilidades en el sistema.",
       icon: <BookUser />
     },
     {
-      href: "/afiliados/subsidiado/informacion/plan-de-beneficios",
+      href: "/afiliados/subsidiado/plan-de-beneficios",
       title: "Plan de Beneficios",
       description: "Detalles sobre la cobertura, servicios y medicamentos incluidos.",
       icon: <FileText />
     },
     {
-      href: "/afiliados/subsidiado/informacion/oficinas",
+      href: "/afiliados/subsidiado/oficinas",
       title: "Oficinas de Atención",
       description: "Encuentra nuestras oficinas y puntos de atención más cercanos.",
       icon: <Building />

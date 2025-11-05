@@ -14,7 +14,7 @@ export default function InformacionLayout({
 }) {
   return (
     <div>
-      <h3 className="text-xl font-semibold mb-4 px-6">Información</h3>
+      <h3 className="text-xl font-semibold mb-4 px-6 sr-only">Información</h3>
       <SubMenu items={menuItems} />
       <div className="mt-4">{children}</div>
     </div>

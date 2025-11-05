@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 type MenuItem = {
   text: string;
   href: string;
+  exact?: boolean;
 };
 
 type MainMenuProps = {
@@ -20,7 +21,7 @@ export function MainMenu({ items }: MainMenuProps) {
   return (
     <nav className="flex flex-col gap-2">
       {items.map((item) => {
-        const isActive = pathname.startsWith(item.href);
+        const isActive = item.exact ? pathname === item.href : pathname.startsWith(item.href);
         return (
           <Link
             key={item.href}

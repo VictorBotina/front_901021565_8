@@ -13,7 +13,7 @@ export default function CanalesLayout({
 }) {
   return (
     <div>
-      <h3 className="text-xl font-semibold mb-4 px-6">Canales de Atención</h3>
+      <h3 className="text-xl font-semibold mb-4 px-6 sr-only">Canales de Atención</h3>
       <SubMenu items={menuItems} />
       <div className="mt-4">{children}</div>
     </div>

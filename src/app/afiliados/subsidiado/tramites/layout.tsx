@@ -3,9 +3,9 @@ import { SubMenu } from "@/components/layout/subsidiado/SubMenu";
 
 const menuItems = [
   { text: "Guía de Trámites", href: "/afiliados/subsidiado/tramites" },
-  { text: "Afiliación", href: "/afiliados/subsidiado/tramites/afiliacion" },
-  { text: "Certificados", href: "/afiliados/subsidiado/tramites/certificados" },
-  { text: "Movilidad", href: "/afiliados/subsidiado/tramites/movilidad" },
+  { text: "Afiliación", href: "/afiliados/subsidiado/afiliacion" },
+  { text: "Certificados", href: "/afiliados/subsidiado/certificados" },
+  { text: "Movilidad", href: "/afiliados/subsidiado/movilidad" },
 ];
 
 export default function TramitesLayout({
@@ -15,7 +15,7 @@ export default function TramitesLayout({
 }) {
   return (
     <div>
-      <h3 className="text-xl font-semibold mb-4 px-6">Trámites</h3>
+      <h3 className="text-xl font-semibold mb-4 px-6 sr-only">Trámites</h3>
       <SubMenu items={menuItems} />
       <div className="mt-4">{children}</div>
     </div>
