@@ -39,8 +39,8 @@ const iconMap: { [key: string]: React.ReactElement } = {
 };
 
 const suggestionGroups = {
-  sugerencias: [ "Inicio", "Portal de Afiliados", "Prestadores"],
-  servicios: ["Régimen Subsidiado - General", "Régimen Contributivo", "Blog y Noticias"],
+  sugerencias: [ "Inicio", "Afiliados", "Prestadores", "Nosotros"],
+  servicios: ["Régimen Subsidiado", "Régimen Contributivo", "Blog y Noticias"],
   otros: ["Normatividad", "Colaboradores", "Información Pública"],
 };
 
@@ -60,7 +60,8 @@ export function SearchCommand({ onSelect }: SearchCommandProps) {
 
     const results = searchData.filter(page => {
       const normalizedKeywords = normalizeText(page.keywords.join(" "));
-      return normalizedKeywords.includes(normalizedQuery);
+      const normalizedTitle = normalizeText(page.title);
+      return normalizedKeywords.includes(normalizedQuery) || normalizedTitle.includes(normalizedQuery);
     });
 
     setFilteredResults(results);
