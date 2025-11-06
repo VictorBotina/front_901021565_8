@@ -16,7 +16,6 @@ import { FontSizeControl } from './FontSizeControl';
 import { navigationItems } from '@/lib/navigation-data';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import Image from 'next/image';
-import { cn } from '@/lib/utils';
 import { AnimatePresence, motion } from 'framer-motion';
 
 export function MainNavigation() {
@@ -34,7 +33,7 @@ export function MainNavigation() {
     <>
       <TopMenu />
       <div className="relative">
-      <div className="container mx-auto flex h-auto items-center justify-between px-4 py-2 md:h-20 md:py-0">
+      <div className="container mx-auto flex h-20 items-center justify-between px-4">
           <div className="flex items-center">
             <Link href="/" className="flex items-center space-x-2" aria-label="Página de inicio de Entidad Digital" onClick={() => setActiveMenu(null)}>
               <Logo />
@@ -58,23 +57,23 @@ export function MainNavigation() {
             </nav>
           </div>
 
-          <div className="flex items-center">
+          <div className="flex items-center gap-1">
             <Dialog open={searchDialogOpen} onOpenChange={setSearchDialogOpen}>
               <DialogTrigger asChild>
-                <Button className="ml-4">Accesos rapidos</Button>
+                <Button>Accesos rapidos</Button>
               </DialogTrigger>
-              <DialogContent>
+              <DialogContent className="max-w-2xl">
                   <DialogHeader>
-                      <DialogTitle>Accesos Rápidos</DialogTitle>
+                      <DialogTitle>Accesos Rápidos y Búsqueda</DialogTitle>
                       <DialogDescription>
-                          Navega rápidamente a la sección que necesites o utiliza el buscador.
+                          Navega rápidamente a la sección que necesites o utiliza el buscador para encontrar cualquier página del sitio.
                       </DialogDescription>
                   </DialogHeader>
                 <SearchCommand onSelect={() => setSearchDialogOpen(false)} />
               </DialogContent>
             </Dialog>
             
-            <div className="flex items-center">
+            <div className="hidden md:flex items-center">
               <ThemeSwitcher />
               <ContrastSwitcher />
               <FontSizeControl />
@@ -88,11 +87,11 @@ export function MainNavigation() {
                   <span className="sr-only">Abrir menú</span>
                 </Button>
               </SheetTrigger>
-              <SheetContent side="left" className="w-full max-w-sm">
-                  <SheetHeader>
-                    <SheetTitle className="sr-only">Menú Principal</SheetTitle>
+              <SheetContent side="left" className="w-full max-w-sm p-0">
+                  <SheetHeader className="p-6 pb-0">
+                    <SheetTitle>Menú Principal</SheetTitle>
                   </SheetHeader>
-                <div className="flex-1 overflow-y-auto p-6">
+                <div className="h-full overflow-y-auto p-6">
                    <Accordion type="multiple" className="w-full">
                     {navigationItems.map(item => (
                       item.columns ? (
@@ -166,20 +165,16 @@ export function MainNavigation() {
 
                 {activeMenuItem.cta && (
                   <div className="md:col-span-1">
-                    <Link 
-                      href={activeMenuItem.cta.href} 
-                      onClick={() => setActiveMenu(null)} 
-                      className="group relative block h-full w-full overflow-hidden rounded-lg shadow-md"
-                    >
+                     <Link href={activeMenuItem.cta.href} onClick={() => setActiveMenu(null)} className="group relative block h-full w-full overflow-hidden rounded-lg shadow-md aspect-[4/3]">
                       <Image 
                         src={activeMenuItem.cta.imageUrl} 
                         alt={activeMenuItem.cta.title} 
                         fill
                         className="object-cover transition-transform duration-300 group-hover:scale-105"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
-                      <div className="absolute bottom-0 left-0 p-6">
-                        <h4 className="text-lg font-bold text-white transition-colors group-hover:text-primary-foreground">
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                      <div className="absolute bottom-0 left-0 p-4">
+                        <h4 className="text-md font-bold text-white transition-colors group-hover:text-primary-foreground">
                           {activeMenuItem.cta.title}
                         </h4>
                       </div>

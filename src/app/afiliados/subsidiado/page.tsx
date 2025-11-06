@@ -2,7 +2,7 @@
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { ArrowRight, BookUser, Briefcase, HeartPulse, Phone, ShieldCheck } from "lucide-react";
+import { ArrowRight, BookUser, Briefcase, HeartPulse, ShieldCheck } from "lucide-react";
 import React from 'react';
 import type { Metadata } from 'next';
 
@@ -19,19 +19,19 @@ export default function SubsidiadoLandingPage() {
       href: "/afiliados/subsidiado/informacion", 
       title: "Información", 
       description: "Conoce tus derechos, deberes y el plan de beneficios que te protege.",
-      icon: <BookUser /> 
+      icon: <BookUser className="h-8 w-8 text-primary" /> 
     },
     { 
       href: "/afiliados/subsidiado/tramites", 
       title: "Trámites", 
       description: "Gestiona tu afiliación, certificados y solicitudes de movilidad fácilmente.",
-      icon: <Briefcase />
+      icon: <Briefcase className="h-8 w-8 text-primary" />
     },
     { 
       href: "/afiliados/subsidiado/cuidado-de-la-salud", 
       title: "Cuidado de la Salud", 
       description: "Accede a programas de prevención, nutrición y bienestar para ti y tu familia.",
-      icon: <HeartPulse />
+      icon: <HeartPulse className="h-8 w-8 text-primary" />
     },
   ];
 
@@ -70,7 +70,7 @@ export default function SubsidiadoLandingPage() {
                 <Card key={link.href} className="group relative flex flex-col text-center items-center overflow-hidden rounded-lg shadow-md transition-all duration-300 hover:shadow-xl">
                     <CardHeader className="items-center p-6 z-10 transition-all duration-300">
                       <div className="p-4 bg-primary/10 rounded-full mb-2 transition-transform duration-300 group-hover:scale-90">
-                          {React.cloneElement(link.icon, { className: "h-8 w-8 text-primary"})}
+                          {link.icon}
                       </div>
                       <CardTitle as="h3" className="transition-colors duration-300 group-hover:text-white">{link.title}</CardTitle>
                     </CardHeader>

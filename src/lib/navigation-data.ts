@@ -1,6 +1,4 @@
 // src/lib/navigation-data.ts
-import { PlaceHolderImages } from "./placeholder-images";
-
 export type NavLink = {
   text: string;
   href: string;

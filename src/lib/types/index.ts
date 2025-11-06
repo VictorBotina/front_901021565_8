@@ -1,3 +1,5 @@
+import { Apple, BrainCircuit, HeartPulse } from "lucide-react";
+
 export type NavItem = {
   title: string;
   href: string;
@@ -11,4 +13,12 @@ export type Location = {
   longitud: number;
   nombre: string;
   departamento?: string;
+};
+
+// src/app/afiliados/subsidiado/cuidado-de-la-salud/page.tsx
+export type Sublink = {
+  href: string;
+  title: string;
+  description: string;
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
 };

@@ -9,43 +9,58 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-  CommandSeparator,
 } from "@/components/ui/command"
+import { searchData, type SearchablePage } from "@/lib/search-data"
 import { File, Home, Users, HeartHandshake, Book, Newspaper } from "lucide-react"
 
 type SearchCommandProps = {
   onSelect?: () => void;
 }
 
+// Función para normalizar texto (quitar acentos y a minúsculas)
+const normalizeText = (text: string) => {
+  return text
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+};
+
+const iconMap: { [key: string]: React.ReactElement } = {
+  Home: <Home className="mr-2 h-4 w-4" />,
+  Users: <Users className="mr-2 h-4 w-4" />,
+  HeartHandshake: <HeartHandshake className="mr-2 h-4 w-4" />,
+  Book: <Book className="mr-2 h-4 w-4" />,
+  Newspaper: <Newspaper className="mr-2 h-4 w-4" />,
+  File: <File className="mr-2 h-4 w-4" />,
+};
+
 export function SearchCommand({ onSelect }: SearchCommandProps) {
   const router = useRouter();
+  const [query, setQuery] = React.useState("");
+  const [filteredResults, setFilteredResults] = React.useState<SearchablePage[]>(searchData);
 
-  const commandGroups = [
-    {
-      heading: "Sugerencias",
-      items: [
-        { href: "/", text: "Inicio", icon: <Home className="mr-2 h-4 w-4" /> },
-        { href: "/afiliados", text: "Afiliados", icon: <Users className="mr-2 h-4 w-4" /> },
-        { href: "/prestadores", text: "Prestadores", icon: <HeartHandshake className="mr-2 h-4 w-4" /> },
-        { href: "/nosotros", text: "Nosotros", icon: <Book className="mr-2 h-4 w-4" /> },
-      ],
-    },
-    {
-      heading: "Servicios",
-      items: [
-        { href: "/afiliados/subsidiado", text: "Régimen Subsidiado", icon: <File className="mr-2 h-4 w-4" /> },
-        { href: "/afiliados/contributivo", text: "Régimen Contributivo", icon: <File className="mr-2 h-4 w-4" /> },
-        { href: "/blog", text: "Blog", icon: <Newspaper className="mr-2 h-4 w-4" /> },
-      ],
-    },
-    {
-      heading: "Otros",
-      items: [
-        { href: "/normatividad", text: "Normatividad", icon: <File className="mr-2 h-4 w-4" /> },
-        { href: "/colaboradores", text: "Colaboradores", icon: <Users className="mr-2 h-4 w-4" /> },
-      ]
+  React.useEffect(() => {
+    if (!query) {
+      setFilteredResults(searchData);
+      return;
     }
-  ];
+
+    const normalizedQuery = normalizeText(query);
+
+    const results = searchData.filter(page => {
+      const normalizedTitle = normalizeText(page.title);
+      const normalizedHref = normalizeText(page.href);
+      const normalizedKeywords = normalizeText(page.keywords.join(" "));
+
+      return (
+        normalizedTitle.includes(normalizedQuery) ||
+        normalizedHref.includes(normalizedQuery) ||
+        normalizedKeywords.includes(normalizedQuery)
+      );
+    });
+
+    setFilteredResults(results);
+  }, [query]);
 
   const handleSelect = (href: string) => {
     router.push(href);
@@ -55,27 +70,29 @@ export function SearchCommand({ onSelect }: SearchCommandProps) {
   };
 
   return (
-    <Command>
-      <CommandInput placeholder="Escribe un comando o busca..." />
+    <Command shouldFilter={false}>
+      <CommandInput 
+        placeholder="Busca una página o servicio..."
+        value={query}
+        onValueChange={setQuery}
+      />
       <CommandList>
-        <CommandEmpty>No se encontraron resultados.</CommandEmpty>
-        {commandGroups.map((group) => (
-          <React.Fragment key={group.heading}>
-            <CommandGroup heading={group.heading}>
-              {group.items.map((item) => (
-                <CommandItem
-                  key={item.href}
-                  onSelect={() => handleSelect(item.href)}
-                  value={item.text}
-                >
-                  {item.icon}
-                  <span>{item.text}</span>
-                </CommandItem>
-              ))}
-            </CommandGroup>
-            <CommandSeparator />
-          </React.Fragment>
-        ))}
+        {filteredResults.length === 0 ? (
+          <CommandEmpty>No se encontraron resultados.</CommandEmpty>
+        ) : (
+          <CommandGroup heading="Resultados">
+            {filteredResults.map((page) => (
+              <CommandItem
+                key={page.href}
+                onSelect={() => handleSelect(page.href)}
+                value={page.title}
+              >
+                {iconMap[page.icon] || <File className="mr-2 h-4 w-4" />}
+                <span>{page.title}</span>
+              </CommandItem>
+            ))}
+          </CommandGroup>
+        )}
       </CommandList>
     </Command>
   )

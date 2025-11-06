@@ -1,6 +1,6 @@
 // src/app/afiliados/subsidiado/informacion/canales-de-atencion/page.tsx
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
-import { Phone, MessageCircle, Building, Mail, Map } from "lucide-react";
+import { Phone, MessageCircle, Mail, Map } from "lucide-react";
 import React from 'react';
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -8,9 +8,9 @@ import { ArrowRight } from "lucide-react";
 
 export default function CanalesAtencionPage() {
   const channels = [
-    { icon: <Phone/>, title: "Línea Telefónica", description: "Línea nacional gratuita 01 8000 93 04 22 para atender todas tus inquietudes." },
-    { icon: <MessageCircle/>, title: "WhatsApp", description: "Escríbenos a nuestra línea de WhatsApp 300 912 6625 para una atención rápida." },
-    { icon: <Mail/>, title: "Correo Electrónico", description: "Envíanos tus solicitudes y PQRSD a nuestro correo oficial de atención." },
+    { icon: <Phone className="h-6 w-6 text-primary" />, title: "Línea Telefónica", description: "Línea nacional gratuita 01 8000 93 04 22 para atender todas tus inquietudes." },
+    { icon: <MessageCircle className="h-6 w-6 text-primary" />, title: "WhatsApp", description: "Escríbenos a nuestra línea de WhatsApp 300 912 6625 para una atención rápida." },
+    { icon: <Mail className="h-6 w-6 text-primary" />, title: "Correo Electrónico", description: "Envíanos tus solicitudes y PQRSD a nuestro correo oficial de atención." },
   ];
 
   return (
@@ -27,7 +27,7 @@ export default function CanalesAtencionPage() {
           <Card key={index} className="hover:shadow-md transition-shadow">
             <CardHeader className="flex flex-row items-center gap-4">
               <div className="p-3 bg-primary/10 rounded-full">
-                {React.cloneElement(channel.icon, { className: "h-6 w-6 text-primary" })}
+                {channel.icon}
               </div>
               <CardTitle as="h3">{channel.title}</CardTitle>
             </CardHeader>
