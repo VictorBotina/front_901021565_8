@@ -10,73 +10,7 @@ export type SearchablePage = {
 
 export const searchData: SearchablePage[] = [
   {
-    "title": "Afiliados | Cuidamos de ti en cada paso",
-    "href": "/afiliados",
-    "keywords": [
-      "afiliados EPS",
-      "derechos y deberes del afiliado",
-      "plan de beneficios en salud",
-      "servicios de salud integral",
-      "atención al paciente",
-      "portabilidad EPS",
-      "atención urgente",
-      "copagos EPS",
-      "cuotas moderadoras",
-      "salud en Colombia",
-      "canales de atención EPS",
-      "Resolución 229 de 2020",
-      "Resolución 2718 de 2024",
-      "autocuidado",
-      "red de prestadores",
-      "trámites EPS"
-    ],
-    "icon": "Users"
-  },
-  {
-    "title": "Consulta tu IPS Asignada y Valida tus Derechos en Emssanar EPS",
-    "href": "/afiliados/subsidiado/informacion/consulta-ips",
-    "keywords": [
-      "Consulta IPS",
-      "Validación de Derechos",
-      "Emssanar EPS",
-      "Afiliación",
-      "Red de Prestadores",
-      "Acceso a salud",
-      "Plan de Beneficios",
-      "Cobertura Integral"
-    ],
-    "icon": "UserCheck"
-  },
-  {
-    "title": "Régimen Subsidiado: Tu Derecho a la Salud Integral y Oportuna",
-    "href": "/afiliados/subsidiado",
-    "keywords": [
-      "Régimen Subsidiado",
-      "EPS",
-      "salud integral",
-      "SGSSS",
-      "cobertura en salud",
-      "atención médica",
-      "Colombia",
-      "acceso a salud",
-      "Plan de Beneficios en Salud",
-      "PBSCUPC",
-      "afiliación EPS",
-      "servicios de salud",
-      "población vulnerable",
-      "atención sin carencias",
-      "subsidio estatal",
-      "promoción de la salud",
-      "prevención",
-      "diagnóstico",
-      "tratamiento",
-      "rehabilitación",
-      "paliación"
-    ],
-    "icon": "HeartHandshake"
-  },
-  {
-    "title": "Entidad Digital",
+    "title": "Inicio",
     "href": "/",
     "keywords": [
       "home",
