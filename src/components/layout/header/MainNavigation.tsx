@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from 'next/link';
@@ -33,7 +34,7 @@ export function MainNavigation() {
     <>
       <TopMenu />
       <div className="relative">
-        <div className="container mx-auto flex h-20 items-center px-4">
+        <div className="container mx-auto flex h-auto min-h-20 items-center px-4 md:h-20">
           <Link href="/" className="flex items-center space-x-2" aria-label="Página de inicio de Entidad Digital" onClick={() => setActiveMenu(null)}>
             <Logo />
             <span className="hidden font-bold sm:inline-block">Entidad Digital</span>
@@ -56,7 +57,7 @@ export function MainNavigation() {
              </nav>
           </div>
 
-          <div className="flex flex-1 items-center justify-end space-x-1 md:flex-none">
+          <div className="flex flex-1 items-center justify-center space-x-1 sm:justify-end flex-wrap gap-y-2">
             <Dialog open={searchDialogOpen} onOpenChange={setSearchDialogOpen}>
               <DialogTrigger asChild>
                 <Button className="ml-4">Accesos rapidos</Button>
@@ -130,6 +131,7 @@ export function MainNavigation() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2, ease: "easeInOut" }}
+            onMouseLeave={() => setActiveMenu(null)}
           >
             <div className="container mx-auto px-4 py-8">
               <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
