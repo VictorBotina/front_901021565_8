@@ -11,7 +11,7 @@ export const searchData: SearchablePage[] = [
   {
     title: "Inicio",
     href: "/",
-    keywords: ["home", "principal", "dashboard"],
+    keywords: ["home", "principal", "dashboard", "inicio"],
     icon: "Home",
   },
   // Afiliados
@@ -55,19 +55,19 @@ export const searchData: SearchablePage[] = [
   {
     title: "Canales de Atención (Subsidiado)",
     href: "/afiliados/subsidiado/informacion/canales-de-atencion",
-    keywords: ["canales", "atencion", "contacto", "oficinas", "telefono"],
+    keywords: ["canales", "atencion", "contacto", "oficinas", "telefono", "whatsapp", "chat"],
     icon: "Phone",
   },
   {
     title: "Consulta tu IPS (Subsidiado)",
     href: "/afiliados/subsidiado/informacion/consulta-ips",
-    keywords: ["ips", "consulta", "mi ips", "red de servicios", "hospital"],
+    keywords: ["ips", "consulta", "mi ips", "red de servicios", "hospital", "clinica"],
     icon: "HeartHandshake",
   },
   {
     title: "Oficinas de Atención",
     href: "/afiliados/subsidiado/informacion/oficinas",
-    keywords: ["oficinas", "mapa", "directorio", "puntos de atencion"],
+    keywords: ["oficinas", "mapa", "directorio", "puntos de atencion", "ubicacion"],
     icon: "Map",
   },
   // Subsidiado - Trámites
@@ -80,75 +80,75 @@ export const searchData: SearchablePage[] = [
   {
     title: "Afiliación (Subsidiado)",
     href: "/afiliados/subsidiado/tramites/afiliacion",
-    keywords: ["afiliacion", "inscribirse", "nuevo afiliado"],
+    keywords: ["afiliacion", "inscribirse", "nuevo afiliado", "afiliarme"],
     icon: "File",
   },
   {
     title: "Certificados (Subsidiado)",
     href: "/afiliados/subsidiado/tramites/certificados",
-    keywords: ["certificados", "descargar", "documentos"],
+    keywords: ["certificados", "descargar", "documentos", "certificado de afiliacion"],
     icon: "File",
   },
   {
     title: "Movilidad y Portabilidad (Subsidiado)",
     href: "/afiliados/subsidiado/tramites/movilidad",
-    keywords: ["movilidad", "portabilidad", "traslado", "cambio de regimen"],
+    keywords: ["movilidad", "portabilidad", "traslado", "cambio de regimen", "cambio de ciudad"],
     icon: "File",
   },
   // Subsidiado - Cuidado de la salud
   {
     title: "Cuidado de la Salud (Subsidiado)",
     href: "/afiliados/subsidiado/cuidado-de-la-salud",
-    keywords: ["cuidado", "salud", "bienestar", "prevencion"],
+    keywords: ["cuidado", "salud", "bienestar", "prevencion", "programas pyp"],
     icon: "HeartPulse",
   },
   {
     title: "Nutrición y Vida Activa",
     href: "/afiliados/subsidiado/cuidado-de-la-salud/nutricion",
-    keywords: ["nutricion", "alimentacion", "ejercicio", "vida activa"],
+    keywords: ["nutricion", "alimentacion", "ejercicio", "vida activa", "dieta"],
     icon: "Apple",
   },
   {
     title: "Salud Mental",
     href: "/afiliados/subsidiado/cuidado-de-la-salud/salud-mental",
-    keywords: ["salud mental", "psicologia", "bienestar emocional"],
+    keywords: ["salud mental", "psicologia", "bienestar emocional", "estres", "ansiedad"],
     icon: "BrainCircuit",
   },
   // Otras secciones
   {
     title: "Prestadores",
     href: "/prestadores",
-    keywords: ["prestadores", "ips", "contratacion", "servicios medicos"],
+    keywords: ["prestadores", "ips", "contratacion", "servicios medicos", "doctores", "clinicas"],
     icon: "HeartHandshake",
   },
   {
     title: "Blog y Noticias",
     href: "/blog",
-    keywords: ["blog", "noticias", "articulos", "novedades"],
+    keywords: ["blog", "noticias", "articulos", "novedades", "actualidad"],
     icon: "Newspaper",
+  },
+    {
+    title: "Nosotros",
+    href: "/nosotros",
+    keywords: ["nosotros", "quienes somos", "mision", "vision", "historia"],
+    icon: "Building",
   },
   {
     title: "Colaboradores",
     href: "/colaboradores",
-    keywords: ["colaboradores", "equipo", "trabaja con nosotros"],
+    keywords: ["colaboradores", "equipo", "trabaja con nosotros", "empleo"],
     icon: "Users",
   },
   {
     title: "Normatividad",
     href: "/normatividad",
-    keywords: ["normatividad", "leyes", "decretos", "regulacion"],
+    keywords: ["normatividad", "leyes", "decretos", "regulacion", "normas"],
     icon: "Book",
   },
   {
     title: "Información Pública",
     href: "#",
-    keywords: ["transparencia", "acceso a la informacion publica", "ley"],
+    keywords: ["transparencia", "acceso a la informacion publica", "ley de transparencia"],
     icon: "Info",
-  },
-  {
-    title: "Test Pruebas",
-    href: "/test-pruebas",
-    keywords: ["test", "pruebas", "desarrollo"],
-    icon: "File",
   },
 ];

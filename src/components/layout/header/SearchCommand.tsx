@@ -1,3 +1,4 @@
+
 "use client"
 
 import * as React from "react"
@@ -58,15 +59,8 @@ export function SearchCommand({ onSelect }: SearchCommandProps) {
     const normalizedQuery = normalizeText(query);
 
     const results = searchData.filter(page => {
-      const normalizedTitle = normalizeText(page.title);
-      const normalizedHref = normalizeText(page.href);
       const normalizedKeywords = normalizeText(page.keywords.join(" "));
-
-      return (
-        normalizedTitle.includes(normalizedQuery) ||
-        normalizedHref.includes(normalizedQuery) ||
-        normalizedKeywords.includes(normalizedQuery)
-      );
+      return normalizedKeywords.includes(normalizedQuery);
     });
 
     setFilteredResults(results);
