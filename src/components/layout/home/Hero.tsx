@@ -139,7 +139,7 @@ export function Hero({ slides, autoPlayInterval = 5000 }: HeroProps) {
             </AnimatePresence>
 
             {/* Contenido de texto */}
-            <div className="container relative z-10 mx-auto flex h-full flex-col justify-end px-4 pb-16 md:pb-20">
+            <div className="container relative z-10 mx-auto flex h-full flex-col justify-end px-4 pb-20 md:pb-24">
               <motion.div
                 key={currentIndex + '-text'}
                 initial={{ opacity: 0, y: 20 }}
