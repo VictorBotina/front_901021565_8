@@ -34,29 +34,31 @@ export function MainNavigation() {
     <>
       <TopMenu />
       <div className="relative">
-        <div className="container mx-auto flex h-20 items-center px-4">
-          <Link href="/" className="flex items-center space-x-2" aria-label="Página de inicio de Entidad Digital" onClick={() => setActiveMenu(null)}>
-            <Logo />
-            <span className="hidden font-bold sm:inline-block">Entidad Digital</span>
-          </Link>
-          
-          {/* Desktop Navigation */}
-          <nav className="hidden items-center space-x-1 md:flex">
-            {navigationItems.map((item) => (
-              <Button 
-                key={item.id}
-                variant={activeMenu === item.id ? "secondary" : "ghost"}
-                onClick={() => handleMenuClick(item.id)}
-                aria-expanded={activeMenu === item.id}
-                aria-controls={`megamenu-${item.id}`}
-                className="px-4 py-2 text-sm font-medium"
-              >
-                {item.title}
-              </Button>
-            ))}
-          </nav>
+        <div className="container mx-auto flex h-auto items-center justify-between px-4 py-2 md:h-20 md:py-0">
+          <div className="flex items-center">
+            <Link href="/" className="flex items-center space-x-2" aria-label="Página de inicio de Entidad Digital" onClick={() => setActiveMenu(null)}>
+              <Logo />
+              <span className="hidden font-bold sm:inline-block">Entidad Digital</span>
+            </Link>
+            
+            {/* Desktop Navigation */}
+            <nav className="hidden items-center space-x-1 md:ml-6 md:flex">
+              {navigationItems.map((item) => (
+                <Button 
+                  key={item.id}
+                  variant={activeMenu === item.id ? "secondary" : "ghost"}
+                  onClick={() => handleMenuClick(item.id)}
+                  aria-expanded={activeMenu === item.id}
+                  aria-controls={`megamenu-${item.id}`}
+                  className="px-4 py-2 text-sm font-medium"
+                >
+                  {item.title}
+                </Button>
+              ))}
+            </nav>
+          </div>
 
-          <div className="flex flex-1 items-center justify-end space-x-1 md:flex-none">
+          <div className="flex items-center">
             <Dialog open={searchDialogOpen} onOpenChange={setSearchDialogOpen}>
               <DialogTrigger asChild>
                 <Button className="ml-4">Accesos rapidos</Button>
