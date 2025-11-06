@@ -13,7 +13,7 @@ import { SearchCommand } from './SearchCommand';
 import { ThemeSwitcher } from './ThemeSwitcher';
 import { ContrastSwitcher } from './ContrastSwitcher';
 import { FontSizeControl } from './FontSizeControl';
-import { navigationItems, type NavItem } from '@/lib/navigation-data';
+import { navigationItems } from '@/lib/navigation-data';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
@@ -34,33 +34,33 @@ export function MainNavigation() {
     <>
       <TopMenu />
       <div className="relative">
-        <div className="container mx-auto flex h-auto min-h-20 items-center px-4 md:h-20">
+        <div className="container mx-auto flex h-auto min-h-20 items-center justify-between px-4 md:h-20">
           <Link href="/" className="flex items-center space-x-2" aria-label="Página de inicio de Entidad Digital" onClick={() => setActiveMenu(null)}>
             <Logo />
             <span className="hidden font-bold sm:inline-block">Entidad Digital</span>
           </Link>
           
-          <div className="flex-1 justify-center hidden md:flex">
-             <nav className="flex items-center space-x-1">
-              {navigationItems.map((item) => (
-                <Button 
-                  key={item.id}
-                  variant={activeMenu === item.id ? "secondary" : "ghost"}
-                  onClick={() => handleMenuClick(item.id)}
-                  aria-expanded={activeMenu === item.id}
-                  aria-controls={`megamenu-${item.id}`}
-                  className="px-4 py-2 text-sm font-medium"
-                >
-                  {item.title}
-                </Button>
-              ))}
-             </nav>
-          </div>
+          {/* Desktop Navigation */}
+          <nav className="hidden items-center space-x-1 md:flex">
+            {navigationItems.map((item) => (
+              <Button 
+                key={item.id}
+                variant={activeMenu === item.id ? "secondary" : "ghost"}
+                onClick={() => handleMenuClick(item.id)}
+                aria-expanded={activeMenu === item.id}
+                aria-controls={`megamenu-${item.id}`}
+                className="px-4 py-2 text-sm font-medium"
+              >
+                {item.title}
+              </Button>
+            ))}
+          </nav>
 
-          <div className="flex flex-1 items-center justify-center space-x-1 sm:justify-end flex-wrap gap-y-2">
+          <div className="flex items-center space-x-1">
+            {/* Right-side controls */}
             <Dialog open={searchDialogOpen} onOpenChange={setSearchDialogOpen}>
               <DialogTrigger asChild>
-                <Button className="ml-4">Accesos rapidos</Button>
+                <Button>Accesos rapidos</Button>
               </DialogTrigger>
               <DialogContent>
                   <DialogHeader>
@@ -77,6 +77,7 @@ export function MainNavigation() {
             <ContrastSwitcher />
             <FontSizeControl />
 
+            {/* Mobile Menu Trigger */}
             <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon" className="md:hidden">
@@ -84,7 +85,7 @@ export function MainNavigation() {
                   <span className="sr-only">Abrir menú</span>
                 </Button>
               </SheetTrigger>
-              <SheetContent side="left" className="w-full max-w-sm">
+              <SheetContent side="left" className="w-full max-w-sm overflow-y-auto">
                   <SheetHeader>
                     <SheetTitle className="sr-only">Menú Principal</SheetTitle>
                   </SheetHeader>
