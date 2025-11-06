@@ -139,4 +139,10 @@ export const searchData: SearchablePage[] = [
     keywords: ["normatividad", "leyes", "decretos", "regulacion"],
     icon: "Book",
   },
+  {
+    title: "Información Pública",
+    href: "#",
+    keywords: ["transparencia", "acceso a la informacion publica", "ley"],
+    icon: "Info",
+  }
 ];
