@@ -1,23 +1,4 @@
 // src/app/afiliados/subsidiado/layout.tsx
-import { MainMenu } from "@/components/layout/subsidiado/MainMenu";
-
-const menuItems = [
-  { text: "Inicio Subsidiado", href: "/afiliados/subsidiado", exact: true },
-  { text: "Información", href: "/afiliados/subsidiado/informacion" },
-  { text: "Trámites", href: "/afiliados/subsidiado/tramites" },
-  {
-    text: "Cuidado de la Salud",
-    href: "/afiliados/subsidiado/cuidado-de-la-salud",
-  },
-  {
-    text: "Canales de Atención",
-    href: "/afiliados/subsidiado/informacion/canales-de-atencion",
-  },
-  {
-    text: "Consulta de IPS",
-    href: "/afiliados/subsidiado/informacion/consulta-ips",
-  },
-];
 
 export default function SubsidiadoLayout({
   children,
@@ -34,17 +15,11 @@ export default function SubsidiadoLayout({
           Tu salud y bienestar son nuestra prioridad.
         </p>
       </header>
-
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
-        <aside className="md:col-span-3 lg:col-span-2">
-          <MainMenu items={menuItems} />
-        </aside>
-        <main className="md:col-span-9 lg:col-span-10">
-          <div className="rounded-lg border bg-card text-card-foreground shadow-sm">
-            {children}
-          </div>
-        </main>
-      </div>
+      <main>
+        <div className="rounded-lg border bg-card text-card-foreground shadow-sm">
+          {children}
+        </div>
+      </main>
     </div>
   );
 }
