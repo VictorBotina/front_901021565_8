@@ -34,7 +34,7 @@ export function MainNavigation() {
     <>
       <TopMenu />
       <div className="relative">
-        <div className="container mx-auto flex h-auto items-center justify-between px-4 py-2 md:h-20 md:py-0">
+      <div className="container mx-auto flex h-auto items-center justify-between px-4 py-2 md:h-20 md:py-0">
           <div className="flex items-center">
             <Link href="/" className="flex items-center space-x-2" aria-label="Página de inicio de Entidad Digital" onClick={() => setActiveMenu(null)}>
               <Logo />
@@ -74,7 +74,7 @@ export function MainNavigation() {
               </DialogContent>
             </Dialog>
             
-            <div className="hidden md:flex items-center">
+            <div className="flex items-center">
               <ThemeSwitcher />
               <ContrastSwitcher />
               <FontSizeControl />
@@ -165,14 +165,26 @@ export function MainNavigation() {
                 ))}
 
                 {activeMenuItem.cta && (
-                   <div className="md:col-span-1 bg-muted/50 p-6 rounded-lg flex flex-col justify-center items-center text-center">
-                    <Image src={activeMenuItem.cta.imageUrl} alt={activeMenuItem.cta.title} width={80} height={80} className="mb-4 rounded-full" />
-                     <h4 className="font-bold mb-2">{activeMenuItem.cta.title}</h4>
-                     <p className="text-sm text-muted-foreground mb-4">{activeMenuItem.cta.description}</p>
-                     <Button asChild>
-                       <Link href={activeMenuItem.cta.href} onClick={() => setActiveMenu(null)}>{activeMenuItem.cta.buttonText}</Link>
-                     </Button>
-                   </div>
+                  <div className="md:col-span-1">
+                    <Link 
+                      href={activeMenuItem.cta.href} 
+                      onClick={() => setActiveMenu(null)} 
+                      className="group relative block h-full w-full overflow-hidden rounded-lg shadow-md"
+                    >
+                      <Image 
+                        src={activeMenuItem.cta.imageUrl} 
+                        alt={activeMenuItem.cta.title} 
+                        fill
+                        className="object-cover transition-transform duration-300 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
+                      <div className="absolute bottom-0 left-0 p-6">
+                        <h4 className="text-lg font-bold text-white transition-colors group-hover:text-primary-foreground">
+                          {activeMenuItem.cta.title}
+                        </h4>
+                      </div>
+                    </Link>
+                  </div>
                 )}
               </div>
             </div>

@@ -17,9 +17,7 @@ export type NavColumn = {
 
 export type NavCTA = {
     title: string;
-    description: string;
     href: string;
-    buttonText: string;
     imageUrl: string;
 }
 
@@ -56,10 +54,10 @@ export const navigationItems: NavItem[] = [
                 {
                     title: 'Trámites',
                     links: [
-                        { text: 'Guía de Trámites', href: '/afiliados/subsidiado/tramites' },
-                        { text: 'Afiliación', href: '/afiliados/subsidiado/afiliacion' },
-                        { text: 'Certificados', href: '/afiliados/subsidiado/certificados' },
-                        { text: 'Movilidad', href: '/afiliados/subsidiado/movilidad' },
+                        { text: 'Guía de Trámites', href: '/afiliados/subsidiado/tramites/tramites' },
+                        { text: 'Afiliación', href: '/afiliados/subsidiado/tramites/afiliacion' },
+                        { text: 'Certificados', href: '/afiliados/subsidiado/tramites/certificados' },
+                        { text: 'Movilidad', href: '/afiliados/subsidiado/tramites/movilidad' },
                     ]
                 }
             ]
@@ -70,8 +68,8 @@ export const navigationItems: NavItem[] = [
                     title: 'Cuidado de la salud',
                     links: [
                         { text: 'Programas de Salud', href: '/afiliados/subsidiado/cuidado-de-la-salud' },
-                        { text: 'Nutrición y Vida Activa', href: '/afiliados/subsidiado/nutricion' },
-                        { text: 'Salud Mental', href: '/afiliados/subsidiado/salud-mental' },
+                        { text: 'Nutrición y Vida Activa', href: '/afiliados/subsidiado/cuidado-de-la-salud/nutricion' },
+                        { text: 'Salud Mental', href: '/afiliados/subsidiado/cuidado-de-la-salud/salud-mental' },
                         { text: 'Programas PyP', href: '#' }, // Placeholder
                     ]
                 }
@@ -79,11 +77,9 @@ export const navigationItems: NavItem[] = [
         }
     ],
     cta: {
-        title: 'Canales de Atención',
-        description: 'Encuentra la oficina, línea telefónica o chat que necesitas para resolver tus inquietudes.',
+        title: 'Conoce nuestros canales de atención',
         href: '/afiliados/subsidiado/informacion/canales-de-atencion',
-        buttonText: 'Ir a Canales de Atención',
-        imageUrl: 'https://images.unsplash.com/photo-1586769852836-bc069f19e1b6?w=100&h=100&fit=crop&q=80',
+        imageUrl: 'https://images.unsplash.com/photo-1586769852836-bc069f19e1b6?w=400&h=300&fit=crop&q=80',
     }
   },
   {
