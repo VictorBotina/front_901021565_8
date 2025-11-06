@@ -53,9 +53,6 @@ export function MainNavigation() {
                   {item.title}
                 </Button>
               ))}
-                <Link href="/nosotros" className="inline-flex h-10 items-center justify-center rounded-md bg-transparent px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground">
-                  Nosotros
-                </Link>
              </nav>
           </div>
 
@@ -117,9 +114,6 @@ export function MainNavigation() {
                         </Link>
                       )
                     ))}
-                     <Link href="/nosotros" onClick={() => setMobileMenuOpen(false)} className="block border-b py-4 text-lg font-medium hover:text-primary">
-                      Nosotros
-                    </Link>
                   </Accordion>
                 </div>
               </SheetContent>
