@@ -34,7 +34,7 @@ export function MainNavigation() {
     <>
       <TopMenu />
       <div className="relative">
-        <div className="container mx-auto flex h-auto min-h-20 items-center justify-between px-4 md:h-20">
+        <div className="container mx-auto flex h-20 items-center px-4">
           <Link href="/" className="flex items-center space-x-2" aria-label="Página de inicio de Entidad Digital" onClick={() => setActiveMenu(null)}>
             <Logo />
             <span className="hidden font-bold sm:inline-block">Entidad Digital</span>
@@ -56,11 +56,10 @@ export function MainNavigation() {
             ))}
           </nav>
 
-          <div className="flex items-center space-x-1">
-            {/* Right-side controls */}
+          <div className="flex flex-1 items-center justify-end space-x-1 md:flex-none">
             <Dialog open={searchDialogOpen} onOpenChange={setSearchDialogOpen}>
               <DialogTrigger asChild>
-                <Button>Accesos rapidos</Button>
+                <Button className="ml-4">Accesos rapidos</Button>
               </DialogTrigger>
               <DialogContent>
                   <DialogHeader>
@@ -73,9 +72,11 @@ export function MainNavigation() {
               </DialogContent>
             </Dialog>
             
-            <ThemeSwitcher />
-            <ContrastSwitcher />
-            <FontSizeControl />
+            <div className="hidden md:flex items-center">
+              <ThemeSwitcher />
+              <ContrastSwitcher />
+              <FontSizeControl />
+            </div>
 
             {/* Mobile Menu Trigger */}
             <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
@@ -85,11 +86,11 @@ export function MainNavigation() {
                   <span className="sr-only">Abrir menú</span>
                 </Button>
               </SheetTrigger>
-              <SheetContent side="left" className="w-full max-w-sm overflow-y-auto">
+              <SheetContent side="left" className="w-full max-w-sm">
                   <SheetHeader>
                     <SheetTitle className="sr-only">Menú Principal</SheetTitle>
                   </SheetHeader>
-                <div className="mt-8">
+                <div className="flex-1 overflow-y-auto p-6">
                    <Accordion type="multiple" className="w-full">
                     {navigationItems.map(item => (
                       item.columns ? (
@@ -117,6 +118,14 @@ export function MainNavigation() {
                       )
                     ))}
                   </Accordion>
+                   <div className="mt-8 border-t pt-6">
+                    <h3 className="mb-4 text-lg font-medium">Accesibilidad</h3>
+                     <div className="flex items-center justify-around rounded-lg border p-2">
+                        <ThemeSwitcher />
+                        <ContrastSwitcher />
+                        <FontSizeControl />
+                     </div>
+                   </div>
                 </div>
               </SheetContent>
             </Sheet>
