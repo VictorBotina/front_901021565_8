@@ -144,5 +144,11 @@ export const searchData: SearchablePage[] = [
     href: "#",
     keywords: ["transparencia", "acceso a la informacion publica", "ley"],
     icon: "Info",
-  }
+  },
+  {
+    title: "Test Pruebas",
+    href: "/test-pruebas",
+    keywords: ["test", "pruebas", "desarrollo"],
+    icon: "File",
+  },
 ];
