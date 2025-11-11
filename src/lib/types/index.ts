@@ -1,4 +1,4 @@
-import { Apple, BrainCircuit, HeartPulse } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 
 export type NavItem = {
   title: string;
@@ -15,10 +15,33 @@ export type Location = {
   departamento?: string;
 };
 
-// src/app/afiliados/subsidiado/cuidado-de-la-salud/page.tsx
 export type Sublink = {
   href: string;
   title: string;
   description: string;
   icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
 };
+
+// Types for Blog
+export type BlogCategory = {
+    id: string;
+    name: string;
+    href: string;
+    description: string;
+    icon: LucideIcon;
+    color: string;
+    bgColor: string;
+    textColor: string;
+};
+
+export type Article = {
+    title: string;
+    description: string;
+    href: string;
+    author: string;
+    date: Date;
+    category: BlogCategory;
+    imageUrl: string;
+};
+
+    
