@@ -90,9 +90,9 @@ export default async function BlogPage() {
                               <Image
                                 src={getStrapiURL(imageUrl)}
                                 alt={`miniatura de ${article.title}`}
-                                fill
-                                className="object-cover transition-transform duration-300 group-hover:scale-105"
-                                sizes="96px"
+                                width={96}
+                                height={96}
+                                className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
                               />
                           </div>
                         )}
