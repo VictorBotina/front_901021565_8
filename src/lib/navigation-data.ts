@@ -6,7 +6,6 @@ export type NavLink = {
 
 export type NavGroup = {
   title: string;
-  icon?: string; // Añadido para el ícono
   links: NavLink[];
 };
 
@@ -38,7 +37,6 @@ export const navigationItems: NavItem[] = [
             groups: [
                 {
                     title: 'Información',
-                    icon: 'Info',
                     links: [
                         { text: 'Información General', href: '/afiliados/subsidiado/informacion' },
                         { text: 'Oficinas de atención', href: '/afiliados/subsidiado/informacion/oficinas' },
@@ -53,7 +51,6 @@ export const navigationItems: NavItem[] = [
             groups: [
                 {
                     title: 'Trámites',
-                    icon: 'FileText',
                     links: [
                         { text: 'Guía de Trámites', href: '/afiliados/subsidiado/tramites/tramites' },
                         { text: 'Afiliación', href: '/afiliados/subsidiado/tramites/afiliacion' },
@@ -67,7 +64,6 @@ export const navigationItems: NavItem[] = [
             groups: [
                 {
                     title: 'Cuidado de la salud',
-                    icon: 'HeartPulse',
                     links: [
                         { text: 'Programas de Salud', href: '/afiliados/subsidiado/cuidado-de-la-salud' },
                         { text: 'Nutrición y Vida Activa', href: '/afiliados/subsidiado/cuidado-de-la-salud/nutricion' },
@@ -104,7 +100,6 @@ export const navigationItems: NavItem[] = [
         groups: [
           {
             title: 'Régimen Subsidiado',
-            icon: 'Shield',
             links: [
               { text: 'Hábitos y estilos de vida saludables', href: '/blog/subsidiado/habitos-y-estilos-de-vida-saludables' },
               { text: 'Ver todas las noticias', href: '/blog/subsidiado' },
@@ -116,7 +111,6 @@ export const navigationItems: NavItem[] = [
         groups: [
           {
             title: 'Régimen Contributivo',
-            icon: 'HandCoins',
             links: [
               { text: 'Ver noticias', href: '/blog/contributivo' },
             ],
@@ -127,7 +121,6 @@ export const navigationItems: NavItem[] = [
         groups: [
           {
             title: 'Prestadores',
-            icon: 'Stethoscope',
             links: [
               { text: 'Ver noticias', href: '/blog/prestadores' },
             ],
