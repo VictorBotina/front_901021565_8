@@ -12,18 +12,31 @@ import { CATEGORIES } from "./data";
 import type { Article } from "@/app/types/article";
 import { getStrapiURL } from "@/lib/api";
 
-// Helper para agrupar artículos por categoría
-const groupArticlesByCategory = (articles: Article[]): Record<string, Article[]> => {
-  if (!articles) return {};
-  return articles.reduce((acc, article) => {
-    const categoryName = article.category?.name || "General";
-    if (!acc[categoryName]) {
-      acc[categoryName] = [];
-    }
-    acc[categoryName].push(article);
-    return acc;
-  }, {} as Record<string, Article[]>);
+const articleUrlMap: { [key: string]: { [key: string]: string } } = {
+  "Subsidiado": {
+    "Hábitos y Estilos de Vida Saludables": "/blog/subsidiado/habitos-y-estilos-de-vida-saludables",
+  },
+  "Régimen Contributivo": {
+    "Artículo de Prueba para Régimen Contributivo": "/blog/contributivo/articulo-1",
+  },
+  "Prestadores": {
+    "Artículo de Prueba para Prestadores": "/blog/prestadores/articulo-1",
+  },
+  "Comunicados de Prensa": {
+    "Comunicado de Prensa de Prueba": "/blog/comunicados-de-prensa/articulo-1",
+  }
 };
+
+const getArticleUrl = (article: Article): string => {
+  const categoryName = article.category?.name;
+  if (categoryName && articleUrlMap[categoryName] && articleUrlMap[categoryName][article.title]) {
+    return articleUrlMap[categoryName][article.title];
+  }
+  // Fallback a la página de la categoría si no hay un mapeo específico
+  const categoryInfo = CATEGORIES.find(c => c.name === categoryName);
+  return categoryInfo?.href || '/blog';
+};
+
 
 export default async function BlogPage() {
   const allArticles: Article[] = await getArticles();
@@ -67,7 +80,7 @@ export default async function BlogPage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
             {featuredArticle && (
               <div className="lg:col-span-8 lg:border-r lg:border-gray-300 lg:pr-8">
-                <ArticleCard article={featuredArticle} featured />
+                <ArticleCard article={featuredArticle} href={getArticleUrl(featuredArticle)} featured />
               </div>
             )}
 
@@ -77,7 +90,7 @@ export default async function BlogPage() {
               </h3>
               <ul className="space-y-4">
                 {recentArticles.map((article) => {
-                   const articleUrl = `/blog/${article.category?.slug || 'general'}/${article.slug || article.id}`;
+                   const articleUrl = getArticleUrl(article);
                    const imageUrl = article.image?.formats?.small?.url || article.image?.url || '';
                    const categoryInfo = CATEGORIES.find(c => c.name === article.category?.name);
 
@@ -178,8 +191,8 @@ export default async function BlogPage() {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
-                    {category.articles.slice(0, 3).map((article) => ( // Limitar a 3 para la vista previa
-                        <ArticleCard key={article.id} article={article} />
+                    {category.articles.slice(0, 3).map((article) => ( 
+                        <ArticleCard key={article.id} article={article} href={getArticleUrl(article)} />
                     ))}
                 </div>
                 </section>

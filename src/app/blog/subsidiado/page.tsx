@@ -4,6 +4,11 @@ import { getArticles } from "@/app/services/articleService";
 import { ArticleCard } from "@/app/blog/ArticleCard";
 import type { Article } from "@/app/types/article";
 
+// Esto es un mapeo manual. Idealmente, los slugs vendrían de la API.
+const articleUrlMap: { [key: string]: string } = {
+  "Hábitos y Estilos de Vida Saludables": "/blog/subsidiado/habitos-y-estilos-de-vida-saludables"
+};
+
 export default async function SubsidiadoBlogPage() {
   const articles: Article[] = await getArticles("Subsidiado");
 
@@ -18,9 +23,13 @@ export default async function SubsidiadoBlogPage() {
 
       {articles.length > 0 ? (
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {articles.map((article) => (
-            <ArticleCard key={article.id} article={article} />
-          ))}
+          {articles.map((article) => {
+            // Usa el mapeo para encontrar la URL correcta, o un enlace genérico si no se encuentra.
+            const articleHref = articleUrlMap[article.title] || `/blog/subsidiado`;
+            return (
+              <ArticleCard key={article.id} article={article} href={articleHref} />
+            )
+          })}
         </div>
       ) : (
         <div className="text-center py-16">

@@ -13,10 +13,11 @@ import { cn } from "@/lib/utils";
 
 interface ArticleCardProps {
   article: Article;
+  href: string; // Se añade la propiedad href
   featured?: boolean;
 }
 
-export function ArticleCard({ article, featured = false }: ArticleCardProps) {
+export function ArticleCard({ article, href, featured = false }: ArticleCardProps) {
   const [imageUrl, setImageUrl] = useState<string>("/images/placeholder.png");
   const [imageLoading, setImageLoading] = useState(true);
 
@@ -31,11 +32,8 @@ export function ArticleCard({ article, featured = false }: ArticleCardProps) {
   
   const categoryInfo = CATEGORIES.find(c => c.name === article.category?.name);
 
-  // Construir la URL dinámicamente
-  const articleUrl = `/blog/${article.category?.slug || 'general'}/${article.slug || article.id}`;
-
   return (
-    <Link href={articleUrl} className="block group">
+    <Link href={href} className="block group">
       <div className="w-full bg-gray-200 rounded-md overflow-hidden mb-4">
         {imageLoading && <Skeleton className="w-full aspect-video" />}
         <Image
