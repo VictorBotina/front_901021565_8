@@ -1,3 +1,4 @@
+
 // src/app/blog/page.tsx
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
@@ -6,7 +7,7 @@ import { Logo } from "@/components/logo";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import { ArticleCard } from "./ArticleCard";
-import { getArticles } from "@/app/services/articleService";
+import { getArticles, formatDate } from "@/app/services/articleService";
 import { CATEGORIES } from "./data"; 
 import type { Article } from "@/app/types/article";
 import { getStrapiURL } from "@/lib/api";
@@ -104,6 +105,11 @@ export default async function BlogPage() {
                           <h4 className="font-semibold text-sm text-gray-800 hover:text-primary transition-colors leading-tight">
                             {article.title}
                           </h4>
+                          {article.date && (
+                            <time className="text-xs text-muted-foreground mt-1 block">
+                                {formatDate(article.date)}
+                            </time>
+                           )}
                         </div>
                       </Link>
                     </li>
