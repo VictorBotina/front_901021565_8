@@ -10,10 +10,39 @@ import Breadcrumbs from "@/components/layout/breadcrumbs/Breadcrumbs";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:9002';
+
 export const metadata: Metadata = {
-  title: "Entidad Digital",
-  description: "Sitio institucional modular, accesible y escalable",
+  title: {
+    default: "Entidad Digital - Salud y Bienestar a tu Alcance",
+    template: "%s | Entidad Digital",
+  },
+  description: "Sitio institucional modular, accesible y escalable, enfocado en servicios de salud para afiliados y prestadores.",
+  openGraph: {
+    title: "Entidad Digital - Salud y Bienestar a tu Alcance",
+    description: "Servicios e información para afiliados a los regímenes subsidiado y contributivo.",
+    url: siteUrl,
+    siteName: "Entidad Digital",
+    images: [
+      {
+        url: `${siteUrl}/default-og.jpg`,
+        width: 1200,
+        height: 630,
+        alt: "Logo de Entidad Digital",
+      },
+    ],
+    locale: "es_CO",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Entidad Digital - Salud y Bienestar a tu Alcance",
+    description: "Sitio institucional modular, accesible y escalable, enfocado en servicios de salud.",
+    images: [`${siteUrl}/default-og.jpg`],
+  },
+  metadataBase: new URL(siteUrl),
 };
+
 
 export default function RootLayout({
   children,
@@ -47,5 +76,3 @@ export default function RootLayout({
     </html>
   );
 }
-
-    

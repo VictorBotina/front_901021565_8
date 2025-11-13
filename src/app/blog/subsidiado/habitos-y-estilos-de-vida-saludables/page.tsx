@@ -1,5 +1,6 @@
 // src/app/blog/subsidiado/habitos-y-estilos-de-vida-saludables/page.tsx
-import React from "react";
+'use client';
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from 'next';
@@ -11,53 +12,8 @@ import {
 } from "@/app/services/articleService";
 import { getStrapiURL } from "@/lib/api";
 import { Article, RichTextBlock } from "@/app/types/article";
-import { Calendar, Clock } from "lucide-react";
+import { Calendar, Clock, Loader } from "lucide-react";
 import { ShareButtons } from "@/components/ui/ShareButtons";
-
-const ARTICLE_ID = "fni951bnbpi9tc18e7t92l6i";
-
-export async function generateMetadata(): Promise<Metadata> {
-  const article = await getArticleById(ARTICLE_ID);
-
-  if (!article) {
-    return {
-      title: "Artículo no encontrado",
-      description: "El artículo que buscas no está disponible.",
-    };
-  }
-
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
-  const articleUrl = `${siteUrl}/blog/subsidiado/habitos-y-estilos-de-vida-saludables`;
-
-  const ogImageUrl = article.image?.url 
-    ? getStrapiURL(article.image.url)
-    : `${siteUrl}/default-og.jpg`; // Imagen por defecto
-
-  return {
-    title: article.title,
-    description: article.description,
-    openGraph: {
-      title: article.title,
-      description: article.description,
-      url: articleUrl,
-      type: 'article',
-      images: [
-        {
-          url: ogImageUrl,
-          width: 1200,
-          height: 630,
-          alt: article.title,
-        },
-      ],
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: article.title,
-      description: article.description,
-      images: [ogImageUrl],
-    },
-  };
-}
 
 
 function renderArticleContent(content: Article['content']) {
@@ -160,7 +116,6 @@ export default async function HabitosSaludablesPage() {
   const readingTime = calculateReadingTime(article.content);
   const authorAvatarUrl = article.author ? getAuthorAvatarUrl(article.author.avatar) : null;
   const imageUrl = article.image ? getStrapiURL(article.image.url) : null;
-  const shareUrl = `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/blog/subsidiado/habitos-y-estilos-de-vida-saludables`;
 
   return (
     <div className="bg-background">
@@ -193,7 +148,6 @@ export default async function HabitosSaludablesPage() {
               <Clock className="mr-2 h-4 w-4" />
               <span>{readingTime}</span>
             </div>
-             <ShareButtons url={shareUrl} title={article.title} summary={article.description} />
           </div>
         </header>
 
@@ -208,12 +162,12 @@ export default async function HabitosSaludablesPage() {
             />
           </div>
         )}
-
+        
         <div className="prose prose-lg lg:prose-xl max-w-none mx-auto">
           {renderArticleContent(article.content)}
         </div>
 
-        <div className="mt-12 border-t pt-8">
+         <div className="mt-12 border-t pt-8">
             <ShareButtons url={shareUrl} title={article.title} summary={article.description} />
         </div>
 
