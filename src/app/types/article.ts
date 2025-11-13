@@ -25,7 +25,7 @@ export interface ArticleAuthor {
   name: string;
   avatar?: {
     url: string;
-  };
+  } | null;
 }
 
 // Representa la categoría de un artículo
@@ -35,12 +35,25 @@ export interface ArticleCategory {
   slug: string;
 }
 
-// Representa el contenido dinámico del artículo
-export type DynamicZoneContent = 
-  | { __component: 'shared.rich-text'; id: number; body: string; }
-  | { __component: 'shared.media'; id: number; file: ArticleImage; }
-  | { __component: 'shared.quote'; id: number; quote: string; author: string; }
-  | { __component: 'shared.slider'; id: number; files: ArticleImage[]; };
+// Representa un bloque de texto enriquecido del contenido
+export interface RichTextBlock {
+  type: 'paragraph' | 'heading' | 'list';
+  children: {
+    text: string;
+    type: 'text';
+    bold?: boolean;
+    italic?: boolean;
+  }[];
+}
+
+// Representa el contenido dinámico del artículo (mapeado desde la nueva API)
+export interface ArticleContentSection {
+  id: number;
+  title_seccion?: string | null;
+  text: RichTextBlock[];
+  media_url?: string | null;
+}
+
 
 // Estructura completa de un artículo desde la API
 export interface Article {
@@ -49,8 +62,12 @@ export interface Article {
   description: string;
   slug: string;
   date: string; // Mantener como string, se formatea en el frontend
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  stade?: string;
   image?: ArticleImage;
   category?: ArticleCategory;
   author?: ArticleAuthor;
-  content?: DynamicZoneContent[];
+  content?: ArticleContentSection[];
 }

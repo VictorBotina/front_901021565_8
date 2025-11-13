@@ -1,6 +1,6 @@
 // src/app/services/articleService.ts
 import { Article } from "@/app/types/article";
-import { fetchFromStrapi } from "@/lib/api";
+import { fetchFromStrapi, getStrapiURL } from "@/lib/api";
 
 /**
  * Obtiene todos los artículos de la API de Strapi para la página principal del blog.
@@ -8,7 +8,7 @@ import { fetchFromStrapi } from "@/lib/api";
 export async function getArticles(): Promise<Article[]> {
   const params = {
     sort: { date: 'desc' },
-    fields: ["title", "description", "date"],
+    fields: ["title", "description", "date", "slug"],
     populate: {
       image: { fields: ["url", "formats"] },
       author: { fields: ["name"] },
@@ -28,12 +28,13 @@ export async function getArticles(): Promise<Article[]> {
 }
 
 /**
- * Obtiene un artículo específico por su slug.
+ * Obtiene un artículo específico por su ID.
  */
-export async function getArticleBySlug(slug: string): Promise<Article | null> {
+export async function getArticleById(id: string): Promise<Article | null> {
+  if (!id) return null;
+  
   const params = {
-    filters: { slug: { $eq: slug } },
-    populate: {
+     populate: {
       image: { fields: ["url", "formats"] },
       category: { fields: ["name", "slug"] },
       author: {
@@ -46,31 +47,67 @@ export async function getArticleBySlug(slug: string): Promise<Article | null> {
   };
 
   try {
-    const data = await fetchFromStrapi("articles", params);
-    if (!data || !Array.isArray(data) || data.length === 0) {
-      console.log(`No se encontró artículo con el slug: ${slug}`);
+    const data = await fetchFromStrapi(`articles/${id}`, params);
+    if (!data) {
+      console.log(`No se encontró artículo con el ID: ${id}`);
       return null;
     }
-    // La API devuelve un array, tomamos el primer elemento
-    return data[0] as Article;
+    return data as Article;
   } catch (error) {
-    // El error ya se loguea en fetchFromStrapi
-    console.error(`📦 getArticleBySlug falló para el slug '${slug}', devolviendo null.`);
-    return null; // Devolver null en caso de error
+    console.error(`📦 getArticleById falló para el ID '${id}', devolviendo null.`);
+    return null;
   }
 }
+
+
+/**
+ * Obtiene un artículo específico por su slug.
+ */
+export async function getArticleBySlug(slug: string): Promise<Article | null> {
+    const params = {
+        filters: { slug: { $eq: slug } },
+        populate: {
+            image: { fields: ["url", "formats"] },
+            category: { fields: ["name", "slug"] },
+            author: { populate: { avatar: { fields: ["url"] } } },
+            content: { populate: '*' },
+        },
+    };
+
+    try {
+        const data = await fetchFromStrapi("articles", params);
+        if (!data || !Array.isArray(data) || data.length === 0) {
+            console.log(`No se encontró artículo con el slug: ${slug}`);
+            return null;
+        }
+        return data[0] as Article;
+    } catch (error) {
+        console.error(`📦 getArticleBySlug falló para el slug '${slug}', devolviendo null.`);
+        return null;
+    }
+}
+
 
 // Función para formatear la fecha, útil para la UI
 export function formatDate(dateString: string): string {
   if (!dateString) return "";
   try {
-    // Se añade 'T00:00:00' para asegurar que se interprete como UTC y evitar problemas de zona horaria (hydration error)
-    const utcDate = new Date(dateString.split('T')[0] + 'T00:00:00');
-    return utcDate.toLocaleDateString("es-ES", {
+    const date = new Date(dateString);
+    // Si la fecha es inválida, intenta añadir T00:00:00
+    if (isNaN(date.getTime())) {
+      const utcDate = new Date(dateString.split('T')[0] + 'T00:00:00');
+       return utcDate.toLocaleDateString("es-ES", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        timeZone: 'UTC',
+      });
+    }
+    return date.toLocaleDateString("es-ES", {
       year: "numeric",
       month: "long",
       day: "numeric",
-      timeZone: 'UTC',
+      timeZone: 'UTC', // Asegurar consistencia
     });
   } catch (error) {
     console.error("Error al formatear la fecha:", dateString, error);
@@ -85,10 +122,17 @@ export function calculateReadingTime(content: any[]): string {
   let totalWords = 0;
   try {
     content.forEach((section) => {
-      // Comprobar si el bloque es del tipo 'richtext' y tiene 'body'
-      if (section.__component === 'shared.rich-text' && section.body && typeof section.body === 'string') {
-        totalWords += section.body.trim().split(/\s+/).length;
-      }
+       if (section.text && Array.isArray(section.text)) {
+         section.text.forEach((block: any) => {
+           if (block.type === 'paragraph' && Array.isArray(block.children)) {
+             block.children.forEach((child: any) => {
+                if (child.type === 'text' && typeof child.text === 'string') {
+                    totalWords += child.text.trim().split(/\s+/).length;
+                }
+             });
+           }
+         });
+       }
     });
   } catch (error) {
     console.error("Error calculando el tiempo de lectura:", error);
@@ -98,3 +142,11 @@ export function calculateReadingTime(content: any[]): string {
   const readingTimeMinutes = Math.ceil(totalWords / 200);
   return `${readingTimeMinutes} min`;
 }
+
+// Obtiene la URL completa del avatar del autor
+export const getAuthorAvatarUrl = (avatarData: { url: string } | null | undefined): string | null => {
+  if (avatarData && avatarData.url) {
+    return getStrapiURL(avatarData.url);
+  }
+  return null;
+};
