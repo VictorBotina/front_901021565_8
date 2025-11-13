@@ -105,7 +105,11 @@ export const navigationItems: NavItem[] = [
               { text: 'Ver todas las noticias', href: '/blog/subsidiado' },
             ],
           },
-           {
+        ],
+      },
+      {
+        groups: [
+          {
             title: 'Régimen Contributivo',
             links: [
               { text: 'Ver noticias', href: '/blog/contributivo' },
@@ -121,7 +125,11 @@ export const navigationItems: NavItem[] = [
               { text: 'Ver noticias', href: '/blog/prestadores' },
             ],
           },
-           {
+        ],
+      },
+       {
+        groups: [
+          {
             title: 'Comunicados de Prensa',
             links: [
               { text: 'Ver comunicados', href: '/blog/comunicados-de-prensa' },
