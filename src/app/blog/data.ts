@@ -7,7 +7,7 @@ import type { BlogCategory, Article } from "@/lib/types";
 export const CATEGORIES: BlogCategory[] = [
   {
     id: "subsidiado",
-    name: "Régimen Subsidiado",
+    name: "Subsidiado",
     href: "/blog/subsidiado",
     description: "Novedades y guías para afiliados del Régimen Subsidiado.",
     icon: Shield,
@@ -17,7 +17,7 @@ export const CATEGORIES: BlogCategory[] = [
   },
   {
     id: "contributivo",
-    name: "Régimen Contributivo",
+    name: "Contributivo",
     href: "/blog/contributivo",
     description: "Información para trabajadores, independientes y sus familias.",
     icon: HandCoins,
