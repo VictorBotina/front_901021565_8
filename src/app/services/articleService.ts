@@ -7,7 +7,8 @@ import { fetchFromStrapi } from "@/lib/api";
  */
 export async function getArticles(): Promise<Article[]> {
   const params = {
-    fields: ["title", "description", "date"],
+    sort: { date: 'desc' },
+    fields: ["title", "description", "date", "slug"],
     populate: {
       image: { fields: ["url", "formats"] },
       author: { fields: ["name"] },
@@ -39,7 +40,7 @@ export async function getArticleBySlug(slug: string): Promise<Article | null> {
         populate: { avatar: { fields: ["url"] } },
       },
       content: {
-        fields: ["title_seccion", "text", "media_url"],
+        populate: '*', // Poblar todo el contenido dinámico
       },
     },
   };
@@ -63,9 +64,8 @@ export async function getArticleBySlug(slug: string): Promise<Article | null> {
 export function formatDate(dateString: string): string {
   if (!dateString) return "";
   try {
-    const date = new Date(dateString);
     // Se añade 'T00:00:00' para asegurar que se interprete como UTC y evitar problemas de zona horaria (hydration error)
-    const utcDate = new Date(date.toISOString().split('T')[0] + 'T00:00:00');
+    const utcDate = new Date(dateString.split('T')[0] + 'T00:00:00');
     return utcDate.toLocaleDateString("es-ES", {
       year: "numeric",
       month: "long",
@@ -85,16 +85,9 @@ export function calculateReadingTime(content: any[]): string {
   let totalWords = 0;
   try {
     content.forEach((section) => {
-      if (section.text && Array.isArray(section.text)) {
-        section.text.forEach((textBlock: any) => {
-          if (textBlock.children && Array.isArray(textBlock.children)) {
-            textBlock.children.forEach((child: any) => {
-              if (typeof child.text === 'string') {
-                totalWords += child.text.trim().split(/\s+/).length;
-              }
-            });
-          }
-        });
+      // Comprobar si el bloque es del tipo 'richtext' y tiene 'body'
+      if (section.__component === 'shared.rich-text' && section.body && typeof section.body === 'string') {
+        totalWords += section.body.trim().split(/\s+/).length;
       }
     });
   } catch (error) {

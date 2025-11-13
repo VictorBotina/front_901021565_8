@@ -10,6 +10,19 @@ import { getArticles } from "@/app/services/articleService";
 import { CATEGORIES } from "./data"; 
 import type { Article } from "@/app/types/article";
 
+// Helper para agrupar artículos por categoría
+const groupArticlesByCategory = (articles: Article[]): Record<string, Article[]> => {
+  if (!articles) return {};
+  return articles.reduce((acc, article) => {
+    const categoryName = article.category?.name || "General";
+    if (!acc[categoryName]) {
+      acc[categoryName] = [];
+    }
+    acc[categoryName].push(article);
+    return acc;
+  }, {} as Record<string, Article[]>);
+};
+
 export default async function BlogPage() {
   const allArticles: Article[] = await getArticles();
   
@@ -28,7 +41,7 @@ export default async function BlogPage() {
       ...category,
       articles: categoryArticles,
     };
-  });
+  }).filter(category => category.articles.length > 0); // Solo mostrar categorías con artículos
 
   return (
     <div className="bg-gray-50 text-gray-800">
@@ -69,31 +82,33 @@ export default async function BlogPage() {
           </div>
         </main>
         
-        <section className="mb-16">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {articlesByCategory.map((category) => (
-                <Link href={category.href} key={category.id} className="block bg-white border border-gray-200 p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                    <div className="flex items-center justify-between mb-4">
-                        <div className="w-14 h-14 flex items-center justify-center text-white text-2xl" style={{ backgroundColor: category.color }}>
-                            <category.icon className="h-7 w-7" />
-                        </div>
-                        <ArrowRight className="h-6 w-6 text-gray-400 group-hover:text-primary transition-colors"/>
-                    </div>
-                    <h3 className="font-bold text-gray-900 text-xl mb-3">
-                        {category.name}
-                    </h3>
-                    <p className="text-gray-600 text-sm mb-4 h-10">
-                        {category.description}
-                    </p>
-                    <div className="pt-4 border-t border-gray-200">
-                        <span className="text-sm font-medium" style={{ color: category.textColor }}>
-                          {category.articles.length} {category.articles.length === 1 ? 'artículo' : 'artículos'}
-                        </span>
-                    </div>
-                </Link>
-            ))}
-            </div>
-        </section>
+        {articlesByCategory.length > 0 && (
+          <section className="mb-16">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {articlesByCategory.map((category) => (
+                  <Link href={category.href} key={category.id} className="block bg-white border border-gray-200 p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+                      <div className="flex items-center justify-between mb-4">
+                          <div className="w-14 h-14 flex items-center justify-center text-white text-2xl" style={{ backgroundColor: category.color }}>
+                              <category.icon className="h-7 w-7" />
+                          </div>
+                          <ArrowRight className="h-6 w-6 text-gray-400 group-hover:text-primary transition-colors"/>
+                      </div>
+                      <h3 className="font-bold text-gray-900 text-xl mb-3">
+                          {category.name}
+                      </h3>
+                      <p className="text-gray-600 text-sm mb-4 h-10">
+                          {category.description}
+                      </p>
+                      <div className="pt-4 border-t border-gray-200">
+                          <span className="text-sm font-medium" style={{ color: category.textColor }}>
+                            {category.articles.length} {category.articles.length === 1 ? 'artículo' : 'artículos'}
+                          </span>
+                      </div>
+                  </Link>
+              ))}
+              </div>
+          </section>
+        )}
 
         <div className="space-y-16">
             {articlesByCategory.map((category) => (
@@ -120,7 +135,7 @@ export default async function BlogPage() {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
-                    {category.articles.map((article) => (
+                    {category.articles.slice(0, 3).map((article) => ( // Limitar a 3 para la vista previa
                         <ArticleCard key={article.id} article={article} />
                     ))}
                 </div>
