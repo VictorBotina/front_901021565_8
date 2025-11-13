@@ -10,11 +10,12 @@ import { fetchFromStrapi, getStrapiURL } from "@/lib/api";
 export async function getArticles(categoryName?: string): Promise<Article[]> {
   const params: any = {
     sort: { date: 'desc' },
-    fields: ["title", "description", "date", "slug"],
+    fields: ["title", "description", "date"],
     populate: {
       image: { fields: ["url", "formats"] },
       author: { fields: ["name"] },
       category: { fields: ["name", "slug"] },
+      slug: '*', // Populate slug correctly
     },
   };
 
@@ -30,7 +31,11 @@ export async function getArticles(categoryName?: string): Promise<Article[]> {
 
   try {
     const data = await fetchFromStrapi("articles", params);
-    return Array.isArray(data) ? data : [];
+    // Asegurarnos de que el slug esté en el nivel superior del objeto
+    if (Array.isArray(data)) {
+        return data.map(article => ({...article, slug: article.slug || ''}));
+    }
+    return [];
   } catch (error) {
     console.error("📦 getArticles falló, devolviendo un array vacío para evitar que la página se rompa.");
     return [];
