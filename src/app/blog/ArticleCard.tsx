@@ -10,6 +10,7 @@ import { Article } from "@/app/types/article";
 import { Skeleton } from "@/components/ui/skeleton";
 import { CATEGORIES } from "./data";
 import { cn } from "@/lib/utils";
+import { getArticleUrlByTitle } from "./article-urls";
 
 interface ArticleCardProps {
   article: Article;
@@ -31,7 +32,8 @@ export function ArticleCard({ article, featured = false }: ArticleCardProps) {
   
   const categoryInfo = CATEGORIES.find(c => c.name === article.category?.name);
 
-  const articleUrl = `/blog/${article.category?.slug || 'general'}/${article.slug}`;
+  // Usa el mapa de URLs para obtener el enlace correcto
+  const articleUrl = getArticleUrlByTitle(article.title, `/blog`);
 
   return (
     <Link href={articleUrl} className="block group">
