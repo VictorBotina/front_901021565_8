@@ -1,6 +1,5 @@
 // src/app/blog/subsidiado/habitos-y-estilos-de-vida-saludables/page.tsx
-'use client';
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from 'next';
@@ -12,9 +11,52 @@ import {
 } from "@/app/services/articleService";
 import { getStrapiURL } from "@/lib/api";
 import { Article, RichTextBlock } from "@/app/types/article";
-import { Calendar, Clock, Loader } from "lucide-react";
+import { Calendar, Clock } from "lucide-react";
 import { ShareButtons } from "@/components/ui/ShareButtons";
 
+// ID del artículo que se va a mostrar en esta página.
+// En una ruta dinámica [slug], esto se obtendría de los parámetros.
+const ARTICLE_ID = "1"; 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:9002';
+const shareUrl = `${siteUrl}/blog/subsidiado/habitos-y-estilos-de-vida-saludables`;
+
+export async function generateMetadata(): Promise<Metadata> {
+  const article = await getArticleById(ARTICLE_ID);
+
+  if (!article) {
+    return {
+      title: "Artículo no encontrado",
+      description: "El artículo que buscas no está disponible.",
+    };
+  }
+
+  const ogImageUrl = article.image ? getStrapiURL(article.image.url) : `${siteUrl}/default-og.jpg`;
+
+  return {
+    title: article.title,
+    description: article.description,
+    openGraph: {
+      title: article.title,
+      description: article.description,
+      url: shareUrl,
+      type: 'article',
+      images: [
+        {
+          url: ogImageUrl,
+          width: 1200,
+          height: 630,
+          alt: article.title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: article.title,
+      description: article.description,
+      images: [ogImageUrl],
+    },
+  };
+}
 
 function renderArticleContent(content: Article['content']) {
   if (!content || !Array.isArray(content)) {
@@ -70,22 +112,25 @@ function renderArticleContent(content: Article['content']) {
 }
 
 function renderAuthorBio(bio: RichTextBlock[] | undefined) {
-    if (!bio || !Array.isArray(bio) || bio.every(b => b.children.every(c => c.text.trim() === ''))) {
-        return (
-            <p className="text-muted-foreground leading-relaxed">
-                Comunicador especializado en temas de salud y bienestar.
-            </p>
-        );
+    const defaultBio = "Comunicador especializado en temas de salud y bienestar.";
+    
+    if (!bio || !Array.isArray(bio) || bio.length === 0) {
+        return <p className="text-muted-foreground leading-relaxed">{defaultBio}</p>;
     }
     
-    return bio.map((block, index) => {
-        if (block.type === 'paragraph') {
-            const text = block.children.map(child => child.text).join('');
-            if (text.trim() === '') return null;
-            return <p key={index} className="text-muted-foreground leading-relaxed">{text}</p>;
-        }
-        return null;
-    }).filter(Boolean);
+    const bioText = bio
+      .filter(block => block.type === 'paragraph' && block.children)
+      .flatMap(block => block.children.map(child => child.text).join(''))
+      .join('\n')
+      .trim();
+
+    if (!bioText) {
+        return <p className="text-muted-foreground leading-relaxed">{defaultBio}</p>;
+    }
+
+    return bioText.split('\n').map((paragraph, index) => (
+        <p key={index} className="text-muted-foreground leading-relaxed">{paragraph}</p>
+    ));
 }
 
 
