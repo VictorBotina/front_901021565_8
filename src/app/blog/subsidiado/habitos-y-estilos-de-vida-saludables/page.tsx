@@ -177,9 +177,7 @@ export default function HabitosSaludablesPage() {
             </p>
           )}
 
-          <ShareButtons url={shareUrl} title={article.title} summary={article.description} className="mb-8" />
-
-          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-4 text-muted-foreground text-sm">
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-4 text-muted-foreground text-sm mb-8">
             {article.date && (
                 <div className="flex items-center">
                     <Calendar className="mr-2 h-4 w-4" />
@@ -194,6 +192,9 @@ export default function HabitosSaludablesPage() {
               <span>{readingTime}</span>
             </div>
           </div>
+            
+          <ShareButtons url={shareUrl} title={article.title} summary={article.description} />
+
         </header>
 
         {imageUrl && (
