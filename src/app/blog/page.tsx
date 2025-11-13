@@ -7,7 +7,7 @@ import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import { ArticleCard } from "./ArticleCard";
 import { getArticles } from "@/app/services/articleService";
-import { CATEGORIES } from "./data"; // Asumimos que data.ts sigue existiendo para las categorías estáticas
+import { CATEGORIES } from "./data"; 
 
 export default async function BlogPage() {
   const allArticles = await getArticles();
@@ -19,10 +19,15 @@ export default async function BlogPage() {
 
   const featuredArticle = allArticles.length > 0 ? allArticles[0] : null;
   const recentArticles = allArticles.slice(1, 4);
-  const articlesByCategory = CATEGORIES.map(cat => ({
-    ...cat,
-    articles: allArticles.filter(a => a.category?.name === cat.name)
-  }));
+
+  // Procesamos los artículos por categoría usando la data estática como base
+  const articlesByCategory = CATEGORIES.map(category => {
+    const categoryArticles = allArticles.filter(article => article.category?.name === category.name);
+    return {
+      ...category,
+      articles: categoryArticles,
+    };
+  });
 
   return (
     <div className="bg-gray-50 text-gray-800">
@@ -80,8 +85,8 @@ export default async function BlogPage() {
                         {category.description}
                     </p>
                     <div className="pt-4 border-t border-gray-200">
-                        <span className="text-sm font-medium text-primary">
-                        {category.articles.length} {category.articles.length === 1 ? 'artículo' : 'artículos'}
+                        <span className="text-sm font-medium" style={{ color: category.textColor }}>
+                          {category.articles.length} {category.articles.length === 1 ? 'artículo' : 'artículos'}
                         </span>
                     </div>
                 </Link>
