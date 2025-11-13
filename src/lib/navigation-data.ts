@@ -127,16 +127,6 @@ export const navigationItems: NavItem[] = [
           },
         ],
       },
-       {
-        groups: [
-          {
-            title: 'Comunicados de Prensa',
-            links: [
-              { text: 'Ver comunicados', href: '/blog/comunicados-de-prensa' },
-            ],
-          },
-        ],
-      },
     ],
     cta: {
         title: 'Explora todas las noticias',
