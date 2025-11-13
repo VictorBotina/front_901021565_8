@@ -93,18 +93,45 @@ export const navigationItems: NavItem[] = [
   },
   {
     id: 'blog',
-    title: 'Blog',
+    title: 'Blog y Noticias',
     href: '/blog',
     columns: [
       {
         groups: [
           {
-            title: 'Categorías del Blog',
+            title: 'Régimen Subsidiado',
             links: [
-              { text: 'Régimen Subsidiado', href: '/blog/subsidiado' },
-              { text: 'Régimen Contributivo', href: '/blog/contributivo' },
-              { text: 'Prestadores', href: '/blog/prestadores' },
-              { text: 'Comunicados de Prensa', href: '/blog/comunicados-de-prensa' },
+              { text: 'Ver noticias', href: '/blog/subsidiado' },
+            ],
+          },
+        ],
+      },
+      {
+        groups: [
+          {
+            title: 'Régimen Contributivo',
+            links: [
+              { text: 'Ver noticias', href: '/blog/contributivo' },
+            ],
+          },
+        ],
+      },
+      {
+        groups: [
+          {
+            title: 'Prestadores',
+            links: [
+              { text: 'Ver noticias', href: '/blog/prestadores' },
+            ],
+          },
+        ],
+      },
+      {
+        groups: [
+          {
+            title: 'Comunicados de Prensa',
+            links: [
+              { text: 'Ver comunicados', href: '/blog/comunicados-de-prensa' },
             ],
           },
         ],
