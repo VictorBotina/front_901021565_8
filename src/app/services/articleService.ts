@@ -9,11 +9,12 @@ import { fetchFromStrapi, getStrapiURL } from "@/lib/api";
 export async function getArticles(categoryName?: string): Promise<Article[]> {
   const params: any = {
     sort: { date: 'desc' },
-    fields: ["title", "description", "date", "slug"],
+    fields: ["title", "description", "date"],
     populate: {
       image: { fields: ["url", "formats"] },
       author: { fields: ["name"] },
       category: { fields: ["name", "slug"] },
+      slug: '*', // Populate all fields for slug, though it should just be the slug string
     },
   };
 
