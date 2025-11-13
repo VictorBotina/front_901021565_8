@@ -178,23 +178,18 @@ export default function HabitosSaludablesPage() {
           )}
 
           <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-4 text-muted-foreground text-sm mb-8">
-            {article.date && (
-                <div className="flex items-center">
-                    <Calendar className="mr-2 h-4 w-4" />
-                    <time dateTime={article.date}>
-                        {formatDate(article.date)}
-                    </time>
-                </div>
-            )}
-            
+            <div className="flex items-center">
+                <Calendar className="mr-2 h-4 w-4" />
+                <time dateTime={article.date}>
+                    {formatDate(article.date)}
+                </time>
+            </div>
             <div className="flex items-center">
               <Clock className="mr-2 h-4 w-4" />
               <span>{readingTime}</span>
             </div>
+            <ShareButtons url={shareUrl} title={article.title} summary={article.description} />
           </div>
-            
-          <ShareButtons url={shareUrl} title={article.title} summary={article.description} />
-
         </header>
 
         {imageUrl && (
@@ -212,8 +207,6 @@ export default function HabitosSaludablesPage() {
         <div className="prose prose-lg lg:prose-xl max-w-none mx-auto">
           {renderArticleContent(article.content)}
         </div>
-
-        
 
         {article.author && (
             <footer className="mt-12 bg-muted/50 rounded-xl border p-8">
