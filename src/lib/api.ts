@@ -61,7 +61,7 @@ const flattenAttributes = (data: any): any => {
 
   // Si es un objeto (como un componente o atributos ya aplanados), aplanar sus propiedades
   if (data && typeof data === 'object') {
-    const flattenedObj: { [key: string]: any } = {};
+    const flattenedObj: { [key:string]: any } = {};
     for (const key in data) {
       flattenedObj[key] = flattenAttributes(data[key]);
     }
@@ -80,8 +80,8 @@ export const fetchFromStrapi = async (endpoint: string, params: Record<string, a
   }
 
   const queryString = stringify(params, {
-    encodeValuesOnly: true, // Codifica los valores pero no las claves
-    arrayFormat: 'repeat', // Cambiado para que coincida con la API de Strapi (evita índices)
+    encodeValuesOnly: true,
+    arrayFormat: 'repeat', // Asegura que los arrays se formateen como `fields=a&fields=b`
   });
     
   const finalUrl = `${API_URL}/${endpoint}${queryString ? `?${queryString}` : ''}`;
@@ -99,9 +99,16 @@ export const fetchFromStrapi = async (endpoint: string, params: Record<string, a
     const flattenedData = flattenAttributes(res.data);
     return flattenedData;
 
-  } catch (error) {
-    console.error(`Error al obtener datos del endpoint de Strapi: ${finalUrl}`, error);
-    // Relanzar el error para que pueda ser manejado por el llamador
+  } catch (error: any) {
+    if (axios.isAxiosError(error) && error.response) {
+      // Si el error es de Axios y tiene una respuesta de Strapi
+      console.error(`❌ Error al obtener datos de Strapi (${finalUrl}):`, JSON.stringify(error.response.data, null, 2));
+    } else {
+      // Para otros tipos de errores (red, etc.)
+      console.error(`❌ Error en la solicitud a ${finalUrl}:`, error.message);
+    }
+    // Relanzar el error para que sea manejado por el llamador (p. ej., getArticles)
+    // El llamador puede decidir si devolver un array vacío o null.
     throw error;
   }
 };

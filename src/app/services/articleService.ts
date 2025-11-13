@@ -17,9 +17,11 @@ export async function getArticles(): Promise<Article[]> {
 
   try {
     const data = await fetchFromStrapi("articles", params);
-    return data as Article[];
+    // Asegurarse de que siempre devolvemos un array
+    return Array.isArray(data) ? data : [];
   } catch (error) {
-    console.error("❌ Error al obtener los artículos:", error);
+    // El error ya se loguea en fetchFromStrapi
+    console.error("📦 getArticles falló, devolviendo un array vacío para evitar que la página se rompa.");
     return []; // Devolver un array vacío en caso de error para evitar que la página se rompa
   }
 }
@@ -44,14 +46,15 @@ export async function getArticleBySlug(slug: string): Promise<Article | null> {
 
   try {
     const data = await fetchFromStrapi("articles", params);
-    if (!data || data.length === 0) {
+    if (!data || !Array.isArray(data) || data.length === 0) {
       console.log(`No se encontró artículo con el slug: ${slug}`);
       return null;
     }
     // La API devuelve un array, tomamos el primer elemento
     return data[0] as Article;
   } catch (error) {
-    console.error(`❌ Error al obtener el artículo por slug ${slug}:`, error);
+    // El error ya se loguea en fetchFromStrapi
+    console.error(`📦 getArticleBySlug falló para el slug '${slug}', devolviendo null.`);
     return null; // Devolver null en caso de error
   }
 }
