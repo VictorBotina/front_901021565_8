@@ -95,5 +95,25 @@ export const navigationItems: NavItem[] = [
     id: 'blog',
     title: 'Blog',
     href: '/blog',
+    columns: [
+      {
+        groups: [
+          {
+            title: 'Categorías del Blog',
+            links: [
+              { text: 'Régimen Subsidiado', href: '/blog/subsidiado' },
+              { text: 'Régimen Contributivo', href: '/blog/contributivo' },
+              { text: 'Prestadores', href: '/blog/prestadores' },
+              { text: 'Comunicados de Prensa', href: '/blog/comunicados-de-prensa' },
+            ],
+          },
+        ],
+      },
+    ],
+    cta: {
+        title: 'Explora todas las noticias',
+        href: '/blog',
+        imageUrl: 'https://images.unsplash.com/photo-1495020689067-958852a7765e?w=400&h=300&fit=crop&q=80'
+    }
   },
 ];
