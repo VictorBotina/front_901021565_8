@@ -1,5 +1,6 @@
-
-import React from "react";
+// src/app/blog/subsidiado/habitos-y-estilos-de-vida-saludables/page.tsx
+'use client';
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -9,10 +10,11 @@ import {
   formatDate,
 } from "@/app/services/articleService";
 import { getStrapiURL } from "@/lib/api";
-import { ArticleContentSection, RichTextBlock } from "@/app/types/article";
-import { Calendar, Clock, User } from "lucide-react";
+import { Article, ArticleContentSection, RichTextBlock } from "@/app/types/article";
+import { Calendar, Clock, Loader } from "lucide-react";
+import { ShareButtons } from "@/components/ui/ShareButtons";
 
-// Componente para renderizar el contenido del artículo
+
 function renderArticleContent(content: ArticleContentSection[] | undefined) {
   if (!content || !Array.isArray(content)) {
     return (
@@ -40,7 +42,6 @@ function renderArticleContent(content: ArticleContentSection[] | undefined) {
 
             if (!paragraphText) return null;
 
-            // Detectar si es una lista numerada
             if (paragraphText.match(/^\d+\.\s/)) {
               return (
                 <div key={textIndex} className="flex items-start space-x-3">
@@ -68,7 +69,7 @@ function renderArticleContent(content: ArticleContentSection[] | undefined) {
 }
 
 function renderAuthorBio(bio: RichTextBlock[] | undefined) {
-    if (!bio || !Array.isArray(bio)) {
+    if (!bio || !Array.isArray(bio) || bio.every(b => b.children.every(c => c.text.trim() === ''))) {
         return (
             <p className="text-muted-foreground leading-relaxed">
                 Comunicador especializado en temas de salud y bienestar.
@@ -87,11 +88,51 @@ function renderAuthorBio(bio: RichTextBlock[] | undefined) {
 }
 
 
-export default async function HabitosSaludablesPage() {
-  const articleId = "fni951bnbpi9tc18e7t92l6i";
-  const article = await getArticleById(articleId);
+export default function HabitosSaludablesPage() {
+  const [article, setArticle] = useState<Article | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [shareUrl, setShareUrl] = useState('');
 
-  if (!article) {
+  useEffect(() => {
+    // Asegurarse de que window está disponible
+    setShareUrl(window.location.href);
+
+    const fetchArticle = async () => {
+      try {
+        const articleId = "fni951bnbpi9tc18e7t92l6i";
+        const fetchedArticle = await getArticleById(articleId);
+        if (!fetchedArticle) {
+          throw new Error("No se pudo cargar el artículo.");
+        }
+        setArticle(fetchedArticle);
+      } catch (e: any) {
+        setError(e.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchArticle();
+  }, []);
+
+  if (loading) {
+     return (
+      <div className="min-h-[60vh] bg-background flex items-center justify-center">
+        <div className="text-center max-w-2xl mx-4 p-8">
+          <Loader className="h-12 w-12 animate-spin text-primary mx-auto mb-4" />
+          <h1 className="text-2xl font-bold text-foreground mb-2">
+            Cargando Artículo...
+          </h1>
+          <p className="text-muted-foreground">
+            Estamos preparando el contenido para ti.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error || !article) {
     return (
       <div className="min-h-[60vh] bg-background flex items-center justify-center">
         <div className="text-center max-w-2xl mx-4 p-8">
@@ -99,7 +140,7 @@ export default async function HabitosSaludablesPage() {
             Artículo No Encontrado
           </h1>
           <p className="text-muted-foreground mb-6">
-            No pudimos cargar el artículo que estás buscando. Es posible que haya sido movido o eliminado.
+            {error || "No pudimos cargar el artículo que estás buscando. Es posible que haya sido movido o eliminado."}
           </p>
           <Link
             href="/blog"
@@ -169,8 +210,10 @@ export default async function HabitosSaludablesPage() {
           {renderArticleContent(article.content)}
         </div>
 
+        <ShareButtons url={shareUrl} title={article.title} summary={article.description} className="mt-12" />
+
         {article.author && (
-            <footer className="mt-16 bg-muted/50 rounded-xl border p-8">
+            <footer className="mt-12 bg-muted/50 rounded-xl border p-8">
                 <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6">
                     {authorAvatarUrl ? (
                         <Image
