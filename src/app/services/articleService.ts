@@ -34,7 +34,7 @@ export async function getArticleById(id: string): Promise<Article | null> {
   if (!id) return null;
   
   const params = {
-    fields: ["title", "description", "date"],
+    fields: ["title", "description", "date", "slug"],
     populate: {
       image: { fields: ["url"] },
       category: { fields: ["name", "slug"] },
@@ -118,7 +118,7 @@ export function formatDate(dateString: string): string {
 }
 
 // Función para calcular el tiempo de lectura estimado
-export function calculateReadingTime(content: ArticleContentSection[]): string {
+export function calculateReadingTime(content: ArticleContentSection[] | undefined): string {
   if (!content || !Array.isArray(content)) return "5 min";
 
   let totalWords = 0;

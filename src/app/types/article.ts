@@ -23,6 +23,7 @@ export interface ArticleImage {
 export interface ArticleAuthor {
   id: number;
   name: string;
+  bio?: any[];
   avatar?: {
     url: string;
   } | null;
