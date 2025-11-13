@@ -8,7 +8,7 @@ import { fetchFromStrapi } from "@/lib/api";
 export async function getArticles(): Promise<Article[]> {
   const params = {
     sort: { date: 'desc' },
-    fields: ["title", "description", "date", "slug"],
+    fields: ["title", "description", "date"],
     populate: {
       image: { fields: ["url", "formats"] },
       author: { fields: ["name"] },
