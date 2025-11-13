@@ -63,10 +63,14 @@ export async function getArticleBySlug(slug: string): Promise<Article | null> {
 export function formatDate(dateString: string): string {
   if (!dateString) return "";
   try {
-    return new Date(dateString).toLocaleDateString("es-ES", {
+    const date = new Date(dateString);
+    // Se añade 'T00:00:00' para asegurar que se interprete como UTC y evitar problemas de zona horaria (hydration error)
+    const utcDate = new Date(date.toISOString().split('T')[0] + 'T00:00:00');
+    return utcDate.toLocaleDateString("es-ES", {
       year: "numeric",
       month: "long",
       day: "numeric",
+      timeZone: 'UTC',
     });
   } catch (error) {
     console.error("Error al formatear la fecha:", dateString, error);
