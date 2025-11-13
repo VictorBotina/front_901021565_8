@@ -1,32 +1,33 @@
-
+// src/app/blog/page.tsx
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import Link from "next/link";
 import { Logo } from "@/components/logo";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
-import { allArticles, CATEGORIES } from "./data";
 import { ArticleCard } from "./ArticleCard";
-import type { Article } from "@/lib/types";
+import { getArticles } from "@/app/services/articleService";
+import { CATEGORIES } from "./data"; // Asumimos que data.ts sigue existiendo para las categorías estáticas
 
-export default function BlogPage() {
+export default async function BlogPage() {
+  const allArticles = await getArticles();
+  
   const today = new Date();
   const formattedDate = format(today, "eeee, d 'de' MMMM 'de' yyyy", {
     locale: es,
   });
 
-  const featuredArticle = allArticles[0];
+  const featuredArticle = allArticles.length > 0 ? allArticles[0] : null;
   const recentArticles = allArticles.slice(1, 4);
   const articlesByCategory = CATEGORIES.map(cat => ({
     ...cat,
-    articles: allArticles.filter(a => a.category.id === cat.id)
+    articles: allArticles.filter(a => a.category?.name === cat.name)
   }));
 
   return (
     <div className="bg-gray-50 text-gray-800">
       <div className="container mx-auto px-4 py-8">
         
-        {/* 1. HEADER SIMPLIFICADO */}
         <header className="text-center border-b border-gray-300 pb-6 mb-8">
           <Link href="/blog" className="inline-block">
             <div className="flex items-center justify-center space-x-2">
@@ -41,73 +42,27 @@ export default function BlogPage() {
           </p>
         </header>
 
-        {/* 2. HERO SECTION */}
         <main className="mb-16">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-            {/* Artículo Principal */}
-            <div className="lg:col-span-8 lg:border-r lg:border-gray-300 lg:pr-8">
-                <Link href={featuredArticle.href} className="block group">
-                    <div className="relative h-96 mb-4 bg-gray-200 rounded-md overflow-hidden">
-                        <Image
-                            src={featuredArticle.imageUrl}
-                            alt={featuredArticle.title}
-                            fill
-                            className="object-cover group-hover:scale-105 transition-transform duration-300"
-                        />
-                    </div>
-                    <div className="space-y-3">
-                        <div className="flex items-center space-x-4 text-sm text-gray-600">
-                            <span className="font-semibold px-3 py-1 rounded-full" style={{backgroundColor: featuredArticle.category.bgColor, color: featuredArticle.category.textColor}}>
-                                {featuredArticle.category.name}
-                            </span>
-                            <time>{format(featuredArticle.date, "d 'de' MMMM, yyyy", { locale: es })}</time>
-                            <span>Por {featuredArticle.author}</span>
-                        </div>
-                        <h2 className="text-3xl font-bold text-gray-900 group-hover:text-primary transition-colors">
-                            {featuredArticle.title}
-                        </h2>
-                        <p className="text-gray-700 text-lg">
-                            {featuredArticle.description}
-                        </p>
-                    </div>
-                </Link>
-            </div>
+            {featuredArticle && (
+              <div className="lg:col-span-8 lg:border-r lg:border-gray-300 lg:pr-8">
+                <ArticleCard article={featuredArticle} featured />
+              </div>
+            )}
 
-            {/* Sidebar Recientes */}
             <div className="lg:col-span-4 space-y-6">
               <h3 className="text-lg font-bold text-gray-900 border-b border-gray-300 pb-2 uppercase tracking-wider">
                 Más Recientes
               </h3>
               {recentArticles.map((article) => (
-                <div key={article.href} className="border-b border-gray-200 pb-6">
-                     <Link href={article.href} className="block group">
-                        <div className="space-y-3">
-                            <div className="flex items-center space-x-2 text-xs text-gray-500 uppercase">
-                                <span className="font-semibold px-2 py-1 rounded" style={{backgroundColor: article.category.bgColor, color: article.category.textColor}}>
-                                    {article.category.name}
-                                </span>
-                                <time>{format(article.date, "d MMM, yyyy", { locale: es })}</time>
-                            </div>
-                            <h4 className="font-bold text-gray-900 text-lg group-hover:text-primary transition-colors">
-                                {article.title}
-                            </h4>
-                            <div className="w-full h-32 relative bg-gray-200 rounded-md overflow-hidden">
-                                 <Image
-                                    src={article.imageUrl}
-                                    alt={article.title}
-                                    fill
-                                    className="object-cover group-hover:scale-105 transition-transform duration-300"
-                                />
-                            </div>
-                        </div>
-                    </Link>
+                <div key={article.id} className="border-b border-gray-200 pb-6">
+                     <ArticleCard article={article} />
                 </div>
               ))}
             </div>
           </div>
         </main>
         
-        {/* 3. SECCIÓN DE CATEGORÍAS VISIBLES */}
         <section className="mb-16">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {CATEGORIES.map((category) => (
@@ -126,7 +81,7 @@ export default function BlogPage() {
                     </p>
                     <div className="pt-4 border-t border-gray-200">
                         <span className="text-sm font-medium text-primary">
-                        {allArticles.filter(a => a.category.id === category.id).length} artículos
+                        {allArticles.filter(a => a.category?.name === category.name).length} artículos
                         </span>
                     </div>
                 </Link>
@@ -134,11 +89,9 @@ export default function BlogPage() {
             </div>
         </section>
 
-        {/* 4. CONTENIDO POR CATEGORÍAS */}
         <div className="space-y-16">
             {articlesByCategory.map((category) => (
                 <section key={category.id} className="border-t border-gray-300 pt-8">
-                {/* Header de Sección */}
                 <div className="mb-8">
                     <div className="flex items-center justify-between border-b border-gray-300 pb-4">
                     <div className="flex items-center space-x-4">
@@ -160,10 +113,9 @@ export default function BlogPage() {
                     </div>
                 </div>
 
-                {/* Grid de Artículos */}
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
-                    {category.articles.map((article: Article) => (
-                        <ArticleCard key={article.href} article={article} />
+                    {category.articles.map((article) => (
+                        <ArticleCard key={article.id} article={article} />
                     ))}
                 </div>
                 </section>
@@ -174,5 +126,3 @@ export default function BlogPage() {
     </div>
   );
 }
-
-    

@@ -34,14 +34,20 @@ export type BlogCategory = {
     textColor: string;
 };
 
-export type Article = {
+// Este tipo combina la información que necesitamos en el frontend.
+// Puede ser un subconjunto del tipo 'Article' más complejo de la API.
+export type ArticleSummary = {
+    id: number;
     title: string;
     description: string;
-    href: string;
-    author: string;
-    date: Date;
-    category: BlogCategory;
+    slug: string;
+    date: string;
     imageUrl: string;
+    category: {
+      name: string;
+      slug: string;
+    };
+    author: {
+      name: string;
+    };
 };
-
-    
