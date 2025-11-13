@@ -32,13 +32,14 @@ export function ArticleCard({ article, featured = false }: ArticleCardProps) {
 
   return (
     <Link href={articleUrl} className="block group">
-      <div className="relative h-56 w-full bg-gray-200 rounded-md overflow-hidden mb-4">
-        {imageLoading && <Skeleton className="h-full w-full" />}
+      <div className="w-full bg-gray-200 rounded-md overflow-hidden mb-4">
+        {imageLoading && <Skeleton className="w-full aspect-video" />}
         <Image
           src={imageUrl}
           alt={article.title || "Artículo del blog"}
-          fill
-          className={`object-cover transition-transform duration-300 ${
+          width={800}
+          height={450}
+          className={`w-full h-auto object-cover transition-transform duration-300 ${
             imageLoading ? "opacity-0" : "opacity-100 group-hover:scale-105"
           }`}
           onLoad={() => setImageLoading(false)}
@@ -46,7 +47,8 @@ export function ArticleCard({ article, featured = false }: ArticleCardProps) {
             setImageLoading(false);
             setImageUrl("/images/placeholder.png"); // Fallback image
           }}
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          sizes="(max-width: 768px) 100vw, 75vw"
+          priority={featured}
         />
       </div>
       <div className="space-y-2">
@@ -55,7 +57,7 @@ export function ArticleCard({ article, featured = false }: ArticleCardProps) {
                 {article.category.name}
             </span>
         )}
-        <h3 className="font-bold text-lg text-gray-900 group-hover:text-primary transition-colors">
+        <h3 className={`font-bold text-gray-900 group-hover:text-primary transition-colors ${featured ? 'text-3xl' : 'text-lg'}`}>
           {article.title}
         </h3>
         {article.description && (
