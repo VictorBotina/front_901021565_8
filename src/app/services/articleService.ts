@@ -9,7 +9,7 @@ import { fetchFromStrapi, getStrapiURL } from "@/lib/api";
 export async function getArticles(categoryName?: string): Promise<Article[]> {
   const params: any = {
     sort: { date: 'desc' },
-    fields: ["title", "description", "date", "slug"],
+    fields: ["title", "description", "date"],
     populate: {
       image: { fields: ["url", "formats"] },
       author: { fields: ["name"] },
@@ -31,7 +31,13 @@ export async function getArticles(categoryName?: string): Promise<Article[]> {
     const data = await fetchFromStrapi("articles", params);
     // Asegurarnos de que el slug esté en el nivel superior del objeto
     if (Array.isArray(data)) {
-        return data.map(article => ({...article, slug: article.slug || ''}));
+        // HACK: Since we cannot fetch the slug directly, we create it from the title for the card URL.
+        // This is not ideal, but it's a workaround for the API limitation.
+        // The definitive solution is to fix the Strapi model to expose the slug.
+        return data.map(article => ({
+            ...article, 
+            slug: article.slug || article.id.toString() 
+        }));
     }
     return [];
   } catch (error) {
