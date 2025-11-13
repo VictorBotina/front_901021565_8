@@ -20,7 +20,7 @@ export function ArticleCard({ article, featured = false }: ArticleCardProps) {
 
   useEffect(() => {
     if (article.image) {
-      // Priorizar formato 'small' para el card, si existe
+      // Priorizar formato 'small' para el card, si existe, si no, la url principal
       const url = article.image.formats?.small?.url || article.image.url;
       setImageUrl(getStrapiURL(url));
     } else {

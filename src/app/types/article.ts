@@ -11,7 +11,7 @@ export interface ArticleImageFormat {
 export interface ArticleImage {
   id: number;
   url: string;
-  formats: {
+  formats?: {
     thumbnail?: ArticleImageFormat;
     small?: ArticleImageFormat;
     medium?: ArticleImageFormat;
@@ -49,8 +49,8 @@ export interface Article {
   description: string;
   slug: string;
   date: string; // Mantener como string, se formatea en el frontend
-  image: ArticleImage;
-  category: ArticleCategory;
-  author: ArticleAuthor;
+  image?: ArticleImage;
+  category?: ArticleCategory;
+  author?: ArticleAuthor;
   content?: DynamicZoneContent[];
 }

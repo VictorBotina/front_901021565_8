@@ -79,7 +79,7 @@ export default async function BlogPage() {
               <ul className="space-y-4">
                 {recentArticles.map((article) => {
                    const articleUrl = `/blog/${article.category?.slug || 'general'}/${article.slug}`;
-                   const thumbnailUrl = article.image?.url ? getStrapiURL(article.image.url) : '';
+                   const thumbnailUrl = article.image?.formats?.small?.url || article.image?.url || '';
 
                    return(
                     <li key={article.id} className="border-b border-gray-200 pb-4 last:border-b-0 last:pb-0">
@@ -87,7 +87,7 @@ export default async function BlogPage() {
                         <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-md bg-gray-200">
                           {thumbnailUrl && (
                             <Image
-                              src={thumbnailUrl}
+                              src={getStrapiURL(thumbnailUrl)}
                               alt={`miniatura de ${article.title}`}
                               fill
                               className="object-cover transition-transform duration-300 group-hover:scale-105"
