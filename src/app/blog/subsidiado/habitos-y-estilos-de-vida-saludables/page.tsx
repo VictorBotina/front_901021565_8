@@ -1,3 +1,4 @@
+import { StrapiApiTester } from "@/app/(home)/(sections)/StrapiApiTester";
 
 export default function HabitosSaludablesPage() {
   return (
@@ -18,6 +19,10 @@ export default function HabitosSaludablesPage() {
           </p>
         </div>
       </article>
+
+      <div className="mt-16">
+        <StrapiApiTester />
+      </div>
     </div>
   );
 }
