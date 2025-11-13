@@ -1,5 +1,5 @@
 // src/app/services/articleService.ts
-import { Article } from "@/app/types/article";
+import { Article, ArticleContentSection } from "@/app/types/article";
 import { fetchFromStrapi, getStrapiURL } from "@/lib/api";
 
 /**
@@ -8,7 +8,7 @@ import { fetchFromStrapi, getStrapiURL } from "@/lib/api";
 export async function getArticles(): Promise<Article[]> {
   const params = {
     sort: { date: 'desc' },
-    fields: ["title", "description", "date", "slug"],
+    fields: ["title", "description", "date"],
     populate: {
       image: { fields: ["url", "formats"] },
       author: { fields: ["name"] },
@@ -34,14 +34,16 @@ export async function getArticleById(id: string): Promise<Article | null> {
   if (!id) return null;
   
   const params = {
-     populate: {
-      image: { fields: ["url", "formats"] },
+    fields: ["title", "description", "date"],
+    populate: {
+      image: { fields: ["url"] },
       category: { fields: ["name", "slug"] },
       author: {
+        fields: ["name", "bio"],
         populate: { avatar: { fields: ["url"] } },
       },
       content: {
-        populate: '*', // Poblar todo el contenido dinámico
+        fields: ["title_seccion", "text", "media_url"],
       },
     },
   };
@@ -116,7 +118,7 @@ export function formatDate(dateString: string): string {
 }
 
 // Función para calcular el tiempo de lectura estimado
-export function calculateReadingTime(content: any[]): string {
+export function calculateReadingTime(content: ArticleContentSection[]): string {
   if (!content || !Array.isArray(content)) return "5 min";
 
   let totalWords = 0;
