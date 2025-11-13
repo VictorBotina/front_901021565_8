@@ -8,7 +8,9 @@ import { fetchFromStrapi } from "@/lib/api";
 export async function getArticles(): Promise<Article[]> {
   const params = {
     sort: { date: 'desc' },
-    fields: ["title", "description", "date", "slug"],
+    // Se elimina "slug" de los campos principales porque no es un atributo directo solicitado así.
+    // El slug del artículo es un campo de nivel superior que se obtiene por defecto.
+    fields: ["title", "description", "date"],
     populate: {
       image: { fields: ["url", "formats"] },
       author: { fields: ["name"] },
