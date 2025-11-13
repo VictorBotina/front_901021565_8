@@ -10,12 +10,12 @@ import {
   formatDate,
 } from "@/app/services/articleService";
 import { getStrapiURL } from "@/lib/api";
-import { Article, ArticleContentSection, RichTextBlock } from "@/app/types/article";
+import { Article, RichTextBlock } from "@/app/types/article";
 import { Calendar, Clock, Loader } from "lucide-react";
 import { ShareButtons } from "@/components/ui/ShareButtons";
 
 
-function renderArticleContent(content: ArticleContentSection[] | undefined) {
+function renderArticleContent(content: Article['content']) {
   if (!content || !Array.isArray(content)) {
     return (
       <div className="text-center py-8 text-muted-foreground">
@@ -162,7 +162,7 @@ export default function HabitosSaludablesPage() {
       <article className="container mx-auto px-4 py-8 md:py-16 max-w-4xl">
         <header className="text-center mb-12">
            {article.category && (
-              <Link href={`/blog/subsidiado`} className="inline-flex items-center bg-primary/10 text-primary text-sm font-semibold px-4 py-2 rounded-full mb-6 hover:bg-primary/20 transition-colors">
+              <Link href={`/blog/${article.category.slug}`} className="inline-flex items-center bg-primary/10 text-primary text-sm font-semibold px-4 py-2 rounded-full mb-6 hover:bg-primary/20 transition-colors">
                 {article.category.name}
               </Link>
            )}
@@ -177,6 +177,8 @@ export default function HabitosSaludablesPage() {
             </p>
           )}
 
+          <ShareButtons url={shareUrl} title={article.title} summary={article.description} className="mb-8" />
+
           <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-4 text-muted-foreground text-sm">
             {article.date && (
                 <div className="flex items-center">
@@ -189,7 +191,7 @@ export default function HabitosSaludablesPage() {
             
             <div className="flex items-center">
               <Clock className="mr-2 h-4 w-4" />
-              <span>{readingTime} de lectura</span>
+              <span>{readingTime}</span>
             </div>
           </div>
         </header>
@@ -210,7 +212,7 @@ export default function HabitosSaludablesPage() {
           {renderArticleContent(article.content)}
         </div>
 
-        <ShareButtons url={shareUrl} title={article.title} summary={article.description} className="mt-12" />
+        
 
         {article.author && (
             <footer className="mt-12 bg-muted/50 rounded-xl border p-8">
