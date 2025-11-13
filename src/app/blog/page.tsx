@@ -11,7 +11,6 @@ import { getArticles, formatDate } from "@/app/services/articleService";
 import { CATEGORIES } from "./data"; 
 import type { Article } from "@/app/types/article";
 import { getStrapiURL } from "@/lib/api";
-import { getArticleUrlByTitle } from "./article-urls";
 
 // Helper para agrupar artículos por categoría
 const groupArticlesByCategory = (articles: Article[]): Record<string, Article[]> => {
@@ -78,7 +77,7 @@ export default async function BlogPage() {
               </h3>
               <ul className="space-y-4">
                 {recentArticles.map((article) => {
-                   const articleUrl = getArticleUrlByTitle(article.title, `/blog`);
+                   const articleUrl = `/blog/${article.category?.slug || 'general'}/${article.slug || article.id}`;
                    const imageUrl = article.image?.formats?.small?.url || article.image?.url || '';
                    const categoryInfo = CATEGORIES.find(c => c.name === article.category?.name);
 

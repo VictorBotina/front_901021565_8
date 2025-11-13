@@ -10,7 +10,7 @@ import { fetchFromStrapi, getStrapiURL } from "@/lib/api";
 export async function getArticles(categoryName?: string): Promise<Article[]> {
   const params: any = {
     sort: { date: 'desc' },
-    fields: ["title", "description", "date"],
+    fields: ["title", "description", "date", "slug"],
     populate: {
       image: { fields: ["url", "formats"] },
       author: { fields: ["name"] },
@@ -45,7 +45,7 @@ export async function getArticleById(id: string): Promise<Article | null> {
   if (!id) return null;
   
   const params = {
-    fields: ["title", "description", "date"],
+    fields: ["title", "description", "date", "slug"],
     populate: {
       image: { fields: ["url"] },
       category: { fields: ["name", "slug"] },
@@ -54,7 +54,7 @@ export async function getArticleById(id: string): Promise<Article | null> {
         populate: { avatar: { fields: ["url"] } },
       },
       content: {
-        fields: ["title_seccion", "text", "media_url"],
+        populate: '*',
       },
     },
   };
@@ -79,11 +79,17 @@ export async function getArticleById(id: string): Promise<Article | null> {
 export async function getArticleBySlug(slug: string): Promise<Article | null> {
   const params = {
     filters: { slug: { $eq: slug } },
+    fields: ["title", "description", "date", "slug"],
     populate: {
       image: { fields: ["url", "formats"] },
       category: { fields: ["name", "slug"] },
-      author: { populate: { avatar: { fields: ["url"] } } },
-      content: { populate: '*' },
+      author: { 
+        fields: ["name", "bio"],
+        populate: { avatar: { fields: ["url"] } } 
+      },
+      content: { 
+        populate: '*'
+      },
     },
   };
 
@@ -93,7 +99,21 @@ export async function getArticleBySlug(slug: string): Promise<Article | null> {
       console.log(`No se encontró artículo con el slug: ${slug}`);
       return null;
     }
-    return data[0] as Article;
+    const article = data[0] as Article;
+    
+    // Poblar manualmente el content si no viene como se espera
+    if (article.id) {
+        const fullArticle = await fetchFromStrapi(`articles/${article.id}`, {
+            populate: {
+                content: { populate: '*' }
+            }
+        });
+        if (fullArticle && fullArticle.content) {
+            article.content = fullArticle.content;
+        }
+    }
+
+    return article;
   } catch (error) {
     console.error(`📦 getArticleBySlug falló para el slug '${slug}', devolviendo null.`);
     return null;
