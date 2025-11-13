@@ -101,14 +101,11 @@ export const navigationItems: NavItem[] = [
           {
             title: 'Régimen Subsidiado',
             links: [
-              { text: 'Ver noticias', href: '/blog/subsidiado' },
+              { text: 'Hábitos y estilos de vida saludables', href: '/blog/subsidiado/habitos-y-estilos-de-vida-saludables' },
+              { text: 'Ver todas las noticias', href: '/blog/subsidiado' },
             ],
           },
-        ],
-      },
-      {
-        groups: [
-          {
+           {
             title: 'Régimen Contributivo',
             links: [
               { text: 'Ver noticias', href: '/blog/contributivo' },
@@ -124,11 +121,7 @@ export const navigationItems: NavItem[] = [
               { text: 'Ver noticias', href: '/blog/prestadores' },
             ],
           },
-        ],
-      },
-      {
-        groups: [
-          {
+           {
             title: 'Comunicados de Prensa',
             links: [
               { text: 'Ver comunicados', href: '/blog/comunicados-de-prensa' },
