@@ -61,8 +61,8 @@ export function ArticleCard({ article, featured = false }: ArticleCardProps) {
           <span
             className="text-xs font-semibold px-2 py-1 rounded"
             style={{
-              backgroundColor: categoryInfo?.bgColor,
-              color: categoryInfo?.textColor,
+              backgroundColor: categoryInfo?.color,
+              color: '#FFFFFF',
             }}
           >
             {article.category.name}

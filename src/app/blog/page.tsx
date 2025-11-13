@@ -98,8 +98,11 @@ export default async function BlogPage() {
                         <div className="flex-1">
                           {article.category && (
                               <span 
-                                className="text-xs font-semibold uppercase tracking-wider mb-1 block"
-                                style={{ color: categoryInfo?.textColor }}
+                                className="text-xs font-semibold px-2 py-1 rounded mb-1 inline-block"
+                                style={{ 
+                                  backgroundColor: categoryInfo?.color,
+                                  color: '#FFFFFF' 
+                                }}
                               >
                                   {article.category.name}
                               </span>
@@ -140,7 +143,7 @@ export default async function BlogPage() {
                           {category.description}
                       </p>
                       <div className="pt-4 border-t border-gray-200">
-                          <span className="text-sm font-medium" style={{ color: category.textColor }}>
+                          <span className="text-sm font-medium" style={{ color: category.color }}>
                             {category.articles.length} {category.articles.length === 1 ? 'artículo' : 'artículos'}
                           </span>
                       </div>
@@ -160,7 +163,7 @@ export default async function BlogPage() {
                             <category.icon className="h-6 w-6" />
                         </div>
                         <div>
-                        <h2 className="text-3xl font-bold text-gray-900" style={{ color: category.textColor }}>
+                        <h2 className="text-3xl font-bold text-gray-900" style={{ color: category.color }}>
                             {category.name}
                         </h2>
                         <p className="text-gray-600">
