@@ -41,7 +41,7 @@ export const CATEGORIES: BlogCategory[] = [
     href: "/blog/comunicados-de-prensa",
     description: "Anuncios oficiales y noticias corporativas de la entidad.",
     icon: Megaphone,
-    color: "#6366f1",
+    color: "#0A31A6",
     bgColor: "rgba(99, 102, 241, 0.1)",
     textColor: "#4338ca",
   },
