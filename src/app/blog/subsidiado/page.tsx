@@ -1,13 +1,11 @@
+
 // src/app/blog/subsidiado/page.tsx
 import { getArticles } from "@/app/services/articleService";
 import { ArticleCard } from "@/app/blog/ArticleCard";
 import type { Article } from "@/app/types/article";
 
 export default async function SubsidiadoBlogPage() {
-  const allArticles = await getArticles();
-  const articles: Article[] = allArticles.filter(
-    (article) => article.category?.name === "Régimen Subsidiado"
-  );
+  const articles: Article[] = await getArticles("Subsidiado");
 
   return (
     <div className="container mx-auto px-4 py-8">

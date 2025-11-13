@@ -1,12 +1,14 @@
+
 // src/app/services/articleService.ts
-import { Article, ArticleContentSection } from "@/app/types/article";
+import { Article, ArticleContentSection, RichTextBlock } from "@/app/types/article";
 import { fetchFromStrapi, getStrapiURL } from "@/lib/api";
 
 /**
- * Obtiene todos los artículos de la API de Strapi para la página principal del blog.
+ * Obtiene artículos de la API de Strapi, opcionalmente filtrados por categoría.
+ * @param categoryName - El nombre de la categoría por la cual filtrar.
  */
-export async function getArticles(): Promise<Article[]> {
-  const params = {
+export async function getArticles(categoryName?: string): Promise<Article[]> {
+  const params: any = {
     sort: { date: 'desc' },
     fields: ["title", "description", "date"],
     populate: {
@@ -16,19 +18,28 @@ export async function getArticles(): Promise<Article[]> {
     },
   };
 
+  if (categoryName) {
+    params.filters = {
+      category: {
+        name: {
+          $eq: categoryName,
+        },
+      },
+    };
+  }
+
   try {
     const data = await fetchFromStrapi("articles", params);
-    // Asegurarse de que siempre devolvemos un array
     return Array.isArray(data) ? data : [];
   } catch (error) {
-    // El error ya se loguea en fetchFromStrapi
     console.error("📦 getArticles falló, devolviendo un array vacío para evitar que la página se rompa.");
-    return []; // Devolver un array vacío en caso de error para evitar que la página se rompa
+    return [];
   }
 }
 
+
 /**
- * Obtiene un artículo específico por su ID.
+ * Obtiene un artículo específico por su ID de Strapi.
  */
 export async function getArticleById(id: string): Promise<Article | null> {
   if (!id) return null;
@@ -66,27 +77,27 @@ export async function getArticleById(id: string): Promise<Article | null> {
  * Obtiene un artículo específico por su slug.
  */
 export async function getArticleBySlug(slug: string): Promise<Article | null> {
-    const params = {
-        filters: { slug: { $eq: slug } },
-        populate: {
-            image: { fields: ["url", "formats"] },
-            category: { fields: ["name", "slug"] },
-            author: { populate: { avatar: { fields: ["url"] } } },
-            content: { populate: '*' },
-        },
-    };
+  const params = {
+    filters: { slug: { $eq: slug } },
+    populate: {
+      image: { fields: ["url", "formats"] },
+      category: { fields: ["name", "slug"] },
+      author: { populate: { avatar: { fields: ["url"] } } },
+      content: { populate: '*' },
+    },
+  };
 
-    try {
-        const data = await fetchFromStrapi("articles", params);
-        if (!data || !Array.isArray(data) || data.length === 0) {
-            console.log(`No se encontró artículo con el slug: ${slug}`);
-            return null;
-        }
-        return data[0] as Article;
-    } catch (error) {
-        console.error(`📦 getArticleBySlug falló para el slug '${slug}', devolviendo null.`);
-        return null;
+  try {
+    const data = await fetchFromStrapi("articles", params);
+    if (!data || !Array.isArray(data) || data.length === 0) {
+      console.log(`No se encontró artículo con el slug: ${slug}`);
+      return null;
     }
+    return data[0] as Article;
+  } catch (error) {
+    console.error(`📦 getArticleBySlug falló para el slug '${slug}', devolviendo null.`);
+    return null;
+  }
 }
 
 
@@ -125,9 +136,9 @@ export function calculateReadingTime(content: ArticleContentSection[] | undefine
   try {
     content.forEach((section) => {
        if (section.text && Array.isArray(section.text)) {
-         section.text.forEach((block: any) => {
+         section.text.forEach((block: RichTextBlock) => {
            if (block.type === 'paragraph' && Array.isArray(block.children)) {
-             block.children.forEach((child: any) => {
+             block.children.forEach((child) => {
                 if (child.type === 'text' && typeof child.text === 'string') {
                     totalWords += child.text.trim().split(/\s+/).length;
                 }
@@ -142,7 +153,7 @@ export function calculateReadingTime(content: ArticleContentSection[] | undefine
   }
   
   const readingTimeMinutes = Math.ceil(totalWords / 200);
-  return `${readingTimeMinutes} min`;
+  return `${readingTimeMinutes} min de lectura`;
 }
 
 // Obtiene la URL completa del avatar del autor
