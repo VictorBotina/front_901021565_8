@@ -1,4 +1,5 @@
 
+
 // src/app/blog/page.tsx
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
@@ -78,9 +79,7 @@ export default async function BlogPage() {
               <ul className="space-y-4">
                 {recentArticles.map((article) => {
                    const articleUrl = `/blog/${article.category?.slug || 'general'}/${article.slug}`;
-                   const thumbnailUrl = article.image.formats?.small?.url 
-                                        ? getStrapiURL(article.image.formats.small.url) 
-                                        : getStrapiURL(article.image.url);
+                   const thumbnailUrl = article.image?.url ? getStrapiURL(article.image.url) : '';
 
                    return(
                     <li key={article.id} className="border-b border-gray-200 pb-4 last:border-b-0 last:pb-0">
