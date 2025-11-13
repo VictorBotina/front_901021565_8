@@ -34,7 +34,7 @@ export async function getArticleById(id: string): Promise<Article | null> {
   if (!id) return null;
   
   const params = {
-    fields: ["title", "description", "date", "slug"],
+    fields: ["title", "description", "date"],
     populate: {
       image: { fields: ["url"] },
       category: { fields: ["name", "slug"] },
