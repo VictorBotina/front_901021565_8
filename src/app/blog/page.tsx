@@ -33,7 +33,7 @@ export default async function BlogPage() {
   });
 
   const featuredArticle = allArticles.length > 0 ? allArticles[0] : null;
-  const recentArticles = allArticles.slice(1, 4);
+  const recentArticles = allArticles.slice(1, 5); // Tomamos 4 para el sidebar
 
   // Procesamos los artículos por categoría usando la data estática como base
   const articlesByCategory = CATEGORIES.map(category => {
@@ -83,7 +83,7 @@ export default async function BlogPage() {
 
                    return(
                     <li key={article.id} className="border-b border-gray-200 pb-4 last:border-b-0 last:pb-0">
-                      <Link href={articleUrl} className="flex items-center gap-4 group">
+                      <Link href={articleUrl} className="flex items-start gap-4 group">
                         <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-md bg-gray-200">
                           {thumbnailUrl && (
                             <Image
@@ -95,9 +95,16 @@ export default async function BlogPage() {
                             />
                           )}
                         </div>
-                        <span className="font-semibold text-gray-800 hover:text-primary transition-colors">
-                          {article.title}
-                        </span>
+                        <div className="flex-1">
+                          {article.category && (
+                              <span className="text-xs font-semibold uppercase tracking-wider text-primary mb-1 block">
+                                  {article.category.name}
+                              </span>
+                          )}
+                          <h4 className="font-semibold text-sm text-gray-800 hover:text-primary transition-colors leading-tight">
+                            {article.title}
+                          </h4>
+                        </div>
                       </Link>
                     </li>
                    );
