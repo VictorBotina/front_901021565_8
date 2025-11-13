@@ -65,7 +65,7 @@ export default async function BlogPage() {
         
         <section className="mb-16">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {CATEGORIES.map((category) => (
+            {articlesByCategory.map((category) => (
                 <Link href={category.href} key={category.id} className="block bg-white border border-gray-200 p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
                     <div className="flex items-center justify-between mb-4">
                         <div className="w-14 h-14 flex items-center justify-center text-white text-2xl" style={{ backgroundColor: category.color }}>
@@ -81,7 +81,7 @@ export default async function BlogPage() {
                     </p>
                     <div className="pt-4 border-t border-gray-200">
                         <span className="text-sm font-medium text-primary">
-                        {allArticles.filter(a => a.category?.name === category.name).length} artículos
+                        {category.articles.length} {category.articles.length === 1 ? 'artículo' : 'artículos'}
                         </span>
                     </div>
                 </Link>
