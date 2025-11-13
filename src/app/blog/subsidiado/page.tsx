@@ -1,34 +1,34 @@
+// src/app/blog/subsidiado/page.tsx
+import { getArticles } from "@/app/services/articleService";
+import { ArticleCard } from "@/app/blog/ArticleCard";
+import type { Article } from "@/app/types/article";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import Link from "next/link";
-
-export default function SubsidiadoBlogPage() {
-  const articles = [
-    {
-      title: "Artículo de Prueba para Régimen Subsidiado",
-      description: "Este es un artículo de ejemplo para la categoría del régimen subsidiado.",
-      href: "/blog/subsidiado/articulo-1",
-    },
-    // Futuros artículos para esta categoría se añadirán aquí
-  ];
+export default async function SubsidiadoBlogPage() {
+  const allArticles = await getArticles();
+  const articles: Article[] = allArticles.filter(
+    (article) => article.category?.name === "Régimen Subsidiado"
+  );
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-4xl font-bold mb-8">Blog: Régimen Subsidiado</h1>
-      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-        {articles.map((article) => (
-          <Link href={article.href} key={article.title} className="block">
-            <Card className="h-full hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <CardTitle>{article.title}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">{article.description}</p>
-              </CardContent>
-            </Card>
-          </Link>
-        ))}
-      </div>
+      <header className="mb-12 text-center">
+        <h1 className="text-4xl font-extrabold tracking-tight">Blog: Régimen Subsidiado</h1>
+        <p className="mt-4 text-lg text-muted-foreground">
+          Novedades, guías y noticias relevantes para nuestros afiliados del Régimen Subsidiado.
+        </p>
+      </header>
+
+      {articles.length > 0 ? (
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {articles.map((article) => (
+            <ArticleCard key={article.id} article={article} />
+          ))}
+        </div>
+      ) : (
+        <div className="text-center py-16">
+          <p className="text-muted-foreground">No hay artículos disponibles en esta categoría por el momento.</p>
+        </div>
+      )}
     </div>
   );
 }

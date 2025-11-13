@@ -1,34 +1,34 @@
+// src/app/blog/comunicados-de-prensa/page.tsx
+import { getArticles } from "@/app/services/articleService";
+import { ArticleCard } from "@/app/blog/ArticleCard";
+import type { Article } from "@/app/types/article";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import Link from "next/link";
-
-export default function ComunicadosPrensaBlogPage() {
-  const articles = [
-    {
-      title: "Comunicado de Prensa de Prueba",
-      description: "Este es un ejemplo de un comunicado de prensa oficial de la entidad.",
-      href: "/blog/comunicados-de-prensa/articulo-1",
-    },
-    // Futuros comunicados se añadirán aquí
-  ];
+export default async function ComunicadosPrensaBlogPage() {
+  const allArticles = await getArticles();
+  const articles: Article[] = allArticles.filter(
+    (article) => article.category?.name === "Comunicados de Prensa"
+  );
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-4xl font-bold mb-8">Blog: Comunicados de Prensa</h1>
-      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-        {articles.map((article) => (
-          <Link href={article.href} key={article.title} className="block">
-            <Card className="h-full hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <CardTitle>{article.title}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">{article.description}</p>
-              </CardContent>
-            </Card>
-          </Link>
-        ))}
-      </div>
+      <header className="mb-12 text-center">
+        <h1 className="text-4xl font-extrabold tracking-tight">Blog: Comunicados de Prensa</h1>
+        <p className="mt-4 text-lg text-muted-foreground">
+         Anuncios oficiales y noticias corporativas de la entidad.
+        </p>
+      </header>
+
+      {articles.length > 0 ? (
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {articles.map((article) => (
+            <ArticleCard key={article.id} article={article} />
+          ))}
+        </div>
+      ) : (
+        <div className="text-center py-16">
+          <p className="text-muted-foreground">No hay artículos disponibles en esta categoría por el momento.</p>
+        </div>
+      )}
     </div>
   );
 }
