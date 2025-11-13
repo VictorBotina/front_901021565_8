@@ -208,6 +208,10 @@ export default function HabitosSaludablesPage() {
           {renderArticleContent(article.content)}
         </div>
 
+        <div className="mt-12 border-t pt-8">
+            <ShareButtons url={shareUrl} title={article.title} summary={article.description} />
+        </div>
+
         {article.author && (
             <footer className="mt-12 bg-muted/50 rounded-xl border p-8">
                 <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6">
@@ -238,9 +242,6 @@ export default function HabitosSaludablesPage() {
                 </div>
             </footer>
         )}
-        <div className="mt-12 border-t pt-8">
-            <ShareButtons url={shareUrl} title={article.title} summary={article.description} />
-        </div>
       </article>
     </div>
   );
