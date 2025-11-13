@@ -4,7 +4,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import { getStrapiURL, formatDate } from "@/app/services/articleService";
+import { formatDate } from "@/app/services/articleService";
+import { getStrapiURL } from "@/lib/api";
 import { Article } from "@/app/types/article";
 import { Skeleton } from "@/components/ui/skeleton";
 
