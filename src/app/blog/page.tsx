@@ -1,5 +1,3 @@
-
-
 // src/app/blog/page.tsx
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
@@ -39,12 +37,14 @@ export default async function BlogPage() {
 
   // Procesamos los artículos por categoría usando la data estática como base
   const articlesByCategory = CATEGORIES.map(category => {
+    // Busca los artículos que coinciden con el nombre de la categoría actual
     const categoryArticles = allArticles.filter(article => article.category?.name === category.name);
     return {
       ...category,
       articles: categoryArticles,
     };
   }).filter(category => category.articles.length > 0); // Solo mostrar categorías con artículos
+
 
   return (
     <div className="bg-gray-50 text-gray-800">
@@ -83,15 +83,15 @@ export default async function BlogPage() {
 
                    return(
                     <li key={article.id} className="border-b border-gray-200 pb-4 last:border-b-0 last:pb-0">
-                      <Link href={articleUrl} className="flex items-start gap-4 group">
+                      <Link href={articleUrl} className="flex flex-col gap-4 group">
                         {index === 0 && thumbnailUrl && (
-                           <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-md bg-gray-200">
+                           <div className="relative h-40 w-full flex-shrink-0 overflow-hidden rounded-md bg-gray-200">
                               <Image
                                 src={getStrapiURL(thumbnailUrl)}
                                 alt={`miniatura de ${article.title}`}
                                 fill
                                 className="object-cover transition-transform duration-300 group-hover:scale-105"
-                                sizes="64px"
+                                sizes="(max-width: 768px) 100vw, 33vw"
                               />
                           </div>
                         )}
