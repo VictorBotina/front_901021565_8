@@ -81,6 +81,7 @@ export const fetchFromStrapi = async (endpoint: string, params: Record<string, a
 
   const queryString = stringify(params, {
     encodeValuesOnly: true, // Codifica los valores pero no las claves
+    arrayFormat: 'repeat', // Cambiado para que coincida con la API de Strapi (evita índices)
   });
     
   const finalUrl = `${API_URL}/${endpoint}${queryString ? `?${queryString}` : ''}`;
