@@ -8,9 +8,10 @@ import Image from "next/image";
 import { ArticleCard } from "./ArticleCard";
 import { getArticles } from "@/app/services/articleService";
 import { CATEGORIES } from "./data"; 
+import type { Article } from "@/app/types/article";
 
 export default async function BlogPage() {
-  const allArticles = await getArticles();
+  const allArticles: Article[] = await getArticles();
   
   const today = new Date();
   const formattedDate = format(today, "eeee, d 'de' MMMM 'de' yyyy", {
