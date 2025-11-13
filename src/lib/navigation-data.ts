@@ -129,8 +129,8 @@ export const navigationItems: NavItem[] = [
       },
     ],
     cta: {
-        title: 'Explora todas las noticias',
-        href: '/blog',
+        title: 'Comunicados de prensa',
+        href: '/blog/comunicados-de-prensa',
         imageUrl: 'https://images.unsplash.com/photo-1495020689067-958852a7765e?w=400&h=300&fit=crop&q=80'
     }
   },
