@@ -101,7 +101,3 @@ export function calculateReadingTime(content: any[]): string {
   const readingTimeMinutes = Math.ceil(totalWords / 200);
   return `${readingTimeMinutes} min`;
 }
-
-// La función getStrapiURL se importa ahora desde @/lib/api para centralizar la lógica.
-// Esto evita la duplicación de código y asegura consistencia.
-export { getStrapiURL };
