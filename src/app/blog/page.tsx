@@ -79,16 +79,16 @@ export default async function BlogPage() {
               <ul className="space-y-4">
                 {recentArticles.map((article) => {
                    const articleUrl = getArticleUrlByTitle(article.title, `/blog`);
-                   const thumbnailUrl = article.image?.formats?.thumbnail?.url || article.image?.url || '';
+                   const imageUrl = article.image?.formats?.small?.url || article.image?.url || '';
                    const categoryInfo = CATEGORIES.find(c => c.name === article.category?.name);
 
                    return(
                     <li key={article.id} className="border-b border-gray-200 pb-4 last:border-b-0 last:pb-0">
                       <Link href={articleUrl} className="flex items-start gap-4 group">
-                        {thumbnailUrl && (
+                        {imageUrl && (
                            <div className="relative w-24 h-24 flex-shrink-0 overflow-hidden rounded-md bg-gray-200">
                               <Image
-                                src={getStrapiURL(thumbnailUrl)}
+                                src={getStrapiURL(imageUrl)}
                                 alt={`miniatura de ${article.title}`}
                                 fill
                                 className="object-cover transition-transform duration-300 group-hover:scale-105"
