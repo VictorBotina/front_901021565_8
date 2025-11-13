@@ -69,15 +69,22 @@ export default async function BlogPage() {
               </div>
             )}
 
-            <div className="lg:col-span-4 space-y-6">
+            <div className="lg:col-span-4 space-y-4">
               <h3 className="text-lg font-bold text-gray-900 border-b border-gray-300 pb-2 uppercase tracking-wider">
                 Más Recientes
               </h3>
-              {recentArticles.map((article) => (
-                <div key={article.id} className="border-b border-gray-200 pb-6">
-                     <ArticleCard article={article} />
-                </div>
-              ))}
+              <ul className="space-y-4">
+                {recentArticles.map((article) => {
+                   const articleUrl = `/blog/${article.category?.slug || 'general'}/${article.slug}`;
+                   return(
+                    <li key={article.id} className="border-b border-gray-200 pb-4 last:border-b-0 last:pb-0">
+                      <Link href={articleUrl} className="font-semibold text-gray-800 hover:text-primary transition-colors">
+                        {article.title}
+                      </Link>
+                    </li>
+                   );
+                })}
+              </ul>
             </div>
           </div>
         </main>
