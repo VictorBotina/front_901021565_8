@@ -1,4 +1,3 @@
-
 // src/app/services/articleService.ts
 import { Article, ArticleContentSection, RichTextBlock } from "@/app/types/article";
 import { fetchFromStrapi, getStrapiURL } from "@/lib/api";
@@ -10,12 +9,11 @@ import { fetchFromStrapi, getStrapiURL } from "@/lib/api";
 export async function getArticles(categoryName?: string): Promise<Article[]> {
   const params: any = {
     sort: { date: 'desc' },
-    fields: ["title", "description", "date"],
+    fields: ["title", "description", "date", "slug"],
     populate: {
       image: { fields: ["url", "formats"] },
       author: { fields: ["name"] },
       category: { fields: ["name", "slug"] },
-      slug: '*', // Populate slug correctly
     },
   };
 
