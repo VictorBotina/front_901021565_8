@@ -19,12 +19,12 @@ export const getStrapiURL = (path?: string) => {
 export async function getArticles(): Promise<Article[]> {
   try {
     const data = await fetchFromStrapi("articles", {
-        populate: {
-            image: { fields: ["url", "formats"] },
-            category: { fields: ["name", "slug"] },
-            author: { fields: ["name"] }
-        },
-        fields: ["title", "description", "date", "publishedAt", "slug", "documentId"],
+      fields: ["title", "description", "date", "slug"],
+      populate: {
+        image: { fields: ["url", "formats"] },
+        author: { fields: ["name"] },
+        category: { fields: ["name", "slug"] },
+      },
     });
 
     if (!data) {
