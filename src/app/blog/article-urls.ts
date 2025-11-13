@@ -5,7 +5,7 @@
 // enlaces siempre apunten a la ruta de archivo correcta.
 
 const articleUrlMap: { [key: string]: string } = {
-    "Hábitos y estilos de vida saludables: La Clave para un bienestar integral": "/blog/subsidiado/articulo-1",
+    "Hábitos y estilos de vida saludables: La Clave para un bienestar integral": "/blog/subsidiado/habitos-y-estilos-de-vida-saludables",
     "Artículo de Prueba para Régimen Contributivo": "/blog/contributivo/articulo-1",
     "Artículo de Prueba para Prestadores": "/blog/prestadores/articulo-1",
     "Comunicado de Prensa de Prueba": "/blog/comunicados-de-prensa/articulo-1",
