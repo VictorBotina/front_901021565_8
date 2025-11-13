@@ -77,24 +77,24 @@ export default async function BlogPage() {
                 Más Recientes
               </h3>
               <ul className="space-y-4">
-                {recentArticles.map((article) => {
+                {recentArticles.map((article, index) => {
                    const articleUrl = `/blog/${article.category?.slug || 'general'}/${article.slug}`;
                    const thumbnailUrl = article.image?.formats?.small?.url || article.image?.url || '';
 
                    return(
                     <li key={article.id} className="border-b border-gray-200 pb-4 last:border-b-0 last:pb-0">
                       <Link href={articleUrl} className="flex items-start gap-4 group">
-                        <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-md bg-gray-200">
-                          {thumbnailUrl && (
-                            <Image
-                              src={getStrapiURL(thumbnailUrl)}
-                              alt={`miniatura de ${article.title}`}
-                              fill
-                              className="object-cover transition-transform duration-300 group-hover:scale-105"
-                              sizes="64px"
-                            />
-                          )}
-                        </div>
+                        {index === 0 && thumbnailUrl && (
+                           <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-md bg-gray-200">
+                              <Image
+                                src={getStrapiURL(thumbnailUrl)}
+                                alt={`miniatura de ${article.title}`}
+                                fill
+                                className="object-cover transition-transform duration-300 group-hover:scale-105"
+                                sizes="64px"
+                              />
+                          </div>
+                        )}
                         <div className="flex-1">
                           {article.category && (
                               <span className="text-xs font-semibold uppercase tracking-wider text-primary mb-1 block">
