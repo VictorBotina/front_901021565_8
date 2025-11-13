@@ -14,7 +14,7 @@ import { getStrapiURL } from "@/lib/api";
 
 const articleUrlMap: { [key: string]: { [key: string]: string } } = {
   "Subsidiado": {
-    "Hábitos y Estilos de Vida Saludables": "/blog/subsidiado/habitos-y-estilos-de-vida-saludables",
+    "Hábitos y estilos de vida saludables: La Clave para un bienestar integral": "/blog/subsidiado/habitos-y-estilos-de-vida-saludables",
   },
   "Régimen Contributivo": {
     "Artículo de Prueba para Régimen Contributivo": "/blog/contributivo/articulo-1",
