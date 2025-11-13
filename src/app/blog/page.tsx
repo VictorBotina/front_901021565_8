@@ -9,6 +9,7 @@ import { ArticleCard } from "./ArticleCard";
 import { getArticles } from "@/app/services/articleService";
 import { CATEGORIES } from "./data"; 
 import type { Article } from "@/app/types/article";
+import { getStrapiURL } from "@/lib/api";
 
 // Helper para agrupar artículos por categoría
 const groupArticlesByCategory = (articles: Article[]): Record<string, Article[]> => {
@@ -76,10 +77,27 @@ export default async function BlogPage() {
               <ul className="space-y-4">
                 {recentArticles.map((article) => {
                    const articleUrl = `/blog/${article.category?.slug || 'general'}/${article.slug}`;
+                   const thumbnailUrl = article.image.formats?.thumbnail?.url 
+                                        ? getStrapiURL(article.image.formats.thumbnail.url) 
+                                        : getStrapiURL(article.image.url);
+
                    return(
                     <li key={article.id} className="border-b border-gray-200 pb-4 last:border-b-0 last:pb-0">
-                      <Link href={articleUrl} className="font-semibold text-gray-800 hover:text-primary transition-colors">
-                        {article.title}
+                      <Link href={articleUrl} className="flex items-center gap-4 group">
+                        <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-md bg-gray-200">
+                          {thumbnailUrl && (
+                            <Image
+                              src={thumbnailUrl}
+                              alt={`miniatura de ${article.title}`}
+                              fill
+                              className="object-cover transition-transform duration-300 group-hover:scale-105"
+                              sizes="64px"
+                            />
+                          )}
+                        </div>
+                        <span className="font-semibold text-gray-800 hover:text-primary transition-colors">
+                          {article.title}
+                        </span>
                       </Link>
                     </li>
                    );
