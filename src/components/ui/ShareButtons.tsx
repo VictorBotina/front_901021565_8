@@ -24,9 +24,9 @@ type ShareButtonsProps = {
 
 export function ShareButtons({ url, title, summary, className }: ShareButtonsProps) {
   return (
-    <div className={cn("text-center", className)}>
-      <h3 className="text-md font-semibold text-muted-foreground mb-4">Compartir en redes</h3>
-      <div className="flex items-center justify-center gap-3">
+    <div className={cn("flex items-center justify-center gap-3", className)}>
+      <h3 className="text-sm font-semibold text-muted-foreground">Compartir:</h3>
+      <div className="flex items-center gap-2">
         <FacebookShareButton
           url={url}
           quote={title}
