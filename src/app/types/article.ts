@@ -10,7 +10,7 @@ export interface ArticleImageFormat {
 // Representa la imagen principal de un artículo con sus diferentes formatos
 export interface ArticleImage {
   id: number;
-  url: string;
+  url:string;
   formats?: {
     thumbnail?: ArticleImageFormat;
     small?: ArticleImageFormat;
@@ -23,7 +23,7 @@ export interface ArticleImage {
 export interface ArticleAuthor {
   id: number;
   name: string;
-  bio?: any[];
+  bio?: RichTextBlock[]; // La biografía también puede ser contenido enriquecido
   avatar?: {
     url: string;
   } | null;

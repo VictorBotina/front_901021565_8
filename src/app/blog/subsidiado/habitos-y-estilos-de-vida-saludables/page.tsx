@@ -8,7 +8,7 @@ import {
   formatDate,
 } from "@/app/services/articleService";
 import { getStrapiURL } from "@/lib/api";
-import { ArticleContentSection } from "@/app/types/article";
+import { ArticleContentSection, RichTextBlock } from "@/app/types/article";
 import { Calendar, Clock, User } from "lucide-react";
 
 // Componente para renderizar el contenido del artículo
@@ -66,8 +66,27 @@ function renderArticleContent(content: ArticleContentSection[] | undefined) {
   ));
 }
 
+function renderAuthorBio(bio: RichTextBlock[] | undefined) {
+    if (!bio || !Array.isArray(bio)) {
+        return (
+            <p className="text-muted-foreground leading-relaxed">
+                Comunicador especializado en temas de salud y bienestar.
+            </p>
+        );
+    }
+    
+    return bio.map((block, index) => {
+        if (block.type === 'paragraph') {
+            const text = block.children.map(child => child.text).join('');
+            if (text.trim() === '') return null;
+            return <p key={index} className="text-muted-foreground leading-relaxed">{text}</p>;
+        }
+        return null;
+    }).filter(Boolean);
+}
+
+
 export default async function HabitosSaludablesPage() {
-  // ID del artículo en Strapi
   const articleId = "fni951bnbpi9tc18e7t92l6i";
   const article = await getArticleById(articleId);
 
@@ -181,9 +200,7 @@ export default async function HabitosSaludablesPage() {
                         <h4 className="text-xl font-bold text-foreground mt-1 mb-2">
                             {article.author.name}
                         </h4>
-                        <p className="text-muted-foreground leading-relaxed">
-                            Comunicador especializado en temas de salud y bienestar, dedicado a compartir información veraz y accesible para promover estilos de vida saludables.
-                        </p>
+                        {renderAuthorBio(article.author.bio)}
                     </div>
                 </div>
             </footer>
