@@ -34,17 +34,15 @@ export default async function BlogPage() {
   });
 
   const featuredArticle = allArticles.length > 0 ? allArticles[0] : null;
-  const recentArticles = allArticles.slice(1, 5); // Tomamos 4 para el sidebar
+  const recentArticles = allArticles.slice(1, 5);
 
-  // Procesamos los artículos por categoría usando la data estática como base
   const articlesByCategory = CATEGORIES.map(category => {
-    // Busca los artículos que coinciden con el nombre de la categoría actual
     const categoryArticles = allArticles.filter(article => article.category?.name === category.name);
     return {
       ...category,
       articles: categoryArticles,
     };
-  }).filter(category => category.articles.length > 0); // Solo mostrar categorías con artículos
+  }).filter(category => category.articles.length > 0);
 
 
   return (
@@ -81,12 +79,13 @@ export default async function BlogPage() {
                 {recentArticles.map((article, index) => {
                    const articleUrl = `/blog/${article.category?.slug || 'general'}/${article.slug}`;
                    const thumbnailUrl = article.image?.formats?.small?.url || article.image?.url || '';
+                   const categoryInfo = CATEGORIES.find(c => c.name === article.category?.name);
 
                    return(
                     <li key={article.id} className="border-b border-gray-200 pb-4 last:border-b-0 last:pb-0">
-                      <Link href={articleUrl} className="flex flex-col gap-4 group">
+                      <Link href={articleUrl} className="flex flex-col gap-2 group">
                         {index === 0 && thumbnailUrl && (
-                           <div className="relative h-40 w-full flex-shrink-0 overflow-hidden rounded-md bg-gray-200">
+                           <div className="relative w-full flex-shrink-0 overflow-hidden rounded-md bg-gray-200 aspect-video">
                               <Image
                                 src={getStrapiURL(thumbnailUrl)}
                                 alt={`miniatura de ${article.title}`}
@@ -98,7 +97,10 @@ export default async function BlogPage() {
                         )}
                         <div className="flex-1">
                           {article.category && (
-                              <span className="text-xs font-semibold uppercase tracking-wider text-primary mb-1 block">
+                              <span 
+                                className="text-xs font-semibold uppercase tracking-wider mb-1 block"
+                                style={{ color: categoryInfo?.textColor }}
+                              >
                                   {article.category.name}
                               </span>
                           )}
@@ -158,7 +160,7 @@ export default async function BlogPage() {
                             <category.icon className="h-6 w-6" />
                         </div>
                         <div>
-                        <h2 className="text-3xl font-bold text-gray-900">
+                        <h2 className="text-3xl font-bold text-gray-900" style={{ color: category.textColor }}>
                             {category.name}
                         </h2>
                         <p className="text-gray-600">
