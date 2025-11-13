@@ -1,8 +1,8 @@
 // src/app/blog/subsidiado/habitos-y-estilos-de-vida-saludables/page.tsx
-'use client';
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import type { Metadata } from 'next';
 import {
   getArticleById,
   getAuthorAvatarUrl,
@@ -11,8 +11,53 @@ import {
 } from "@/app/services/articleService";
 import { getStrapiURL } from "@/lib/api";
 import { Article, RichTextBlock } from "@/app/types/article";
-import { Calendar, Clock, Loader } from "lucide-react";
+import { Calendar, Clock } from "lucide-react";
 import { ShareButtons } from "@/components/ui/ShareButtons";
+
+const ARTICLE_ID = "fni951bnbpi9tc18e7t92l6i";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const article = await getArticleById(ARTICLE_ID);
+
+  if (!article) {
+    return {
+      title: "Artículo no encontrado",
+      description: "El artículo que buscas no está disponible.",
+    };
+  }
+
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+  const articleUrl = `${siteUrl}/blog/subsidiado/habitos-y-estilos-de-vida-saludables`;
+
+  const ogImageUrl = article.image?.url 
+    ? getStrapiURL(article.image.url)
+    : `${siteUrl}/default-og.jpg`; // Imagen por defecto
+
+  return {
+    title: article.title,
+    description: article.description,
+    openGraph: {
+      title: article.title,
+      description: article.description,
+      url: articleUrl,
+      type: 'article',
+      images: [
+        {
+          url: ogImageUrl,
+          width: 1200,
+          height: 630,
+          alt: article.title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: article.title,
+      description: article.description,
+      images: [ogImageUrl],
+    },
+  };
+}
 
 
 function renderArticleContent(content: Article['content']) {
@@ -88,51 +133,10 @@ function renderAuthorBio(bio: RichTextBlock[] | undefined) {
 }
 
 
-export default function HabitosSaludablesPage() {
-  const [article, setArticle] = useState<Article | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [shareUrl, setShareUrl] = useState('');
+export default async function HabitosSaludablesPage() {
+  const article = await getArticleById(ARTICLE_ID);
 
-  useEffect(() => {
-    // Asegurarse de que window está disponible
-    setShareUrl(window.location.href);
-
-    const fetchArticle = async () => {
-      try {
-        const articleId = "fni951bnbpi9tc18e7t92l6i";
-        const fetchedArticle = await getArticleById(articleId);
-        if (!fetchedArticle) {
-          throw new Error("No se pudo cargar el artículo.");
-        }
-        setArticle(fetchedArticle);
-      } catch (e: any) {
-        setError(e.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchArticle();
-  }, []);
-
-  if (loading) {
-     return (
-      <div className="min-h-[60vh] bg-background flex items-center justify-center">
-        <div className="text-center max-w-2xl mx-4 p-8">
-          <Loader className="h-12 w-12 animate-spin text-primary mx-auto mb-4" />
-          <h1 className="text-2xl font-bold text-foreground mb-2">
-            Cargando Artículo...
-          </h1>
-          <p className="text-muted-foreground">
-            Estamos preparando el contenido para ti.
-          </p>
-        </div>
-      </div>
-    );
-  }
-
-  if (error || !article) {
+  if (!article) {
     return (
       <div className="min-h-[60vh] bg-background flex items-center justify-center">
         <div className="text-center max-w-2xl mx-4 p-8">
@@ -140,7 +144,7 @@ export default function HabitosSaludablesPage() {
             Artículo No Encontrado
           </h1>
           <p className="text-muted-foreground mb-6">
-            {error || "No pudimos cargar el artículo que estás buscando. Es posible que haya sido movido o eliminado."}
+            No pudimos cargar el artículo que estás buscando. Es posible que haya sido movido o eliminado.
           </p>
           <Link
             href="/blog"
@@ -156,6 +160,7 @@ export default function HabitosSaludablesPage() {
   const readingTime = calculateReadingTime(article.content);
   const authorAvatarUrl = article.author ? getAuthorAvatarUrl(article.author.avatar) : null;
   const imageUrl = article.image ? getStrapiURL(article.image.url) : null;
+  const shareUrl = `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/blog/subsidiado/habitos-y-estilos-de-vida-saludables`;
 
   return (
     <div className="bg-background">
