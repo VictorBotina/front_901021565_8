@@ -1,13 +1,13 @@
 // src/app/services/articleService.ts
 import { Article } from "@/app/types/article";
-import { fetchFromStrapi, getStrapiURL } from "@/lib/api";
+import { fetchFromStrapi } from "@/lib/api";
 
 /**
  * Obtiene todos los artículos de la API de Strapi para la página principal del blog.
  */
 export async function getArticles(): Promise<Article[]> {
   const params = {
-    fields: ["title", "description", "date", "slug"],
+    fields: ["title", "description", "date"],
     populate: {
       image: { fields: ["url", "formats"] },
       author: { fields: ["name"] },
