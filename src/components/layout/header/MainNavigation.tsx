@@ -4,7 +4,7 @@
 import Link from 'next/link';
 import { Logo } from '@/components/logo';
 import { Button } from '@/components/ui/button';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Info, FileText, HeartPulse, Shield, HandCoins, Stethoscope } from 'lucide-react';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import * as React from 'react';
 import { TopMenu } from './TopMenu';
@@ -17,6 +17,15 @@ import { navigationItems } from '@/lib/navigation-data';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import Image from 'next/image';
 import { AnimatePresence, motion } from 'framer-motion';
+
+const iconComponents: { [key: string]: React.ElementType } = {
+  Info,
+  FileText,
+  HeartPulse,
+  Shield,
+  HandCoins,
+  Stethoscope,
+};
 
 export function MainNavigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
@@ -148,9 +157,14 @@ export function MainNavigation() {
               <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                 {activeMenuItem.columns?.map((column, colIndex) => (
                   <div key={colIndex} className="flex flex-col space-y-4">
-                    {column.groups.map(group => (
+                    {column.groups.map(group => {
+                      const Icon = group.icon ? iconComponents[group.icon] : null;
+                      return (
                       <div key={group.title}>
-                        <h3 className="font-bold text-lg mb-3 text-title">{group.title}</h3>
+                          <h3 className="font-bold text-lg mb-3 text-title flex items-center gap-2">
+                           {Icon && <Icon className="h-5 w-5" />}
+                           {group.title}
+                          </h3>
                         <nav className="flex flex-col space-y-2">
                           {group.links.map(link => (
                              <Link key={link.href} href={link.href} onClick={() => setActiveMenu(null)} className="text-muted-foreground hover:text-primary hover:underline underline-offset-4">
@@ -159,7 +173,8 @@ export function MainNavigation() {
                           ))}
                         </nav>
                       </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 ))}
 
