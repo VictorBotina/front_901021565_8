@@ -32,10 +32,20 @@ export function ShareButtons({ url, title, summary, className }: ShareButtonsPro
 
   useEffect(() => {
     setIsMounted(true);
-    if (url) {
-      setShareUrl(url);
-    } else if (typeof window !== 'undefined') {
-      setShareUrl(window.location.href);
+    // Asegurar que estamos en el cliente antes de acceder a window.location
+    if (typeof window !== 'undefined') {
+        if (url) {
+            // Si se pasa una URL, asegurarse que sea absoluta
+            try {
+                setShareUrl(new URL(url, window.location.origin).href);
+            } catch (e) {
+                // Si la URL es inválida, usar la de la página actual
+                setShareUrl(window.location.href);
+            }
+        } else {
+            // Si no se pasa URL, usar la de la página actual
+            setShareUrl(window.location.href);
+        }
     }
   }, [url, pathname]);
 
@@ -53,13 +63,16 @@ export function ShareButtons({ url, title, summary, className }: ShareButtonsPro
     );
   }
 
+  // Mensaje para Whatsapp y otros que lo usan. Incluye el título y un salto de línea.
+  const shareMessage = title ? `${title}\n` : '';
+
   return (
     <div className={cn("flex items-center justify-center gap-3", className)}>
       <h3 className="text-sm font-semibold text-muted-foreground">Compartir:</h3>
       <div className="flex items-center gap-2">
         <FacebookShareButton
           url={shareUrl}
-          quote={title}
+          quote={shareMessage} // Usar 'quote' para el texto que acompaña
           hashtag={'#EmssanarEPS'}
           className="transition-transform duration-200 ease-in-out hover:scale-110 hover:shadow-lg rounded-full"
         >
@@ -67,7 +80,7 @@ export function ShareButtons({ url, title, summary, className }: ShareButtonsPro
         </FacebookShareButton>
         <TwitterShareButton
           url={shareUrl}
-          title={title}
+          title={title} // Twitter usa el 'title' para el texto del tweet
           className="transition-transform duration-200 ease-in-out hover:scale-110 hover:shadow-lg rounded-full"
         >
           <TwitterIcon size={32} round />
@@ -83,8 +96,8 @@ export function ShareButtons({ url, title, summary, className }: ShareButtonsPro
         </LinkedinShareButton>
         <WhatsappShareButton
           url={shareUrl}
-          title={title}
-          separator={'\n'}
+          title={shareMessage} // El 'title' se convierte en el cuerpo del mensaje
+          separator="" // El separador ahora es innecesario
           className="transition-transform duration-200 ease-in-out hover:scale-110 hover:shadow-lg rounded-full"
         >
           <WhatsappIcon size={32} round />
