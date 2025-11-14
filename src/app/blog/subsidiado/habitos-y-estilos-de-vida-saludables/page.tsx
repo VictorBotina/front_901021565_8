@@ -208,7 +208,7 @@ export default async function HabitosSaludablesPage() {
               <Clock className="mr-2 h-4 w-4" />
               <span>{readingTime}</span>
             </div>
-            <ShareButtons url={shareUrl} title={article.title} summary={article.description} />
+            <ShareButtons title={article.title} summary={article.description} />
           </div>
         </header>
 
