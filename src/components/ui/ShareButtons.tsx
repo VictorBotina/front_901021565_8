@@ -84,7 +84,7 @@ export function ShareButtons({ url, title, summary, className }: ShareButtonsPro
         <WhatsappShareButton
           url={shareUrl}
           title={title}
-          separator=":: "
+          separator={'\n'}
           className="transition-transform duration-200 ease-in-out hover:scale-110 hover:shadow-lg rounded-full"
         >
           <WhatsappIcon size={32} round />
