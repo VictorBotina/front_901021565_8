@@ -36,7 +36,7 @@ const queryParams = {
             fields: ['url', 'formats']
         },
         content: {
-            fields: ['title_seccion', 'text', 'media_url']
+            populate: '*'
         }
     }
 };
