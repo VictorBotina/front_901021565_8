@@ -3,6 +3,10 @@ import { getArticles } from "@/app/services/articleService";
 import { ArticleCard } from "@/app/blog/ArticleCard";
 import type { Article } from "@/app/types/article";
 
+const getArticleUrl = (article: Article): string => {
+  return `/blog/prestadores/articulo-1`;
+};
+
 export default async function PrestadoresBlogPage() {
   const allArticles = await getArticles();
   const articles: Article[] = allArticles.filter(
@@ -21,7 +25,7 @@ export default async function PrestadoresBlogPage() {
       {articles.length > 0 ? (
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {articles.map((article) => (
-            <ArticleCard key={article.id} article={article} />
+            <ArticleCard key={article.id} article={article} href={getArticleUrl(article)} />
           ))}
         </div>
       ) : (

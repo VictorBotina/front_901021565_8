@@ -13,7 +13,7 @@ import { cn } from "@/lib/utils";
 
 interface ArticleCardProps {
   article: Article;
-  href: string; // Se añade la propiedad href
+  href: string;
   featured?: boolean;
 }
 
