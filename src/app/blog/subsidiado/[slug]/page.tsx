@@ -4,11 +4,11 @@ import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from 'next';
 import {
+  getArticles,
   getArticleBySlug,
   getAuthorAvatarUrl,
   calculateReadingTime,
   formatDate,
-  getArticles,
 } from "@/app/services/articleService";
 import { getStrapiURL } from "@/lib/api";
 import { Article, RichTextBlock } from "@/app/types/article";
@@ -157,7 +157,6 @@ export default async function ArticlePage({ params }: { params: { slug: string }
   const readingTime = calculateReadingTime(article.content);
   const authorAvatarUrl = article.author ? getAuthorAvatarUrl(article.author.avatar) : null;
   const imageUrl = article.image ? getStrapiURL(article.image.url) : null;
-  const shareUrl = `${siteUrl}/blog/subsidiado/${article.slug}`;
 
   return (
     <div className="bg-background">
@@ -190,6 +189,7 @@ export default async function ArticlePage({ params }: { params: { slug: string }
               <Clock className="mr-2 h-4 w-4" />
               <span>{readingTime}</span>
             </div>
+             <ShareButtons title={article.title} summary={article.description} />
           </div>
         </header>
 
@@ -207,10 +207,6 @@ export default async function ArticlePage({ params }: { params: { slug: string }
         
         <div className="prose prose-lg lg:prose-xl max-w-none mx-auto">
           {renderArticleContent(article.content)}
-        </div>
-
-         <div className="mt-12 border-t pt-8">
-            <ShareButtons url={shareUrl} title={article.title} summary={article.description} />
         </div>
 
         {article.author && (
