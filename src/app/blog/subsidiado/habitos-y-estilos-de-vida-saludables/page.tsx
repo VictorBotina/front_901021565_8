@@ -4,14 +4,39 @@ export default function HabitosSaludablesPage() {
     return null;
 =======
 // src/app/blog/subsidiado/habitos-y-estilos-de-vida-saludables/page.tsx
-import { getArticleById } from "@/app/services/articleService";
+import { fetchFromStrapi } from "@/lib/api";
 
-const ARTICLE_ID = "1"; // Usamos un ID de artículo para la prueba
+const ARTICLE_ID = "fni951bnbpi9tc18e7t92l6i";
+
+// Parámetros de la consulta, extraídos de la URL que proporcionaste
+const queryParams = {
+    fields: ['title', 'description', 'date'],
+    populate: {
+        author: {
+            fields: ['name', 'bio'],
+            populate: {
+                avatar: {
+                    fields: ['url']
+                }
+            }
+        },
+        category: {
+            fields: ['name']
+        },
+        image: {
+            fields: ['url']
+        },
+        content: {
+            fields: ['title_seccion', 'text', 'media_url']
+        }
+    }
+};
 
 export default async function HabitosSaludablesPage() {
   try {
     console.log(`[PRUEBA] Obteniendo datos para el artículo con ID: ${ARTICLE_ID}`);
-    const article = await getArticleById(ARTICLE_ID);
+    // Llamamos a fetchFromStrapi directamente con el endpoint y los parámetros
+    const article = await fetchFromStrapi(`articles/${ARTICLE_ID}`, queryParams);
 
     console.log("✅ [PRUEBA] Respuesta de la API de Strapi recibida:");
     console.log(JSON.stringify(article, null, 2));
