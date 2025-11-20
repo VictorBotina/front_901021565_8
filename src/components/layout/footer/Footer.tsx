@@ -129,7 +129,7 @@ export function Footer() {
 
         <div className="mt-8 flex flex-col items-center justify-between sm:flex-row">
           <div className="flex items-center space-x-2">
-            <Logo className="h-8 w-8" />
+            <Logo className="h-8 w-auto" />
           </div>
           <p className="text-sm text-muted-foreground mt-4 sm:mt-0">
             © {new Date().getFullYear()} Todos los derechos reservados.
