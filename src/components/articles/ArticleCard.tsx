@@ -1,7 +1,7 @@
+// src/components/articles/ArticleCard.tsx
 
 import Link from "next/link";
 import Image from "next/image";
-import { cn } from "@/lib/utils";
 import { CATEGORIES } from "@/app/blog/data";
 
 // Definimos un tipo para la estructura del artículo, para mayor seguridad y autocompletado.
@@ -18,20 +18,18 @@ interface Article {
 
 interface ArticleCardProps {
   article: Article;
-  href: string;
 }
 
 // Función auxiliar para formatear la fecha
 function formatDate(dateString: string): string {
   if (!dateString) return "";
   try {
-    // Aseguramos que la fecha se interprete correctamente, añadiendo la hora para evitar errores de zona horaria.
     const date = new Date(dateString + 'T00:00:00');
     return date.toLocaleDateString("es-ES", {
       year: "numeric",
       month: "long",
       day: "numeric",
-      timeZone: 'UTC', // Usar UTC para consistencia
+      timeZone: 'UTC',
     });
   } catch (error) {
     console.error("Error al formatear la fecha:", dateString, error);
@@ -39,11 +37,11 @@ function formatDate(dateString: string): string {
   }
 }
 
-export function ArticleCard({ article, href }: ArticleCardProps) {
+export function ArticleCard({ article }: ArticleCardProps) {
   const categoryInfo = CATEGORIES.find(c => c.name === article.category);
 
   return (
-    <Link href={href} className="block group">
+    <Link href={article.url} className="block group">
       <div className="w-full bg-gray-200 rounded-md overflow-hidden mb-4">
         <Image
           src={article.imageUrl}

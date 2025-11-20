@@ -15,6 +15,7 @@ import type { Metadata } from 'next';
 import Link from "next/link";
 import React from "react";
 import Image from "next/image";
+import { ArticleSection } from "@/components/articles/ArticleSection";
 
 export const metadata: Metadata = {
   title: 'Afiliados | Cuidamos de ti en cada paso',
@@ -43,6 +44,7 @@ export default function AfiliadosPage() {
   ];
 
   return (
+    <>
     <div className="container mx-auto px-4 py-8 md:py-12">
       <header className="text-center mb-12">
         <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight">Afiliados Emssanar EPS</h1>
@@ -289,5 +291,7 @@ export default function AfiliadosPage() {
         </div>
       </section>
     </div>
+    <ArticleSection title="Últimas noticias" />
+    </>
   );
 }
