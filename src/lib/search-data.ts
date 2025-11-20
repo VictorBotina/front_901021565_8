@@ -19,5 +19,59 @@ export const searchData: SearchablePage[] = [
       "inicio"
     ],
     "icon": "Home"
+  },
+  {
+    "title": "Afiliados",
+    "href": "/afiliados",
+    "keywords": [ "afiliados", "servicios", "portal", "usuarios" ],
+    "icon": "Users"
+  },
+  {
+    "title": "Prestadores",
+    "href": "/prestadores",
+    "keywords": [ "prestadores", "ips", "servicios medicos", "doctores" ],
+    "icon": "HeartHandshake"
+  },
+  {
+    "title": "Nosotros",
+    "href": "/nosotros",
+    "keywords": [ "nosotros", "quienes somos", "empresa", "informacion" ],
+    "icon": "Building"
+  },
+  {
+    "title": "Régimen Subsidiado",
+    "href": "/afiliados/subsidiado",
+    "keywords": [ "subsidiado", "afiliacion", "beneficios", "gobierno" ],
+    "icon": "Users"
+  },
+  {
+    "title": "Régimen Contributivo",
+    "href": "/afiliados/contributivo",
+    "keywords": [ "contributivo", "aporte", "trabajador", "independiente" ],
+    "icon": "Users"
+  },
+  {
+    "title": "Blog y Noticias",
+    "href": "/blog",
+    "keywords": [ "blog", "noticias", "articulos", "comunicados" ],
+    "icon": "Newspaper"
+  },
+  {
+    "title": "Normatividad",
+    "href": "/normatividad",
+    "keywords": [ "normatividad", "leyes", "decretos", "resoluciones" ],
+    "icon": "Book"
+  },
+  {
+    "title": "Colaboradores",
+    "href": "/colaboradores",
+    "keywords": [ "colaboradores", "equipo", "trabajo", "talento humano" ],
+    "icon": "Users"
+  },
+  {
+    "title": "Información Pública",
+    "href": "/transparencia",
+    "keywords": [ "transparencia", "informacion publica", "acceso", "datos abiertos" ],
+    "icon": "Info"
   }
 ];
