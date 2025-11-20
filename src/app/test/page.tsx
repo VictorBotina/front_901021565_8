@@ -1,18 +1,33 @@
+
 // src/app/test/page.tsx
 import { ArticleCard } from "./ArticleCard";
-import type { Article } from "./ArticleList";
 
+// Definimos el tipo aquí también para que la página sepa qué esperar.
+type Article = {
+  id: number;
+  imageUrl: string;
+  category: string;
+  title: string;
+  description: string;
+  author: string;
+  date: string;
+};
+
+// Función para obtener los artículos del archivo JSON en /public
 async function getArticles(): Promise<Article[]> {
   try {
+    // Usamos una ruta relativa a la carpeta `public`
+    // NEXT_PUBLIC_SITE_URL es necesario para que funcione tanto en desarrollo como en producción
     const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/articles.json`);
     if (!res.ok) {
-      throw new Error('Failed to fetch articles');
+      throw new Error('No se pudieron cargar los artículos');
     }
     const data = await res.json();
+    // Suponiendo que el JSON tiene una clave "articles" que es un array
     return data.articles;
   } catch (error) {
-    console.error("Error fetching articles:", error);
-    return []; // Devuelve un array vacío en caso de error
+    console.error("Error al obtener los artículos:", error);
+    return []; // Devuelve un array vacío en caso de error para evitar que la página se rompa
   }
 }
 
@@ -31,6 +46,7 @@ export default async function TestPage() {
       {articles.length > 0 ? (
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {articles.map((article) => {
+            // Creamos un enlace de ejemplo para cada artículo
             const articleHref = `/test/articulo/${article.id}`;
             return (
               <ArticleCard key={article.id} article={article} href={articleHref} />

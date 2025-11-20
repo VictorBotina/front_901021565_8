@@ -1,22 +1,35 @@
+
 import Link from "next/link";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
-import type { Article } from "./ArticleList";
+
+// Definimos un tipo para la estructura del artículo, para mayor seguridad y autocompletado.
+interface Article {
+  id: number;
+  imageUrl: string;
+  category: string;
+  title: string;
+  description: string;
+  author: string;
+  date: string;
+}
 
 interface ArticleCardProps {
   article: Article;
   href: string;
 }
 
+// Función auxiliar para formatear la fecha
 function formatDate(dateString: string): string {
   if (!dateString) return "";
   try {
-    const date = new Date(dateString + 'T00:00:00'); // Asegurar que se interprete como local
+    // Aseguramos que la fecha se interprete correctamente, añadiendo la hora para evitar errores de zona horaria.
+    const date = new Date(dateString + 'T00:00:00');
     return date.toLocaleDateString("es-ES", {
       year: "numeric",
       month: "long",
       day: "numeric",
-      timeZone: 'UTC',
+      timeZone: 'UTC', // Usar UTC para consistencia
     });
   } catch (error) {
     console.error("Error al formatear la fecha:", dateString, error);
@@ -40,7 +53,7 @@ export function ArticleCard({ article, href }: ArticleCardProps) {
         {article.category && (
           <span
             className="text-xs font-semibold px-2 py-1 rounded text-white"
-            style={{ backgroundColor: '#3b82f6' }} // Color de categoría de ejemplo
+            style={{ backgroundColor: '#3b82f6' }} // Color de ejemplo para la categoría
           >
             {article.category}
           </span>
