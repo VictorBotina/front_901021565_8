@@ -13,17 +13,11 @@ import {
 } from "@/components/ui/command"
 import { searchData, type SearchablePage } from "@/lib/search-data"
 import { File, Home, Users, HeartHandshake, Book, Newspaper, Map, Info, Building, Workflow } from "lucide-react"
+import Fuse from "fuse.js"
 
 type SearchCommandProps = {
   onSelect?: () => void;
 }
-
-const normalizeText = (text: string) => {
-  return text
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "");
-};
 
 const iconMap: { [key: string]: React.ReactElement } = {
   Home: <Home className="mr-2 h-4 w-4" />,
@@ -38,34 +32,25 @@ const iconMap: { [key: string]: React.ReactElement } = {
   File: <File className="mr-2 h-4 w-4" />,
 };
 
-const suggestionGroups = {
-  sugerencias: [ "Inicio", "Afiliados", "Prestadores", "Nosotros"],
-  servicios: ["Régimen Subsidiado", "Régimen Contributivo", "Blog y Noticias"],
-  otros: ["Normatividad", "Colaboradores", "Información Pública"],
+const suggestionGroups: Record<string, string[]> = {
+  Sugerencias: [ "Inicio", "Afiliados", "Prestadores", "Nosotros"],
+  Servicios: ["Régimen Subsidiado", "Régimen Contributivo", "Blog y Noticias"],
+  Otros: ["Normatividad", "Colaboradores", "Información Pública"],
 };
 
+const fuseOptions = {
+  includeScore: true,
+  keys: ["title", "keywords"],
+  threshold: 0.3,
+};
 
 export function SearchCommand({ onSelect }: SearchCommandProps) {
   const router = useRouter();
   const [query, setQuery] = React.useState("");
-  const [filteredResults, setFilteredResults] = React.useState<SearchablePage[]>([]);
 
-  React.useEffect(() => {
-    if (!query) {
-      setFilteredResults([]);
-      return;
-    }
+  const fuse = new Fuse(searchData, fuseOptions);
 
-    const normalizedQuery = normalizeText(query);
-
-    const results = searchData.filter(page => {
-      const normalizedKeywords = normalizeText(page.keywords.join(" "));
-      const normalizedTitle = normalizeText(page.title);
-      return normalizedKeywords.includes(normalizedQuery) || normalizedTitle.includes(normalizedQuery);
-    });
-
-    setFilteredResults(results);
-  }, [query]);
+  const results = query ? fuse.search(query).map(result => result.item) : [];
 
   const handleSelect = (href: string) => {
     router.push(href);
@@ -100,11 +85,11 @@ export function SearchCommand({ onSelect }: SearchCommandProps) {
       />
       <CommandList>
         {query ? (
-          filteredResults.length === 0 ? (
+          results.length === 0 ? (
             <CommandEmpty>No se encontraron resultados.</CommandEmpty>
           ) : (
             <CommandGroup heading="Resultados">
-              {filteredResults.map((page) => (
+              {results.map((page) => (
                 <CommandItem
                   key={page.href}
                   onSelect={() => handleSelect(page.href)}
@@ -118,15 +103,11 @@ export function SearchCommand({ onSelect }: SearchCommandProps) {
           )
         ) : (
           <>
-            <CommandGroup heading="Sugerencias">
-                {renderGroup(suggestionGroups.sugerencias)}
-            </CommandGroup>
-            <CommandGroup heading="Servicios">
-                {renderGroup(suggestionGroups.servicios)}
-            </CommandGroup>
-            <CommandGroup heading="Otros">
-                {renderGroup(suggestionGroups.otros)}
-            </CommandGroup>
+            {Object.entries(suggestionGroups).map(([groupName, groupItems]) => (
+               <CommandGroup key={groupName} heading={groupName}>
+                {renderGroup(groupItems)}
+              </CommandGroup>
+            ))}
           </>
         )}
       </CommandList>
