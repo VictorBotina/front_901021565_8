@@ -16,11 +16,14 @@ type Article = {
 // Función para obtener los artículos del archivo JSON en /public
 async function getArticles(): Promise<Article[]> {
   try {
-    // Usamos una ruta relativa a la carpeta `public`
-    // NEXT_PUBLIC_SITE_URL es necesario para que funcione tanto en desarrollo como en producción
-    const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/articles.json`);
+    // Para cargar un archivo desde la carpeta `public`, necesitamos una URL absoluta.
+    // En el servidor (durante el build), necesitamos construirla. En el cliente, una ruta relativa funciona.
+    // Para simplificar y hacerlo robusto, construiremos la URL completa.
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:9002';
+    const res = await fetch(`${baseUrl}/articles.json`);
+    
     if (!res.ok) {
-      throw new Error('No se pudieron cargar los artículos');
+      throw new Error(`No se pudieron cargar los artículos: ${res.statusText}`);
     }
     const data = await res.json();
     // Suponiendo que el JSON tiene una clave "articles" que es un array
@@ -55,7 +58,7 @@ export default async function TestPage() {
         </div>
       ) : (
         <div className="text-center py-16">
-          <p className="text-muted-foreground">No hay artículos disponibles en el archivo JSON.</p>
+          <p className="text-muted-foreground">No hay artículos disponibles en el archivo JSON o no se pudieron cargar.</p>
         </div>
       )}
     </div>
