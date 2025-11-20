@@ -10,7 +10,7 @@
     --card-foreground: 0 0% 15%;
     --popover: 216 67% 98%;
     --popover-foreground: 0 0% 15%;
-    --primary: 197 87% 30%; /* #0a678d */
+    --primary: 203 100% 27.1%; /* #00508A */
     --primary-foreground: 0 0% 100%; /* Blanco */
     --secondary: 210 20% 95%; /* Un gris claro para secundario */
     --secondary-foreground: 0 0% 9%;
@@ -22,10 +22,10 @@
     --destructive-foreground: 0 0% 98%;
     --border: 210 20% 85%;
     --input: 210 20% 85%;
-    --ring: 197 87% 30%;
+    --ring: 203 100% 27.1%;
     --radius: 0.75rem;
 
-    --title: 197 87% 30%; /* #0a678d */
+    --title: 203 100% 27.1%; /* #00508A */
 
     /* Otros colores disponibles */
     --lime-green: 73 72% 41%; /* #a4bd19 */
@@ -39,7 +39,7 @@
     --card-foreground: 0 0% 98%;
     --popover: 240 10% 3.9%;
     --popover-foreground: 0 0% 98%;
-    --primary: 197 70% 45%; /* Un poco más brillante para modo oscuro */
+    --primary: 203 70% 45%; /* Un poco más brillante para modo oscuro */
     --primary-foreground: 0 0% 100%;
     --secondary: 240 3.7% 15.9%;
     --secondary-foreground: 0 0% 98%;
@@ -51,9 +51,9 @@
     --destructive-foreground: 0 0% 98%;
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
-    --ring: 197 70% 45%;
+    --ring: 203 70% 45%;
 
-    --title: 197 70% 65%;
+    --title: 203 70% 65%;
   }
 
   [data-contrast="high"] {
