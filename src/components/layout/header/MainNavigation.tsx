@@ -35,9 +35,8 @@ export function MainNavigation() {
       <div className="relative">
       <div className="container mx-auto flex h-20 items-center justify-between px-4">
           <div className="flex items-center">
-            <Link href="/" className="flex items-center space-x-2" aria-label="Página de inicio de Entidad Digital" onClick={() => setActiveMenu(null)}>
+            <Link href="/" className="flex items-center space-x-2" aria-label="Página de inicio" onClick={() => setActiveMenu(null)}>
               <Logo />
-              <span className="hidden font-bold sm:inline-block">Entidad Digital</span>
             </Link>
             
             {/* Desktop Navigation */}

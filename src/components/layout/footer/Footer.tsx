@@ -130,10 +130,9 @@ export function Footer() {
         <div className="mt-8 flex flex-col items-center justify-between sm:flex-row">
           <div className="flex items-center space-x-2">
             <Logo className="h-8 w-8" />
-            <span className="font-bold">Entidad Digital</span>
           </div>
           <p className="text-sm text-muted-foreground mt-4 sm:mt-0">
-            © {new Date().getFullYear()} Entidad Digital. Todos los derechos reservados.
+            © {new Date().getFullYear()} Todos los derechos reservados.
           </p>
           <div className="mt-4 flex space-x-4 sm:mt-0">
             <Link href="#" aria-label="Facebook" className="text-muted-foreground hover:text-primary">
