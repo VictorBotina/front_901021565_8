@@ -3,6 +3,7 @@ import { Logo } from "@/components/logo";
 import { FacebookIcon, TwitterIcon, LinkedinIcon, InstagramIcon } from "@/components/icons/SocialIcons";
 import { Button } from "@/components/ui/button";
 import { FooterAccordion } from "./FooterAccordion";
+import Image from "next/image";
 
 type FooterData = {
   row1: {
@@ -128,8 +129,15 @@ export function Footer() {
         </div>
 
         <div className="mt-8 flex flex-col items-center justify-between sm:flex-row">
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-4">
             <Logo className="h-8 w-auto" />
+            <Image
+              src="/logo_supersalud.svg"
+              alt="Logo de Vigilado SuperSalud"
+              width={140}
+              height={32}
+              className="h-8 w-auto"
+            />
           </div>
           <p className="text-sm text-muted-foreground mt-4 sm:mt-0">
             © {new Date().getFullYear()} Todos los derechos reservados.
