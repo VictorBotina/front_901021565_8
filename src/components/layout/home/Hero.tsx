@@ -164,7 +164,11 @@ export function Hero({ slides, autoPlayInterval = 5000 }: HeroProps) {
 
       {/* Controles y Barra de Progreso */}
       <div className="absolute bottom-0 left-0 right-0 z-20 h-16 bg-background/50 backdrop-blur-sm">
-        <Progress value={progress} className="h-1 w-full rounded-none" />
+        <Progress 
+          value={progress} 
+          className="h-1 w-full rounded-none" 
+          aria-label="Progreso del carrusel" 
+        />
         <div className="container mx-auto flex h-full items-center justify-between px-4">
           <div className="flex items-center gap-2">
             <Button
