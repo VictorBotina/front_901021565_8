@@ -11,15 +11,14 @@ type Article = {
   description: string;
   author: string;
   date: string;
+  url: string;
 };
 
 // Función para obtener los artículos del archivo JSON en /public
 async function getArticles(): Promise<Article[]> {
   try {
-    // Para cargar un archivo desde la carpeta `public`, necesitamos una URL absoluta.
-    // En el servidor (durante el build), necesitamos construirla. En el cliente, una ruta relativa funciona.
-    // Para simplificar y hacerlo robusto, construiremos la URL completa.
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:9002';
+    // Usamos una ruta relativa que funciona tanto en desarrollo como en producción.
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "";
     const res = await fetch(`${baseUrl}/articles.json`);
     
     if (!res.ok) {
@@ -49,10 +48,8 @@ export default async function TestPage() {
       {articles.length > 0 ? (
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {articles.map((article) => {
-            // Creamos un enlace de ejemplo para cada artículo
-            const articleHref = `/test/articulo/${article.id}`;
             return (
-              <ArticleCard key={article.id} article={article} href={articleHref} />
+              <ArticleCard key={article.id} article={article} href={article.url} />
             )
           })}
         </div>

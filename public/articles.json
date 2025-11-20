@@ -3,29 +3,32 @@
     {
       "id": 1,
       "imageUrl": "https://front-901021565-8.vercel.app/_next/image?url=https%3A%2F%2Fnatural-morning-88dae3e00d.media.strapiapp.com%2Fart_habitos_saludables_6b42c5a87f.webp&w=1920&q=75",
-      "category": "Bienestar",
-      "title": "Guía Completa sobre Hábitos Saludables",
-      "description": "Descubre cómo pequeños cambios en tu rutina diaria pueden tener un gran impacto en tu salud y bienestar a largo plazo.",
-      "author": "Dr. Ana María Rojas",
-      "date": "2024-07-28"
+      "category": "Subsidiado",
+      "title": "Hábitos y estilos de vida saludables",
+      "description": "Fomentamos la salud a través de la educación y la prevención, promoviendo hábitos saludables y actividad física.",
+      "author": "Equipo de Salud",
+      "date": "2024-05-20",
+      "url": "#"
     },
     {
       "id": 2,
       "imageUrl": "https://front-901021565-8.vercel.app/_next/image?url=https%3A%2F%2Fnatural-morning-88dae3e00d.media.strapiapp.com%2Fart_habitos_saludables_6b42c5a87f.webp&w=1920&q=75",
-      "category": "Salud",
-      "title": "La Importancia de la Prevención en la Salud",
-      "description": "Exploramos por qué la prevención es la mejor herramienta para mantener una vida sana y evitar enfermedades comunes.",
-      "author": "Equipo de Comunicación",
-      "date": "2024-07-25"
+      "category": "Contributivo",
+      "title": "Novedades en el Régimen Contributivo",
+      "description": "Conoce las últimas actualizaciones y beneficios para afiliados al régimen contributivo.",
+      "author": "Gestión de Afiliados",
+      "date": "2024-05-18",
+      "url": "#"
     },
     {
       "id": 3,
       "imageUrl": "https://front-901021565-8.vercel.app/_next/image?url=https%3A%2F%2Fnatural-morning-88dae3e00d.media.strapiapp.com%2Fart_habitos_saludables_6b42c5a87f.webp&w=1920&q=75",
-      "category": "Noticias",
-      "title": "Nuevos Servicios Disponibles para Afiliados",
-      "description": "Conoce los nuevos servicios y beneficios que hemos añadido para mejorar la atención y el cuidado de nuestros afiliados.",
-      "author": "Junta Directiva",
-      "date": "2024-07-22"
+      "category": "Prestadores",
+      "title": "Guía para nuevos Prestadores de Salud",
+      "description": "Información esencial para integrar su institución a nuestra red de prestadores de servicios de salud.",
+      "author": "Red de Prestadores",
+      "date": "2024-05-15",
+      "url": "#"
     }
   ]
 }

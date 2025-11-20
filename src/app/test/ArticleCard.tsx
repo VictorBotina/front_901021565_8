@@ -2,6 +2,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
+import { CATEGORIES } from "@/app/blog/data";
 
 // Definimos un tipo para la estructura del artículo, para mayor seguridad y autocompletado.
 interface Article {
@@ -12,6 +13,7 @@ interface Article {
   description: string;
   author: string;
   date: string;
+  url: string;
 }
 
 interface ArticleCardProps {
@@ -38,6 +40,8 @@ function formatDate(dateString: string): string {
 }
 
 export function ArticleCard({ article, href }: ArticleCardProps) {
+  const categoryInfo = CATEGORIES.find(c => c.name === article.category);
+
   return (
     <Link href={href} className="block group">
       <div className="w-full bg-gray-200 rounded-md overflow-hidden mb-4">
@@ -53,7 +57,7 @@ export function ArticleCard({ article, href }: ArticleCardProps) {
         {article.category && (
           <span
             className="text-xs font-semibold px-2 py-1 rounded text-white"
-            style={{ backgroundColor: '#3b82f6' }} // Color de ejemplo para la categoría
+            style={{ backgroundColor: categoryInfo?.color || '#3b82f6' }}
           >
             {article.category}
           </span>
