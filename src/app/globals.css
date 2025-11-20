@@ -4,28 +4,32 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%; /* #FFFFFF */
+    --background: 216 67% 98%; /* #eaf1fa */
     --foreground: 0 0% 15%; /* #262626 */
-    --card: 0 0% 100%;
+    --card: 216 67% 98%;
     --card-foreground: 0 0% 15%;
-    --popover: 0 0% 100%;
+    --popover: 216 67% 98%;
     --popover-foreground: 0 0% 15%;
-    --primary: 207 100% 27%; /* #00508A */
+    --primary: 197 87% 30%; /* #0a678d */
     --primary-foreground: 0 0% 100%; /* Blanco */
-    --secondary: 0 0% 90%;
+    --secondary: 210 20% 95%; /* Un gris claro para secundario */
     --secondary-foreground: 0 0% 9%;
-    --muted: 0 0% 90%;
+    --muted: 210 20% 95%;
     --muted-foreground: 0 0% 45%;
-    --accent: 0 0% 95%; /* #F2F2F2 */
-    --accent-foreground: 0 0% 15%; /* #262626 */
+    --accent: 85 53% 40%; /* #679336 */
+    --accent-foreground: 0 0% 100%; /* Blanco para texto sobre acento */
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 85%;
-    --input: 0 0% 85%;
-    --ring: 207 100% 27%;
+    --border: 210 20% 85%;
+    --input: 210 20% 85%;
+    --ring: 197 87% 30%;
     --radius: 0.75rem;
 
-    --title: 207 100% 27%; /* #00508A */
+    --title: 197 87% 30%; /* #0a678d */
+
+    /* Otros colores disponibles */
+    --lime-green: 73 72% 41%; /* #a4bd19 */
+    --steel-blue: 206 41% 44%; /* #427ba1 */
   }
 
   .dark {
@@ -35,21 +39,21 @@
     --card-foreground: 0 0% 98%;
     --popover: 240 10% 3.9%;
     --popover-foreground: 0 0% 98%;
-    --primary: 207 100% 37%; /* Un poco más brillante para modo oscuro */
+    --primary: 197 70% 45%; /* Un poco más brillante para modo oscuro */
     --primary-foreground: 0 0% 100%;
     --secondary: 240 3.7% 15.9%;
     --secondary-foreground: 0 0% 98%;
     --muted: 240 3.7% 15.9%;
     --muted-foreground: 0 0% 63.9%;
-    --accent: 240 3.7% 15.9%;
+    --accent: 85 50% 50%;
     --accent-foreground: 0 0% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
-    --ring: 207 100% 37%;
+    --ring: 197 70% 45%;
 
-    --title: 205 67% 52%; /* #3391D4 */
+    --title: 197 70% 65%;
   }
 
   [data-contrast="high"] {
