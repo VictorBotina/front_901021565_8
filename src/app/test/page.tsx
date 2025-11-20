@@ -1,6 +1,7 @@
-
 // src/app/test/page.tsx
 import { ArticleCard } from "./ArticleCard";
+import fs from 'fs';
+import path from 'path';
 
 // Definimos el tipo aquí también para que la página sepa qué esperar.
 type Article = {
@@ -17,14 +18,12 @@ type Article = {
 // Función para obtener los artículos del archivo JSON en /public
 async function getArticles(): Promise<Article[]> {
   try {
-    // Usamos una ruta relativa que funciona tanto en desarrollo como en producción.
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "";
-    const res = await fetch(`${baseUrl}/articles.json`);
-    
-    if (!res.ok) {
-      throw new Error(`No se pudieron cargar los artículos: ${res.statusText}`);
-    }
-    const data = await res.json();
+    // Construir la ruta al archivo en la carpeta public
+    const filePath = path.join(process.cwd(), 'public', 'articles.json');
+    // Leer el contenido del archivo
+    const fileContent = fs.readFileSync(filePath, 'utf8');
+    // Parsear el JSON
+    const data = JSON.parse(fileContent);
     // Suponiendo que el JSON tiene una clave "articles" que es un array
     return data.articles;
   } catch (error) {
