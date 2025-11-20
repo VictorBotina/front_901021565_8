@@ -8,7 +8,7 @@
       "description": "Fomentamos la salud a través de la educación y la prevención, promoviendo hábitos saludables y actividad física.",
       "author": "Equipo de Salud",
       "date": "2024-05-20",
-      "url": "https://front-901021565-8.vercel.app/blog/subsidiado"
+      "url": "#"
     },
     {
       "id": 2,
@@ -18,7 +18,7 @@
       "description": "Conoce las últimas actualizaciones y beneficios para afiliados al régimen contributivo.",
       "author": "Gestión de Afiliados",
       "date": "2024-05-18",
-      "url": "https://front-901021565-8.vercel.app/blog/subsidiado"
+      "url": "#"
     },
     {
       "id": 3,
@@ -28,7 +28,7 @@
       "description": "Información esencial para integrar su institución a nuestra red de prestadores de servicios de salud.",
       "author": "Red de Prestadores",
       "date": "2024-05-15",
-      "url": "https://front-901021565-8.vercel.app/blog/subsidiado"
+      "url": "#"
     }
   ]
 }
