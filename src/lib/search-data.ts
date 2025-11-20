@@ -74,5 +74,11 @@ export const searchData: SearchablePage[] = [
     "href": "#",
     "keywords": ["transparencia", "acceso", "informacion", "publica"],
     "icon": "File"
+  },
+  {
+    "title": "Página de Pruebas",
+    "href": "/test-pruebas",
+    "keywords": ["test", "prueba", "desarrollo"],
+    "icon": "Workflow"
   }
 ];
