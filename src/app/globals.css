@@ -10,8 +10,8 @@
     --card-foreground: 0 0% 15%;
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 15%;
-    --primary: 79 53% 45%; /* #92B53C */
-    --primary-foreground: 0 0% 100%;
+    --primary: 215 80% 45%; /* #1a73e8 - Un azul más oscuro y accesible */
+    --primary-foreground: 0 0% 100%; /* Blanco */
     --secondary: 0 0% 90%;
     --secondary-foreground: 0 0% 9%;
     --muted: 0 0% 90%;
@@ -22,7 +22,7 @@
     --destructive-foreground: 0 0% 98%;
     --border: 0 0% 85%;
     --input: 0 0% 85%;
-    --ring: 79 53% 45%;
+    --ring: 215 80% 45%;
     --radius: 0.75rem;
 
     --title: 207 100% 27%; /* #00508A */
@@ -35,8 +35,8 @@
     --card-foreground: 0 0% 98%;
     --popover: 240 10% 3.9%;
     --popover-foreground: 0 0% 98%;
-    --primary: 79 53% 45%;
-    --primary-foreground: 0 0% 10%;
+    --primary: 215 80% 55%; /* Un poco más brillante para modo oscuro */
+    --primary-foreground: 0 0% 100%;
     --secondary: 240 3.7% 15.9%;
     --secondary-foreground: 0 0% 98%;
     --muted: 240 3.7% 15.9%;
@@ -47,7 +47,7 @@
     --destructive-foreground: 0 0% 98%;
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
-    --ring: 79 53% 45%;
+    --ring: 215 80% 55%;
 
     --title: 205 67% 52%; /* #3391D4 */
   }
