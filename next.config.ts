@@ -40,6 +40,12 @@ const nextConfig: NextConfig = {
         hostname: 'icbculbvvihpcrnmjedc.supabase.co',
         port: '',
         pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'front-901021565-8.vercel.app',
+        port: '',
+        pathname: '/**',
       }
     ],
   },
