@@ -157,15 +157,15 @@ function renderArticleContent(content: Article['content']) {
                 const embedUrl = getYoutubeEmbedUrl(section.media_url);
                 if (embedUrl) {
                 return (
-                    <div className="aspect-w-16 aspect-h-9 my-8">
-                    <iframe
-                        src={embedUrl}
-                        title={section.title_seccion || "Video de YouTube"}
-                        frameBorder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                        className="w-full h-full rounded-lg shadow-lg"
-                    ></iframe>
+                    <div className="relative my-8" style={{ paddingBottom: '56.25%' /* 16:9 aspect ratio */ }}>
+                        <iframe
+                            src={embedUrl}
+                            title={section.title_seccion || "Video de YouTube"}
+                            frameBorder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                            className="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg"
+                        ></iframe>
                     </div>
                 );
                 }
