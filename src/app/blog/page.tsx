@@ -67,7 +67,7 @@ export default async function BlogPage() {
             <div className="flex items-center justify-center space-x-2">
               <Logo className="h-10 w-10 text-gray-900" />
               <span className="text-3xl font-bold text-gray-900 tracking-tight">
-                Entidad Digital | Blog
+                Emssanar EPS | Blog
               </span>
             </div>
           </Link>
