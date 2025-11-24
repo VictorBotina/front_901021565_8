@@ -1,10 +1,8 @@
 // src/components/articles/ArticleCard.tsx
-
 import Link from "next/link";
 import Image from "next/image";
 import { CATEGORIES } from "@/app/blog/data";
 
-// Definimos un tipo para la estructura del artículo, para mayor seguridad y autocompletado.
 interface Article {
   id: number;
   imageUrl: string;
@@ -20,7 +18,6 @@ interface ArticleCardProps {
   article: Article;
 }
 
-// Función auxiliar para formatear la fecha
 function formatDate(dateString: string): string {
   if (!dateString) return "";
   try {
@@ -42,36 +39,38 @@ export function ArticleCard({ article }: ArticleCardProps) {
 
   return (
     <Link href={article.url} className="block group">
-      <div className="w-full bg-gray-200 rounded-md overflow-hidden mb-4">
-        <Image
-          src={article.imageUrl}
-          alt={article.title}
-          width={800}
-          height={450}
-          className="w-full object-cover transition-transform duration-300 group-hover:scale-105 h-auto aspect-video"
-        />
-      </div>
-      <div className="space-y-2">
-        {article.category && (
-          <span
-            className="text-xs font-semibold px-2 py-1 rounded text-white"
-            style={{ backgroundColor: categoryInfo?.color || '#3b82f6' }}
-          >
-            {article.category}
-          </span>
-        )}
-        <h3 className="font-bold text-lg text-foreground group-hover:text-primary transition-colors">
-          {article.title}
-        </h3>
-        {article.description && (
-            <p className="text-sm text-muted-foreground line-clamp-2">
-                {article.description}
-            </p>
-        )}
-        <div className="text-xs text-muted-foreground">
-          {article.author && <span>Por {article.author}</span>}
-          {article.author && article.date && " ・ "}
-          {article.date && <time>{formatDate(article.date)}</time>}
+      <div className="bg-card rounded-lg shadow-sm border overflow-hidden transition-shadow hover:shadow-md h-full flex flex-col">
+        <div className="w-full bg-gray-200 overflow-hidden">
+          <Image
+            src={article.imageUrl}
+            alt={article.title}
+            width={800}
+            height={450}
+            className="w-full object-cover transition-transform duration-300 group-hover:scale-105 h-auto aspect-video"
+          />
+        </div>
+        <div className="p-4 flex flex-col flex-grow">
+          {article.category && (
+            <span
+              className="text-xs font-semibold px-2 py-1 rounded text-white self-start mb-2"
+              style={{ backgroundColor: categoryInfo?.color || '#3b82f6' }}
+            >
+              {article.category}
+            </span>
+          )}
+          <h3 className="font-bold text-lg text-foreground group-hover:text-primary transition-colors flex-grow">
+            {article.title}
+          </h3>
+          {article.description && (
+              <p className="text-sm text-muted-foreground line-clamp-2 mt-2">
+                  {article.description}
+              </p>
+          )}
+          <div className="text-xs text-muted-foreground mt-4 pt-4 border-t">
+            {article.author && <span>Por {article.author}</span>}
+            {article.author && article.date && " ・ "}
+            {article.date && <time>{formatDate(article.date)}</time>}
+          </div>
         </div>
       </div>
     </Link>
