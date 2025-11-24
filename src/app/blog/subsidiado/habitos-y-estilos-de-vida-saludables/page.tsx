@@ -13,6 +13,7 @@ import { Article, RichTextBlock } from "@/app/types/article";
 import { Calendar, Clock } from "lucide-react";
 import { ShareButtons } from "@/components/ui/ShareButtons";
 import { notFound } from "next/navigation";
+import { ArticleSection } from "@/components/articles/ArticleSection";
 
 const ARTICLE_ID = "fni951bnbpi9tc18e7t92l6i";
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:9002';
@@ -259,6 +260,7 @@ export default async function HabitosSaludablesPage() {
             </footer>
         )}
       </article>
+      <ArticleSection title="Otras noticias y eventos" />
     </div>
   );
 }
