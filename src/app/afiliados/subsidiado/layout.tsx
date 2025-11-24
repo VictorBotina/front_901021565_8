@@ -16,9 +16,7 @@ export default function SubsidiadoLayout({
         </p>
       </header>
       <main>
-        <div className="rounded-lg border bg-card text-card-foreground shadow-sm">
-          {children}
-        </div>
+        {children}
       </main>
     </div>
   );
