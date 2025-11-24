@@ -90,6 +90,18 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
+function getYoutubeEmbedUrl(url: string): string | null {
+  if (!url) return null;
+  let videoId;
+  if (url.includes("youtube.com/watch?v=")) {
+    videoId = url.split("v=")[1].split("&")[0];
+  } else if (url.includes("youtu.be/")) {
+    videoId = url.split("youtu.be/")[1].split("?")[0];
+  } else {
+    return null;
+  }
+  return `https://www.youtube.com/embed/${videoId}`;
+}
 
 function renderArticleContent(content: Article['content']) {
   if (!content || !Array.isArray(content)) {
@@ -139,6 +151,27 @@ function renderArticleContent(content: Article['content']) {
           }
           return null;
         })}
+
+        {section.media_url && (
+            (() => {
+                const embedUrl = getYoutubeEmbedUrl(section.media_url);
+                if (embedUrl) {
+                return (
+                    <div className="aspect-w-16 aspect-h-9 my-8">
+                    <iframe
+                        src={embedUrl}
+                        title={section.title_seccion || "Video de YouTube"}
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                        className="w-full h-full rounded-lg shadow-lg"
+                    ></iframe>
+                    </div>
+                );
+                }
+                return null;
+            })()
+        )}
       </div>
     </section>
   ));
