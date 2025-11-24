@@ -60,15 +60,15 @@ export function ArticleCard({ article }: ArticleCardProps) {
             {article.category}
           </span>
         )}
-        <h3 className="font-bold text-lg text-gray-900 group-hover:text-primary transition-colors">
+        <h3 className="font-bold text-lg text-foreground group-hover:text-primary transition-colors">
           {article.title}
         </h3>
         {article.description && (
-            <p className="text-sm text-gray-600 line-clamp-2">
+            <p className="text-sm text-muted-foreground line-clamp-2">
                 {article.description}
             </p>
         )}
-        <div className="text-xs text-gray-500">
+        <div className="text-xs text-muted-foreground">
           {article.author && <span>Por {article.author}</span>}
           {article.author && article.date && " ・ "}
           {article.date && <time>{formatDate(article.date)}</time>}
