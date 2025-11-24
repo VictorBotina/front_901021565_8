@@ -1,6 +1,6 @@
 // src/app/afiliados/subsidiado/tramites/page.tsx
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
-import { ArrowRight, FileText, UserPlus, FileBadge, Route } from "lucide-react";
+import { ArrowRight, UserPlus, FileBadge, Route } from "lucide-react";
 import Link from 'next/link';
 import { Button } from "@/components/ui/button";
 import React from "react";
@@ -8,12 +8,6 @@ import { ArticleSection } from "@/components/articles/ArticleSection";
 
 export default function TramitesLandingPage() {
   const sublinks = [
-    {
-      href: "/afiliados/subsidiado/tramites/tramites",
-      title: "Guía de Trámites",
-      description: "Encuentra aquí una guía centralizada para todos los trámites que puedes realizar.",
-      icon: <FileText />
-    },
     {
       href: "/afiliados/subsidiado/tramites/afiliacion",
       title: "Afiliación",
@@ -44,7 +38,7 @@ export default function TramitesLandingPage() {
           </p>
         </header>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
             {sublinks.map(link => (
                 <Card key={link.href} className="flex flex-col text-center items-center hover:shadow-lg transition-shadow">
                     <CardHeader className="items-center p-6">
