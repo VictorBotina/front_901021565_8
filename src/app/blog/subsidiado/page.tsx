@@ -7,7 +7,8 @@ import type { Article } from "@/app/types/article";
 // Esto es un mapeo manual. Idealmente, los slugs vendrían de la API.
 const articleUrlMap: { [key: string]: string } = {
   "Hábitos y estilos de vida saludables: La Clave para un bienestar integral": "/blog/subsidiado/habitos-y-estilos-de-vida-saludables",
-  "Conozca cómo aplica el régimen de libre escogencia de IPS en Emssanar EPS": "/blog/subsidiado/libre-escogencia-de-ips"
+  "Conozca cómo aplica el régimen de libre escogencia de IPS en Emssanar EPS": "/blog/subsidiado/libre-escogencia-de-ips",
+  "¿Sabes cómo radicar tus PQRS y cómo facilita la atención con nuestros afiliados?": "/blog/subsidiado/como-radicar-tus-pqrs"
 };
 
 export default async function SubsidiadoBlogPage() {
