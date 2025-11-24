@@ -24,6 +24,9 @@ const articleUrlMap: { [key: string]: { [key: string]: string } } = {
   },
   "Comunicados de Prensa": {
     "Comunicado de Prensa de Prueba": "/blog/comunicados-de-prensa/articulo-1",
+  },
+  "Eventos": {
+    "IV Jornada de Vacunación Nacional – 24 de octubre de 2025": "/blog/eventos/jornada-vacunacion-octubre-2025",
   }
 };
 

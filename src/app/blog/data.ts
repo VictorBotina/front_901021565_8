@@ -1,5 +1,5 @@
 // src/app/blog/data.ts
-import { Shield, HandCoins, Stethoscope, Megaphone } from "lucide-react";
+import { Shield, HandCoins, Stethoscope, Megaphone, CalendarDays } from "lucide-react";
 import type { BlogCategory, Article } from "@/lib/types";
 
 // Definición de Categorías
@@ -45,4 +45,14 @@ export const CATEGORIES: BlogCategory[] = [
     bgColor: "rgba(99, 102, 241, 0.1)",
     textColor: "#4338ca",
   },
+  {
+    id: "eventos",
+    name: "Eventos",
+    href: "/blog/eventos",
+    description: "Participa en nuestras jornadas de salud, eventos y actividades.",
+    icon: CalendarDays,
+    color: "#25C7D9",
+    bgColor: "rgba(37, 199, 217, 0.1)",
+    textColor: "#0e7490",
+  }
 ];
