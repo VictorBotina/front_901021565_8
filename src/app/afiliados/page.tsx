@@ -292,8 +292,8 @@ export default function AfiliadosPage() {
             </div>
           </section>
         </div>
-        <ArticleSection title="Últimas noticias" />
       </main>
+      <ArticleSection title="Últimas noticias" />
     </div>
   );
 }
