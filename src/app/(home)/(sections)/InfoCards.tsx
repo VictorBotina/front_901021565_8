@@ -33,7 +33,7 @@ export function InfoCards() {
   ];
 
   return (
-    <section className="bg-muted/40 py-12 lg:py-24" aria-labelledby="info-cards-title">
+    <section className="py-12 lg:py-24" aria-labelledby="info-cards-title">
        <h2 id="info-cards-title" className="sr-only">Nuestros Portales Principales</h2>
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">

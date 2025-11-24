@@ -34,7 +34,7 @@ export async function ArticleSection({ title }: ArticleSectionProps) {
   const articles = await getArticles();
 
   return (
-    <section className="bg-muted/40 py-12 lg:py-24">
+    <section className="py-12 lg:py-24">
         <div className="container mx-auto px-4">
             <header className="mb-12 text-center">
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
