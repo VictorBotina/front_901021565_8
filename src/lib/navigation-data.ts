@@ -77,7 +77,7 @@ export const navigationItems: NavItem[] = [
         }
     ],
     cta: {
-        title: 'Conoce nuestros canales de atención',
+        title: 'Noticias y novedades del Régimen Subsidiado',
         href: '/afiliados/subsidiado/informacion/canales-de-atencion',
         imageUrl: 'https://images.unsplash.com/photo-1586769852836-bc069f19e1b6?w=400&h=300&fit=crop&q=80',
     }
