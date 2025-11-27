@@ -7,6 +7,9 @@ import { Footer } from "@/components/layout/footer/Footer";
 import { Toaster } from "@/components/ui/toaster";
 import { cn } from "@/lib/utils";
 import Breadcrumbs from "@/components/layout/breadcrumbs/Breadcrumbs";
+import { cookies } from 'next/headers';
+import { CookieConsentBanner } from '@/components/cookie/CookieConsentBanner';
+import Analytics from '@/components/Analytics';
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -49,6 +52,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const cookieStore = cookies();
+  const hasConsent = cookieStore.get('analytics_consent')?.value === 'true';
+
   return (
     <html lang="es" suppressHydrationWarning>
       <head>
@@ -56,6 +62,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet" />
+        {hasConsent && <Analytics />}
       </head>
       <body className={cn("min-h-screen bg-background font-body antialiased", inter.variable)}>
         <ThemeProvider
@@ -71,6 +78,7 @@ export default function RootLayout({
             <Footer />
           </div>
           <Toaster />
+          {!hasConsent && <CookieConsentBanner />}
         </ThemeProvider>
       </body>
     </html>
