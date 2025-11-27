@@ -123,7 +123,9 @@ export function MainNavigation() {
                      <div className="flex items-center justify-around rounded-lg border p-2">
                         <ThemeSwitcher />
                         <ContrastSwitcher />
-                        <FontSizeControl />
+                        <div className="flex">
+                            <FontSizeControl />
+                        </div>
                      </div>
                    </div>
                 </div>
