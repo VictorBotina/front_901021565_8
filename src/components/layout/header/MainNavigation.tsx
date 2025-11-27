@@ -120,7 +120,7 @@ export function MainNavigation() {
                   </Accordion>
                    <div className="mt-8 border-t pt-6">
                     <h3 className="mb-4 text-lg font-medium">Accesibilidad</h3>
-                     <div className="flex items-center justify-around rounded-lg border p-2">
+                     <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 rounded-lg border p-2">
                         <ThemeSwitcher />
                         <ContrastSwitcher />
                         <div className="flex">
