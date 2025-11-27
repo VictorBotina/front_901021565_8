@@ -117,26 +117,28 @@ export function Hero({ slides, autoPlayInterval = 5000 }: HeroProps) {
             transition={{ duration: 0.5 }}
           >
             {/* Contenedor de la imagen */}
-            <AnimatePresence initial={false}>
-              <motion.div
-                key={currentIndex}
-                className="absolute inset-0"
-                initial={{ opacity: 0, scale: 1.05 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.7, ease: 'easeInOut' }}
-              >
-                <Image
-                  src={currentSlide.image.imageUrl}
-                  alt={currentSlide.image.description}
-                  fill
-                  className="object-cover"
-                  priority={currentIndex === 0}
-                  data-ai-hint={currentSlide.image.imageHint}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
-              </motion.div>
-            </AnimatePresence>
+            <div className="absolute inset-0 overflow-hidden">
+                <AnimatePresence initial={false}>
+                <motion.div
+                    key={currentIndex}
+                    className="absolute inset-0"
+                    initial={{ opacity: 0, scale: 1.05 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    transition={{ duration: 0.7, ease: 'easeInOut' }}
+                >
+                    <Image
+                    src={currentSlide.image.imageUrl}
+                    alt={currentSlide.image.description}
+                    fill
+                    className="object-cover"
+                    priority={currentIndex === 0}
+                    data-ai-hint={currentSlide.image.imageHint}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+                </motion.div>
+                </AnimatePresence>
+            </div>
 
             {/* Contenido de texto */}
             <div className="container relative z-10 mx-auto flex h-full flex-col justify-end px-4 pb-20 md:pb-24">
