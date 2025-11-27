@@ -2,7 +2,6 @@ import { Hero, type Slide } from "@/components/layout/home/Hero";
 import { InfoCards } from "@/components/layout/home/InfoCards";
 import { FeedbackSection } from "@/components/layout/home/FeedbackSection";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
-import { StrapiApiTester } from "@/components/layout/home/StrapiApiTester";
 
 export default function Home() {
   // Define el contenido para cada slide del carrusel
@@ -35,7 +34,6 @@ export default function Home() {
       <Hero slides={heroSlides} />
       <InfoCards />
       <FeedbackSection />
-      <StrapiApiTester />
     </>
   );
 }
