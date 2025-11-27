@@ -2,6 +2,7 @@
 export type NavLink = {
   text: string;
   href: string;
+  id?: string;
 };
 
 export type NavGroup = {
@@ -90,10 +91,10 @@ export const navigationItems: NavItem[] = [
                 {
                     title: 'Información y Servicios',
                     links: [
-                        { text: 'Beneficios del Régimen', href: '/afiliados/contributivo' },
-                        { text: 'Afiliación de Beneficiarios', href: '/afiliados/contributivo' },
-                        { text: 'Red de Urgencias', href: '/afiliados/contributivo' },
-                        { text: 'Copagos y Cuotas Moderadoras', href: '/afiliados/contributivo' },
+                        { id: 'cont-beneficios', text: 'Beneficios del Régimen', href: '#' },
+                        { id: 'cont-afil-benef', text: 'Afiliación de Beneficiarios', href: '#' },
+                        { id: 'cont-red-urg', text: 'Red de Urgencias', href: '#' },
+                        { id: 'cont-copagos', text: 'Copagos y Cuotas Moderadoras', href: '#' },
                     ]
                 }
             ]
@@ -103,9 +104,9 @@ export const navigationItems: NavItem[] = [
                 {
                     title: 'Aportes y Pagos',
                     links: [
-                        { text: 'Portal de Pagos en Línea (PILA)', href: '/afiliados/contributivo' },
-                        { text: 'Certificado de Aportes', href: '/afiliados/contributivo' },
-                        { text: 'Incapacidades y Licencias', href: '/afiliados/contributivo' },
+                        { id: 'cont-pila', text: 'Portal de Pagos en Línea (PILA)', href: '#' },
+                        { id: 'cont-cert-aportes', text: 'Certificado de Aportes', href: '#' },
+                        { id: 'cont-incapacidades', text: 'Incapacidades y Licencias', href: '#' },
                     ]
                 }
             ]
@@ -115,10 +116,10 @@ export const navigationItems: NavItem[] = [
                 {
                     title: 'Servicios en Línea',
                     links: [
-                        { text: 'Agendamiento de Citas', href: '/afiliados/contributivo' },
-                        { text: 'Autorizaciones Médicas', href: '/afiliados/contributivo' },
-                        { text: 'Resultados de Laboratorio', href: '/afiliados/contributivo' },
-                        { text: 'Actualización de Datos', href: '/afiliados/contributivo' },
+                        { id: 'cont-citas', text: 'Agendamiento de Citas', href: '#' },
+                        { id: 'cont-autorizaciones', text: 'Autorizaciones Médicas', href: '#' },
+                        { id: 'cont-lab-results', text: 'Resultados de Laboratorio', href: '#' },
+                        { id: 'cont-update-data', text: 'Actualización de Datos', href: '#' },
                     ]
                 }
             ]
@@ -126,7 +127,7 @@ export const navigationItems: NavItem[] = [
     ],
     cta: {
         title: 'Portal para Empleadores',
-        href: '/afiliados/contributivo',
+        href: '#',
         imageUrl: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=400&h=300&fit=crop&q=80',
     }
   },

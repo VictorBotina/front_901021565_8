@@ -107,7 +107,7 @@ export function MainNavigation() {
                                 <React.Fragment key={group.title}>
                                   <h4 className="pt-2 text-base font-semibold">{group.title}</h4>
                                   {group.links.map(link => (
-                                    <Link key={link.href} href={link.href} onClick={() => setMobileMenuOpen(false)} className="block py-1 text-muted-foreground hover:text-primary">
+                                    <Link key={link.id || link.href} href={link.href} onClick={() => setMobileMenuOpen(false)} className="block py-1 text-muted-foreground hover:text-primary">
                                       {link.text}
                                     </Link>
                                   ))}
@@ -159,7 +159,7 @@ export function MainNavigation() {
                         <h3 className="font-bold text-lg mb-3 text-title">{group.title}</h3>
                         <nav className="flex flex-col space-y-2">
                           {group.links.map(link => (
-                             <Link key={link.href} href={link.href} onClick={() => setActiveMenu(null)} className="text-muted-foreground hover:text-primary hover:underline underline-offset-4">
+                             <Link key={link.id || link.href} href={link.href} onClick={() => setActiveMenu(null)} className="text-muted-foreground hover:text-primary hover:underline underline-offset-4">
                                {link.text}
                              </Link>
                           ))}
