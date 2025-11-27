@@ -127,7 +127,7 @@ export const navigationItems: NavItem[] = [
     ],
     cta: {
         title: 'Portal para Empleadores',
-        href: '#',
+        href: '/blog/contributivo',
         imageUrl: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=400&h=300&fit=crop&q=80',
     }
   },
