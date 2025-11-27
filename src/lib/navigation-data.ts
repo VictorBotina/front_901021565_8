@@ -52,7 +52,7 @@ export const navigationItems: NavItem[] = [
                 {
                     title: 'Trámites',
                     links: [
-                        { text: 'Guía de Trámites', href: '/afiliados/subsidiado/tramites/tramites' },
+                        { text: 'Guía de Trámites', href: '/afiliados/subsidiado/tramites' },
                         { text: 'Afiliación', href: '/afiliados/subsidiado/tramites/afiliacion' },
                         { text: 'Certificados', href: '/afiliados/subsidiado/tramites/certificados' },
                         { text: 'Movilidad', href: '/afiliados/subsidiado/tramites/movilidad' },
@@ -84,7 +84,51 @@ export const navigationItems: NavItem[] = [
     id: 'contributivo',
     title: 'Régimen Contributivo',
     href: '/afiliados/contributivo',
-    // Aquí podrías agregar la estructura de columnas para este menú si la tuviera
+    columns: [
+        {
+            groups: [
+                {
+                    title: 'Información y Servicios',
+                    links: [
+                        { text: 'Beneficios del Régimen', href: '/afiliados/contributivo' },
+                        { text: 'Afiliación de Beneficiarios', href: '/afiliados/contributivo' },
+                        { text: 'Red de Urgencias', href: '/afiliados/contributivo' },
+                        { text: 'Copagos y Cuotas Moderadoras', href: '/afiliados/contributivo' },
+                    ]
+                }
+            ]
+        },
+        {
+            groups: [
+                {
+                    title: 'Aportes y Pagos',
+                    links: [
+                        { text: 'Portal de Pagos en Línea (PILA)', href: '/afiliados/contributivo' },
+                        { text: 'Certificado de Aportes', href: '/afiliados/contributivo' },
+                        { text: 'Incapacidades y Licencias', href: '/afiliados/contributivo' },
+                    ]
+                }
+            ]
+        },
+        {
+            groups: [
+                {
+                    title: 'Servicios en Línea',
+                    links: [
+                        { text: 'Agendamiento de Citas', href: '/afiliados/contributivo' },
+                        { text: 'Autorizaciones Médicas', href: '/afiliados/contributivo' },
+                        { text: 'Resultados de Laboratorio', href: '/afiliados/contributivo' },
+                        { text: 'Actualización de Datos', href: '/afiliados/contributivo' },
+                    ]
+                }
+            ]
+        }
+    ],
+    cta: {
+        title: 'Portal para Empleadores',
+        href: '/afiliados/contributivo',
+        imageUrl: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=400&h=300&fit=crop&q=80',
+    }
   },
   {
     id: 'prestadores',
