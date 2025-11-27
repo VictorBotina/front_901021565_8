@@ -52,21 +52,19 @@ export function Footer() {
       title: "Gestión administrativa",
       accordions: [
         { id: 1, title: "Acerca de", links: [{ id: 1, label: "Quiénes somos", url: "#" }, { id: 2, label: "Gobierno corporativo", url: "#" }] },
-        { id: 2, title: "Contratación", links: [{ id: 1, label: "Manual de contratación", url: "#" }] },
-        { id: 3, title: "Normatividad", links: [{ id: 1, label: "Ver normatividad", url: "#" }] },
-        { id: 4, title: "Transparencia", links: [{ id: 1, label: "Ver sección", url: "#" }] },
-        { id: 5, title: "Prensa", links: [{ id: 1, label: "Noticias", url: "#" }] },
-        { id: 6, title: "Servicio al ciudadano", links: [{ id: 1, label: "Canales de atención", url: "#" }] },
+        { id: 2, title: "Contratación", links: [{ id: 1, label: "Información Prestadores", url: "#" }, { id: 2, label: "Manual de contratación", url: "#" }, { id: 3, label: "Contratos vigentes", url: "#" }] },
+        { id: 3, title: "Normatividad", links: [{ id: 1, label: "Ver normatividad", url: "#" }, { id: 2, label: "Transparencia y Acceso a La Información Pública", url: "#" }, { id: 3, label: "SARLAFT", url: "#" }, { id: 4, label: "SICOF", url: "#" }, { id: 5, label: "Línea Ética", url: "#" }] },
+        { id: 4, title: "Transparencia", links: [{ id: 1, label: "Transparencia y acceso a la información pública", url: "#" }, { id: 2, label: "Caracterización Poblacional", url: "#" }, { id: 3, label: "Rendición de Cuentas", url: "#" }, { id: 4, label: "Actos Administrativos", url: "#" }] },
+        { id: 5, title: "Prensa", links: [{ id: 1, label: "Comunicados de Prensa", url: "#" }, { id: 2, label: "Prestadores", url: "#" }] },
       ],
     },
     row4: {
       id: 4,
       title: "Otros enlaces de interés",
       accordions: [
-        { id: 1, title: "Portal de pagos", links: [{ id: 1, label: "Pagar en línea", url: "#" }] },
-        { id: 2, title: "Trabaja con nosotros", links: [{ id: 1, label: "Ver ofertas", url: "#" }] },
-        { id: 3, title: "Informes", links: [{ id: 1, label: "Ver informes", url: "#" }] },
-        { id: 4, title: "Mapa del sitio", links: [{ id: 1, label: "Navegar mapa", url: "#" }] },
+        { id: 1, title: "Blog noticias", links: [{ id: 1, label: "Afiliados Subsidiado", url: "#" }, { id: 2, label: "afiliados Contributivo", url: "#" }] },
+        { id: 2, title: "Trabaja con nosotros", links: [{ id: 1, label: "Ver ofertas", url: "#" }, { id: 2, label: "Convocatorias empresariales", url: "#" }] },
+        { id: 3, title: "Servicios para afiliados y usuarios", links: [{ id: 1, label: "Canales de atención", url: "#" }, { id: 2, label: "Directorio de oficinas", url: "#" }, { id: 3, label: "Carta de derechos y deberes", url: "#" }, { id: 4, label: "Copagos y cuotas moderadoras subsidiado", url: "#" }, { id: 5, label: "Copagos y cuotas moderadoras contributivo", url: "#" }] },
       ],
     }
   };
