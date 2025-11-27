@@ -104,7 +104,7 @@ export function Hero({ slides, autoPlayInterval = 5000 }: HeroProps) {
     <section
       className={cn(
         'relative w-full bg-background transition-all duration-500 ease-in-out',
-        isExpanded ? 'min-h-[60vh] md:min-h-[70vh]' : 'min-h-[80px]'
+        isExpanded ? 'h-[60vh] md:h-[70vh]' : 'h-[80px]'
       )}
     >
       <AnimatePresence initial={false}>
@@ -140,23 +140,27 @@ export function Hero({ slides, autoPlayInterval = 5000 }: HeroProps) {
 
             {/* Contenido de texto */}
             <div className="container relative z-10 mx-auto flex h-full flex-col justify-end px-4 pb-20 md:pb-24">
-              <motion.div
-                key={currentIndex + '-text'}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.3 }}
-                className="max-w-2xl text-left"
-              >
-                <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl md:text-6xl">
-                  {currentSlide.title}
-                </h1>
-                <p className="mt-4 max-w-lg text-lg text-white/90 md:text-xl">
-                  {currentSlide.description}
-                </p>
-                <Button asChild size="lg" className="mt-8">
-                  <a href={currentSlide.ctaLink}>{currentSlide.ctaText}</a>
-                </Button>
-              </motion.div>
+              <div className="max-w-2xl text-left h-[280px] sm:h-[240px] flex flex-col justify-end">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={currentIndex + '-text'}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.4, ease: 'easeInOut' }}
+                  >
+                    <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl md:text-6xl line-clamp-3">
+                      {currentSlide.title}
+                    </h1>
+                    <p className="mt-4 max-w-lg text-lg text-white/90 md:text-xl line-clamp-2">
+                      {currentSlide.description}
+                    </p>
+                    <Button asChild size="lg" className="mt-8">
+                      <a href={currentSlide.ctaLink}>{currentSlide.ctaText}</a>
+                    </Button>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
             </div>
           </motion.div>
         )}
