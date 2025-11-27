@@ -135,6 +135,49 @@ export const navigationItems: NavItem[] = [
     id: 'prestadores',
     title: 'Prestadores',
     href: '/prestadores',
+    columns: [
+      {
+        groups: [
+          {
+            title: 'Información y Contratación',
+            links: [
+              { id: 'prest-manuales', text: 'Manuales y Guías', href: '#' },
+              { id: 'prest-contratacion', text: 'Proceso de Contratación', href: '#' },
+              { id: 'prest-politicas', text: 'Políticas de Calidad', href: '#' },
+            ],
+          },
+        ],
+      },
+      {
+        groups: [
+          {
+            title: 'Portales y Servicios',
+            links: [
+              { id: 'prest-portal', text: 'Portal de Autorizaciones', href: '#' },
+              { id: 'prest-facturacion', text: 'Radicación de Facturas', href: '#' },
+              { id: 'prest-pagos', text: 'Consulta de Pagos', href: '#' },
+            ],
+          },
+        ],
+      },
+      {
+        groups: [
+          {
+            title: 'Recursos',
+            links: [
+              { id: 'prest-directorio', text: 'Directorio Médico', href: '#' },
+              { id: 'prest-capacitacion', text: 'Capacitaciones', href: '#' },
+              { id: 'prest-normativa', text: 'Normativa Aplicable', href: '#' },
+            ],
+          },
+        ],
+      },
+    ],
+    cta: {
+      title: 'Noticias y Novedades para Prestadores',
+      href: '/blog/prestadores',
+      imageUrl: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=400&h=300&fit=crop&q=80',
+    },
   },
   {
     id: 'blog',
@@ -146,8 +189,8 @@ export const navigationItems: NavItem[] = [
           {
             title: 'Régimen Subsidiado',
             links: [
-              { text: 'Hábitos y estilos de vida saludables', href: '/blog/subsidiado/habitos-y-estilos-de-vida-saludables' },
-              { text: 'Ver todas las noticias', href: '/blog/subsidiado' },
+              { id: 'blog-sub-1', text: 'Hábitos y estilos de vida saludables', href: '/blog/subsidiado/habitos-y-estilos-de-vida-saludables' },
+              { id: 'blog-sub-2', text: 'Ver todas las noticias', href: '/blog/subsidiado' },
             ],
           },
         ],
@@ -157,7 +200,7 @@ export const navigationItems: NavItem[] = [
           {
             title: 'Régimen Contributivo',
             links: [
-              { text: 'Ver noticias', href: '/blog/contributivo' },
+              { id: 'blog-cont-1', text: 'Ver noticias', href: '/blog/contributivo' },
             ],
           },
         ],
@@ -167,7 +210,7 @@ export const navigationItems: NavItem[] = [
           {
             title: 'Prestadores',
             links: [
-              { text: 'Ver noticias', href: '/blog/prestadores' },
+              { id: 'blog-prest-1', text: 'Ver noticias', href: '/blog/prestadores' },
             ],
           },
         ],
