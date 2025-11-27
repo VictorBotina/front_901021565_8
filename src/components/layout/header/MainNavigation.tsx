@@ -88,7 +88,12 @@ export function MainNavigation() {
               </SheetTrigger>
               <SheetContent side="left" className="w-full max-w-sm p-0">
                   <SheetHeader className="p-6 pb-0">
-                    <SheetTitle>Menú Principal</SheetTitle>
+                    <SheetTitle>
+                      <div className="flex items-center gap-3">
+                        <Logo className="h-8 w-auto" />
+                        <span>Menú Principal</span>
+                      </div>
+                    </SheetTitle>
                   </SheetHeader>
                 <div className="h-full overflow-y-auto p-6">
                    <Accordion type="multiple" className="w-full">
