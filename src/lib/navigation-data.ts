@@ -1,3 +1,4 @@
+
 // src/lib/navigation-data.ts
 export type NavLink = {
   text: string;
@@ -126,7 +127,7 @@ export const navigationItems: NavItem[] = [
         }
     ],
     cta: {
-        title: 'Portal para Empleadores',
+        title: 'Noticias y novedades Régimen contributivo',
         href: '/blog/contributivo',
         imageUrl: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=400&h=300&fit=crop&q=80',
     }
