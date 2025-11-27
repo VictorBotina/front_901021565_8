@@ -1,8 +1,8 @@
 import { Hero, type Slide } from "@/components/layout/home/Hero";
-import { InfoCards } from "@/app/(home)/(sections)/InfoCards";
-import { FeedbackSection } from "@/app/(home)/(sections)/FeedbackSection";
+import { InfoCards } from "@/components/layout/home/InfoCards";
+import { FeedbackSection } from "@/components/layout/home/FeedbackSection";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
-import { StrapiApiTester } from "./(home)/(sections)/StrapiApiTester";
+import { StrapiApiTester } from "@/components/layout/home/StrapiApiTester";
 
 export default function Home() {
   // Define el contenido para cada slide del carrusel

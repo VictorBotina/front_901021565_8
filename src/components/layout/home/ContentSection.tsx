@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { PlaceHolderImages, type ImagePlaceholder } from "@/lib/placeholder-images";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 
 type ContentSectionProps = {
   title: string;
