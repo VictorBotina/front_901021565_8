@@ -2,6 +2,7 @@ import { Hero, type Slide } from "@/components/layout/home/Hero";
 import { InfoCards } from "@/components/layout/home/InfoCards";
 import { FeedbackSection } from "@/components/layout/home/FeedbackSection";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
+import { InfoPopup } from "@/components/ui/popup";
 
 export default function Home() {
   // Define el contenido para cada slide del carrusel
@@ -31,6 +32,7 @@ export default function Home() {
 
   return (
     <>
+      <InfoPopup popupId="popup_main_v1" />
       <Hero slides={heroSlides} />
       <InfoCards />
       <FeedbackSection />
