@@ -1,6 +1,6 @@
 // src/app/afiliados/subsidiado/informacion/page.tsx
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
-import { ArrowRight, BookUser, FileText, UserCheck, Phone, HandCoins, Hospital, Pill, CalendarPlus, FileSignature, Users, Ambulance, ClipboardCheck, Receipt } from "lucide-react";
+import { ArrowRight, BookUser, FileText, UserCheck, Phone, HandCoins, Hospital, Pill, CalendarPlus, FileSignature, Users, Ambulance, ClipboardCheck, Receipt, ReceiptText } from "lucide-react";
 import Link from 'next/link';
 import { Button } from "@/components/ui/button";
 import React from "react";
@@ -85,6 +85,12 @@ export default function InformacionLandingPage() {
       title: "Copagos y Cuotas Moderadoras",
       description: "Consulta los valores de los copagos y cuotas moderadoras para el Régimen Subsidiado.",
       icon: <Receipt />
+    },
+    {
+      href: "/afiliados/subsidiado/informacion/tope-copagos",
+      title: "Consulta tope copagos",
+      description: "Información sobre el tope máximo de copagos acumulado durante el año.",
+      icon: <ReceiptText />
     },
   ];
 
