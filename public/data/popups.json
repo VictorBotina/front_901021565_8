@@ -7,16 +7,16 @@
       "description": "Protege tu salud y la de tu familia. Acércate a tu IPS más cercana para completar tu esquema de vacunación.",
       "imageUrl": "https://natural-morning-88dae3e00d.media.strapiapp.com/img_bnr01_8a762d9447.webp",
       "buttonText": "Conocer más detalles",
-      "buttonUrl": "/blog/eventos/jornada-vacunacion-octubre-2025"
+      "buttonUrl": "#"
     },
     {
       "id": "popup_cita_online",
       "active": true,
       "title": "Nuevo sistema de citas online",
       "description": "Ahora puedes agendar tu cita médica fácilmente desde cualquier dispositivo.",
-      "imageUrl": "/images/citas.webp",
+      "imageUrl": "https://natural-morning-88dae3e00d.media.strapiapp.com/img_bnr01_8a762d9447.webp",
       "buttonText": "Agendar ahora",
-      "buttonUrl": "/servicios/citas-online"
+      "buttonUrl": "#"
     }
   ]
 }

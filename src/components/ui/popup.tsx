@@ -14,28 +14,117 @@ import {
   AlertDialogCancel,
   AlertDialogAction,
 } from '@/components/ui/alert-dialog';
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetFooter, SheetClose } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetFooter, SheetClose } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
-import { Skeleton } from '@/components/ui/skeleton';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { X } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { cn } from '@/lib/utils';
+
 
 type InfoPopupProps = {
   popupId: string;
-  variant?: 'modal' | 'slide';
+  variant?: 'modal' | 'slide' | 'corner';
   slidePosition?: 'left' | 'right';
   persist?: boolean;
 } & Partial<PopupData>;
 
-const PopupContent = ({ popup, ctaButton }: { popup: PopupData; ctaButton: React.ReactNode }) => (
-  <div className="flex flex-col gap-4">
-    {popup.imageUrl && (
-      <div className="relative w-full aspect-video rounded-md overflow-hidden">
-        <Image src={popup.imageUrl} alt={popup.title} fill className="object-cover" />
+const renderModal = (popupData: PopupData, handleClose: () => void) => (
+  <AlertDialog open onOpenChange={handleClose}>
+    <AlertDialogContent>
+      <AlertDialogHeader>
+        <AlertDialogTitle>{popupData.title}</AlertDialogTitle>
+        <AlertDialogDescription asChild>
+           <div className="flex flex-col gap-4 pt-2">
+            {popupData.imageUrl && (
+              <div className="relative w-full aspect-video rounded-md overflow-hidden my-2">
+                <Image src={popupData.imageUrl} alt={popupData.title} fill className="object-cover" />
+              </div>
+            )}
+            <div>{popupData.description}</div>
+          </div>
+        </AlertDialogDescription>
+      </AlertDialogHeader>
+      <AlertDialogFooter>
+        <AlertDialogCancel onClick={handleClose}>Cerrar</AlertDialogCancel>
+        {popupData.buttonText && popupData.buttonUrl && (
+          <AlertDialogAction asChild>
+            <Link href={popupData.buttonUrl}>{popupData.buttonText}</Link>
+          </AlertDialogAction>
+        )}
+      </AlertDialogFooter>
+    </AlertDialogContent>
+  </AlertDialog>
+);
+
+const renderSlide = (popupData: PopupData, handleClose: () => void, slidePosition: 'left' | 'right') => (
+  <Sheet open onOpenChange={(open) => !open && handleClose()}>
+    <SheetContent side={slidePosition} className="w-full max-w-md p-0 flex flex-col">
+      <SheetHeader className="p-6 pb-2">
+        <SheetTitle>{popupData.title}</SheetTitle>
+      </SheetHeader>
+      <div className="flex-grow overflow-y-auto px-6 space-y-4">
+        {popupData.imageUrl && (
+          <div className="relative w-full aspect-video rounded-md overflow-hidden">
+            <Image src={popupData.imageUrl} alt={popupData.title} fill className="object-cover" />
+          </div>
+        )}
+        <p className="text-sm text-muted-foreground">{popupData.description}</p>
       </div>
-    )}
-    <div className="text-sm text-muted-foreground">{popup.description}</div>
-    {ctaButton}
-  </div>
+      <SheetFooter className="p-6 bg-background border-t gap-2">
+        {popupData.buttonText && popupData.buttonUrl && (
+            <Button asChild className="w-full">
+                <Link href={popupData.buttonUrl}>{popupData.buttonText}</Link>
+            </Button>
+        )}
+        <SheetClose asChild>
+          <Button type="button" variant="outline" className="w-full" onClick={handleClose}>
+            Cerrar
+          </Button>
+        </SheetClose>
+      </SheetFooter>
+    </SheetContent>
+  </Sheet>
+);
+
+const renderCorner = (popupData: PopupData, handleClose: () => void, position: 'left' | 'right') => (
+    <AnimatePresence>
+      <motion.div
+        initial={{ opacity: 0, x: position === 'left' ? -100 : 100, y: 100 }}
+        animate={{ opacity: 1, x: 0, y: 0 }}
+        exit={{ opacity: 0, x: position === 'left' ? -100 : 100, y: 100 }}
+        transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+        className={cn(
+          "fixed bottom-4 z-50 w-full max-w-sm",
+          position === 'left' ? 'left-4' : 'right-4'
+        )}
+      >
+        <Card className="shadow-2xl">
+          <CardHeader className="p-4">
+            <div className="flex items-start justify-between gap-4">
+                <CardTitle className="text-base">{popupData.title}</CardTitle>
+                <Button variant="ghost" size="icon" className="h-6 w-6" onClick={handleClose}>
+                    <X className="h-4 w-4"/>
+                    <span className="sr-only">Cerrar</span>
+                </Button>
+            </div>
+          </CardHeader>
+          <CardContent className="p-4 pt-0 space-y-3 text-sm">
+            {popupData.imageUrl && (
+                 <div className="relative w-full aspect-video rounded-md overflow-hidden">
+                    <Image src={popupData.imageUrl} alt={popupData.title} fill className="object-cover" />
+                </div>
+            )}
+            <p className="text-muted-foreground">{popupData.description}</p>
+            {popupData.buttonText && popupData.buttonUrl && (
+                 <Button asChild className="w-full" size="sm">
+                    <Link href={popupData.buttonUrl}>{popupData.buttonText}</Link>
+                </Button>
+            )}
+          </CardContent>
+        </Card>
+      </motion.div>
+    </AnimatePresence>
 );
 
 export function InfoPopup({
@@ -45,72 +134,21 @@ export function InfoPopup({
   persist = true,
   ...overrides
 }: InfoPopupProps) {
-  const { isOpen, isLoading, popupData: initialPopupData, handleClose, setIsOpen } = usePopup({ popupId, persist });
+  const { isOpen, isLoading, popupData: initialPopupData, handleClose } = usePopup({ popupId, persist });
 
   const popupData = { ...initialPopupData, ...overrides } as PopupData | null;
   
-  if (isLoading) {
-    return null; // Or a placeholder skeleton if you prefer
-  }
-
-  if (!isOpen || !popupData) {
+  if (isLoading || !isOpen || !popupData) {
     return null;
   }
-
-  const CtaButton = popupData.buttonText && popupData.buttonUrl ? (
-    <Button asChild className="w-full">
-      <Link href={popupData.buttonUrl}>{popupData.buttonText}</Link>
-    </Button>
-  ) : null;
-
-  if (variant === 'slide') {
-    return (
-      <Sheet open={isOpen} onOpenChange={setIsOpen}>
-        <SheetContent side={slidePosition} className="w-full max-w-md p-0 flex flex-col">
-          <SheetHeader className="p-6 pb-2">
-            <SheetTitle>{popupData.title}</SheetTitle>
-          </SheetHeader>
-          <div className="flex-grow overflow-y-auto px-6">
-            <PopupContent popup={popupData} ctaButton={CtaButton} />
-          </div>
-          <SheetFooter className="p-6 bg-background border-t">
-            <SheetClose asChild>
-              <Button type="button" variant="outline" className="w-full" onClick={handleClose}>
-                Cerrar
-              </Button>
-            </SheetClose>
-          </SheetFooter>
-        </SheetContent>
-      </Sheet>
-    );
+  
+  switch(variant) {
+    case 'slide':
+      return renderSlide(popupData, handleClose, slidePosition);
+    case 'corner':
+      return renderCorner(popupData, handleClose, slidePosition);
+    case 'modal':
+    default:
+      return renderModal(popupData, handleClose);
   }
-
-  // Modal variant
-  return (
-    <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle>{popupData.title}</AlertDialogTitle>
-          <AlertDialogDescription asChild>
-             <div className="flex flex-col gap-4 pt-2">
-              {popupData.imageUrl && (
-                <div className="relative w-full aspect-video rounded-md overflow-hidden my-2">
-                  <Image src={popupData.imageUrl} alt={popupData.title} fill className="object-cover" />
-                </div>
-              )}
-              <div>{popupData.description}</div>
-            </div>
-          </AlertDialogDescription>
-        </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel onClick={handleClose}>Cerrar</AlertDialogCancel>
-          {popupData.buttonText && popupData.buttonUrl && (
-            <AlertDialogAction asChild>
-                <Link href={popupData.buttonUrl}>{popupData.buttonText}</Link>
-            </AlertDialogAction>
-          )}
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
-  );
 }
