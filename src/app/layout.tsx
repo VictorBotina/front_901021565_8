@@ -11,6 +11,7 @@ import { cookies } from 'next/headers';
 import { CookieConsentBanner } from '@/components/cookie/CookieConsentBanner';
 import Analytics from '@/components/Analytics';
 import { InfoPopup } from "@/components/ui/popup";
+import { PlaceHolderImages } from "@/lib/placeholder-images";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -63,8 +64,13 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
-        <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Lora:wght@400;700&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet" />
+        <link
+          rel="preload"
+          href={PlaceHolderImages[0].imageUrl}
+          as="image"
+          fetchPriority="high"
+        />
         {hasConsent && <Analytics />}
       </head>
       <body className={cn("min-h-screen bg-background font-body antialiased", inter.variable)}>
