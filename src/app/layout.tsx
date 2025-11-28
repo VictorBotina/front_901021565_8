@@ -62,15 +62,20 @@ export default function RootLayout({
   return (
     <html lang="es" suppressHydrationWarning>
       <head>
+        {/* Pre-conexión a los dominios de Google Fonts */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Lora:wght@400;700&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet" />
+        
+        {/* Precarga de la imagen LCP (Largest Contentful Paint) - primera imagen del Hero */}
         <link
           rel="preload"
-          href={PlaceHolderImages[0].imageUrl}
           as="image"
+          href={PlaceHolderImages[0].imageUrl}
           fetchPriority="high"
         />
+
+        {/* Carga de fuentes */}
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Lora:wght@400;700&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet" />
         {hasConsent && <Analytics />}
       </head>
       <body className={cn("min-h-screen bg-background font-body antialiased", inter.variable)}>
