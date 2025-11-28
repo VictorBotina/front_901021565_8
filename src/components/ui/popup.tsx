@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePopup, type PopupData } from '@/hooks/use-popup';
@@ -30,7 +30,7 @@ type InfoPopupProps = {
 } & Partial<PopupData>;
 
 const renderModal = (popupData: PopupData, handleClose: () => void) => (
-  <AlertDialog open onOpenChange={handleClose}>
+  <AlertDialog open onOpenChange={(open) => !open && handleClose()}>
     <AlertDialogContent>
       <AlertDialogHeader>
         <AlertDialogTitle>{popupData.title}</AlertDialogTitle>
@@ -78,7 +78,7 @@ const renderSlide = (popupData: PopupData, handleClose: () => void, slidePositio
             </Button>
         )}
         <SheetClose asChild>
-          <Button type="button" variant="outline" className="w-full" onClick={handleClose}>
+          <Button type="button" variant="outline" className="w-full">
             Cerrar
           </Button>
         </SheetClose>
@@ -87,44 +87,42 @@ const renderSlide = (popupData: PopupData, handleClose: () => void, slidePositio
   </Sheet>
 );
 
-const renderCorner = (popupData: PopupData, handleClose: () => void, position: 'left' | 'right') => (
-    <AnimatePresence>
-      <motion.div
-        initial={{ opacity: 0, x: position === 'left' ? -100 : 100, y: 100 }}
-        animate={{ opacity: 1, x: 0, y: 0 }}
-        exit={{ opacity: 0, x: position === 'left' ? -100 : 100, y: 100 }}
-        transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-        className={cn(
-          "fixed bottom-4 z-50 w-full max-w-sm",
-          position === 'left' ? 'left-4' : 'right-4'
-        )}
-      >
-        <Card className="shadow-2xl">
-          <CardHeader className="p-4">
-            <div className="flex items-start justify-between gap-4">
-                <CardTitle className="text-base">{popupData.title}</CardTitle>
-                <Button variant="ghost" size="icon" className="h-6 w-6" onClick={handleClose}>
-                    <X className="h-4 w-4"/>
-                    <span className="sr-only">Cerrar</span>
-                </Button>
-            </div>
-          </CardHeader>
-          <CardContent className="p-4 pt-0 space-y-3 text-sm">
-            {popupData.imageUrl && (
-                 <div className="relative w-full aspect-video rounded-md overflow-hidden">
-                    <Image src={popupData.imageUrl} alt={popupData.title} fill className="object-cover" />
-                </div>
-            )}
-            <p className="text-muted-foreground">{popupData.description}</p>
-            {popupData.buttonText && popupData.buttonUrl && (
-                 <Button asChild className="w-full" size="sm">
-                    <Link href={popupData.buttonUrl}>{popupData.buttonText}</Link>
-                </Button>
-            )}
-          </CardContent>
-        </Card>
-      </motion.div>
-    </AnimatePresence>
+const renderCorner = (popupData: PopupData, handleTriggerClose: () => void, position: 'left' | 'right') => (
+    <motion.div
+      initial={{ opacity: 0, x: position === 'left' ? -100 : 100, y: 100 }}
+      animate={{ opacity: 1, x: 0, y: 0 }}
+      exit={{ opacity: 0, x: position === 'left' ? -100 : 100, y: 100 }}
+      transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+      className={cn(
+        "fixed bottom-4 z-50 w-full max-w-sm",
+        position === 'left' ? 'left-4' : 'right-4'
+      )}
+    >
+      <Card className="shadow-2xl">
+        <CardHeader className="p-4">
+          <div className="flex items-start justify-between gap-4">
+              <CardTitle className="text-base">{popupData.title}</CardTitle>
+              <Button variant="ghost" size="icon" className="h-6 w-6" onClick={handleTriggerClose}>
+                  <X className="h-4 w-4"/>
+                  <span className="sr-only">Cerrar</span>
+              </Button>
+          </div>
+        </CardHeader>
+        <CardContent className="p-4 pt-0 space-y-3 text-sm">
+          {popupData.imageUrl && (
+                <div className="relative w-full aspect-video rounded-md overflow-hidden">
+                  <Image src={popupData.imageUrl} alt={popupData.title} fill className="object-cover" />
+              </div>
+          )}
+          <p className="text-muted-foreground">{popupData.description}</p>
+          {popupData.buttonText && popupData.buttonUrl && (
+                <Button asChild className="w-full" size="sm">
+                  <Link href={popupData.buttonUrl}>{popupData.buttonText}</Link>
+              </Button>
+          )}
+        </CardContent>
+      </Card>
+    </motion.div>
 );
 
 export function InfoPopup({
@@ -135,20 +133,41 @@ export function InfoPopup({
   ...overrides
 }: InfoPopupProps) {
   const { isOpen, isLoading, popupData: initialPopupData, handleClose } = usePopup({ popupId, persist });
+  const [isExiting, setIsExiting] = useState(false);
+
+  useEffect(() => {
+    if (isExiting) {
+      const timer = setTimeout(() => {
+        handleClose();
+        setIsExiting(false);
+      }, 300); // Animation duration
+      return () => clearTimeout(timer);
+    }
+  }, [isExiting, handleClose]);
 
   const popupData = { ...initialPopupData, ...overrides } as PopupData | null;
   
-  if (isLoading || !isOpen || !popupData) {
+  if (isLoading || !popupData) {
     return null;
   }
   
-  switch(variant) {
-    case 'slide':
-      return renderSlide(popupData, handleClose, slidePosition);
-    case 'corner':
-      return renderCorner(popupData, handleClose, slidePosition);
-    case 'modal':
-    default:
-      return renderModal(popupData, handleClose);
-  }
+  const handleTriggerClose = () => setIsExiting(true);
+
+  return (
+    <AnimatePresence>
+      {isOpen && !isExiting && (
+         (() => {
+            switch(variant) {
+              case 'slide':
+                return renderSlide(popupData, handleTriggerClose, slidePosition);
+              case 'corner':
+                return renderCorner(popupData, handleTriggerClose, slidePosition);
+              case 'modal':
+              default:
+                return renderModal(popupData, handleTriggerClose);
+            }
+          })()
+      )}
+    </AnimatePresence>
+  );
 }
