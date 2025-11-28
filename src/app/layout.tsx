@@ -54,7 +54,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const cookieStore = cookies();
-  const hasConsent = cookieStore.get('analytics_consent')?.value === 'true';
+  const consentCookie = cookieStore.get('analytics_consent');
+  const hasConsent = consentCookie?.value === 'true';
+  const consentHandled = !!consentCookie;
 
   return (
     <html lang="es" suppressHydrationWarning>
@@ -79,8 +81,8 @@ export default function RootLayout({
             <Footer />
           </div>
           <Toaster />
-          <InfoPopup popupId="popup_main_v1" />
-          {!hasConsent && <CookieConsentBanner />}
+          <InfoPopup popupId="popup_main_v1" consentHandled={consentHandled} />
+          {!consentHandled && <CookieConsentBanner />}
         </ThemeProvider>
       </body>
     </html>

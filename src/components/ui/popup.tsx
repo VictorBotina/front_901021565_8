@@ -28,6 +28,7 @@ type InfoPopupProps = {
   variant?: 'modal' | 'slide' | 'corner';
   slidePosition?: 'left' | 'right';
   persist?: boolean;
+  consentHandled?: boolean; // Nuevo prop
 } & Partial<PopupData>;
 
 
@@ -132,9 +133,10 @@ export function InfoPopup({
   variant = 'modal',
   slidePosition = 'right',
   persist = true,
+  consentHandled = false, // Valor por defecto
   ...overrides
 }: InfoPopupProps) {
-  const { isOpen, isLoading, popupData: initialPopupData, handleClose } = usePopup({ popupId, persist });
+  const { isOpen, isLoading, popupData: initialPopupData, handleClose } = usePopup({ popupId, persist, consentHandled });
   const [isExiting, setIsExiting] = useState(false);
 
   useEffect(() => {

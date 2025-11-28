@@ -20,14 +20,21 @@ interface AllPopupsData {
 interface UsePopupProps {
   popupId: string;
   persist?: boolean;
+  consentHandled?: boolean; // Nuevo prop
 }
 
-export const usePopup = ({ popupId, persist = true }: UsePopupProps) => {
+export const usePopup = ({ popupId, persist = true, consentHandled = false }: UsePopupProps) => {
   const [popupData, setPopupData] = useState<PopupData | null>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    // No hacer nada si el consentimiento de cookies aún no ha sido manejado
+    if (!consentHandled) {
+      setIsLoading(false);
+      return;
+    }
+
     const fetchPopupData = async () => {
       try {
         const response = await fetch('/data/popups.json');
@@ -54,7 +61,7 @@ export const usePopup = ({ popupId, persist = true }: UsePopupProps) => {
     };
 
     fetchPopupData();
-  }, [popupId, persist]);
+  }, [popupId, persist, consentHandled]); // El efecto se re-ejecutará cuando consentHandled cambie
 
   const handleClose = useCallback(() => {
     if (persist && popupData) {
@@ -68,5 +75,6 @@ export const usePopup = ({ popupId, persist = true }: UsePopupProps) => {
     isLoading,
     popupData,
     handleClose,
+    setIsOpen
   };
 };
