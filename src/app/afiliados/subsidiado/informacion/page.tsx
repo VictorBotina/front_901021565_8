@@ -1,6 +1,6 @@
 // src/app/afiliados/subsidiado/informacion/page.tsx
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
-import { ArrowRight, BookUser, FileText, UserCheck, Phone, HandCoins, Hospital, Pill, CalendarPlus, FileSignature, Users } from "lucide-react";
+import { ArrowRight, BookUser, FileText, UserCheck, Phone, HandCoins, Hospital, Pill, CalendarPlus, FileSignature, Users, Ambulance } from "lucide-react";
 import Link from 'next/link';
 import { Button } from "@/components/ui/button";
 import React from "react";
@@ -67,6 +67,12 @@ export default function InformacionLandingPage() {
       title: "Movilidad entre regímenes",
       description: "Información sobre cómo solicitar la movilidad entre regímenes.",
       icon: <Users />
+    },
+    {
+      href: "/afiliados/subsidiado/informacion/urgencias",
+      title: "Servicios de urgencias",
+      description: "Accede a la red de urgencias y conoce cómo actuar en una emergencia.",
+      icon: <Ambulance />
     },
   ];
 
