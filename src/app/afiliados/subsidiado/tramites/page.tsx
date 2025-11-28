@@ -1,6 +1,6 @@
 // src/app/afiliados/subsidiado/tramites/page.tsx
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
-import { ArrowRight, UserPlus, FileBadge, Route, UserCog, ClipboardCheck } from "lucide-react";
+import { ArrowRight, UserPlus, FileBadge, Route, UserCog, ClipboardCheck, MessageSquareWarning } from "lucide-react";
 import Link from 'next/link';
 import { Button } from "@/components/ui/button";
 import React from "react";
@@ -37,6 +37,12 @@ export default function TramitesLandingPage() {
       title: "Solicitud de autorizaciones",
       description: "Gestiona las autorizaciones para tus servicios médicos de forma ágil.",
       icon: <ClipboardCheck />
+    },
+    {
+      href: "/afiliados/subsidiado/tramites/pqr",
+      title: "Peticiones, Quejas y Reclamos",
+      description: "Radica tus PQRD y ayúdanos a mejorar nuestro servicio.",
+      icon: <MessageSquareWarning />
     },
   ];
 
