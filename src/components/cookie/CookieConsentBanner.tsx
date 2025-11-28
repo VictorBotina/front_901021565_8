@@ -29,7 +29,7 @@ export function CookieConsentBanner() {
   }
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-[60] p-4">
+    <div className="fixed bottom-0 left-0 right-0 z-[100] p-4">
       <Card className="max-w-4xl mx-auto shadow-2xl">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
