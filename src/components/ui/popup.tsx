@@ -93,7 +93,7 @@ const renderCorner = (popupData: PopupData, handleTriggerClose: () => void, posi
     <motion.div
       initial={{ opacity: 0, x: position === 'left' ? -100 : 100, y: 100 }}
       animate={{ opacity: 1, x: 0, y: 0 }}
-      exit={{ opacity: 0, x: position === 'left' ? -100 : 100, y: 100 }}
+      exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.2 } }}
       transition={{ type: 'spring', stiffness: 300, damping: 30 }}
       className={cn(
         "fixed bottom-4 z-50 w-full max-w-sm",
@@ -138,13 +138,13 @@ export function InfoPopup({
   const [isExiting, setIsExiting] = useState(false);
 
   useEffect(() => {
-    if (isExiting) {
-      const timer = setTimeout(() => {
-        handleClose();
-        setIsExiting(false);
-      }, 300); // Duración de la animación en ms
-      return () => clearTimeout(timer);
-    }
+    if (!isExiting) return;
+    const timer = setTimeout(() => {
+      handleClose();
+      setIsExiting(false); // Reset for next time
+    }, 300); // Match animation duration
+
+    return () => clearTimeout(timer);
   }, [isExiting, handleClose]);
 
   const popupData = { ...initialPopupData, ...overrides } as PopupData | null;
