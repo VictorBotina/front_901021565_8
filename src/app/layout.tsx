@@ -10,6 +10,7 @@ import Breadcrumbs from "@/components/layout/breadcrumbs/Breadcrumbs";
 import { cookies } from 'next/headers';
 import { CookieConsentBanner } from '@/components/cookie/CookieConsentBanner';
 import Analytics from '@/components/Analytics';
+import { InfoPopup } from "@/components/ui/popup";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -78,6 +79,7 @@ export default function RootLayout({
             <Footer />
           </div>
           <Toaster />
+          <InfoPopup popupId="popup_main_v1" />
           {!hasConsent && <CookieConsentBanner />}
         </ThemeProvider>
       </body>
