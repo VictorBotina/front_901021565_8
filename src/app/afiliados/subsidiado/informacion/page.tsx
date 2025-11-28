@@ -1,6 +1,6 @@
 // src/app/afiliados/subsidiado/informacion/page.tsx
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
-import { ArrowRight, BookUser, FileText, UserCheck, Phone, HandCoins } from "lucide-react";
+import { ArrowRight, BookUser, FileText, UserCheck, Phone, HandCoins, Hospital } from "lucide-react";
 import Link from 'next/link';
 import { Button } from "@/components/ui/button";
 import React from "react";
@@ -37,6 +37,12 @@ export default function InformacionLandingPage() {
       title: "Contribución Solidaria", 
       description: "Conoce cómo funciona este mecanismo de afiliación al Régimen Subsidiado.",
       icon: <HandCoins />
+    },
+    {
+      href: "/afiliados/subsidiado/informacion/prestadores",
+      title: "Red de Prestadores",
+      description: "Consulta nuestra red de IPS, hospitales y clínicas para tu atención.",
+      icon: <Hospital />
     },
   ];
 
