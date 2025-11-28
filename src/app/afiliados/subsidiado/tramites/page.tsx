@@ -15,7 +15,7 @@ export default function TramitesLandingPage() {
       icon: <UserPlus />
     },
     {
-      href: "/afiliados/subsidiado/tramites/certificados",
+      href: "/afiliados/subsidiado/tramites/certificado-afiliacion",
       title: "Certificados",
       description: "Accede y descarga tus certificados de afiliación y otros documentos importantes.",
       icon: <FileBadge />
