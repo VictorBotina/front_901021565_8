@@ -1,6 +1,6 @@
 // src/app/afiliados/subsidiado/informacion/page.tsx
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
-import { ArrowRight, BookUser, FileText, UserCheck, Phone, HandCoins, Hospital, Pill, CalendarPlus, FileSignature, Users, Ambulance, ClipboardCheck, Receipt, ReceiptText } from "lucide-react";
+import { ArrowRight, BookUser, FileText, UserCheck, Phone, HandCoins, Hospital, Pill, CalendarPlus, FileSignature, Users, Ambulance, ClipboardCheck, Receipt, ReceiptText, UserPlus } from "lucide-react";
 import Link from 'next/link';
 import { Button } from "@/components/ui/button";
 import React from "react";
@@ -8,6 +8,12 @@ import { ArticleSection } from "@/components/articles/ArticleSection";
 
 export default function InformacionLandingPage() {
   const sublinks = [
+    {
+      href: "/afiliados/subsidiado/informacion/afiliacion",
+      title: "Afiliación a Emssanar",
+      description: "Conoce el proceso y los requisitos para afiliarte al Régimen Subsidiado.",
+      icon: <UserPlus />
+    },
     {
       href: "/afiliados/subsidiado/informacion/derechos-y-deberes",
       title: "Derechos y Deberes",
