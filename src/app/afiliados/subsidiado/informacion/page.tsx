@@ -1,6 +1,6 @@
 // src/app/afiliados/subsidiado/informacion/page.tsx
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
-import { ArrowRight, BookUser, FileText, UserCheck, Phone } from "lucide-react";
+import { ArrowRight, BookUser, FileText, UserCheck, Phone, HandCoins } from "lucide-react";
 import Link from 'next/link';
 import { Button } from "@/components/ui/button";
 import React from "react";
@@ -32,6 +32,12 @@ export default function InformacionLandingPage() {
       description: "Encuentra oficinas, líneas telefónicas y todo el soporte que necesitas.",
       icon: <Phone />
     },
+     { 
+      href: "/afiliados/subsidiado/informacion/contribucion-solidaria", 
+      title: "Contribución Solidaria", 
+      description: "Conoce cómo funciona este mecanismo de afiliación al Régimen Subsidiado.",
+      icon: <HandCoins />
+    },
   ];
 
   return (
@@ -44,7 +50,7 @@ export default function InformacionLandingPage() {
           </p>
         </header>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
             {sublinks.map(link => (
                 <Card key={link.href} className="flex flex-col text-center items-center hover:shadow-lg transition-shadow">
                     <CardHeader className="items-center p-6">
