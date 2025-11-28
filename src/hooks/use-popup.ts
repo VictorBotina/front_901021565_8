@@ -68,6 +68,5 @@ export const usePopup = ({ popupId, persist = true }: UsePopupProps) => {
     isLoading,
     popupData,
     handleClose,
-    setIsOpen // Expose setIsOpen for manual control
   };
 };
