@@ -65,6 +65,7 @@ export const usePopup = ({ popupId, persist = true }: UsePopupProps) => {
 
   return {
     isOpen,
+    setIsOpen, // Exponer setIsOpen para control externo
     isLoading,
     popupData,
     handleClose,

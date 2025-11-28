@@ -1,3 +1,4 @@
+// src/components/ui/popup.tsx
 'use client';
 
 import React, { useEffect, useState } from 'react';
@@ -29,8 +30,9 @@ type InfoPopupProps = {
   persist?: boolean;
 } & Partial<PopupData>;
 
-const renderModal = (popupData: PopupData, handleClose: () => void) => (
-  <AlertDialog open onOpenChange={(open) => !open && handleClose()}>
+
+const renderModal = (popupData: PopupData, handleTriggerClose: () => void) => (
+  <AlertDialog open onOpenChange={(open) => !open && handleTriggerClose()}>
     <AlertDialogContent>
       <AlertDialogHeader>
         <AlertDialogTitle>{popupData.title}</AlertDialogTitle>
@@ -46,7 +48,7 @@ const renderModal = (popupData: PopupData, handleClose: () => void) => (
         </AlertDialogDescription>
       </AlertDialogHeader>
       <AlertDialogFooter>
-        <AlertDialogCancel onClick={handleClose}>Cerrar</AlertDialogCancel>
+        <AlertDialogCancel onClick={handleTriggerClose}>Cerrar</AlertDialogCancel>
         {popupData.buttonText && popupData.buttonUrl && (
           <AlertDialogAction asChild>
             <Link href={popupData.buttonUrl}>{popupData.buttonText}</Link>
@@ -57,8 +59,8 @@ const renderModal = (popupData: PopupData, handleClose: () => void) => (
   </AlertDialog>
 );
 
-const renderSlide = (popupData: PopupData, handleClose: () => void, slidePosition: 'left' | 'right') => (
-  <Sheet open onOpenChange={(open) => !open && handleClose()}>
+const renderSlide = (popupData: PopupData, handleTriggerClose: () => void, slidePosition: 'left' | 'right') => (
+  <Sheet open onOpenChange={(open) => !open && handleTriggerClose()}>
     <SheetContent side={slidePosition} className="w-full max-w-md p-0 flex flex-col">
       <SheetHeader className="p-6 pb-2">
         <SheetTitle>{popupData.title}</SheetTitle>
@@ -78,7 +80,7 @@ const renderSlide = (popupData: PopupData, handleClose: () => void, slidePositio
             </Button>
         )}
         <SheetClose asChild>
-          <Button type="button" variant="outline" className="w-full">
+          <Button type="button" variant="outline" className="w-full" onClick={handleTriggerClose}>
             Cerrar
           </Button>
         </SheetClose>
@@ -140,7 +142,7 @@ export function InfoPopup({
       const timer = setTimeout(() => {
         handleClose();
         setIsExiting(false);
-      }, 300); // Animation duration
+      }, 300); // Duración de la animación en ms
       return () => clearTimeout(timer);
     }
   }, [isExiting, handleClose]);
@@ -151,7 +153,11 @@ export function InfoPopup({
     return null;
   }
   
-  const handleTriggerClose = () => setIsExiting(true);
+  const handleTriggerClose = () => {
+      if (!isExiting) {
+          setIsExiting(true);
+      }
+  };
 
   return (
     <AnimatePresence>
