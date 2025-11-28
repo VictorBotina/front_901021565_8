@@ -1,6 +1,6 @@
 // src/app/afiliados/subsidiado/tramites/page.tsx
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
-import { ArrowRight, UserPlus, FileBadge, Route, UserCog } from "lucide-react";
+import { ArrowRight, UserPlus, FileBadge, Route, UserCog, ClipboardCheck } from "lucide-react";
 import Link from 'next/link';
 import { Button } from "@/components/ui/button";
 import React from "react";
@@ -31,6 +31,12 @@ export default function TramitesLandingPage() {
       title: "Actualización de datos",
       description: "Mantén tu información personal y de contacto al día.",
       icon: <UserCog />
+    },
+    {
+      href: "/afiliados/subsidiado/tramites/autorizaciones",
+      title: "Solicitud de autorizaciones",
+      description: "Gestiona las autorizaciones para tus servicios médicos de forma ágil.",
+      icon: <ClipboardCheck />
     },
   ];
 
