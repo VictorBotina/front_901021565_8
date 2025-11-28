@@ -128,23 +128,82 @@ const renderCorner = (popupData: PopupData, handleTriggerClose: () => void, posi
     </motion.div>
 );
 
+/**
+ * Componente reutilizable para mostrar popups informativos o alertas.
+ * 
+ * ---
+ * 
+ * ### ¿Cómo agregar un popup a una página?
+ * 
+ * 1. **Importa el componente**:
+ *    ```jsx
+ *    import { InfoPopup } from "@/components/ui/popup";
+ *    ```
+ * 
+ * 2. **Añádelo en tu página o layout**:
+ *    El componente debe recibir el estado del consentimiento de cookies para saber si debe mostrarse.
+ * 
+ *    ```jsx
+ *    // En un Server Component (ej. layout.tsx o una página)
+ *    import { cookies } from 'next/headers';
+ * 
+ *    export default function TuPagina() {
+ *      const cookieStore = cookies();
+ *      const consentHandled = !!cookieStore.get('analytics_consent');
+ * 
+ *      return (
+ *        <div>
+ *          {/* El resto de tu página *}
+ *          <InfoPopup popupId="id_del_popup_en_json" consentHandled={consentHandled} />
+ *        </div>
+ *      );
+ *    }
+ *    ```
+ * 
+ * 3. **Configura el `popupId`**:
+ *    - Este ID debe coincidir con uno de los `id` definidos en `public/data/popups.json`.
+ * 
+ * 4. **(Opcional) Elige una variante**:
+ *    - `variant="modal"`: Un diálogo modal que bloquea el fondo (por defecto).
+ *    - `variant="slide"`: Un panel que se desliza desde un lado. Usa `slidePosition` para definirlo.
+ *    - `variant="corner"`: Un popup no-modal en una esquina. Usa `slidePosition` para `left` o `right`.
+ * 
+ *    ```jsx
+ *    // Ejemplo de un popup de esquina
+ *    <InfoPopup 
+ *      popupId="popup_cita_online" 
+ *      variant="corner"
+ *      slidePosition="left"
+ *      consentHandled={consentHandled} 
+ *    />
+ *    ```
+ * 
+ * ---
+ * 
+ * @param {string} popupId - El ID del popup a mostrar, definido en `public/data/popups.json`.
+ * @param {'modal' | 'slide' | 'corner'} [variant='modal'] - El estilo visual del popup.
+ * @param {'left' | 'right'} [slidePosition='right'] - La posición para las variantes `slide` y `corner`.
+ * @param {boolean} [persist=true] - Si el popup debe recordar que fue cerrado en `localStorage`.
+ * @param {boolean} [consentHandled=false] - Indica si el usuario ya ha interactuado con el banner de cookies. El popup no se mostrará hasta que esto sea `true`.
+ * @param {Partial<PopupData>} overrides - Permite sobrescribir los datos del JSON con props directas.
+ */
 export function InfoPopup({
   popupId,
   variant = 'modal',
   slidePosition = 'right',
   persist = true,
-  consentHandled = false, // Valor por defecto
+  consentHandled = false,
   ...overrides
 }: InfoPopupProps) {
-  const { isOpen, isLoading, popupData: initialPopupData, handleClose } = usePopup({ popupId, persist, consentHandled });
+  const { isOpen, isLoading, popupData: initialPopupData, handleClose, setIsOpen } = usePopup({ popupId, persist, consentHandled });
   const [isExiting, setIsExiting] = useState(false);
 
   useEffect(() => {
     if (!isExiting) return;
     const timer = setTimeout(() => {
-      handleClose();
-      setIsExiting(false); // Reset for next time
-    }, 300); // Match animation duration
+      handleClose(); // Llama a la función original que maneja localStorage
+      setIsExiting(false);
+    }, 300); // Coincide con la duración de la animación
 
     return () => clearTimeout(timer);
   }, [isExiting, handleClose]);
