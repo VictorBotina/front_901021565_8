@@ -1,6 +1,6 @@
 // src/app/afiliados/subsidiado/informacion/page.tsx
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
-import { ArrowRight, BookUser, FileText, UserCheck, Phone, HandCoins, Hospital, Pill, CalendarPlus, FileSignature, Users, Ambulance, ClipboardUser } from "lucide-react";
+import { ArrowRight, BookUser, FileText, UserCheck, Phone, HandCoins, Hospital, Pill, CalendarPlus, FileSignature, Users, Ambulance, ClipboardCheck } from "lucide-react";
 import Link from 'next/link';
 import { Button } from "@/components/ui/button";
 import React from "react";
@@ -78,7 +78,7 @@ export default function InformacionLandingPage() {
       href: "/afiliados/subsidiado/informacion/sisben",
       title: "Información Sisbén IV",
       description: "Conoce la importancia del Sisbén IV para tu afiliación al Régimen Subsidiado.",
-      icon: <ClipboardUser />
+      icon: <ClipboardCheck />
     },
   ];
 
