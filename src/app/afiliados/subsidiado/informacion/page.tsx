@@ -1,6 +1,6 @@
 // src/app/afiliados/subsidiado/informacion/page.tsx
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
-import { ArrowRight, BookUser, FileText, UserCheck, Phone, HandCoins, Hospital, Pill, CalendarPlus, FileSignature } from "lucide-react";
+import { ArrowRight, BookUser, FileText, UserCheck, Phone, HandCoins, Hospital, Pill, CalendarPlus, FileSignature, Users } from "lucide-react";
 import Link from 'next/link';
 import { Button } from "@/components/ui/button";
 import React from "react";
@@ -61,6 +61,12 @@ export default function InformacionLandingPage() {
       title: "Contratos red de prestadores",
       description: "Información sobre los contratos vigentes con nuestra red de prestadores.",
       icon: <FileSignature />
+    },
+    {
+      href: "/afiliados/subsidiado/informacion/movilidad",
+      title: "Movilidad entre regímenes",
+      description: "Información sobre cómo solicitar la movilidad entre regímenes.",
+      icon: <Users />
     },
   ];
 

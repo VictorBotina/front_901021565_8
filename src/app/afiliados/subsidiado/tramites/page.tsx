@@ -21,9 +21,9 @@ export default function TramitesLandingPage() {
       icon: <FileBadge />
     },
     {
-      href: "/afiliados/subsidiado/tramites/movilidad",
-      title: "Movilidad y Portabilidad",
-      description: "Información sobre cómo solicitar la movilidad o la portabilidad de tus servicios.",
+      href: "/afiliados/subsidiado/tramites/portabilidad",
+      title: "Portabilidad",
+      description: "Información sobre cómo solicitar la portabilidad de tus servicios de salud.",
       icon: <Route />
     },
   ];
