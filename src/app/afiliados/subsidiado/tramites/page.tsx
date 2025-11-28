@@ -1,6 +1,6 @@
 // src/app/afiliados/subsidiado/tramites/page.tsx
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
-import { ArrowRight, UserPlus, FileBadge, Route } from "lucide-react";
+import { ArrowRight, UserPlus, FileBadge, Route, UserCog } from "lucide-react";
 import Link from 'next/link';
 import { Button } from "@/components/ui/button";
 import React from "react";
@@ -25,6 +25,12 @@ export default function TramitesLandingPage() {
       title: "Portabilidad",
       description: "Información sobre cómo solicitar la portabilidad de tus servicios de salud.",
       icon: <Route />
+    },
+    {
+      href: "/afiliados/subsidiado/tramites/actualizacion-de-datos",
+      title: "Actualización de datos",
+      description: "Mantén tu información personal y de contacto al día.",
+      icon: <UserCog />
     },
   ];
 
