@@ -1,18 +1,27 @@
 // src/app/afiliados/subsidiado/salud/page.tsx
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { ArrowRight, HeartPulse, BrainCircuit, Apple } from "lucide-react";
+import { ArrowRight, Users, HeartPulse } from "lucide-react";
 import React from 'react';
 import type { Sublink } from '@/lib/types';
 import { ArticleSection } from "@/components/articles/ArticleSection";
 
 
 export default function CuidadoSaludLandingPage() {
-  const sublinks: Sublink[] = [
-    { href: "/afiliados/subsidiado/salud/nutricion", title: "Nutrición y Vida Activa", description: "Consejos y guías para una alimentación balanceada.", icon: Apple },
-    { href: "/afiliados/subsidiado/salud/salud-mental", title: "Salud Mental", description: "Recursos y apoyo para tu bienestar emocional.", icon: BrainCircuit },
-    { href: "/afiliados/subsidiado/programas-pyp", title: "Programas PyP", description: "Programas de promoción de la salud y prevención de la enfermedad.", icon: HeartPulse },
+  const sublinks = [
+    { 
+      href: "/afiliados/subsidiado/salud/cursos-de-vida", 
+      title: "Cursos de vida", 
+      description: "Información y programas de salud diseñados para cada etapa de la vida.", 
+      icon: Users 
+    },
+    { 
+      href: "/afiliados/subsidiado/salud/programas", 
+      title: "Programas Cuidado de la salud", 
+      description: "Descubre nuestros programas de PyP, salud mental, nutrición y más.",
+      icon: HeartPulse
+    },
   ];
 
   return (
