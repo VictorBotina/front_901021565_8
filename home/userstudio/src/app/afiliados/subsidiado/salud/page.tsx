@@ -75,6 +75,106 @@ const cursosDeVida = [
   },
 ];
 
+const programasSalud = [
+    {
+      title: "Salud Mental",
+      icon: <Brain />,
+      description: "Recursos y apoyo para tu bienestar emocional.",
+      href: "/afiliados/subsidiado/salud/programas/salud-mental",
+    },
+    {
+      title: "Nutrición y Vida Activa",
+      icon: <Apple />,
+      description:
+        "Guías para una alimentación balanceada y un estilo de vida saludable.",
+      href: "/afiliados/subsidiado/salud/programas/nutricion",
+    },
+     {
+      title: "Artritis",
+      icon: <Stethoscope />,
+      description: "Programa de acompañamiento para pacientes con artritis.",
+      href: "/afiliados/subsidiado/salud/programas/artritis",
+    },
+    {
+      title: "Cáncer",
+      icon: <Stethoscope />,
+      description: "Detección y tratamiento del cáncer.",
+      href: "/afiliados/subsidiado/salud/programas/cancer",
+    },
+    {
+      title: "EPOC",
+      icon: <Stethoscope />,
+      description: "Salud respiratoria para pacientes con EPOC.",
+      href: "/afiliados/subsidiado/salud/programas/epoc",
+    },
+    {
+      title: "Asma",
+      icon: <Stethoscope />,
+      description: "Control y prevención del asma.",
+      href: "/afiliados/subsidiado/salud/programas/asma",
+    },
+    {
+      title: "EDA",
+      icon: <Stethoscope />,
+      description: "Prevención de Enfermedad Diarreica Aguda.",
+      href: "/afiliados/subsidiado/salud/programas/eda",
+    },
+    {
+      title: "IRA",
+      icon: <Stethoscope />,
+      description: "Prevención de Infección Respiratoria Aguda.",
+      href: "/afiliados/subsidiado/salud/programas/ira",
+    },
+    {
+      title: "ITS",
+      icon: <Stethoscope />,
+      description: "Prevención de Infecciones de Transmisión Sexual.",
+      href: "/afiliados/subsidiado/salud/programas/its",
+    },
+    {
+      title: "VIH/SIDA",
+      icon: <Stethoscope />,
+      description: "Atención y acompañamiento para VIH/SIDA.",
+      href: "/afiliados/subsidiado/salud/programas/vih-sida",
+    },
+    {
+      title: "Vacunación",
+      icon: <Stethoscope />,
+      description: "Esquemas y jornadas de vacunación.",
+      href: "/afiliados/subsidiado/salud/programas/vacunacion",
+    },
+    {
+      title: "Maternidad",
+      icon: <Stethoscope />,
+      description: "Cuidado gestacional y maternidad segura.",
+      href: "/afiliados/subsidiado/salud/programas/maternidad",
+    },
+    {
+      title: "Enfoque Diferencial",
+      icon: <Stethoscope />,
+      description: "Salud inclusiva para todos.",
+      href: "/afiliados/subsidiado/salud/programas/enfoque-diferencial",
+    },
+    {
+      title: "Dengue",
+      icon: <Stethoscope />,
+      description: "Prevención y cuidado del dengue.",
+      href: "/afiliados/subsidiado/salud/programas/dengue",
+    },
+    {
+      title: "Fiebre Amarilla",
+      icon: <Stethoscope />,
+      description: "Prevención y vacunación contra la fiebre amarilla.",
+      href: "/afiliados/subsidiado/salud/fiebre-amarilla",
+    },
+    {
+      title: "Donación de Órganos",
+      icon: <Stethoscope />,
+      description: "Conviértete en un héroe, dona órganos.",
+      href: "/afiliados/subsidiado/salud/programas/donacion-organos",
+    },
+];
+
 export default function CuidadoSaludLandingPage() {
   return (
     <>
@@ -144,39 +244,28 @@ export default function CuidadoSaludLandingPage() {
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
-                <Link
-                  href="/afiliados/subsidiado/salud/salud-mental"
-                  className="group flex items-start gap-4 p-4 rounded-lg hover:bg-muted/50 transition-colors"
-                >
-                  <div className="p-3 bg-primary/10 rounded-full group-hover:bg-primary group-hover:text-primary-foreground">
-                    <Brain className="h-6 w-6 text-primary group-hover:text-primary-foreground" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-foreground">
-                      Salud Mental
-                    </h4>
-                    <p className="text-sm text-muted-foreground">
-                      Recursos y apoyo para tu bienestar emocional.
-                    </p>
-                  </div>
-                </Link>
-                <Link
-                  href="/afiliados/subsidiado/salud/programas/nutricion"
-                  className="group flex items-start gap-4 p-4 rounded-lg hover:bg-muted/50 transition-colors"
-                >
-                  <div className="p-3 bg-primary/10 rounded-full group-hover:bg-primary group-hover:text-primary-foreground">
-                    <Apple className="h-6 w-6 text-primary group-hover:text-primary-foreground" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-foreground">
-                      Nutrición y Vida Activa
-                    </h4>
-                    <p className="text-sm text-muted-foreground">
-                      Guías para una alimentación balanceada y un estilo de vida
-                      saludable.
-                    </p>
-                  </div>
-                </Link>
+                {programasSalud.map((programa) => (
+                    <Link
+                        key={programa.title}
+                        href={programa.href}
+                        className="group flex items-start gap-4 p-4 rounded-lg hover:bg-muted/50 transition-colors"
+                    >
+                        <div className="p-3 bg-primary/10 rounded-full group-hover:bg-primary group-hover:text-primary-foreground">
+                        {React.cloneElement(programa.icon, {
+                            className:
+                            "h-6 w-6 text-primary group-hover:text-primary-foreground",
+                        })}
+                        </div>
+                        <div>
+                        <h4 className="font-semibold text-foreground">
+                            {programa.title}
+                        </h4>
+                        <p className="text-sm text-muted-foreground">
+                            {programa.description}
+                        </p>
+                        </div>
+                    </Link>
+                ))}
               </CardContent>
             </Card>
           </section>
