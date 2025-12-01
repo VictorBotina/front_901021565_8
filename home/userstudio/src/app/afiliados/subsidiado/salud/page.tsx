@@ -20,7 +20,6 @@ import {
   Briefcase,
   Heart,
   Syringe,
-  PlusCircle,
   Shield,
   Virus,
   LifeBuoy,
@@ -28,11 +27,8 @@ import {
   Lungs,
   Users2,
   TestTube2,
-  CircleHelp,
   Droplets,
   HandHeart,
-  PersonStanding as PersonStandingIcon,
-  Smile,
 } from "lucide-react";
 import { ArticleSection } from "@/components/articles/ArticleSection";
 import Link from "next/link";
@@ -106,8 +102,6 @@ const programasSalud = [
   { href: "/afiliados/subsidiado/salud/programas/dengue", title: "Dengue", icon: <Virus /> },
   { href: "/afiliados/subsidiado/salud/fiebre-amarilla", title: "Fiebre Amarilla", icon: <TestTube2 /> },
   { href: "/afiliados/subsidiado/salud/programas/donacion-organos", title: "Donación de Órganos", icon: <HandHeart /> },
-  { href: "/afiliados/subsidiado/salud/programas-pyp", title: "Programas PyP", icon: <Stethoscope /> },
-  { href: "/afiliados/subsidiado/salud/programas", title: "Otros Programas", icon: <PlusCircle /> },
 ];
 
 export default function CuidadoSaludLandingPage() {
