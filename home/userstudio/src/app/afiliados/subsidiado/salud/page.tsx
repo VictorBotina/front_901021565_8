@@ -19,16 +19,6 @@ import {
   GraduationCap,
   Briefcase,
   Heart,
-  Syringe,
-  Shield,
-  Virus,
-  LifeBuoy,
-  Bone,
-  Lungs,
-  Users2,
-  TestTube2,
-  Droplets,
-  HandHeart,
 } from "lucide-react";
 import { ArticleSection } from "@/components/articles/ArticleSection";
 import Link from "next/link";
@@ -83,25 +73,6 @@ const cursosDeVida = [
     description: "Atención integral, prevención y rehabilitación.",
     href: "/afiliados/subsidiado/salud/cursos-de-vida/vejez",
   },
-];
-
-const programasSalud = [
-  { href: "/afiliados/subsidiado/salud/programas/artritis", title: "Artritis", icon: <Bone /> },
-  { href: "/afiliados/subsidiado/salud/programas/cancer", title: "Cáncer", icon: <Shield /> },
-  { href: "/afiliados/subsidiado/salud/programas/epoc", title: "EPOC", icon: <Lungs /> },
-  { href: "/afiliados/subsidiado/salud/programas/asma", title: "Asma", icon: <Lungs /> },
-  { href: "/afiliados/subsidiado/salud/programas/eda", title: "EDA", icon: <Droplets /> },
-  { href: "/afiliados/subsidiado/salud/programas/ira", title: "IRA", icon: <Lungs /> },
-  { href: "/afiliados/subsidiado/salud/programas/its", title: "ITS", icon: <Users2 /> },
-  { href: "/afiliados/subsidiado/salud/programas/vih-sida", title: "VIH/SIDA", icon: <LifeBuoy /> },
-  { href: "/afiliados/subsidiado/salud/programas/vacunacion", title: "Vacunación", icon: <Syringe /> },
-  { href: "/afiliados/subsidiado/salud/programas/maternidad", title: "Maternidad Segura", icon: <HeartPulse /> },
-  { href: "/afiliados/subsidiado/salud/programas/salud-mental", title: "Salud Mental", icon: <Brain /> },
-  { href: "/afiliados/subsidiado/salud/programas/enfoque-diferencial", title: "Enfoque Diferencial", icon: <Users /> },
-  { href: "/afiliados/subsidiado/salud/programas/nutricion", title: "Nutrición y Vida Activa", icon: <Apple /> },
-  { href: "/afiliados/subsidiado/salud/programas/dengue", title: "Dengue", icon: <Virus /> },
-  { href: "/afiliados/subsidiado/salud/fiebre-amarilla", title: "Fiebre Amarilla", icon: <TestTube2 /> },
-  { href: "/afiliados/subsidiado/salud/programas/donacion-organos", title: "Donación de Órganos", icon: <HandHeart /> },
 ];
 
 export default function CuidadoSaludLandingPage() {
@@ -172,26 +143,40 @@ export default function CuidadoSaludLandingPage() {
                   prevención y bienestar.
                 </CardDescription>
               </CardHeader>
-              <CardContent className="space-y-2">
-                {programasSalud.map((programa) => (
-                  <Link
-                    key={programa.href}
-                    href={programa.href}
-                    className="group flex items-start gap-4 p-4 rounded-lg hover:bg-muted/50 transition-colors"
-                  >
-                    <div className="p-3 bg-primary/10 rounded-full group-hover:bg-primary group-hover:text-primary-foreground">
-                      {React.cloneElement(programa.icon, {
-                        className:
-                          "h-6 w-6 text-primary group-hover:text-primary-foreground",
-                      })}
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-foreground">
-                        {programa.title}
-                      </h4>
-                    </div>
-                  </Link>
-                ))}
+              <CardContent className="space-y-4">
+                <Link
+                  href="/afiliados/subsidiado/salud/salud-mental"
+                  className="group flex items-start gap-4 p-4 rounded-lg hover:bg-muted/50 transition-colors"
+                >
+                  <div className="p-3 bg-primary/10 rounded-full group-hover:bg-primary group-hover:text-primary-foreground">
+                    <Brain className="h-6 w-6 text-primary group-hover:text-primary-foreground" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-foreground">
+                      Salud Mental
+                    </h4>
+                    <p className="text-sm text-muted-foreground">
+                      Recursos y apoyo para tu bienestar emocional.
+                    </p>
+                  </div>
+                </Link>
+                <Link
+                  href="/afiliados/subsidiado/salud/programas/nutricion"
+                  className="group flex items-start gap-4 p-4 rounded-lg hover:bg-muted/50 transition-colors"
+                >
+                  <div className="p-3 bg-primary/10 rounded-full group-hover:bg-primary group-hover:text-primary-foreground">
+                    <Apple className="h-6 w-6 text-primary group-hover:text-primary-foreground" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-foreground">
+                      Nutrición y Vida Activa
+                    </h4>
+                    <p className="text-sm text-muted-foreground">
+                      Guías para una alimentación balanceada y un estilo de vida
+                      saludable.
+                    </p>
+                  </div>
+                </Link>
               </CardContent>
             </Card>
           </section>
