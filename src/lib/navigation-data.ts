@@ -67,9 +67,9 @@ export const navigationItems: NavItem[] = [
                 {
                     title: 'Cuidado de la salud',
                     links: [
-                        { text: 'Programas de Salud', href: '/afiliados/subsidiado/cuidado-de-la-salud' },
-                        { text: 'Nutrición y Vida Activa', href: '/afiliados/subsidiado/cuidado-de-la-salud/nutricion' },
-                        { text: 'Salud Mental', href: '/afiliados/subsidiado/cuidado-de-la-salud/salud-mental' },
+                        { text: 'Programas de Salud', href: '/afiliados/subsidiado/salud' },
+                        { text: 'Nutrición y Vida Activa', href: '/afiliados/subsidiado/salud/nutricion' },
+                        { text: 'Salud Mental', href: '/afiliados/subsidiado/salud/salud-mental' },
                         { text: 'Programas PyP', href: '#' }, // Placeholder
                     ]
                 }

@@ -29,7 +29,7 @@ export default function SubsidiadoLandingPage() {
       icon: <Briefcase className="h-8 w-8 text-primary" />
     },
     { 
-      href: "/afiliados/subsidiado/cuidado-de-la-salud", 
+      href: "/afiliados/subsidiado/salud", 
       title: "Cuidado de la Salud", 
       description: "Accede a programas de prevención, nutrición y bienestar para ti y tu familia.",
       icon: <HeartPulse className="h-8 w-8 text-primary" />

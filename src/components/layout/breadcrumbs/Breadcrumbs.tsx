@@ -33,7 +33,7 @@ const pathNameMapping: { [key: string]: string } = {
   'consulta-ips': 'Consulta de IPS',
   oficinas: 'Oficinas de Atención',
   informacion: "Información",
-  "cuidado-de-la-salud": "Cuidado de la Salud",
+  "salud": "Cuidado de la Salud",
   "canales-de-atencion": "Canales de Atención",
   tramites: "Trámites",
   "derechos-y-deberes": "Derechos y Deberes",

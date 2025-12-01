@@ -1,0 +1,13 @@
+// src/app/afiliados/subsidiado/salud/layout.tsx
+
+export default function CuidadoSaludLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <div>
+      {children}
+    </div>
+  );
+}
