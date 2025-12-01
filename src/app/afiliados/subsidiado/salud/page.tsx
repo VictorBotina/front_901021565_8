@@ -145,23 +145,6 @@ export default function CuidadoSaludLandingPage() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <Link
-                  href="/afiliados/subsidiado/salud/programas-pyp"
-                  className="group flex items-start gap-4 p-4 rounded-lg hover:bg-muted/50 transition-colors"
-                >
-                  <div className="p-3 bg-primary/10 rounded-full group-hover:bg-primary group-hover:text-primary-foreground">
-                    <Stethoscope className="h-6 w-6 text-primary group-hover:text-primary-foreground" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-foreground">
-                      Programas PyP
-                    </h4>
-                    <p className="text-sm text-muted-foreground">
-                      Rutas de promoción y mantenimiento de la salud y
-                      prevención de enfermedades.
-                    </p>
-                  </div>
-                </Link>
-                <Link
                   href="/afiliados/subsidiado/salud/salud-mental"
                   className="group flex items-start gap-4 p-4 rounded-lg hover:bg-muted/50 transition-colors"
                 >
