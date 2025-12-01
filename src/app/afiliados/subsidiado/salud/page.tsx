@@ -10,15 +10,15 @@ import { ArticleSection } from "@/components/articles/ArticleSection";
 
 export default function CuidadoSaludLandingPage() {
   const sublinks = [
-    { 
-      href: "/afiliados/subsidiado/salud/cursos-de-vida", 
-      title: "Cursos de vida", 
-      description: "Información y programas de salud diseñados para cada etapa de la vida.", 
-      icon: Users 
+    {
+      href: "/afiliados/subsidiado/salud/cursos-de-vida",
+      title: "Cursos de vida",
+      description: "Información y programas de salud diseñados para cada etapa de la vida.",
+      icon: Users
     },
-    { 
-      href: "/afiliados/subsidiado/salud/programas", 
-      title: "Programas Cuidado de la salud", 
+    {
+      href: "/afiliados/subsidiado/salud/programas",
+      title: "Programas Cuidado de la salud",
       description: "Descubre nuestros programas de PyP, salud mental, nutrición y más.",
       icon: HeartPulse
     },
@@ -34,7 +34,7 @@ export default function CuidadoSaludLandingPage() {
           </p>
         </header>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {sublinks.map(link => {
                 const IconComponent = link.icon;
                 return (
