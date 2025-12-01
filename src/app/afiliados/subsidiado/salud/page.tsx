@@ -93,7 +93,7 @@ export default function CuidadoSaludLandingPage() {
           {/* Columna Cursos de Vida */}
           <section>
             <h2 className="text-3xl font-bold text-center mb-8">
-              Cursos de Vida: Etapas y Cuidados Esenciales
+              Cursos de Vida: Etapas y Cuidados
             </h2>
             <Card>
               <CardHeader>
