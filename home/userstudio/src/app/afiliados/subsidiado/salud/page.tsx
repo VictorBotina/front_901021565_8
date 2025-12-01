@@ -23,6 +23,7 @@ import {
 import { ArticleSection } from "@/components/articles/ArticleSection";
 import Link from "next/link";
 import React from "react";
+import { Button } from "@/components/ui/button";
 
 const cursosDeVida = [
   {
@@ -244,7 +245,11 @@ export default function CuidadoSaludLandingPage() {
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
-                
+                 <div className="flex justify-center">
+                    <Button asChild>
+                        <Link href="/afiliados/subsidiado/salud/programas">Ampliar información</Link>
+                    </Button>
+                </div>
               </CardContent>
             </Card>
           </section>

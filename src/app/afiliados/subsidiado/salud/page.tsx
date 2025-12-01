@@ -144,39 +144,8 @@ export default function CuidadoSaludLandingPage() {
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
-                <Link
-                  href="/afiliados/subsidiado/salud/salud-mental"
-                  className="group flex items-start gap-4 p-4 rounded-lg hover:bg-muted/50 transition-colors"
-                >
-                  <div className="p-3 bg-primary/10 rounded-full group-hover:bg-primary group-hover:text-primary-foreground">
-                    <Brain className="h-6 w-6 text-primary group-hover:text-primary-foreground" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-foreground">
-                      Salud Mental
-                    </h4>
-                    <p className="text-sm text-muted-foreground">
-                      Recursos y apoyo para tu bienestar emocional.
-                    </p>
-                  </div>
-                </Link>
-                <Link
-                  href="/afiliados/subsidiado/salud/nutricion"
-                  className="group flex items-start gap-4 p-4 rounded-lg hover:bg-muted/50 transition-colors"
-                >
-                  <div className="p-3 bg-primary/10 rounded-full group-hover:bg-primary group-hover:text-primary-foreground">
-                    <Apple className="h-6 w-6 text-primary group-hover:text-primary-foreground" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-foreground">
-                      Nutrición y Vida Activa
-                    </h4>
-                    <p className="text-sm text-muted-foreground">
-                      Guías para una alimentación balanceada y un estilo de vida
-                      saludable.
-                    </p>
-                  </div>
-                </Link>
+                
+                
                 <Link
                   href="/afiliados/subsidiado/salud/programas"
                   className="group flex items-start gap-4 p-4 rounded-lg hover:bg-muted/50 transition-colors"
