@@ -3,19 +3,19 @@
     {
       "id": "hero-1",
       "description": "Un grupo diverso de personas caminando frente a un edificio moderno, representando la comunidad y los servicios accesibles.",
-      "imageUrl": "https://images.unsplash.com/photo-1579208570337-23545c365c10?q=80&w=1920&h=1080&fit=crop",
+      "imageUrl": "/images/img-others/img_bnr01_8a762d9447.webp",
       "imageHint": "people community"
     },
     {
       "id": "hero-2",
       "description": "Una doctora sonriendo mientras habla con un paciente mayor en una clínica luminosa y moderna, simbolizando el cuidado y la confianza.",
-      "imageUrl": "https://images.unsplash.com/photo-1588776814546-da620245125b?q=80&w=1920&h=1080&fit=crop",
+      "imageUrl": "/images/img-others/img_bnr01_8a762d9447.webp",
       "imageHint": "medical consultation"
     },
     {
       "id": "hero-3",
       "description": "Una persona utilizando un portátil en un entorno cómodo y hogareño, gestionando sus servicios de salud en línea.",
-      "imageUrl": "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=1920&h=1080&fit=crop",
+      "imageUrl": "/images/img-others/img_bnr01_8a762d9447.webp",
       "imageHint": "digital services"
     }
   ]
