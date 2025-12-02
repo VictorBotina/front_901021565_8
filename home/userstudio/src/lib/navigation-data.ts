@@ -40,11 +40,11 @@ export const navigationItems: NavItem[] = [
                 {
                     title: 'Información',
                     links: [
-                        { text: 'Información General', href: '/afiliados/subsidiado/informacion' },
-                        { text: 'Oficinas de atención', href: '/afiliados/subsidiado/informacion' },
-                        { text: 'Consulta de IPS', href: '/afiliados/subsidiado/informacion' },
-                        { text: 'Plan de beneficios', href: '/afiliados/subsidiado/informacion' },
-                        { text: 'Derechos y deberes', href: '/afiliados/subsidiado/informacion' },
+                        { id: 'sub-info-general', text: 'Información General', href: '/afiliados/subsidiado/informacion' },
+                        { id: 'sub-info-oficinas', text: 'Oficinas de atención', href: '/afiliados/subsidiado/informacion/oficinas' },
+                        { id: 'sub-info-ips', text: 'Consulta de IPS', href: '/afiliados/subsidiado/informacion/consulta-ips' },
+                        { id: 'sub-info-plan', text: 'Plan de beneficios', href: '/afiliados/subsidiado/informacion/plan-de-beneficios' },
+                        { id: 'sub-info-derechos', text: 'Derechos y deberes', href: '/afiliados/subsidiado/informacion/derechos-y-deberes' },
                     ]
                 }
             ]
@@ -54,10 +54,10 @@ export const navigationItems: NavItem[] = [
                 {
                     title: 'Trámites',
                     links: [
-                        { text: 'Guía de Trámites', href: '/afiliados/subsidiado/tramites' },
-                        { text: 'Afiliación', href: '/afiliados/subsidiado/tramites' },
-                        { text: 'Certificados', href: '/afiliados/subsidiado/tramites' },
-                        { text: 'Movilidad', href: '/afiliados/subsidiado/tramites' },
+                        { id: 'sub-tramites-guia', text: 'Guía de Trámites', href: '/afiliados/subsidiado/tramites' },
+                        { id: 'sub-tramites-afiliacion', text: 'Afiliación', href: '/afiliados/subsidiado/tramites/afiliacion' },
+                        { id: 'sub-tramites-certificados', text: 'Certificados', href: '/afiliados/subsidiado/tramites/certificado-afiliacion' },
+                        { id: 'sub-tramites-movilidad', text: 'Movilidad', href: '/afiliados/subsidiado/tramites/movilidad' },
                     ]
                 }
             ]
@@ -67,10 +67,10 @@ export const navigationItems: NavItem[] = [
                 {
                     title: 'Cuidado de la salud',
                     links: [
-                        { text: 'Programas de Salud', href: '/afiliados/subsidiado/salud' },
-                        { text: 'Nutrición y Vida Activa', href: '/afiliados/subsidiado/salud' },
-                        { text: 'Salud Mental', href: '/afiliados/subsidiado/salud' },
-                        { text: 'Programas PyP', href: '/afiliados/subsidiado/salud' }, // Placeholder
+                        { id: 'sub-salud-programas', text: 'Programas de Salud', href: '/afiliados/subsidiado/salud' },
+                        { id: 'sub-salud-nutricion', text: 'Nutrición y Vida Activa', href: '/afiliados/subsidiado/salud/programas/nutricion' },
+                        { id: 'sub-salud-mental', text: 'Salud Mental', href: '/afiliados/subsidiado/salud/programas/salud-mental' },
+                        { id: 'sub-salud-pyp', text: 'Cursos de vida', href: '/afiliados/subsidiado/salud' },
                     ]
                 }
             ]
@@ -78,7 +78,7 @@ export const navigationItems: NavItem[] = [
     ],
     cta: {
         title: 'Noticias y novedades del Régimen Subsidiado',
-        href: '/afiliados/subsidiado/informacion/canales-de-atencion',
+        href: '/blog/subsidiado',
         imageUrl: 'https://images.unsplash.com/photo-1586769852836-bc069f19e1b6?w=400&h=300&fit=crop&q=80',
     }
   },
