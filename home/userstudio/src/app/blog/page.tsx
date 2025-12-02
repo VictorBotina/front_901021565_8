@@ -179,7 +179,7 @@ export default async function BlogPage() {
                             <category.icon className="h-6 w-6" />
                         </div>
                         <div>
-                        <h2 className="text-3xl font-bold text-foreground" style={{ color: category.color }}>
+                        <h2 className="text-3xl font-bold" style={{ color: category.color }}>
                             {category.name}
                         </h2>
                         <p className="text-muted-foreground">
