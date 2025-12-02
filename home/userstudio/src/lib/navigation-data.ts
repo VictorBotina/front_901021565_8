@@ -1,4 +1,3 @@
-
 // src/lib/navigation-data.ts
 export type NavLink = {
   text: string;
