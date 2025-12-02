@@ -23,7 +23,7 @@ export type NavCTA = {
 
 export type NavItem = {
   id: string;
-  title: string;
+  title:string;
   href?: string;
   columns?: NavColumn[];
   cta?: NavCTA;
@@ -224,3 +224,5 @@ export const navigationItems: NavItem[] = [
     }
   },
 ];
+
+    
