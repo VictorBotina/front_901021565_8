@@ -35,7 +35,7 @@ export function ArticleCard({ article, href, featured = false }: ArticleCardProp
 
   return (
     <Link href={href} className="block group">
-      <div className="bg-card rounded-lg shadow-sm border overflow-hidden transition-shadow hover:shadow-md h-full flex flex-col">
+      <div className="bg-background rounded-lg shadow-sm border overflow-hidden transition-shadow hover:shadow-md h-full flex flex-col">
         <div className="w-full bg-muted overflow-hidden">
           {imageLoading && <Skeleton className="w-full aspect-video" />}
           <Image
