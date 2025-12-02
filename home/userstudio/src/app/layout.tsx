@@ -11,6 +11,7 @@ import { cookies } from 'next/headers';
 import { CookieConsentBanner } from '@/components/cookie/CookieConsentBanner';
 import Analytics from '@/components/Analytics';
 import { InfoPopup } from "@/components/ui/popup";
+import { PlaceHolderImages } from "@/lib/placeholder-images";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 

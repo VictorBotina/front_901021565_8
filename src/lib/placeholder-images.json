@@ -3,19 +3,19 @@
     {
       "id": "hero-1",
       "description": "A modern government building with a diverse group of people walking outside.",
-      "imageUrl": "https://natural-morning-88dae3e00d.media.strapiapp.com/img_bnr01_8a762d9447.webp",
+      "imageUrl": "/images/img-others/img_bnr01_8a762d9447.webp",
       "imageHint": "people community"
     },
     {
       "id": "hero-2",
       "description": "A doctor smiling and talking to a patient in a bright clinic.",
-      "imageUrl": "https://natural-morning-88dae3e00d.media.strapiapp.com/img_bnr01_8a762d9447.webp",
+      "imageUrl": "/images/img-others/img_bnr01_8a762d9447.webp",
       "imageHint": "medical consultation"
     },
     {
       "id": "hero-3",
       "description": "A person using a laptop to access digital services from home.",
-      "imageUrl": "https://natural-morning-88dae3e00d.media.strapiapp.com/img_bnr01_8a762d9447.webp",
+      "imageUrl": "/images/img-others/img_bnr01_8a762d9447.webp",
       "imageHint": "digital services"
     }
   ]
