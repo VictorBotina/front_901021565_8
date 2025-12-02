@@ -39,11 +39,6 @@ export const navigationItems: NavItem[] = [
                 {
                     title: 'Información',
                     links: [
-                        { id: 'sub-info-general', text: 'Información General', href: '/afiliados/subsidiado/informacion' },
-                        { id: 'sub-info-oficinas', text: 'Oficinas de atención', href: '/afiliados/subsidiado/informacion/oficinas' },
-                        { id: 'sub-info-ips', text: 'Consulta de IPS', href: '/afiliados/subsidiado/informacion/consulta-ips' },
-                        { id: 'sub-info-plan', text: 'Plan de beneficios', href: '/afiliados/subsidiado/informacion/plan-de-beneficios' },
-                        { id: 'sub-info-derechos', text: 'Derechos y deberes', href: '/afiliados/subsidiado/informacion/derechos-y-deberes' },
                         { id: 'sub-info-afiliacion', text: 'Afiliación a Emssanar', href: '/afiliados/subsidiado/informacion/afiliacion' },
                         { id: 'sub-info-citas', text: 'Canales de citas red de prestadores', href: '/afiliados/subsidiado/informacion/directorio-prestadores' },
                         { id: 'sub-info-movilidad-regimenes', text: 'Movilidad entre regímenes', href: '/afiliados/subsidiado/informacion/movilidad' },
