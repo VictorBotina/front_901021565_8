@@ -66,14 +66,6 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         
-        {/* Precarga de la imagen LCP (Largest Contentful Paint) - primera imagen del Hero */}
-        <link
-          rel="preload"
-          as="image"
-          href={PlaceHolderImages[0].imageUrl}
-          fetchPriority="high"
-        />
-
         {/* Carga de fuentes */}
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Lora:wght@400;700&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet" />
         {hasConsent && <Analytics />}
