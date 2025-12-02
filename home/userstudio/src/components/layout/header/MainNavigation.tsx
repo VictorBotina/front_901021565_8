@@ -103,11 +103,11 @@ export function MainNavigation() {
                           <AccordionTrigger className="text-lg font-medium">{item.title}</AccordionTrigger>
                           <AccordionContent>
                             <nav className="flex flex-col space-y-2 pl-4">
-                              {item.columns?.map((col, colIndex) => col.groups.map(group => (
-                                <React.Fragment key={`${group.title}-${colIndex}`}>
+                              {item.columns?.map((col) => col.groups.map(group => (
+                                <React.Fragment key={group.title}>
                                   <h4 className="pt-2 text-base font-semibold">{group.title}</h4>
-                                  {group.links.map(link => (
-                                    <Link key={link.id || link.href} href={link.href} onClick={() => setMobileMenuOpen(false)} className="block py-1 text-muted-foreground hover:text-primary">
+                                  {group.links.map((link, linkIndex) => (
+                                    <Link key={`mobile-${item.id}-${group.title.replace(/\s+/g, '-')}-${linkIndex}`} href={link.href} onClick={() => setMobileMenuOpen(false)} className="block py-1 text-muted-foreground hover:text-primary">
                                       {link.text}
                                     </Link>
                                   ))}
@@ -158,8 +158,8 @@ export function MainNavigation() {
                       <div key={group.title}>
                         <h3 className="font-bold text-lg mb-3 text-title">{group.title}</h3>
                         <nav className="flex flex-col space-y-2">
-                          {group.links.map(link => (
-                             <Link key={link.id || link.href} href={link.href} onClick={() => setActiveMenu(null)} className="text-muted-foreground hover:text-primary hover:underline underline-offset-4">
+                          {group.links.map((link, linkIndex) => (
+                             <Link key={`desktop-${activeMenuItem.id}-${group.title.replace(/\s+/g, '-')}-${linkIndex}`} href={link.href} onClick={() => setActiveMenu(null)} className="text-muted-foreground hover:text-primary hover:underline underline-offset-4">
                                {link.text}
                              </Link>
                           ))}
