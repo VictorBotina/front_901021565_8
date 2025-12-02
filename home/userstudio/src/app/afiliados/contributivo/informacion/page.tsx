@@ -4,7 +4,7 @@ export default function InformacionContributivoPage() {
     <div className="p-6">
       <h1 className="text-3xl font-bold mb-4">Información para Afiliados del Régimen Contributivo</h1>
       <p className="text-lg">
-        Aquí encontrarás toda la información relevante sobre tu afiliación, beneficios y servicios en el Régimen Contributivo.
+        Aquí encontrarás toda la información relevante sobre tu afiliación, beneficios, red de servicios, copagos y demás detalles de tu cobertura en el Régimen Contributivo.
       </p>
     </div>
   );

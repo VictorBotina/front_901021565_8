@@ -54,7 +54,7 @@ export default function ContributivoPage() {
                         <div className="p-4 bg-primary/10 rounded-full mb-2 transition-transform duration-300 group-hover:scale-90">
                             {link.icon}
                         </div>
-                        <CardTitle as="h3" className="transition-colors duration-300 group-hover:text-white">{link.title}</CardTitle>
+                        <CardTitle className="transition-colors duration-300 group-hover:text-white">{link.title}</CardTitle>
                       </CardHeader>
                       <CardContent className="relative z-10 flex-grow">
                           <p className="text-muted-foreground transition-colors duration-300 group-hover:text-primary-foreground/80">{link.description}</p>
