@@ -63,6 +63,12 @@ export default function InformacionLandingPage() {
       icon: <CalendarPlus />
     },
     {
+      href: "/afiliados/subsidiado/informacion/oficinas",
+      title: "Directorio oficinas atención al usuario",
+      description: "Encuentra la oficina de Emssanar más cercana a ti.",
+      icon: <Phone />
+    },
+    {
       href: "/afiliados/subsidiado/informacion/red-contratada",
       title: "Contratos red de prestadores",
       description: "Información sobre los contratos vigentes con nuestra red de prestadores.",
