@@ -1,4 +1,3 @@
-// src/app/blog/ArticleCard.tsx
 "use client";
 
 import Link from "next/link";
@@ -8,7 +7,8 @@ import { formatDate } from "@/app/services/articleService";
 import { getStrapiURL } from "@/lib/api";
 import { Article } from "@/app/types/article";
 import { Skeleton } from "@/components/ui/skeleton";
-import { CATEGORIES } from "./data";
+// AJUSTE: Cambiar la importación a una ruta absoluta para evitar problemas de resolución/caché.
+import { CATEGORIES } from "@/app/blog/data";
 import { cn } from "@/lib/utils";
 
 interface ArticleCardProps {
