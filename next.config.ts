@@ -4,7 +4,7 @@ const nextConfig: NextConfig = {
   /* config options here */
   reactStrictMode: false, // evita doble inicialización del mapa
   typescript: {
-    ignoreBuildErrors: true,
+    // ignoreBuildErrors: true, // Desactivado para forzar la corrección de errores de tipo
   },
   images: {
     remotePatterns: [

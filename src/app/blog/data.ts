@@ -1,9 +1,21 @@
 // src/app/blog/data.ts
-import { Shield, HandCoins, Stethoscope, Megaphone, CalendarDays } from "lucide-react";
-import type { BlogCategory, Article } from "@/lib/types";
+import { Shield, HandCoins, Stethoscope, Megaphone, CalendarDays, LucideIcon } from "lucide-react";
 
-// Definición de Categorías
-// Esto se puede mantener estático o también podría venir de una API si las categorías cambian.
+// Definición de un tipo local para las categorías del blog, que es diferente del tipo de la API.
+// Este tipo incluye propiedades específicas de la UI como colores e iconos.
+export interface BlogCategory {
+  id: string; // Usamos string para el ID local, ej: "subsidiado"
+  name: string;
+  href: string;
+  description: string;
+  icon: LucideIcon;
+  color: string;
+  bgColor: string;
+  textColor: string;
+}
+
+// Definición de Categorías para la UI del blog.
+// Estos datos son estáticos y se usan para renderizar la navegación y los estilos de las categorías.
 export const CATEGORIES: BlogCategory[] = [
   {
     id: "subsidiado",
@@ -36,7 +48,7 @@ export const CATEGORIES: BlogCategory[] = [
     textColor: "#b45309",
   },
   {
-    id: "comunicados",
+    id: "comunicados-de-prensa", // ID actualizado para que coincida con el slug
     name: "Comunicados de Prensa",
     href: "/blog/comunicados-de-prensa",
     description: "Anuncios oficiales y noticias corporativas de la entidad.",

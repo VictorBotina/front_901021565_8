@@ -11,6 +11,12 @@
     "lint": "next lint",
     "typecheck": "tsc --noEmit"
   },
+  "browserslist": [
+    "last 2 Chrome versions",
+    "last 2 Safari versions",
+    "last 2 Firefox versions",
+    "last 2 Edge versions"
+  ],
   "dependencies": {
     "@genkit-ai/google-genai": "^1.26.0-rc.0",
     "@genkit-ai/next": "^1.26.0-rc.0",

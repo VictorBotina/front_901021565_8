@@ -8,7 +8,8 @@ import { formatDate } from "@/app/services/articleService";
 import { getStrapiURL } from "@/lib/api";
 import { Article } from "@/app/types/article";
 import { Skeleton } from "@/components/ui/skeleton";
-import { CATEGORIES } from "./data";
+// CORRECCIÓN FINAL: Cambiar a importación con alias absoluto
+import { CATEGORIES } from "@/app/blog/data";
 import { cn } from "@/lib/utils";
 
 interface ArticleCardProps {
