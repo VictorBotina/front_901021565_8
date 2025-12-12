@@ -7,7 +7,7 @@ import { cookies } from 'next/headers';
  * @param consent - Booleano que indica si el usuario dio su consentimiento.
  */
 export async function setUserAnalyticsConsent(consent: boolean) {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
 
   try {
     cookieStore.set('analytics_consent', String(consent), {
