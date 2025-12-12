@@ -8,7 +8,7 @@ import { formatDate } from "@/app/services/articleService";
 import { getStrapiURL } from "@/lib/api";
 import { Article } from "@/app/types/article";
 import { Skeleton } from "@/components/ui/skeleton";
-import { CATEGORIES } from "./data"; // ← CORRECCIÓN AQUÍ
+import { CATEGORIES } from "./data";
 import { cn } from "@/lib/utils";
 
 interface ArticleCardProps {

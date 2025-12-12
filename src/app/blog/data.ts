@@ -1,26 +1,9 @@
 // src/app/blog/data.ts
-import { 
-  Shield, 
-  HandCoins, 
-  Stethoscope, 
-  Megaphone, 
-  CalendarDays,
-  LucideIcon 
-} from "lucide-react";
+import { Shield, HandCoins, Stethoscope, Megaphone, CalendarDays } from "lucide-react";
+import type { BlogCategory, Article } from "@/lib/types";
 
-// Definir el tipo BlogCategory localmente
-export interface BlogCategory {
-  id: string;
-  name: string;
-  href: string;
-  description: string;
-  icon: LucideIcon;
-  color: string;
-  bgColor: string;
-  textColor: string;
-}
-
-// Exportar el array de categorías
+// Definición de Categorías
+// Esto se puede mantener estático o también podría venir de una API si las categorías cambian.
 export const CATEGORIES: BlogCategory[] = [
   {
     id: "subsidiado",
@@ -73,10 +56,3 @@ export const CATEGORIES: BlogCategory[] = [
     textColor: "#0e7490",
   }
 ];
-
-// Opcional: Si necesitas algún dato adicional, puedes agregarlo aquí
-export const BLOG_CONFIG = {
-  itemsPerPage: 6,
-  featuredCount: 3,
-  defaultCategory: "all",
-} as const;
