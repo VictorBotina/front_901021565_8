@@ -4,10 +4,11 @@ import {
   HandCoins, 
   Stethoscope, 
   Megaphone, 
-  CalendarDays, 
+  CalendarDays,
   LucideIcon 
 } from "lucide-react";
 
+// Definir el tipo BlogCategory localmente
 export interface BlogCategory {
   id: string;
   name: string;
@@ -19,8 +20,7 @@ export interface BlogCategory {
   textColor: string;
 }
 
-// Definición de Categorías para la UI del blog.
-// Estos datos son estáticos y se usan para renderizar la navegación y los estilos de las categorías.
+// Exportar el array de categorías
 export const CATEGORIES: BlogCategory[] = [
   {
     id: "subsidiado",
@@ -53,7 +53,7 @@ export const CATEGORIES: BlogCategory[] = [
     textColor: "#b45309",
   },
   {
-    id: "comunicados-de-prensa", // ID actualizado para que coincida con el slug
+    id: "comunicados",
     name: "Comunicados de Prensa",
     href: "/blog/comunicados-de-prensa",
     description: "Anuncios oficiales y noticias corporativas de la entidad.",
@@ -73,3 +73,10 @@ export const CATEGORIES: BlogCategory[] = [
     textColor: "#0e7490",
   }
 ];
+
+// Opcional: Si necesitas algún dato adicional, puedes agregarlo aquí
+export const BLOG_CONFIG = {
+  itemsPerPage: 6,
+  featuredCount: 3,
+  defaultCategory: "all",
+} as const;
