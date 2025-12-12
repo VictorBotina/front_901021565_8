@@ -5,8 +5,8 @@ import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { InfoPopup } from "@/components/ui/popup";
 import { cookies } from "next/headers";
 
-export default function Home() {
-  const cookieStore = cookies();
+export default async function Home() {
+  const cookieStore = await cookies();
   const consentHandled = !!cookieStore.get('analytics_consent');
   // Define el contenido para cada slide del carrusel
   const heroSlides: Slide[] = [

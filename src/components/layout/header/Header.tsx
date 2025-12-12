@@ -1,4 +1,4 @@
-import { MainNavigation } from './MainNavigation';
+import { MainNavigation } from '@/components/layout/header/MainNavigation';
 
 export function Header() {
   return (

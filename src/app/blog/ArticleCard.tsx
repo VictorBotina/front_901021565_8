@@ -8,7 +8,7 @@ import { getStrapiURL } from "@/lib/api";
 import { Article } from "@/app/types/article";
 import { Skeleton } from "@/components/ui/skeleton";
 // AJUSTE FINAL: Apuntar al archivo renombrado para forzar la actualización de la caché.
-import { CATEGORIES } from "@/app/blog/blog-data";
+import { CATEGORIES } from "./data";
 import { cn } from "@/lib/utils";
 
 interface ArticleCardProps {

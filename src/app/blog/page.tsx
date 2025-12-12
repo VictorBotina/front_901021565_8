@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { ArticleCard } from "./ArticleCard";
 import { getArticles, formatDate } from "@/app/services/articleService";
 // AJUSTE: Actualizar la ruta de importación al archivo renombrado.
-import { CATEGORIES } from "@/app/blog/blog-data"; 
+import { CATEGORIES } from "@/app/blog/data"; 
 import type { Article } from "@/app/types/article";
 import { getStrapiURL } from "@/lib/api";
 

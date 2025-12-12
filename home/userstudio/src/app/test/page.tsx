@@ -5,9 +5,9 @@ import Link from "next/link";
 import { Logo } from "@/components/logo";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
-import { ArticleCard } from "../blog/ArticleCard";
+import { ArticleCard } from "@/app/blog/ArticleCard";
 import { getArticles, formatDate } from "@/app/services/articleService";
-import { CATEGORIES } from "../blog/data"; 
+import { CATEGORIES } from "@/app/blog/data"; 
 import type { Article } from "@/app/types/article";
 import { getStrapiURL } from "@/lib/api";
 

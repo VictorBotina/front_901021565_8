@@ -7,7 +7,7 @@ import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import { ArticleCard } from "./ArticleCard";
 import { getArticles, formatDate } from "@/app/services/articleService";
-import { CATEGORIES } from "./data"; 
+import { CATEGORIES } from "@/app/blog/data"; 
 import type { Article } from "@/app/types/article";
 import { getStrapiURL } from "@/lib/api";
 

@@ -2,7 +2,7 @@
 import Link from "next/link";
 import Image from "next/image";
 // AJUSTE: Actualizar la ruta de importación al archivo renombrado.
-import { CATEGORIES } from "@/app/blog/blog-data";
+import { CATEGORIES } from "@/app/blog/data";
 
 interface Article {
   id: number;
