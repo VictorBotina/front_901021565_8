@@ -4,7 +4,7 @@ import { InfoPopup } from "@/components/ui/popup";
 import { cookies } from 'next/headers';
 
 export default async function TestPage() {
-  const cookieStore = await cookies();
+  const cookieStore = cookies();
   const consentHandled = !!cookieStore.get('analytics_consent');
 
   return (

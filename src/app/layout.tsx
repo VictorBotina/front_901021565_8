@@ -65,12 +65,12 @@ export const metadata: Metadata = {
 };
 
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const cookieStore = await cookies();
+  const cookieStore = cookies();
   const consentCookie = cookieStore.get('analytics_consent');
   const hasConsent = consentCookie?.value === 'true';
   const consentHandled = !!consentCookie;
