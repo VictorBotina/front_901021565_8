@@ -1,7 +1,8 @@
 // src/components/articles/ArticleCard.tsx
 import Link from "next/link";
 import Image from "next/image";
-import { CATEGORIES } from "@/app/blog/data";
+// AJUSTE: Actualizar la ruta de importación al archivo renombrado.
+import { CATEGORIES } from "@/app/blog/blog-data";
 
 interface Article {
   id: number;

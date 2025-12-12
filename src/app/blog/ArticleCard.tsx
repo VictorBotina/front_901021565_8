@@ -7,8 +7,8 @@ import { formatDate } from "@/app/services/articleService";
 import { getStrapiURL } from "@/lib/api";
 import { Article } from "@/app/types/article";
 import { Skeleton } from "@/components/ui/skeleton";
-// AJUSTE: Cambiar la importación a una ruta absoluta para evitar problemas de resolución/caché.
-import { CATEGORIES } from "@/app/blog/data";
+// AJUSTE FINAL: Apuntar al archivo renombrado para forzar la actualización de la caché.
+import { CATEGORIES } from "@/app/blog/blog-data";
 import { cn } from "@/lib/utils";
 
 interface ArticleCardProps {
