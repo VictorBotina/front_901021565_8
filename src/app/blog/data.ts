@@ -1,10 +1,15 @@
 // src/app/blog/data.ts
-import { Shield, HandCoins, Stethoscope, Megaphone, CalendarDays, LucideIcon } from "lucide-react";
+import { 
+  Shield, 
+  HandCoins, 
+  Stethoscope, 
+  Megaphone, 
+  CalendarDays, 
+  LucideIcon 
+} from "lucide-react";
 
-// Definición de un tipo local para las categorías del blog, que es diferente del tipo de la API.
-// Este tipo incluye propiedades específicas de la UI como colores e iconos.
 export interface BlogCategory {
-  id: string; // Usamos string para el ID local, ej: "subsidiado"
+  id: string;
   name: string;
   href: string;
   description: string;
