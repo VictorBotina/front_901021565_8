@@ -1,9 +1,22 @@
 // src/app/blog/data.ts
-import { Shield, HandCoins, Stethoscope, Megaphone, CalendarDays } from "lucide-react";
-import type { BlogCategory, Article } from "@/lib/types";
+// Se importa LucideIcon para usarlo en la interfaz
+import { Shield, HandCoins, Stethoscope, Megaphone, CalendarDays, type LucideIcon } from "lucide-react";
+
+// AJUSTE: Se define una interfaz local que describe la estructura de los datos de CATEGORIES.
+// Esto soluciona el conflicto de tipos que causaba el error de build.
+export interface BlogCategory {
+  id: string;
+  name: string;
+  href: string;
+  description: string;
+  icon: LucideIcon;
+  color: string;
+  bgColor: string;
+  textColor: string;
+}
 
 // Definición de Categorías
-// Esto se puede mantener estático o también podría venir de una API si las categorías cambian.
+// No se necesita la importación de tipos externa, ya que ahora usamos la interfaz local.
 export const CATEGORIES: BlogCategory[] = [
   {
     id: "subsidiado",
